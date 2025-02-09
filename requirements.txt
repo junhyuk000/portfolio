@@ -8,3 +8,5 @@ beautifulsoup4
 pandas
 selenium
 webdriver-manager
+gunicorn
+gevent
