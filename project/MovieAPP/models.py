@@ -411,8 +411,8 @@ class DBManager:
             self.connect()
 
             # 이미지 파일 목록 가져오기
-            image_files = os.listdir("static/images")
-            noimage_path = os.path.join('static/images', 'noimage.jpg')
+            image_files = os.listdir("/popcornapp/static/images")
+            noimage_path = os.path.join('/popcornap/static/images', 'noimage.jpg')
 
             # noimage.jpg 확인
             if 'noimage.jpg' not in image_files:
@@ -442,7 +442,7 @@ class DBManager:
                 sql = f"""
                     UPDATE {table_name}
                     SET filename = %s
-                    WHERE title = %s;
+                    WHERE title = %s AND (filename IS NULL OR filename = 'noimage.jpg');
                 """
                 values = (matched_file, title)
                 self.cursor.execute(sql, values)
