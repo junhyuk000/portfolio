@@ -32,7 +32,7 @@ class DBManager:
                     host='121.165.69.56',
                     user='junhyuk',
                     password='1234',
-                    database='port_movie_db',
+                    database='movie_db',
                     connection_timeout=600  # 10분
                 )
                 self.cursor = self.connection.cursor(dictionary=True)
