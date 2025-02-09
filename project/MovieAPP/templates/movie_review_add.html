@@ -5,24 +5,24 @@
     <h2 class="mb-4">Add a Review</h2>
     <form method="POST" action="/popcornapp/post/add/{{movie_title}}/{{movie_id}}" enctype="multipart/form-data">
         <div class="mb-3">
-            <h3 class="mb-4" style="color: white;">{{movie_title}}</h3>
+            <h3 class="mb-4" style="color: #283618;">{{movie_title}}</h3>
             
         </div>
         <div class="mb-3">
-            <label for="title" class="form-label" style="color: wheat;">review Title</label>
+            <label for="title" class="form-label" style="color: #283618;">review Title</label>
             <input type="text" class="form-control" id="title" name="title" required>
         </div>
         <div class="mb-3">
-            <label for="review-content" class="form-label" style="color: wheat;">Your Review</label>
+            <label for="review-content" class="form-label" style="color: #283618;">Your Review</label>
             <textarea class="form-control" id="review-content" name="review_content" rows="5" required></textarea>
         </div>
         <div class="mb-3">
-            <label for="file" class="form-label" style="color: wheat;">첨부파일</label>
+            <label for="file" class="form-label" style="color: #283618;">첨부파일</label>
             <input type="file" class="form-control" id="file" name="file" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif,.doc,.docx">
-            <div class="form-text" style="color: wheat;">허용된 파일 형식: txt, pdf, png, jpg, jpeg, gif, doc, docx</div>
+            <div class="form-text" style="color: #283618;">허용된 파일 형식: txt, pdf, png, jpg, jpeg, gif, doc, docx</div>
         </div>
         <div class="mb-3">
-            <label for="rating" class="form-label" style="color: wheat;">Rating</label>
+            <label for="rating" class="form-label" style="color: #283618;">Rating</label>
             <select class="form-select" id="rating" name="rating" required>
                 <option value="10">10 - Perpect</option>
                 <option value="9">9 - A+</option>
@@ -38,7 +38,7 @@
         </div>
         <div class="form-check">
             <input class="form-check-input" type="checkbox" id="spoiler" name="spoiler">
-            <label class="form-check-label" for="spoiler" style="color: wheat;">Contains Spoilers</label>
+            <label class="form-check-label" for="spoiler" style="color: #283618;">Contains Spoilers</label>
         </div>
         <button type="submit" class="btn btn-success mt-3">Submit Review</button>
     </form>
