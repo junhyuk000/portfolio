@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            .container *{
+                display: block;
+                border: 1px solid lightgray;
+                padding: 5px;
+                margin: 15px;
+
+            }
+            
+            
+        </style>
+    
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script>
+            
+            $(function(){
+                $("form").on("submit",function(event){
+                    event.preventDefault();
+                    console.log($(this).serialize());
+
+                    $.ajax({
+                    url: "https://post.pul.kr",
+                    type: "POST",
+                    data: $(this).serialize(),  
+                    dataType: "html",
+                    success: function(response){
+                        $('#result').html("<p>성공: " + response + "</p>");
+                        
+                        },
+                        error: function(xhr, status, error){
+                            $("#result").html("<p>오류: "+ error + "</p>");
+                            console.error("AJAX 요청 실패:", status, error);
+                        }
+                    });
+
+                });
+                
+                
+            });
+            
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241101 강의내용
+        </div>
+        <div class="content">
+            <h1>직렬화(serialization)</h1>
+            <form action="https://post.pul.kr">
+                <p>자신의 이름을 적어주세요 : </p>
+                <input type="text" name="name" placeholder="이름" value="신준혁"><br><br>
+                <p>현재 살고 있는 지역을 선택해 주세요.</p>
+                <input type="radio" name="city" value="서울">서울<br>
+                <input type="radio" name="city" value="수원" checked>수원<br>
+                <input type="radio" name="city" value="성남">성남<br>
+                <input type="radio" name="city" value="부산">부산<br>
+                <input type="radio" name="city" value="광주">광주<br><br>
+                <p>좋아하는 영화 장르를 모두 골라주세요.</p>
+                <input type="checkbox" name="movie[]" value="액션">액션<br>
+                <input type="checkbox" name="movie[]" value="로맨스">로맨스<br>
+                <input type="checkbox" name="movie[]" value="SF" checked>SF<br>
+                <input type="checkbox" name="movie[]" value="드라마">드라마<br>
+                <input type="checkbox" name="movie[]" value="호러">호러<br><br><br>
+                <input type="submit" name="submit" value="전송">
+                <input type="hidden" name="hidden" value="ip">  <!-- hidden을 활용하여 value값을 받아올수 잇음  -->
+
+            </form>
+            <p id="result"></p>
+
+
+        </div>
+        
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241101개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="$.ajax() 메소드.html">$.ajax() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="$.each() 메소드.html">$.each() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="$.get(),$.post() 메소드.html">$.get(),$.post() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="add() 메소드.html">add() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="contents() 메소드.html">contents() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="each() 메소드.html">each() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="end() 메소드.html">end() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="filter(), not() 메소드.html">filter(), not() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="filter(), not() data활용 메소드.html">filter(), not() data활용 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Get 방식과 Post 방식의 비교.html">Get 방식과 Post 방식의 비교</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jQery 시작 Selector.html">jQery 시작 Selector</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="parent(),children() 메소드 (부모,자식 요소).html">parent(),children() 메소드 (부모,자식 요소)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="prop() 메소드.html">prop() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="siblings() 메소드 (형제요소).html">siblings() 메소드 (형제요소)</a>
+            <a target="newbox" href="241101.txt">메모장</a>
+    
+    
+
+
+        </div>
+    </body>
+
+</html>

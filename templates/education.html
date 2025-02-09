@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    .content-wrapper {
+        text-align: left; /* 왼쪽 정렬 */
+        margin-left: 20px; /* 왼쪽 여백 */
+        margin: 200px 10px 20px;
+    }
+    .box {
+        display: grid; /* CSS Grid 사용 */
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 최소 250px, 가능한 만큼 채움 */
+        gap: 20px; /* 열 간격 */
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 1600px;
+        margin-left: 20px; /* 왼쪽 여백을 추가하여 화면 왼쪽으로 정렬 */
+        margin-right: 0; /* 오른쪽 여백 제거 */
+    }
+    .folder-group {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h3 {
+        font-size: 18px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    h3:hover {
+        color: #007bff;
+    }
+
+    h3::before {
+        content: '\1F4C1'; /* 폴더 이모지 */
+        font-size: 20px;
+        margin-right: 10px;
+        transition: transform 0.3s;
+    }
+
+    h3.open::before {
+        transform: rotate(90deg); /* 폴더 열린 상태 */
+    }
+
+    .list {
+        display: none;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        margin-left: 20px;
+        border-left: 2px solid #ddd;
+        padding-left: 10px;
+    }
+
+    .list li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .list li a {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+        transition: color 0.3s;
+    }
+
+    .list li a:hover {
+        color: #007bff;
+    }
+
+    .list li::before {
+        content: '\1F4C4'; /* 파일 이모지 */
+        font-size: 18px;
+        margin-right: 8px;
+        color: #888;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="headfixed">
+    <h1>Education</h1><br>
+    <a href="Home.html"><button class="buttonstyle">Home</button></a>
+    <a href="resume.html"><button class="buttonstyle">Resume</button></a>
+    <a href="introduction.html"><button class="buttonstyle">Self-introduction</button></a>
+    <a href="career.html"><button class="buttonstyle">Career</button></a>
+    <a href="project.html"><button class="buttonstyle">Project</button></a>
+    <a href="education.html"><button class="buttonstyle">Education</button></a>
+    <a href="/logout"><button class="logout-btn">Logout</button></a>
+</div>
+
+<div class="content-wrapper">
+ 
+    <div class="box">
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Notion</h3>
+            <ul class="list">
+                <p>모든 자료 참고 및 파이썬,SQL은 Notion에서 확인해주세요!</p>
+                <li><a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4"><button>Notion</button></a></li>
+
+            </ul>
+        </div>
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- HTML</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년10월/3째주/241015/index.html"><button>Basic, 표 만들기</button></a></li>
+                <li><a href="/교육 내용/2024년10월/3째주/241016/index.html"><button>form</button></a></li>
+            </ul>
+        </div>
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- CSS</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년10월/3째주/241017/241017개발일지.html"><button>margin, outline, position, trans, float, columns</button></a></li>
+                <li><a href="/교육 내용/2024년10월/3째주/241018/241018개발일지.html"><button>drop down 효과, drop down menu, 수직 내비게이션 바, 다양한 display 속성 값, 토글</button></a></li>
+            </ul>
+        </div>
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- JavaScript</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년10월/4째주/241021/241021개발일지.html"><button>화면에 인쇄화면 띄우기, 현재 날짜와 시간 표시하기, 리스트 항목 추가, 변수, 산술 연산자, 이미지 표시, 증감 연산</button></a></li>
+                <li><a href="/교육 내용/2024년10월/4째주/241022/241022개발일지.html"><button>구구단표 만들기, do/while 문, for/in 문, for 문, if문, seitch 문, while 문, 조건문 활용한 폼 제출, 로그인</button></a></li>
+                <li><a href="/교육 내용/2024년10월/4째주/241023/241023개발일지.html"><button>배열</button></a></li>
+                <li><a href="/교육 내용/2024년10월/4째주/241024/241024개발일지.html"><button>배열 활용</button></a></li>
+                <li><a href="/교육 내용/2024년10월/4째주/241025/241025개발일지.html"><button>date 객체, string 객체, 시계, 카운트다운</button></a></li>
+                <li><a href="/교육 내용/2024년10월/5째주/241028/241028개발일지.html"><button>랜덤 숫자 맞추기, 알람창, 날짜 카운트다운</button></a></li>
+                <li><a href="/교육 내용/2024년10월/5째주/241029/241029개발일지.html"><button>객체 접근하기, 객체 <-> 문자열 변환, 라인피드 및 탭 처리, 팝업, 숫자 맞추기 게임 2</button></a></li>
+                <li><a href="/교육 내용/2024년10월/5째주/241030/241030개발일지.html"><button>addEventListener, classList, getElementsByClassName, LocalStorage, querySelectorAll, textContent, innerText, 파일선택</button></a></li>
+            </ul>
+        </div>
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Jquery</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년10월/5째주/241031/241031개발일지.html"><button>jquery, 메서드 체이닝, 저장, 필터링, (속성, 아이디, 클래스, 필터)선택자, 행 추가, animate, append, prend, disabled, HTML 태그 선택자, jquery 선택자</button></a></li>
+                <li><a href="/교육 내용/2024년11월/1째주/241101/241101개발일지.html"><button>$.ajax(), $.each(), $.get(), $.post(), add(), contents(), each(), end(), filter(), not(), parent(), children(), prop(), siblings(), GET 방식과 POST 방식</button></a></li>
+                <li><a href="/교육 내용/2024년11월/2째주/241104/241104개발일지.html"><button>그래프(canvas), API</button></a></li>
+                <li><a href="/교육 내용/2024년11월/2째주/241105/241105개발일지.html"><button>datatable, datepicker</button></a></li>
+            </ul>
+        </div>    
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Python(1)</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년11월/2째주/241105/241105개발일지.html"><button>print, 자료형, 이스케이프, 변수할당, slice</button></a></li>
+                <li><a href="/교육 내용/2024년11월/2째주/241106/241106개발일지.html"><button>연산자, 문자열 포맷팅, format, f스트링, 문자열 함수, if문, for문, while문, is함수</button></a></li>
+                <li><a href="/교육 내용/2024년11월/2째주/241107/241107개발일지.html"><button>리스트, 컴프리헨션, 튜플, 딕셔너리, 삼항연산자, 집합</button></a></li>
+                <li><a href="/교육 내용/2024년11월/2째주/241108/241108개발일지.html"><button>함수</button></a></li>
+                <li><a href="/교육 내용/2024년11월/3째주/241111/241111개발일지.html"><button>chunk 기법, 전역변수, 지역변수, 집합, 람다함수, sorted, 재귀함수, 가변인수</button></a></li>
+                <li><a href="/교육 내용/2024년11월/3째주/241112/241112개발일지.html"><button>파일 다루기, CSV 파일, 내장 모듈</button></a></li>
+                <li><a href="/교육 내용/2024년11월/3째주/241113/241113개발일지.html"><button>datetime, timedelta, time</button></a></li>
+            </ul>
+        </div>   
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Python(2)</h3>
+            <ul class="list">    
+                <li><a href="/교육 내용/2024년11월/3째주/241114/241114개발일지.html"><button>예외처리</button></a></li>
+                <li><a href="/교육 내용/2024년11월/3째주/241115/241115개발일지.html"><button>JSON, OS 모듈, backup</button></a></li>
+                <li><a href="/교육 내용/2024년11월/4째주/241118/241118개발일지.html"><button>OS, SQLite</button></a></li>
+                <li><a href="/교육 내용/2024년11월/4째주/241119/241119개발일지.html"><button>SQLite, shutil 모듈, Timestamp, Class</button></a></li>
+                <li><a href="/교육 내용/2024년11월/4째주/241120/241120개발일지.html"><button>Class</button></a></li>
+                <li><a href="/교육 내용/2024년11월/4째주/241121/241121개발일지.html"><button>Class</button></a></li>
+                <li><a href="/교육 내용/2024년11월/4째주/241122/241122개발일지.html"><button>리스트, Data Reading, 튜플, 딕셔너리</button></a></li>
+            </ul>
+        </div>   
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Python(3)</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년11월/5째주/241125/241125개발일지.html"><button>크롤링, 스크래핑(BeautifulSoup), find_all, request</button></a></li>
+                <li><a href="/교육 내용/2024년11월/5째주/241126/241126개발일지.html"><button>스크래핑(BeautifulSoup), request</button></a></li>
+                <li><a href="/교육 내용/2024년11월/5째주/241127/241127개발일지.html"><button>스크래핑(BeautifulSoup), request, 셀레니움</button></a></li>
+                <li><a href="/교육 내용/2024년11월/5째주/241128/241128개발일지.html"><button>셀레니움</button></a></li>
+                <li><a href="/교육 내용/2024년11월/5째주/241129/241129개발일지.html"><button>셀레니움</button></a></li>
+                <li><a href="/교육 내용/2024년12월/1째주/241202/241202개발일지.html"><button>find_element의 By클래스 속성</button></a></li>
+                <li><a href="/교육 내용/2024년12월/1째주/241203/241203개발일지.html"><button>데스크탑 자동화(마우스제어, 키보드제어), 셀레니움 자동화</button></a></li>
+            </ul>
+        </div>   
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Python(4)</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년12월/1째주/241204/241204개발일지.html"><button>셀레니움 자동화, 웹 자동화 추가</button></a></li>
+                <li><a href="/교육 내용/2024년12월/1째주/241205/241205개발일지.html"><button>셀레니움 자동화, 문서 자동화, 데이터 생성</button></a></li>
+                <li><a href="/교육 내용/2024년12월/1째주/241206/241206개발일지.html"><button>엑셀 자동화</button></a></li>
+                <li><a href="/교육 내용/2024년12월/2째주/241209/241209개발일지.html"><button>정규표현식</button></a></li>
+                <li><a href="/교육 내용/2024년12월/2째주/241210/241210개발일지.html"><button>re 모듈</button></a></li>
+                <li><a href="/교육 내용/2024년12월/2째주/241211/241211개발일지.html"><button>Numpy</button></a></li>
+                <li><a href="/교육 내용/2024년12월/2째주/241212/241212개발일지.html"><button>Numpy, matplotlib, wordcloud</button></a></li>
+            </ul>
+        </div>   
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">- Python(5)</h3>
+            <ul class="list">
+                <li><a href="/교육 내용/2024년12월/2째주/241213/241213개발일지.html"><button>wordcloud, okt, Pandas, .str()</button></a></li>
+                <li><a href="/교육 내용/2024년12월/3째주/241216/241216개발일지.html"><button>Pandas</button></a></li>
+                <li><a href="/교육 내용/2024년12월/3째주/241217/241217개발일지.html"><button>Pandas, 데이터 정제, 범주화</button></a></li>
+                <li><a href="/교육 내용/2024년12월/3째주/241218/241218개발일지.html"><button>Matplotlib</button></a></li>
+                <li><a href="/교육 내용/2024년12월/3째주/241219/241219개발일지.html"><button>Matplotlib</button></a></li>
+                <li><a href="/교육 내용/2024년12월/3째주/241220/241220개발일지.html"><button>241220</button></a></li>
+                <li><a href="/교육 내용/2024년12월/4째주/241223/241223개발일지.html"><button>241223</button></a></li>
+            </ul>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    /* 토글 버튼 클릭시 안보이는건 보이게 보이는건 안보이게 하는 함수, (block이 아닐땐 block, block일땐 none*/
+    function toggleAnswer(element) {
+    const answer = element.nextElementSibling;
+    answer.style.display = answer.style.display
+    === 'block' ? 'none' : 'block';
+    }
+
+</script>
+{% endblock %}

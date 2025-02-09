@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241029 강의내용
+        </div>
+        <div class="content">
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <div>
+            <h1>라인피드 및 탭 처리</h1>
+            <textarea id="text1" style="width: 300px; height: 300px;"></textarea>
+            <input type="button" id="work" onclick="work()">
+            <div id="text2"></div>
+        </div>
+        </div>
+        </div>
+        <script>
+            function work(){
+                let text1 = document.getElementById("text1").value;
+                console.log(text1);
+                const row = text1.split('\n');
+                console.log(row);
+                console.log(typeof text1);
+                const array = [];
+                for(let i =0; i < row.length; i++){
+                    array[i] = row[i].split('\t');
+                }
+                document.getElementById("text2").innerHTML = JSON.stringify(array);
+                console.log(JSON.stringify(typeof array));
+            }
+        </script>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241029개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기.html">JavaScript 객체로 접근하기</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기2.html">JavaScript 객체로 접근하기2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기 표형태.html">JavaScript 객체로 접근하기 표형태</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="객체,문자열 변환.html">객체,문자열 변환</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="객체.html">객체</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="라인피드 및 탭 처리.html">라인피드 및 탭 처리</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="라인피드 및 탭 처리2.html">라인피드 및 탭 처리2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="숫자 맞추기 게임 화면표시.html">숫자 맞추기 게임 화면표시</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="팝업.html">팝업</a>
+            <a target="newbox" href="241029.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

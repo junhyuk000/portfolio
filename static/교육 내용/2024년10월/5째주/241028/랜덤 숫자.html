@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241028 강의내용
+        </div>
+        <div class="content">
+            <script>
+
+                /* floor  버림 */
+                // let num = 5.9;
+                // console.log(Math.floor(num));
+
+                // let num1 = -5.9;
+                // console.log(Math.floor(num1));
+                
+                // let num2 = 0.999999;
+                // console.log(Math.floor(num2));
+
+                /* ceil 올림 */
+                // let num = 5.9;
+                // console.log(Math.ceil(num));
+
+                // let num1 = -5.9;
+                // console.log(Math.ceil(num1));
+                
+                // let num2 = 0.999999;
+                // console.log(Math.ceil(num2));
+
+                /* round  반올림 */
+                // let num = 5.9;
+                // console.log(Math.round(num));
+
+                // let num1 = -5.9;
+                // console.log(Math.round(num1));
+                
+                // let num2 = 0.999999;
+                // console.log(Math.round(num2));
+
+                /* random 0 ~ 1 미만의 난수 */ 
+                let randomNum1 = Math.floor(Math.random()*100);     // 100 미만 정수
+                console.log(randomNum1);
+
+                let randomNum2 = Math.random()*10;
+                console.log(randomNum2);
+               
+                let randomNum3 = Math.random();
+                console.log(randomNum3);
+             
+                let randomNum4 = Math.floor(Math.random() * 12-5+1)+5;   // 5~7 랜덤정수
+                console.log(randomNum4);
+
+                function getRandomInt(min, max){
+                    return Math.floor(Math.random()*(max-min+1))+min;
+                }
+                let randomNum5 = getRandomInt(15,30);
+                console.log(randomNum5);
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241028개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="각 월의 마지막 일 수를 확인 방법.html">각 월의 마지막 일 수를 확인 방법</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="날짜 카운트다운.html">날짜 카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력.html">달력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력2.html">달력2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자 맞추기 게임.html">랜덤 숫자 맞추기 게임</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자.html">랜덤 숫자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="알람창.html">알람창</a>
+            <a target="newbox" href="241028.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

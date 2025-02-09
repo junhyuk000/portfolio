@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241028 강의내용
+        </div>
+        <div class="content">
+            <h1>랜덤 숫자 맞추기 : 기회 10번</h1>
+            <script>
+               // ❤️😁👍🙌😒❤️ 윈도우키 + "." 누르면 사용가능
+
+               let randomNum = Math.floor(Math.random()*100)+1;
+            
+                var life = 10;
+               while(life > 0){
+                
+                var num =  prompt("숫자를 입력하시오. 기회 :" + life);
+  
+                    if(num<randomNum){
+                        alert("입력한 숫자가 더 작습니다.");
+                        
+                    }else if(num>randomNum){
+                        alert("입력한 숫자가 더 큽니다.");
+                    }else{
+                        alert("정답입니다.👍");
+                        break;
+                    }
+                    if(num===null){
+                        alert("게임이 취소 되었습니다.");
+       
+                        break;
+                    }
+                    
+
+                    life = life-1;
+               }
+               if(life==0){
+                alert("기회가 모두 끝났습니다. 정답은 " + randomNum + "이였습니다.");
+                        
+                    }
+                  
+                
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241028개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="각 월의 마지막 일 수를 확인 방법.html">각 월의 마지막 일 수를 확인 방법</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="날짜 카운트다운.html">날짜 카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력.html">달력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력2.html">달력2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자 맞추기 게임.html">랜덤 숫자 맞추기 게임</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자.html">랜덤 숫자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="알람창.html">알람창</a>
+            <a target="newbox" href="241028.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

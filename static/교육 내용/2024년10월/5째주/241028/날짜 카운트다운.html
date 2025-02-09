@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+            function formatNumber(num){
+                    if(num < 10){
+                        return "0"+num;
+                    }else{
+                        return ""+num;
+                    }
+                    
+                }
+            let intervalId;
+            function check(){   
+
+                document.getElementById("d-day").innerHTML ="";   
+                var x = document.getElementById("date").value;
+                const today = new Date();
+                const todayHour = today.getHours();
+                const todayMinutes = today.getMinutes();
+                const todaySeconds = today.getSeconds();
+                const date = new Date(x+'T00:00:00');
+                const dateHours = date.getHours();
+                const dateMinutes = date.getMinutes();
+                const datSeconds = date.getSeconds();
+                if(today < date){
+                const dDate = (date-today)%(24*60*60*1000);
+                const dDate2 = (date-today)%(60*60*1000);
+                const dDate3 = (date-today)%(60*1000);
+                const dDay = Math.floor((date-today)/(24*60*60*1000));
+                const dHours = formatNumber(Math.floor((dDate)/(60*60*1000)));
+                const dMinutes = formatNumber(Math.floor((dDate2)/(60*1000)));
+                const dSeconds = formatNumber(Math.floor((dDate3)/1000));                           
+                document.getElementById("d-day").innerHTML = dDay + "일 " + dHours + "시간 " + dMinutes + "분 " + dSeconds + "초 남았습니다."; 
+                    // if(document.getElementById("date").value !== x){
+                    //     clearInterval(intervalId);
+                    // }            
+                }else{
+                    alert("지난 날짜입니다.");
+                    clearInterval(intervalId);
+                }
+               
+                
+            }
+
+            function goCount(){
+                if(intervalId) clearInterval(intervalId);
+
+                check();
+                intervalId = setInterval(check,1000);
+            }
+            
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241028 강의내용
+        </div>
+        <div class="content">
+            <h1>날짜 카운트다운</h1>
+            <p>날짜를 입력하세요:</p><input type="date" id="date"><input type="button" value="확인" onclick="goCount()">
+            <div id="d-day"></div>
+            
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241028개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="각 월의 마지막 일 수를 확인 방법.html">각 월의 마지막 일 수를 확인 방법</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="날짜 카운트다운.html">날짜 카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력.html">달력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력2.html">달력2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자 맞추기 게임.html">랜덤 숫자 맞추기 게임</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자.html">랜덤 숫자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="알람창.html">알람창</a>
+            <a target="newbox" href="241028.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

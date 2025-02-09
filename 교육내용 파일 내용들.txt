@@ -1,0 +1,122 @@
+- HTML
+
+241015
+Basic(first.html), 표 만들기(자격증.html)
+241016
+form
+
+- CSS
+
+241017
+margin, outline, position, trans, float, columns
+241018
+drop down 효과, drop down menu, 수직 내비게이션 바, 다양한 display 속성 값, 토글
+
+- javascript
+
+241021
+화면에 인쇄화면 띄우기, 현재 날짜와 시간 표시하기, 리스트 항목 추가, 변수, 산술 연산자, 이미지 표시, 증감 연산자
+241022
+구구단표 만들기, do/while 문, for/in 문, for 문, if문, seitch 문, while 문, 조건문 활용한 폼 제출, 로그인
+241023
+배열
+241024
+배열 활용
+241025
+date 객체, string 객체, 시계, 카운트다운241028
+랜덤 숫자 맞추기, 알람창, 날짜 카운트다운
+241029
+객체 접근하기, 객체 <-> 문자열 변환, 라인피드 및 탭 처리, 팝업, 숫자 맞추기 게임 2
+241030
+addEventListener, classList, getElementsByClassName, LocalStorage, querySelectorAll, textContent, innerText, 파일선택
+
+- jquery
+
+241031
+jquery, 메서드 체이닝, 저장, 필터링, (속성, 아이디, 클래스, 필터)선택자, 행 추가, animate, append, prend, disabled, HTML 태그 선택자, jquery 선택자
+241101
+$.ajax(), $.each(), $.get(), $.post(), add(), contents(), each(), end(), filter(), not(), parent(), children(), prop(), siblings(), GET 방식과 POST 방식
+241104
+그래프(canvas), API
+241105
+datatable, datepicker
+
+- Python(1)
+
+241105
+print, 자료형, 이스케이프, 변수할당, slice
+241106
+연산자, 문자열 포맷팅, format, f스트링, 문자열 함수, if문, for문, while문, is함수
+241107
+리스트, 컴프리헨션, 튜플, 딕셔너리, 삼항연산자, 집합
+241108
+함수
+241111
+chunk 기법, 전역변수, 지역변수, 집합, 람다함수, sorted, 재귀함수, 가변인수
+241112
+파일 다루기, CSV 파일, 내장 모듈
+241113
+datetime, timedelta, time
+
+- python(2)
+
+241114
+예외처리
+241115
+JSON, OS 모듈, backup
+241118
+OS, SQLite
+241119
+SQLite, shutil 모듈, Timestamp, Class
+241120
+Class
+241121
+Class
+241122
+리스트, Data Reading, 튜플, 딕셔너리 
+
+- python(3)
+
+241125
+크롤링, 스크래핑(BeautifulSoup), find_all, request
+241126
+스크래핑(BeautifulSoup), request
+241127
+스크래핑(BeautifulSoup), request, 셀레니움
+241128
+셀레니움
+241129
+셀레니움
+241202
+find_element의 By클래스 속성
+241203
+데스크탑 자동화(마우스제어, 키보드제어), 셀레니움 자동화
+
+- python(4)
+
+241204
+셀레니움 자동화, 웹 자동화 추가
+241205
+셀레니움 자동화, 문서 자동화, 데이터 생성
+241206
+엑셀 자동화
+241209
+정규표현식
+241210
+re 모듈
+241211
+Numpy
+241212
+Numpy, matplotlib, wordcloud
+
+- python(5)
+
+241213
+wordcloud, okt, Pandas, .str()
+241216
+Pandas
+241217
+Pandas, 데이터 정제, 범주화
+241218
+Matplotlib
+

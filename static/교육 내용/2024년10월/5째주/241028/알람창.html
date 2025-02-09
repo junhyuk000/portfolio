@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241028 강의내용
+        </div>
+        <div class="content">
+            <script>
+                // alert("안녕하세요");
+
+                // const userResponse = confirm("메시지를 입력하세요.");
+                // console.log(userResponse);
+
+
+                // const delYN = confirm("삭제할랭?");
+                // if(delYN) console.log("삭제되었슈");
+                // else console.log("삭제가 취소됨");
+
+                // const userInput = prompt("숫자를 입력하세요:");
+                // //console.log(userInput);
+                // if (userInput === null){
+                //     alert("사용자가 취소했음");
+
+                // }else{
+                //     alert("입력한 숫자 : " + userInput);
+                // }
+                
+                // const name = prompt("이름을 입력하세요:");
+                // alert(`안녕하세요 ${name} 님!`);
+                
+                // const num1 = parseFloat(prompt("첫 번째 숫자를 입력해"));
+                // const num2 = parseFloat(prompt("두 번째 숫자를 입력해"));
+                // const sum = num1 + num2;
+                // alert(`두 숫자의 합은 ${num1} + ${num2} = ${sum}`)
+
+                const num1 = parseFloat(prompt("첫 번째 숫자를 입력해"));
+                const num2 = parseFloat(prompt("두 번째 숫자를 입력해"));
+                const num3 = parseFloat(prompt("+,-,/,*  중 연산자를 고르시오."));
+                
+                let result;
+
+                switch(num3){
+                    case "+": result = num1 + num2;
+                        break;
+                    case '-':
+                        result = num1 - num2;
+                    
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                 
+                        break;
+                    case '/':
+                        result = num1 / num2;    
+                        break;
+                    default :
+                        alert("유효하지 않은 값");
+                        break;
+                }
+                
+                if(result !== undefined){
+                    alert("결과: " + result);
+                }
+
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241028개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="각 월의 마지막 일 수를 확인 방법.html">각 월의 마지막 일 수를 확인 방법</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="날짜 카운트다운.html">날짜 카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력.html">달력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력2.html">달력2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자 맞추기 게임.html">랜덤 숫자 맞추기 게임</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자.html">랜덤 숫자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="알람창.html">알람창</a>
+            <a target="newbox" href="241028.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

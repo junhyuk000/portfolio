@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+
+    </head>
+    <body>
+        <div class="headerfixed">
+            241029 강의내용
+        </div>
+        <div class="content">
+            <h1>객체 ↔ 문자열 변환</h1>
+            <script>                
+                /* 객체 -> 문자열로 변환 JSON.stringify() 데이터 보낼 때 */
+                const array2D = [
+                    ['이름','나이','도시'],
+                    ['홍길동',25,'서울'],
+                    ['홍길순',31,'부산'],
+                    ['홍명순',27,'대구']
+                ];
+                console.log(array2D);
+                console.log(typeof array2D);
+                const jsonString = JSON.stringify(array2D);
+                console.log(jsonString);
+                console.log(typeof jsonString);
+
+                /* 문자열 -> 객체 변환 JSON.parse() 데이터 가져올 때 값이 [{"이름","나이","도시"},{"홍길동",25,"서울"},{"홍길순",31,"부산"},{"홍명순",27,"대구"}] 이렇게 키값이 안들어가 있는 문자열은 객체로 변환이 안됨*/
+                const jsonString2 = `[
+                    {"이름":"홍길동", "나이":25,"도시":"서울"},
+                    {"이름":"김영희", "나이":30,"도시":"부산"},
+                    {"이름":"이철수", "나이":28,"도시":"대구"},
+                    {"이름":"동수", "나이":18,"도시":"수원" }
+                ]`;
+                console.log(jsonString2);
+                const jsonObject = JSON.parse(jsonString2);
+                console.log(jsonObject);
+                const firstPerson = jsonObject[0];
+                const name = firstPerson.이름;
+                const age = firstPerson.나이;
+                const city = firstPerson.도시;
+                const result = `첫 번째 사람의 정보:\n이름: ${name}\n나이: ${age}\n도시: ${city}`;
+                console.log(result);
+
+                const inputstring = `[
+                    {"이름":"홍길동", "나이":25,"도시":"서울"},
+                    {"이름":"김영희", "나이":30,"도시":"부산"},
+                    {"이름":"이철수", "나이":28,"도시":"대구"},
+                    {"이름":"동수", "나이":18,"도시":"수원" }
+                ]`;
+                let jsonParse = JSON.parse(inputstring);
+                console.log(jsonParse);
+                // const key = jsonParse.pop();
+                // console.log(key);
+                console.log(jsonParse);
+                // {"이름","나이","도시"},
+                //     {"홍길동",25,"서울"},
+                //     {"홍길순",31,"부산"},
+                //     {"홍명순",27,"대구"}
+
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241029개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기.html">JavaScript 객체로 접근하기</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기2.html">JavaScript 객체로 접근하기2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기 표형태.html">JavaScript 객체로 접근하기 표형태</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="객체,문자열 변환.html">객체,문자열 변환</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="객체.html">객체</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="라인피드 및 탭 처리.html">라인피드 및 탭 처리</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="라인피드 및 탭 처리2.html">라인피드 및 탭 처리2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="숫자 맞추기 게임 화면표시.html">숫자 맞추기 게임 화면표시</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="팝업.html">팝업</a>
+            <a target="newbox" href="241029.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

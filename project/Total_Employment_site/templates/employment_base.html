@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합 채용정보 사이트</title>
+    <link rel="stylesheet" href="{{url_for('employment_site.css_file', filename='style.css')}}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('direct1_file') }}" class="portfolio-link">Portfolio</a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('employment_site.index') }}" class="{% if active_tab == 'home' %}text-green-500{% endif %}">Home</a></li>
+            <li><a href="{{ url_for('employment_site.top10') }}" class="{% if active_tab == 'top10' %}text-green-500{% endif %}">Top 10</a></li>
+            <li><a href="{{ url_for('employment_site.search') }}" class="{% if active_tab == 'search' %}text-green-500{% endif %}">Search</a></li>
+            <li><a href="{{ url_for('employment_site.contact') }}" class="{% if active_tab == 'contact' %}text-green-500{% endif %}">Contact</a></li>
+        </ul>
+    </nav>
+    <main id="content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            
+            <div class="footer-item">
+                <h2>실시간 Top 10</h2>
+                <p>각 사이트별 인기 채용공고를 확인해보세요.</p>
+                <button onclick="location.href='{{ url_for('employment_site.top10')}}'">자세히 보기</button>
+            </div>
+            <div class="footer-item">
+                <h2>통합 검색</h2>
+                <p>원하는 키워드로 모든 사이트의 채용정보를 검색하세요.</p>
+                <button onclick="location.href='{{ url_for('employment_site.search') }}'">검색하기</button>
+            </div>
+            <div class="footer-item">
+                <h2>사이트 소개</h2>
+                <p>사이트 제작자와 프로젝트에 대해 알아보세요.</p>
+                <button onclick="location.href='{{ url_for('employment_site.contact') }}'">자세히 보기</button>
+            </div>
+        </div>
+        <p>&copy; 2024 통합 채용정보 사이트. All rights reserved.</p>
+    </footer>
+    {% block js %}{% endblock %}
+    <script src="{{ url_for('employment_site.js_file', filename='main.js')}}"></script>
+</body>
+</html>

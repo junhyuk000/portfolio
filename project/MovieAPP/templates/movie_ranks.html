@@ -1,0 +1,219 @@
+{% extends "movie_base.html" %}
+{% block css %}
+<style>
+.button-container {
+    display: flex;
+    flex-wrap: wrap; /* ✅ 버튼이 화면에 맞게 줄바꿈 */
+    justify-content: center; /* ✅ 가운데 정렬 */
+    gap: 10px; /* ✅ 버튼 간격 조정 */
+    margin-top: 20px;
+    margin-bottom: 20px; /* ✅ 하단 여백 줄이기 */
+}
+
+.button-container .btn {
+    min-width: 120px; /* ✅ 버튼 최소 너비 설정 */
+    padding: 10px 15px; /* ✅ 버튼 여백 설정 */
+    font-size: 14px; /* ✅ 버튼 글꼴 크기 줄이기 */
+}
+
+/* ✅ 차트가 모바일에서도 적절한 크기로 표시되도록 조정 */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* ✅ 테이블이 모바일에서도 넘치지 않도록 조정 */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    min-width: 400px; /* ✅ 최소 너비 설정하여 너무 작아지지 않게 함 */
+}
+
+/* ✅ 모바일에서 표 폰트 크기 및 여백 조정 */
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px; /* ✅ 모바일에서 폰트 크기 줄이기 */
+    }
+
+    .table th, .table td {
+        padding: 6px; /* ✅ 여백 줄이기 */
+        white-space: nowrap; /* ✅ 텍스트가 줄바꿈되지 않도록 설정 */
+    }
+}
+
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h2 class="mb-4"  id="rank-title">일일 관객수</h1>
+        <!-- 차트 전환 버튼 -->
+        <div class="d-flex flex-wrap justify-content-center mt-4 gap-2">
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('t_audience')" style="color:  #ad7b67;">일일 관객수</button>
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('c_audience')" style="color:  #ad7b67;">누적 관객수</button>
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('t_sales')" style="color:  #ad7b67;">일일 매출액</button>
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('c_sales')" style="color:  #ad7b67;">누적 매출액</button>
+        </div><br>
+    <div class="row">
+        <!-- 차트 영역 -->
+        <div class="col-md-8">
+            <canvas id="chart" style="max-width: 100%; height: 60vh;"></canvas>
+        </div>
+
+        <!-- 매출액 순위 -->
+        <div class="col-md-4">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="color: white;">Rank</th>
+                        <th style="color: white;">Title</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-table-body">
+                    <!-- JavaScript에서 동적으로 데이터 추가 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // 템플릿에서 데이터 가져오기
+    const moviesData = {{ movies_data | tojson }};
+    const dataSets = {
+        t_sales: moviesData.map(movie => movie.t_sales),
+        c_sales: moviesData.map(movie => movie.c_sales),
+        t_audience: moviesData.map(movie => movie.t_audience),
+        c_audience: moviesData.map(movie => movie.c_audience),
+    };
+    const movieNames = moviesData.map(movie => movie.title);
+
+    let currentMetric = 't_audience';
+
+    // 막대 색상을 제목별로 다르게 설정
+    const barColors = movieNames.map((_, index) => {
+        const colors = [
+            'rgba(255, 99, 132, 0.8)',  // 빨간색
+            'rgba(54, 162, 235, 0.8)', // 파란색
+            'rgba(255, 206, 86, 0.8)', // 노란색
+            'rgba(75, 192, 192, 0.8)', // 초록색
+            'rgba(153, 102, 255, 0.8)', // 보라색
+            'rgba(255, 159, 64, 0.8)',  // 주황색
+            'rgba(99, 255, 132, 0.8)',  // 연초록색
+        ];
+        return colors[index % colors.length]; // 색상 배열을 반복적으로 할당
+    });
+
+    // 차트 초기화
+    const ctx = document.getElementById('chart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: movieNames,
+            datasets: [{
+                label: '일일 관객수',
+                data: dataSets[currentMetric],
+                backgroundColor: barColors, // 노란색 막대
+                borderColor: barColors.map(color => color.replace('0.8','1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false // 범례 표시 안 함
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'black' // X축 텍스트 색상
+                    },
+                    grid: {                        
+                        color: 'rgba(0, 0, 0, 0.2)', // X축 그리드 선 가시성 개선
+                        drawBorder: true
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: 'black' // Y축 텍스트 색상
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.2)', // Y축 그리드 선 가시성 개선
+                        drawBorder: true
+                    }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+// 차트 및 순위 업데이트
+    function updateChartAndRank(metric) {
+        currentMetric = metric;
+
+        // 차트 데이터 및 제목 업데이트
+        chart.data.datasets[0].data = dataSets[metric];
+        chart.data.datasets[0].label = getLabel(metric);
+        chart.update();
+
+        // 표 업데이트
+        updateRanking(metric);
+
+        // 순위표 제목 업데이트
+        const rankTitle = document.getElementById('rank-title');
+        rankTitle.textContent = `${getLabel(metric)}`;
+    }
+
+
+    // 순위 업데이트 함수
+    function updateRanking(metric) {
+        const rankingTableBody = document.getElementById('ranking-table-body');
+        rankingTableBody.innerHTML = ''; // 기존 데이터 삭제
+
+        // 데이터 정렬
+        const sortedMovies = [...moviesData].sort((a, b) => b[metric] - a[metric]);
+
+        // 정렬된 데이터로 표 생성
+        sortedMovies.forEach((movie, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="color: black;">${index + 1}</td>
+                <td style="color: black; white-space: nowrap;">${movie.title}</td>
+            `;
+            rankingTableBody.appendChild(row);
+        });
+    }
+
+    // 메트릭별 레이블 반환
+    function getLabel(metric) {
+        switch (metric) {
+            case 't_audience': return '일일 관객수';
+            case 'c_audience': return '누적 관객수';
+            case 't_sales': return '일일 매출액';
+            case 'c_sales': return '누적 매출액';
+            default: return '';
+        }
+    }
+
+    // 초기 순위 업데이트
+    updateRanking(currentMetric);
+</script>
+
+
+
+{% endblock %}

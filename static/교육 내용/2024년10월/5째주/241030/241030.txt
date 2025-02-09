@@ -1,0 +1,27 @@
+할일목록에 localStorage 추가해보기
+주석다는 습관 갖기
+
+
+------------------강의------------------
+이벤트 발생
+1. <input type="button" onclick="함수()"> : 유지보수가 안 좋음
+2. getElementById("ID").onclick = function(){}
+3. getElementById("ID").addEventListener("이벤트 종류ex)click", ()=>{} );
+
+
+- localstorage = 웹안에서 저장되며 삭제를 직접하지 않는이상 지워지지 않음  용량: 5mb
+  브라우저에 직접 파일경로와 파일을 쳐서 들어간거랑 바로 연거랑 다른곳에 저장됨 ( 브라우저에 직접 파일경로를 입력하여 혼자 보는 내용 저장가능)
+- cookies = 외부에 파일로 저장되며 함수로 정해놓은 시간이 다되면 파일 자체가 폐기처리됨  용량 : 4kb
+
+- 객체.appendChild = 객체상태로 있을때 마지막에 추가해줌. 
+
+- for in 문은 index를 가져와서 동작
+- for of 문은 값을 가져와서 동작
+
+- pre 태그 ??
+
+- CSS 선택자
+  . - class
+ # - id
+ name - 태그   ex) li, h1, h2 ...
+ [] - 속성

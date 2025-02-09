@@ -1,0 +1,63 @@
+{% extends "movie_base.html" %}
+
+{% block css %}
+<style>
+    .notice-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        color: black;
+        line-height: 1.8;
+        box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3); /* ✅ 오른쪽 아래 그림자 */
+    }
+
+    .notice-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: black;
+    }
+
+    .notice-item {
+        margin-bottom: 15px;
+    }
+
+    .notice-item h3 {
+        font-size: 22px;
+        margin-bottom: 5px;
+        color: #606c38;
+    }
+
+    .notice-item p {
+        font-size: 16px;
+        margin: 0;
+        color: black;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="mt-4 mb-4 text-center">공지사항</h2>
+<div class="notice-container">
+
+    <div class="notice-item">
+        <h3>1. 팝콘 얻는 방법!</h3>
+        <p>댓글 수당 2팝콘</p>
+        <p>리뷰 수당 5팝콘</p>
+        <p>1달에 한번씩 각 리뷰 1등 50팝콘, 2등 30팝콘, 3등 20팝콘 !!!</p>
+    </div>
+    <div class="notice-item">
+        <h3>2. 상영중인 영화 흥행 추첨 당첨</h3>
+        <p>상영중인 영화 추첨 하였을때 관람객수 500만명이 돌파하면 돌파하기 전까지 추첨을 한 사람들에 한하여 당첨자를 뽑습니다.</p>
+        <p>1등 영화 티켓 5장!!!!!</p>
+        <p>2등 영화 티켓 3장!!!</p>
+        <p>3등 영화 티켓 1장!</p>
+    </div>
+    <div class="notice-item">
+        <h3>추후 추가 사항</h3>
+        <p>추후 알림</p>
+    </div>
+</div>
+{% endblock %}

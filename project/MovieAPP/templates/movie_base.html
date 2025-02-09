@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopcornAPP</title>
+    <link rel="icon" href="/popcornapp/static/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+
+    <style>
+
+        /* Pretendard 폰트 적용 */
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+            src: url('https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css') format('css');
+        }
+
+        @font-face {
+            font-family: 'CookieRun-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'CookieRun-Regular', sans-serif;
+            font-size: 1.1em; /* h4 크기와 맞추기 */
+            font-weight: 500; /* h4와 동일한 굵기 */
+            background-color: #e8e6e6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ✅ h2 태그에만 목각파임 폰트 적용 */
+        h2 {
+            font-family: 'CookieRun-Regular';
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            text-align: center;
+            color: #283618;
+        }
+
+        /* ✅ Top Header 아래 그림자 추가 */
+        .top-header {
+            background-color: #283618;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* ✅ 아래로 그림자 */
+        }
+        .top-header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .top-header .user-menu {
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-header .user-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .top-header .user-menu a:hover {
+            color: #bfa187;
+        }
+
+        /* ✅ Navbar 아래 그림자 추가 */
+        .navbar {
+            background-color: #606c38;
+            color: #fefae0;
+            padding: 15px 0;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); /* ✅ 아래로 그림자 */
+        }
+
+        .navbar a {
+            color: #fefae0;
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            padding: 10px 15px;
+        }
+
+        .navbar a.active, .navbar a:hover {
+            color: #dda15e;
+            border-bottom: 2px solid #bc6c25;
+        }
+        /* ✅ 모바일에서는 햄버거 메뉴 스타일 */
+        .mobile-menu {
+            display: none;
+        }
+
+        /* ✅ 모바일 화면에서 메뉴 드롭다운 설정 */
+        @media (max-width: 768px) {
+            .navbar {
+                display: none; /* 기본 메뉴 숨김 */
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #606c38;
+                z-index: 1000;
+            }
+
+            .navbar a {
+                display: block;
+                padding: 15px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .mobile-menu {
+                display: block;
+                text-align: right;
+                padding: 10px 20px;
+                cursor: pointer;
+                background-color: #606c38;
+                color: #fff;
+                font-size: 24px;
+            }
+        }
+
+
+        /* Hero Section */
+        .hero {
+            background-color: #fefae0;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #333;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* 컨텐츠 스타일 */
+        .container {
+            max-width: 1600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: left;
+        }
+
+
+
+        /* 카드 스타일 */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        /* ✅ Footer 위로 그림자 추가 */
+        footer {
+            background-color: #283618;
+            color: #fefae0;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* 자동 하단 정렬 */
+            box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2); /* ✅ 위쪽으로 그림자 */
+        }
+
+    </style>
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="logo">
+            <a href="{{ url_for('direct1_file') }}" class="portfolio-link">Portfolio</a>
+            <a href="/popcornapp/movies" style="color: white; text-decoration: none;"><img src="/popcornapp/static/images/32movie.png">PopcornAPP</a>
+            
+        </div>
+        <div class="user-menu">
+            {% if session.get('id') %}
+                <a href="/popcornapp/myinfo">{{ session.get('name') }}</a>
+                <a href="/popcornapp/logout">Logout</a>
+            {% else %}
+                <a href="/popcornapp/login">Login</a>
+                <a href="/popcornapp/register">Register</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mobile-menu" onclick="toggleMenu()">☰</div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="/popcornapp/movies">Home</a>
+        <a href="/popcornapp/movie_popcorns">Popcorns</a>
+        <a href="/popcornapp/all_movies">ALL movies</a>
+        <a href="/popcornapp/movie_review_rank">Reviews</a>
+        <a href="/popcornapp/show_movie_about">About</a>
+        <a href="/popcornapp/movie_notice">Notice</a>
+        {% if session.get('id') == 'admin' %}
+            <a href="/popcornapp/reports">Reports</a>
+        {% endif %}
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container my-5">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+
+            <p>&copy; 2025 PopcornAPP | <a href="https://www.megabox.co.kr/" class="text-light"><img src="{{ url_for('popcornapp.static', filename='images/megabox.png') }}" width="8%"></a> | <a href="https://www.lottecinema.co.kr/" class="text-light"><img src="{{ url_for('popcornapp.static', filename='images/lotte.png') }}" width="8%"></a> | <a href="https://www.cgv.co.kr/" class="text-light"><img src="{{ url_for('popcornapp.static', filename='images/cgv.png') }}" width="3%"></a></p>
+
+    </footer>
+    {% block js %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navLinks = document.querySelectorAll(".navbar a");
+            navLinks.forEach(link => {
+                if (link.href === window.location.href || window.location.href.startsWith(link.href)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+
+        function toggleMenu() {
+        const navbar = document.querySelector(".navbar");
+        if (navbar.style.display === "flex") {
+            navbar.style.display = "none";
+        } else {
+            navbar.style.display = "flex";
+        }
+    }
+    </script>
+</body>
+</html>

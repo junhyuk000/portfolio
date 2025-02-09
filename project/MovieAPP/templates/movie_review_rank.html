@@ -1,0 +1,253 @@
+{% extends "movie_base.html" %}
+
+{% block css %}
+<style>
+    /* a 태그 기본 스타일 */
+    a {
+        color: inherit; /* ✅ 부모 요소의 기본 글자색을 그대로 사용 */
+        text-decoration: none; /* ✅ 밑줄 제거 */
+        transition: color 0.3s ease-in-out; /* ✅ 부드러운 색상 변경 효과 */
+    }
+
+    /* a 태그 hover 시 색상 변경 */
+    a:hover {
+        color: #dda15e; /* ✅ 마우스를 올리면 색상이 변경됨 */
+    }
+    .podium {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 300px;
+        margin-top: 0%;
+    }
+
+    .podium-item {
+        width: 100px;
+        text-align: center;
+        margin: 0 20px;
+        position: relative;
+        border-radius: 10px;
+        box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.5); /* ✅ 오른쪽 아래 그림자 */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    /* ✅ 마우스 오버 시 살짝 더 강조 */
+    .podium-item:hover {
+        transform: scale(1.05);
+        box-shadow: 10px 10px 14px rgba(0, 0, 0, 0.6); /* ✅ 마우스 올리면 조금 더 진한 그림자 */
+    }
+
+    .podium-item:first-child { background-color: silver; }
+    .podium-item:nth-child(2) { background-color: gold; }
+    .podium-item:nth-child(3) { background-color: #cd7f32; }
+
+    .podium-item .medal {
+        font-size: 50px;
+        color: black;
+        font-weight: bold;
+        position: absolute;
+        top: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .podium-item .name {
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+        margin-top: 10px;
+    }
+
+    .podium-item .name a {
+        color: #283618;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .podium-item .rank { 
+        font-size: 18px; 
+        color: white; 
+        margin-top: 5px; 
+    }
+
+    .first { height: 180px; width: 200px; }
+    .second { height: 140px; width: 200px; }
+    .third { height: 100px; width: 200px; }
+
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    /* ✅ 테이블을 감싸는 컨테이너 스타일 */
+    .ranking-table-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        overflow-x: auto; /* ✅ 모바일에서 가로 스크롤 가능하게 설정 */
+        width: 100%; /* ✅ 부모 요소의 크기에 맞춤 */
+    }
+
+    /* ✅ 표 스타일 */
+    .ranking-table {
+        width: 80%;
+        height: 70%;
+        border-collapse: collapse;
+        text-align: center;
+        margin: auto;
+        min-width: 700px; /* ✅ 최소 너비 설정 */
+    }
+
+    /* ✅ 테이블 헤더 & 셀 스타일 */
+    .ranking-table th, .ranking-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        white-space: nowrap; /* ✅ 줄바꿈 방지 */
+        padding: 10px;
+    }
+
+    .ranking-table th {
+        background-color: #283618;
+        color: white;
+    }
+
+    .ranking-table td {
+        color: black;
+    }
+
+    /* ✅ 모바일에서 표 크기 조정 */
+    @media (max-width: 768px) {
+        .ranking-table {
+            font-size: 12px; /* ✅ 모바일에서 폰트 크기 줄이기 */
+            min-width: 600px; /* ✅ 최소 너비 조정 */
+        }
+
+        .ranking-table th, .ranking-table td {
+            padding: 6px; /* ✅ 여백 줄이기 */
+        }
+    }
+
+
+    h1 { font-size: 2.5rem; color:  #bc6c25; margin-bottom: 10px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="mb-4" id="ranking-title">👍 추천수</h1>
+    <div class="button-container">
+        <button class="btn btn-outline-light" onclick="updateRank('top_recommend', '👍 추천수')" style="color: #ad7b67;">추천수</button>
+        <button class="btn btn-outline-light" onclick="updateRank('top_views', '👓 조회수')" style="color: #ad7b67;">조회수</button>
+        <button class="btn btn-outline-light" onclick="updateRank('top_comments', '💬 댓글수')" style="color: #ad7b67;">댓글수</button>
+    </div>
+    <div class="row">
+        <div class="podium">
+            <div id="second" class="podium-item second">
+                <div class="medal">🥈</div>
+                <div class="name"><a href="#" id="second-user"></a></div>
+                <div class="rank">2nd</div>
+                <div class="rank">🍿30개</div>
+                
+            </div>
+            <div id="first" class="podium-item first">
+                <div class="medal">🥇</div>
+                <div class="name"><a href="#" id="first-user"></a></div>
+                <div class="rank">1st</div>
+                <div class="rank">🍿50개</div>
+            </div>
+            <div id="third" class="podium-item third">
+                <div class="medal">🥉</div>
+                <div class="name"><a href="#" id="third-user"></a></div>
+                <div class="rank">3rd</div>
+                <div class="rank">🍿10개</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 매출액 순위 -->
+    <div class="ranking-table-container">
+        <table class="ranking-table" id="rankingTable">
+            <thead>
+                <tr>
+                    <th>순위</th>
+                    <th>유저 ID</th>
+                    <th>영화 제목</th>
+                    <th>리뷰 제목</th>
+                    <th>추천수</th>
+                    <th>조회수</th>
+                    <th>댓글수</th>
+                </tr>
+            </thead>
+            <tbody id="ranking-table-body"></tbody>
+        </table>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    // 파이썬에서 받은 데이터
+    const top_recommend = JSON.parse('{{ top_recommend | tojson | safe }}');
+    const top_views = JSON.parse('{{ top_views | tojson | safe }}');
+    const top_comments = JSON.parse('{{ top_comments | tojson | safe }}');
+
+    // 기본 데이터 설정
+    let currentData = top_recommend;
+
+    // 순위 업데이트 함수
+    function updateRank(type, titleText) {
+        if (type === 'top_recommend') {
+            currentData = top_recommend;
+        } else if (type === 'top_views') {
+            currentData = top_views;
+        } else if (type === 'top_comments'){
+            currentData = top_comments;
+        }
+        document.getElementById('ranking-title').textContent = titleText; // h1 제목 변경
+        updateTable();
+        updatePodium();
+    }
+
+    // 테이블 업데이트
+    function updateTable() {
+        const tableBody = document.getElementById('rankingTable').querySelector('tbody');
+        tableBody.innerHTML = '';
+
+        currentData.forEach((item, index) => {
+            const row = `<tr>
+                <td>${index + 1}</td>
+                <td><a href="/popcornapp/userinfo/${item.user_id}">${item.user_id}</a></td>
+                <td><a href="/popcornapp/reviews/${item.movie_title}">${item.movie_title}</td>
+                <td><a href="/popcornapp/post/${item.movie_title}/${item.id}">${item.title}</td>
+                <td>${item.recommend}</td>
+                <td>${item.views}</td>
+                <td>${item.comments}</td>
+            </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // 올림픽 스타일 업데이트
+    function updatePodium() {
+        if (currentData.length < 3) return;
+        
+        document.getElementById('first-user').textContent = currentData[0].user_id;
+        document.getElementById('first-user').href = `/userinfo/${currentData[0].user_id}`;
+
+        document.getElementById('second-user').textContent = currentData[1].user_id;
+        document.getElementById('second-user').href = `/userinfo/${currentData[1].user_id}`;
+
+        document.getElementById('third-user').textContent = currentData[2].user_id;
+        document.getElementById('third-user').href = `/userinfo/${currentData[2].user_id}`;
+    }
+
+    // 초기 데이터 설정
+    updateTable();
+    updatePodium();
+</script>
+{% endblock %}

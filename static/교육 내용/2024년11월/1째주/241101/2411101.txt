@@ -1,0 +1,8 @@
+- ajax()를 활용하여 get, post방식으로 자료를 주거니 받거니할수잇음 
+
+Infuser data-portal-test-key
+
+data-portal-test-key
+
+
+58724873576a756e3931476c6c7658

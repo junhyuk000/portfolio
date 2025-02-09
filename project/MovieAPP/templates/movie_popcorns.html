@@ -1,0 +1,113 @@
+{% extends 'movie_base.html' %}
+{% block css %}
+<style>
+     /* a 태그 기본 스타일 */
+    a {
+        color: inherit; /* ✅ 부모 요소의 기본 글자색을 그대로 사용 */
+        text-decoration: none; /* ✅ 밑줄 제거 */
+        transition: color 0.3s ease-in-out; /* ✅ 부드러운 색상 변경 효과 */
+    }
+
+    /* a 태그 hover 시 색상 변경 */
+    a:hover {
+        color: #dda15e; /* ✅ 마우스를 올리면 색상이 변경됨 */
+    }
+    .movie-container { 
+        display: flex; 
+        flex-wrap: wrap; 
+        justify-content: center; /* 중앙 정렬 */
+        gap: 20px; 
+
+    }
+
+
+    .movie-card { 
+        width: 220px; 
+        padding: 15px; 
+        border: 1px solid #283618; 
+        text-align: center;
+        background-color: #283618; 
+        border-radius: 10px; 
+        box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3); /* ✅ 오른쪽 아래 그림자 */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+        /* ✅ 마우스 오버 시 살짝 더 강조 */
+    .movie-card:hover {
+        transform: scale(1.05);
+        box-shadow: 10px 10px 14px rgba(0, 0, 0, 0.5); /* ✅ 마우스 올리면 조금 더 진한 그림자 */
+    }
+    .movie-card img { 
+        width: 100%; 
+        height: 250px; 
+        object-fit: cover; 
+        border-radius: 8px;
+    }
+    .lottery-btn { 
+        padding: 5px 10px; 
+        background-color:  #bc6c25; 
+        color: white; 
+        border: none; 
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+    .audience { 
+        cursor: pointer; 
+        border-bottom: 1px dashed wheat; 
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 style="text-align: center;">🍿 영화 추첨</h2>
+<div class="movie-container">
+    {% for movie in movies %}
+    <div class="movie-card">
+        <img src="{{ url_for('popcornapp.static', filename='images/' + movie.filename) }}" alt="{{ movie.title }}">
+        <p style="color: white;"><a href="/popcornapp/movie_youtube/{{movie.title}}">{{ movie.title }}</a></p>
+        <p style="color: wheat;">🎬 감독: {{ movie.director }}</p>
+        <p style="color: wheat;">⭐ 평점: {{ movie.rating if movie.rating else 'N/A' }}</p>
+        <p style="color: wheat;">💬 리뷰: <a href="/popcornapp/reviews/{{ movie.title }}/{{movie.id}}">{{ movie.reviews if movie.reviews else 0 }}개</a></p>
+        <p style="color: wheat;">
+            👪 관객수: 
+            <span class="audience" title="{{ movie.c_audience }}">
+                {{ (movie.c_audience // 10000) | string + '만명' if movie.c_audience >= 10000 else movie.c_audience|string + '명' }}
+            </span>
+        </p>
+        <p style="color: wheat;">🍿 팝콘: {{ movie.popcorns }}</p>
+        <button class="lottery-btn" onclick="confirmLottery({{ movie.id }}, '{{ movie.title }}')">추첨하기</button>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function confirmLottery(movie_id, movie_title) {
+        let userConfirm = confirm("추첨을 하시겠습니까?");
+        if (userConfirm) {
+            submitLottery(movie_id, movie_title);
+        }
+    }
+
+    function submitLottery(movie_id, movie_title) {
+        fetch("/movie_popcorns", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ movie_id: movie_id, movie_title: movie_title })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);  // 팝콘 부족 등 오류 메시지 표시
+            } else {
+                alert(data.message);  // 정상적으로 추첨되었을 경우 메시지 표시
+                location.reload();  // 페이지 새로고침
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
+
+
+{% endblock %}

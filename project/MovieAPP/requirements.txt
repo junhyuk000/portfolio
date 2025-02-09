@@ -1,0 +1,8 @@
+mysql-connector-python
+pymysql
+requests
+beautifulsoup4
+pandas
+flask
+gunicorn
+gevent

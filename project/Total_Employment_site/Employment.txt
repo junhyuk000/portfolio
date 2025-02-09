@@ -1,0 +1,93 @@
+Portfolio/
+|---portfolio.py
+|---static/
+|---templates/
+|---project/
+|       |---Total_Employment_site/
+|       |                |---static/
+|       |                |       |---css/
+|       |                |       |---images/
+|       |                |       |---js/
+|       |                |
+|       |                |---templates/
+|       |                |         |---base.html
+|       |                |         |---employment_index.html
+|       |                |         |---search.html
+|       |                |         |---total.html
+|       |                |         |---saramin.html
+|       |                |         |---jobkorea.html
+|       |                |         |---incruit.html
+|       |                |         |---top.html
+|       |                |
+|       |                |---site.py
+
+- site.py
+	- get_db_connection()
+		- 데이터베이스 연결 함수
+	- save_to_db(data, table_name)
+		- 데이터 저장 함수
+		- table_name에 해당하는 테이블이 존재 하지 않을 시 테이블 생성 후 데이터 삽입
+		- (company, title, address, career, school, work_type, url, site) -> column 내용
+	- load_from_db(table_name)
+		- 데이터 로드 함수
+	- saramin_top()
+		- https://www.saramin.co.kr/zf_user/jobs/hot100
+		- 셀레니움을 활용한 top10 크롤링
+		- employment 데이터베이스 saramin_top 테이블에 저장
+	- jobkorea_top()
+		- https://www.jobkorea.co.kr/top100/
+		- 셀레니움을 활용한 top10 크롤링
+		- employment 데이터베이스 jobkorea_top 테이블에 저장
+	- incruit_top()
+		- https://job.incruit.com/jobdb_list/searchjob.asp?cate=occu&sortfield=applycnt&sortorder=1&page=1(인크루트는 top100이 없어서 지원수가 많은 		  페이지 크롤링)
+		- 셀레니움을 활용한 top10 크롤링
+		- employment 데이터베이스 incruit_top 테이블에 저장
+	- saramin_search(search_title)
+		- 셀레니움을 활용하여 search_title로 사람인 페이지에서 검색 후 1페이지 크롤링
+		- employment 데이터베이스 saramin_search_title 테이블에 저장
+	- jobkorea_search(search_title)
+		- 셀레니움을 활용하여 search_title로 잡코리아 페이지에서 검색 후 1페이지 크롤링
+		- employment 데이터베이스 jobkorea_search_title 테이블에 저장
+	- incruit_search(search_title)
+		- 셀레니움을 활용하여 search_title로 인크루트 페이지에서 검색 후 1페이지 크롤링
+		- employment 데이터베이스 incruit_search_title 테이블에 저장
+	- index()
+		- employment_index.html 로 render
+	- search()
+		- 
+		- search.html 로 render
+	- top10()
+		- top.html 로 render
+	- total()
+		- total.html 로 render
+	- saramin()
+		- sarmain.html 로 render
+	- jobkorea()
+		- jobkorea.html 로 render
+	- incruit()
+		- incruit.html 로 render
+
+- base.html
+	- base역할로 기본틀 html임
+	- header, nav menu, footer가 존재
+	- nav menu에는 (home, top10, search, contact)가 있음 
+
+- employment_index.html 
+	- home 역할로 홈페이지 소개 내용이 적혀있음.	
+
+- top.html
+	- 기존에 크롤링해서 저장되어있던 saramin_top, jobkorea_top, incruit_top 데이터베이스 테이블을 가져와 합쳐서 출력함
+	- 새로 가져오기 버튼을 클릭하면 크롤링을 하여 saramin_top, jobkorea_top, incruit_top 데이터베이스 테이블에 저장하고 가져와서 합쳐서 출력
+- search.html
+	- 검색어를 입력하고 검색을 누르면 인크루트,사람인,잡코리아에서 각각 검색을 하여 크롤링해서 검색어에 맞는 테이블로 저장 후에 total.html페이지로 넘어감 ex) 검색어: 파이썬 -> 'incruit_파이썬', 'jobkrorea_파이썬', 'saramin_파이썬' 테이블 
+
+- total.html
+	- 검색내용 크롤링한 파일을 가져와 합쳐서 통합으로 출력함
+- saramin.html
+	- 검색내용 크롤링한 사람인 파일을 가져와 출력함
+- incruit.html
+	- 검색내용 크롤링한 인크루트 파일을 가져와 출력함
+- jobkorea.html
+	- 검색내용 크롤링한 잡코리아 파일을 가져와 출력함
+- contact.html
+	- 제작자 소개내용

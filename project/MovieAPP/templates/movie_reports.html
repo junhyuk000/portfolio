@@ -1,0 +1,32 @@
+{% extends 'movie_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Reports</h1>
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Movie Title</th>
+                <th>Post ID</th>
+                <th>Writer ID</th>
+                <th>Reporter ID</th>
+                <th>Content</th>
+                <th>Reason Code</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+            <tr>
+                <td style="color: black;">{{report.movie_title}}</td>
+                <td style="color: black;"><a href="/popcornapp/post/{{report.movie_title}}/{{report.post_id}}">{{ report.post_id }}</a></td>
+                <td style="color: black;"><a href="/popcornapp/userinfo/{{report.writer_id}}">{{ report.writer_id }}</a></td>
+                <td style="color: black;">{{ report.reporter_id }}</td>
+                <td style="color: black;">{{ report.content }}</td>
+                <td style="color: black;">{%if report.reason_code == 1 %}욕설/혐오{%elif report.reason_code == 2 %}스팸홍보/도배{%elif report.reason_code == 3 %}음란물{%elif report.reason_code == 4 %}불법정보 포함{%elif report.reason_code == 5 %}개인정보 노출{%else%}기타{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

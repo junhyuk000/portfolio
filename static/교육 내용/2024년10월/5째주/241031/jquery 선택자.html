@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241031 강의내용
+        </div>
+        <div class="content">
+            <h1>jquery 선택자</h1>
+
+             <ul>
+                <li id="first">항목 1</li>
+                <li id="first">항목 2</li>
+                <li id="first">항목 3</li>
+                <li id="first">항목 4</li>
+                <li id="first">항목 5</li>
+                <li id="first">항목 6</li>
+                <li id="first">항목 7</li>
+                <li id="first">항목 8</li>
+                <li id="first">항목 9</li>
+                <li id="first">항목 10</li>
+             </ul>
+
+             <ul>
+                <li id="eq">항목 1</li>
+                <li id="eq">항목 2</li>
+                <li id="eq">항목 3</li>
+                <li id="eq">항목 4</li>
+                <li id="eq">항목 5</li>
+                <li id="eq">항목 6</li>
+                <li id="eq">항목 7</li>
+                <li id="eq">항목 8</li>
+                <li id="eq">항목 9</li>
+                <li id="eq">항목 10</li>
+             </ul>
+
+             <ul>
+                <li id="gt">항목 1</li>
+                <li id="gt">항목 2</li>
+                <li id="gt">항목 3</li>
+                <li id="gt">항목 4</li>
+                <li id="gt">항목 5</li>
+                <li id="gt">항목 6</li>
+                <li id="gt">항목 7</li>
+                <li id="gt">항목 8</li>
+                <li id="gt">항목 9</li>
+                <li id="gt">항목 10</li>
+             </ul>
+
+             <ul>
+                <li id="lt">항목 1</li>
+                <li id="lt">항목 2</li>
+                <li id="lt">항목 3</li>
+                <li id="lt">항목 4</li>
+                <li id="lt">항목 5</li>
+                <li id="lt">항목 6</li>
+                <li id="lt">항목 7</li>
+                <li id="lt">항목 8</li>
+                <li id="lt">항목 9</li>
+                <li id="lt">항목 10</li>
+             </ul>
+
+             <ul>
+                <li id="even">항목 1</li>
+                <li id="even">항목 2</li>
+                <li id="even">항목 3</li>
+                <li id="even">항목 4</li>
+                <li id="even">항목 5</li>
+                <li id="even">항목 6</li>
+                <li id="even">항목 7</li>
+                <li id="even">항목 8</li>
+                <li id="even">항목 9</li>
+                <li id="even">항목 10</li>
+             </ul>
+
+             <ul>
+                <li id="odd">항목 1</li>
+                <li id="odd">항목 2</li>
+                <li id="odd">항목 3</li>
+                <li id="odd">항목 4</li>
+                <li id="odd">항목 5</li>
+                <li id="odd">항목 6</li>
+                <li id="odd">항목 7</li>
+                <li id="odd">항목 8</li>
+                <li id="odd">항목 9</li>
+                <li id="odd">항목 10</li>
+             </ul>
+
+             <ul>
+                <li class="contains">항목 1</li>
+                <li class="contains">항목 2</li>
+                <li class="contains">사과</li>
+                <li class="contains">바나나</li>
+                <li class="contains">체리</li>
+                <li class="contains">사과망고</li>
+                <li class="contains">항목 7</li>
+                <li class="contains">항목 8</li>
+                <li class="contains">항목 9</li>
+                <li class="contains">항목 10</li>
+             </ul>
+
+             <ul>
+                <li id="last">항목 1</li>
+                <li id="last">항목 2</li>
+                <li id="last">항목 3</li>
+                <li id="last">항목 4</li>
+                <li id="last">항목 5</li>
+                <li id="last">항목 6</li>
+                <li id="last">항목 7</li>
+                <li id="last">항목 8</li>
+                <li id="last">항목 9</li>
+                <li id="last">항목 10</li>
+             </ul>
+
+           
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+            <script>
+                // :first 선택한 요소 중에서 첫 번째 요소를 선택함.
+                $("li#first:first").text("first, eq(0) 선택자").css("background-color",'yellow');
+                $("li#first:eq(0)").css("font-weight","bold");
+                
+                // :eq(n) 선택한 요소 중에서 인덱스가 n인 요소를 선택함.
+                $("li#eq:eq(2)").text("eq(2) 선택자").css("background-color",'yellow');
+                
+                // :gt(n) 선택한 요소 중에서 인덱스가 n보다 큰 요소를 모두 선택함.
+                $("li#gt:gt(5)").text("gt(5) 선택자").css("background-color",'yellow');
+                
+                // :lt(n) 선택한 요소 중에서 인덱스가 n보다 작은 요소를 모두 선택함.
+                $("li#lt:lt(5)").text("lt(5) 선택자").css("background-color",'yellow');
+                
+                // :even 선택한 요소 중에서 인덱스가 짝수인 요소를 모두 선택함.
+                $("li#even:even").text("even 선택자").css("background-color",'yellow');
+                $('ul li#even:nth-child(2)').css("font-weight","bold");
+
+                // :odd 선택한 요소 중에서 인덱스가 홀수인 요소를 모두 선택함.
+                $("li#odd:odd").text("odd 선택자").css("background-color",'yellow');
+
+                // :contains(텍스트) 선택한 요소 중에서 지정한 텍스트를 포함하는 요소를 모두 선택함. 이 선택자는 아이디를 사용하면 안됨.
+                $('li.contains:contains("사과")').text("contains(사과) 선택자").css("background-color",'yellow'); 
+  
+                
+                
+                // :last 선택한 요소 중에서 마지막 요소를 선택함.
+                $("li#last:last").text("last, eq(-1) 선택자").css("background-color",'yellow'); 
+                $("li#last:eq(-1)").css("font-weight","bold");
+
+   
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241031개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드 체이닝.html">메서드 체이닝</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드 체이닝2.html">메서드 체이닝2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="선택한 요소의 저장(jquery).html">선택한 요소의 저장(jquery) 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="선택한 요소의 필터링(jquery).html">선택한 요소의 필터링(jquery) 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="속성 선택자(jquery).html">속성 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="아이디 선택자(jquery).html">아이디 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="클래스 선택자(jquery).html">클래스 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="필터 선택자(jquery).html">필터 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="after,before를 활용한 행추가.html">after,before를 활용한 행추가</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="animate.html">animate</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="append,prepend.html">append,prepend</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="check박스 입력값 배열변환.html">check박스 입력값 배열변환</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="disabled 활용.html">disabled 활용</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Form 요소의 선택.html">Form 요소의 선택</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="HTML 태그 선택자(jquery).html">HTML 태그 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="input focus 선택자.html">input focus 선택자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jquery 선택자.html">jquery 선택자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jQuery.html">jQuery</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="toggle,show,hide.html">toggle,show,hide</a>
+            <a target="newbox" href="241031.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

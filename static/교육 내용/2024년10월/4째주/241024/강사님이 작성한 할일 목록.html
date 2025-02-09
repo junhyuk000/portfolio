@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>할일 목록 프로그램</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+		li span::before {
+			content: '▶ ';
+		}
+        input { height: 23px; }
+        button {
+            background-color: #5153df;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;;
+        }
+        button:hover {
+            background-color: #2225ce;
+            cursor: pointer;
+        }
+		#content {
+			width: 400px;
+			min-height: 500px;
+			border:1px solid #999;
+			border-radius: 5px;
+			padding: 10px;
+            background-color: #f3f3f3;
+		}
+    </style>
+</head>
+<body>
+    <h1>할일 목록</h1>
+    <input type="text" id="todoInput" placeholder="항목을 입력하세요">
+    <button onclick="addTodo()">추가</button>
+    <button onclick="removeLastTodo()">마지막 항목 삭제</button>
+    <ul id="todoList"></ul>
+
+    <script>
+        let todoList = [];
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const item = input.value.trim();
+            if (item) {
+                todoList.push(item);
+                input.value = ''; // 입력 필드 초기화
+                renderTodoList();
+				input.focus();
+                console.log("최종 배열: ", todoList); // 최종 배열 정보 출력
+            } else {
+                alert("항목을 입력하세요.");
+            }
+        }
+
+        function removeLastTodo() {
+            if (todoList.length > 0) {
+                const removedItem = todoList.pop();
+                renderTodoList();
+                console.log(`"${removedItem}"이(가) 삭제되었습니다.`);
+                console.log("최종 배열: ", todoList); // 최종 배열 정보 출력
+            } else {
+                alert("삭제할 항목이 없습니다.");
+            }
+        }
+
+        function removeTodoAt(index) {
+            if (index >= 0 && index < todoList.length) {
+                const removedItem = todoList.splice(index, 1);
+                renderTodoList();
+                console.log(`"${removedItem}"이(가) 삭제되었습니다.`);
+                console.log("최종 배열: ", todoList); // 최종 배열 정보 출력
+            } else {
+                alert("유효하지 않은 인덱스입니다.");
+            }
+        }
+
+		function renderTodoList() {
+
+			const contentDiv = document.getElementById('content');
+			// 기존 목록 초기화
+			contentDiv.innerHTML = '';
+
+			/*const todoItemsHtml = todoList.map((item, index) => {
+				return `<li>${item} <button onclick="removeTodoAt(${index})">삭제</button></li>`;
+			}).join('');*/			
+			let todoItemsHtml = '';
+
+			for(let index in todoList) {
+				const item = todoList[index];
+				todoItemsHtml += `<li><span>${item}</span> <button onclick="removeTodoAt(${index})">삭제</button></li>`;
+			}
+			
+
+			// HTML 문자열을 contentDiv에 추가
+			contentDiv.innerHTML = `<ul id="todoList">${todoItemsHtml}</ul>`;
+
+			console.log("현재 배열: ", todoList); // 현재 배열 정보 출력
+		}
+
+        function renderTodoList2() {
+            const listElement = document.getElementById('todoList');
+            listElement.innerHTML = ''; // 기존 목록 초기화
+
+            todoList.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = '삭제';
+                deleteButton.onclick = () => removeTodoAt(index); // 삭제 함수와 연동
+
+                listItem.appendChild(deleteButton);
+                listElement.appendChild(listItem);
+            });
+
+            console.log("현재 배열: ", todoList); // 현재 배열 정보 출력
+        }
+    </script>
+	<div id="content"></div>
+</body>
+</html>

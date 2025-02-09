@@ -1,0 +1,111 @@
+할일목록 업데이트해보기
+
+- form 속에 <button>은 타입을 안 정해주면 submit으로 default임. 따라서 버튼을 누르면 화면이 넘어가는 상황 발생 <button type="button">으로 정해줘야 화면이 안 넘어감
+- onclick 클릭할때
+- onsubmit 제출할때 (제출 직전)
+- 전체를 주석 처리할때 드래그 후 ctrl + /
+- new Date().getDay();  -> 요일에 맞는 숫자를 가져옴 (일0, 월1, 화2, 수3, 목4, 금5, 토6)
+- required : 아무런 입력없이 안 넘어가짐
+- <input type="submit" value="제출"> == <button>제출</button>
+- location.href = "a.html" -> 페이지 이동
+- 쿠키 : 내 PC에 저장
+- 세션 : 서버에 저장
+- DB(SQL) : MySQL, MSSQL, 오라클
+- let, var : 변수
+- const : 상수
+- *********parseInt :
+- .length
+- var a=[1,2,3,4,5,6]
+  a[0]=1
+  a[1]=2
+
+-----------------조건문---------------
+------------------IF문-----------------
+
+if(조건 -> true일때 실행){
+
+   실행구문1
+
+}else if(조건 -> true일때 실행){
+
+  실행구문2
+
+}else{
+
+  실행구문3
+
+}
+
+- 한줄 작업일때는 {} 중괄호 생략가능.
+
+
+-----------------switch문-------------
+
+switch (변수){
+	case "조건":
+		실행
+		break;
+	case "조건":
+		실행
+		break;
+	default:
+		실행
+		break;
+
+}
+- 항상 break;를 사용하여 조건문에서 나가야됨 아니면 중복되서 발생함
+- console.log(typeof 변수); 사용하여  type 확인
+- 문자열 일때는 "조건"
+- number 일때는 조건
+
+switch (변수){
+	case "조건":
+	case "조건":
+		실행1
+		break;
+	default:
+		실행
+		break;
+}
+
+- 실행문과 break;가 없을때 조건은 두개가 적용되어 둘중 하나의 조건에 충족했을 때 실행1이 실행됨
+
+----------------삼항연산자--------------
+
+(비교)? A(true) : B(false);
+
+result = (x > y)? A : B;  -> 참이면 A가 result변수에 대입, 거짓이면 B가 result변수에 대입
+
+----------------while 문-----------------
+
+var i = 1;
+
+while (조건) {
+	document.write(i + "<br>");
+	i++;
+}
+
+while (true) {
+	break;
+}
+
+-----------------do while 문-------------
+
+do{
+}
+while (조건){
+}
+- 무조건 한번은 동작하는 반복문
+-----------------for 문-------------------
+
+for (변수초기; 까지; 얼마씩){
+}
+for (var i=1; i <10; i++)
+
+i++ -> i=i+1 --> i+=1
+
+----------------for / in 문----------------
+var arr = [1,2,3,4,5,6]
+for (var i in arr){
+	document.write(arr[i] + " ");
+}

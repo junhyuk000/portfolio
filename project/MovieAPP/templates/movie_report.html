@@ -1,0 +1,51 @@
+{% extends 'movie_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">신고하기</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('popcornapp.report_post', movie_title=movie_title, post_id=post_id, writer_id=writer_id) }}">
+                <div class="mb-3">
+                    <label for="reportContent" class="form-label">작성자: {{ session['id'] }}</label><br>
+                    <input type="hidden" name="user_id" value="{{ session['id'] }}">
+                    <label for="reportContent" class="form-label">신고 내용</label>
+                    <textarea class="form-control" id="reportContent" name="content" rows="4" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">신고 사유</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reason" id="reason1" value="1" required>
+                            <label class="form-check-label" for="reason1">욕설/혐오</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reason" id="reason2" value="2">
+                            <label class="form-check-label" for="reason2">스팸홍보/도배</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reason" id="reason3" value="3">
+                            <label class="form-check-label" for="reason3">음란물</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reason" id="reason4" value="4">
+                            <label class="form-check-label" for="reason4">불법정보 포함</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reason" id="reason5" value="5">
+                            <label class="form-check-label" for="reason5">개인정보 노출</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="reason" id="reason6" value="6">
+                            <label class="form-check-label" for="reason6">기타</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">제출</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

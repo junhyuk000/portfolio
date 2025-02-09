@@ -1,0 +1,106 @@
+{% extends 'movie_base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ post.title }}</h3>
+            <div class="text-muted">
+                작성일: {{ post.created_at }} | 
+                작성자: <a href="/popcornapp/userinfo/{{post.userid}}">{{ post.userid }}</a> |
+                조회수: <span id="views-count">{{ post.views }}</span> |
+                추천수: <span id="recommend-count">{{ post.recommend }}</span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="mb-4">
+                {% if post.content %}
+                    {{ post.content.replace('\n','<br>') | safe }}
+                {% else %}
+                    <p>내용이 없습니다.</p>
+                {% endif %}
+                <br><br>
+                {% if post.filename %}
+                    <img src="/popcornapp/uploads/{{ post.filename }}" alt="첨부 이미지" width="300">
+                {% endif %}
+            </div>
+            {% if post.filename %}
+            <div class="mb-3">
+                <strong>첨부파일:</strong>
+                <a href="/popcornapp/uploads/{{ post.filename }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-download"></i> {{ post.filename }}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <a href="/popcornapp/reviews/{{ title }}/{{id}}" class="btn btn-secondary">
+                        <i class="fas fa-list"></i> 목록
+                    </a>
+                </div>
+                <div>
+                    {% if post.userid == session['id'] or session['id'] == 'admin' %}
+                        <a href="/popcornapp/post/edit/{{ post.id }}" class="btn btn-primary">
+                            <i class="fas fa-edit"></i> 수정
+                        </a>
+                        <a href="/popcornapp/post/delete/{{ post.id }}" 
+                           class="btn btn-danger"
+                           onclick="return confirm('정말로 삭제하시겠습니까?');">
+                            <i class="fas fa-trash"></i> 삭제
+                        </a>
+                    {% else %}
+                        <a href="/popcornapp/post/recommend/{{ post.id }}/{{title}}" class="btn btn-primary">
+                            <i class="fas fa-thumbs-up"></i> 추천
+                        </a>
+                        <a href="/popcornapp/post/report/{{post.movie_title}}/{{ post.id }}/{{post.userid}}" class="btn btn-danger" onclick="return confirm('정말로 신고하시겠습니까?');">
+                            <i class="fas fa-thumbs-up"></i> 신고
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 댓글 섹션 -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h6 class="card-title">댓글</h6>
+        </div>
+        <div class="card-body">
+
+            <ul id="comment-list" class="list-group mb-3">
+                {% for comment in comments %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>ID:</strong><a href="/popcornapp/userinfo/{{comment.user_id}}">{{ comment.user_id }}</a> | 
+                        <strong>작성시간:</strong> {{ comment.created_at }}
+                        <p class="mb-0">{{ comment.content }}</p>
+                    </div>
+                    {% if session['id'] == comment.user_id or session['id'] == 'admin' %}
+                    <div class="btn-group">
+                        <a href="/popcornapp/post/comment_delete/{{post.id}}/{{comment.id}}" 
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('정말로 삭제하시겠습니까?');">
+                            <i class="fas fa-trash"></i> 삭제
+                        </a>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+
+            <form action="/popcornapp/post/{{ post.id }}/comment" method="post">
+                <div class="mb-3">
+                    <label for="comment-content" class="form-label">댓글 작성</label>
+                    <textarea name="content" id="comment-content" class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">댓글 작성</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

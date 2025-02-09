@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            body{
+                background-color: #ceb5b5;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+            }
+
+            .container{
+                display: block;
+                height: 350px;
+                width: 200px;
+                background-color: #ffff;
+                border-radius: 10px;
+                box-shadow: 0   0   10px #999;
+                padding-bottom:7px;
+                margin-right: 10px;
+                text-align: center;
+                float: left;
+                margin-bottom: 10px;
+                
+            }
+            .container .center{
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+            
+            .img{  
+                height: 180px;
+                overflow-y: hidden ;
+            }
+            img.f{
+                margin: 0;
+                border-radius: 10px 10px 0 0;
+                width: 100%;
+                height: 50%;
+            }
+            img.g{
+                margin: 0;
+                border-radius: 10px 10px 0 0;
+                width: 100%;   
+            }
+
+         
+            button{
+                color:white; 
+                background-color: green; 
+                width: auto; 
+                height: auto; 
+                border-radius: 10px;
+                padding: 10px;
+                
+
+            }
+            button:hover{
+                cursor: pointer;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        
+
+    <div class="content">
+        <div class="container">
+            <img class="f" src="강아지.jpg" width=>
+            <h2 class="center">상품 1</h2>
+            <p class="center">가격:1,000,000원</p>
+            <a><button onclick="alert('상품1이 추가되었습니다.')">장바구니에 추가</button></a>
+        </div>
+        <div class="container">
+            <div class="img">
+            <img class="g" src="강아지.jpg" >
+        </div>
+            <h2 class="center">상품 2</h2>
+            <p class="center">가격:1,000,000원</p>
+            <button onclick="alert('상품2가 추가되었습니다.')">장바구니에 추가</button>
+        
+        </div>
+        <div class="container">
+            
+            <img class="f" src="강아지사진2.avif" >
+            <h2 class="center">상품 3</h2>
+            <p class="center">가격:1,000,000원</p>
+            <button onclick="alert('상품3가 추가되었습니다.')">장바구니에 추가</button>
+        </div>
+        <div class="container">
+            <div class="img">
+            <img class="g" src="강아지사진2.avif" >
+        </div>
+            <h2 class="center">상품 4</h2>
+            <p class="center">가격:1,000,000원</p>
+            <button onclick="alert('상품4가 추가되었습니다.')">장바구니에 추가</button>
+        </div>
+
+
+    </div>
+
+    <div class="footerfixed">
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="241018개발일지.html">Home</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="나의 개발일지 블로그.html">나의 개발일지 블로그</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="드롭다운 메뉴.html">드롭다운 메뉴</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="드롭다운 효과.html">드롭다운 효과</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="상품 장바구니.html">상품장바구니</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="수직 내비게이션 바.html">수직 내비게이션 바</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="토글.html">토글</a>
+        <a style="padding-right: 5px; border-right: 1px solid #000;" href="학원 홈페이지.html">학원 홈페이지</a>
+        <a target="newbox" href="241018.txt">메모장</a>
+
+
+
+    </div>
+        </div>
+    </body>
+</html>

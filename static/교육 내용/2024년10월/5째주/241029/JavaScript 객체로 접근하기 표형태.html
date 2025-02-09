@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            table{
+                border-collapse: collapse;
+                display: block;
+                margin: 20px auto;
+                
+            }
+            th{
+
+                border: 2px solid black;
+                text-align: center;
+                width: 100px;
+            }
+            td{
+                border: 1px solid black;
+                text-align: center;
+            }
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241029 강의내용
+        </div>
+        <div class="content">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div>
+                    <h1>JavaScript 객체로 접근하기 표형태</h1>
+                    <input type="button" value="정보 보기" id="informoation" onclick="show()" style="display: block; margin: 0 auto;">
+                    <div>
+                        <table>
+                            <thead id="thead">
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const thead = ["이름","나이","도시"];
+                const people = [
+                    {"이름":"홍길동", "나이":25,"도시":"서울"},
+                    {"이름":"김영희", "나이":30,"도시":"부산"},
+                    {"이름":"이철수", "나이":28,"도시":"대구"},
+                    {"이름":"동수", "나이":18,"도시":"수원" }
+                ];
+                
+                function show(){
+                    document.getElementById('thead').innerHTML =`<tr><th>${thead[0]}</th><th>${thead[1]}</th><th>${thead[2]}</th></tr>`;
+                    var row = "";
+                    for(var i=0; i<people.length;i++){                    
+                            row += "<tr><td>"+ people[i].이름 + "</td><td>"+people[i].나이+"</td><td>"+people[i].도시 +"</td></tr>";
+                        document.getElementById('tbody').innerHTML = row;
+                    }                                                            
+                }
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241029개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기.html">JavaScript 객체로 접근하기</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기2.html">JavaScript 객체로 접근하기2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="JavaScript 객체로 접근하기 표형태.html">JavaScript 객체로 접근하기 표형태</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="객체,문자열 변환.html">객체,문자열 변환</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="객체.html">객체</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="라인피드 및 탭 처리.html">라인피드 및 탭 처리</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="라인피드 및 탭 처리2.html">라인피드 및 탭 처리2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="숫자 맞추기 게임 화면표시.html">숫자 맞추기 게임 화면표시</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="팝업.html">팝업</a>
+            <a target="newbox" href="241029.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

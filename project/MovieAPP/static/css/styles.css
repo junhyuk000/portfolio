@@ -1,0 +1,137 @@
+/* Wix 스타일 적용 */
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'SBAggroB', sans-serif;
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 최상단 헤더 스타일 */
+.top-header {
+    background-color: #0c0c24;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.top-header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.top-header .user-menu {
+    display: flex;
+    gap: 15px;
+}
+
+.top-header .user-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.top-header .user-menu a:hover {
+    color: #bfa187;
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+    background-color: #14142b;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    color: #bfa187;
+    border-bottom: 2px solid #bfa187;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #faf8f6;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #333;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* 컨텐츠 스타일 */
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: left;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* 카드 스타일 */
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.card p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #0c0c24;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}

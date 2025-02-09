@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <form name="asd" action="http://post.pul.kr" method="post">
+            이름: <input type="text" name="name" placeholder="이름을 입력하시오.">
+            비밀번호: <input type="password" name="pwd" placeholder="비밀번호를 입력하시오."><br>
+            이메일: <input type="email" name="email" pattern=".+@gmail\.com" placeholder="example@gmail.com" required>
+            <button type="button">이메일 발송</button><br>
+            인증하기: <input type="text" name="auth" widtt="100">
+            <button type="button">인증하기</button><br>
+            나이: <input type="number" name="age" value="1" min="1" max="20" placeholder="나이를 입력하시오."><br>
+            선택(복수): <input type="checkbox" name="fruit" value="1">사과
+            <input type="checkbox" name="fruit" value="2">배
+            <input type="checkbox" name="fruit" value="3">감 <br>
+            선택: <input type="radio" name="city" value="1">수원
+            <input type="radio" name="city" value="2">서울
+            <input type="radio" name="city" value="3">부산 <br>
+            파일: <input type="file" name="file" accept=".jpg, .png, .gif"><br>
+            날짜범위: <input type="date" name="sdate"> ~ <input type="date" name="edate"><br>
+            학교선택: <select name="school" >
+                <option value="1">중학교</option>
+                <option value="2" selected>고등학교</option>
+                <option value="3">대학교</option>
+            </select><br>
+            내용: <textarea name="content" rows="5" cols="30">value</textarea><br>
+            <input type="hidden" name="process" value="1"><br>
+            <input type="button" value="목록보기">
+            <button type="submit">제출하기</button>
+            <button type="reset">초기화</button><br>
+            <a target="" href="001.html"><button type="button">다음</button></a>
+            
+
+
+
+
+
+        </form>
+    </body>
+</html>

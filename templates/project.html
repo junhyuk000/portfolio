@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    .content-wrapper {
+        text-align: left; /* 왼쪽 정렬 */
+        margin-left: 20px; /* 왼쪽 여백 */
+        margin: 200px 10px 20px;
+    }
+    .box {
+        display: grid; /* CSS Grid 사용 */
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 최소 250px, 가능한 만큼 채움 */
+        gap: 20px; /* 열 간격 */
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 1600px;
+        margin-left: 20px; /* 왼쪽 여백을 추가하여 화면 왼쪽으로 정렬 */
+        margin-right: 0; /* 오른쪽 여백 제거 */
+    }
+    .folder-group {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h3 {
+        font-size: 18px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    h3:hover {
+        color: #007bff;
+    }
+
+    h3::before {
+        content: '\1F4C1'; /* 폴더 이모지 */
+        font-size: 20px;
+        margin-right: 10px;
+        transition: transform 0.3s;
+    }
+
+    h3.open::before {
+        transform: rotate(90deg); /* 폴더 열린 상태 */
+    }
+
+    .list {
+        display: none;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        margin-left: 20px;
+        border-left: 2px solid #ddd;
+        padding-left: 10px;
+    }
+
+    .list li {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+
+    .list li a {
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+        transition: color 0.3s;
+    }
+
+    .list li a:hover {
+        color: #007bff;
+    }
+
+    .list li::before {
+        content: '\1F4C4'; /* 파일 이모지 */
+        font-size: 18px;
+        margin-right: 8px;
+        color: #888;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="headfixed">
+    <h1>Project</h1><br>
+    <a href="Home.html"><button class="buttonstyle">Home</button></a>
+    <a href="resume.html"><button class="buttonstyle">Resume</button></a>
+    <a href="introduction.html"><button class="buttonstyle">Self-introduction</button></a>
+    <a href="career.html"><button class="buttonstyle">Career</button></a>
+    <a href="project.html"><button class="buttonstyle">Project</button></a>
+    <a href="education.html"><button class="buttonstyle">Education</button></a>
+    <a href="/logout"><button class="logout-btn">Logout</button></a>
+</div>
+
+    <div class="content-wrapper">
+    <div class="box">
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">Total_Employment_site</h3>
+            <ul class="list">
+                <li><a href="{{url_for('employment_site.index')}}"><button>Total_Employment_site</button></a></li>
+                <li><a href="{{url_for('employment_intro')}}"><button>intro</button></a></li>
+            </ul>
+        
+        </div>
+        <div class="folder-group">
+            <h3 onclick="toggleAnswer(this)">PopcornAPP</h3>
+            <ul class="list">
+                <li><a href="{{url_for('popcornapp.movies')}}"><button>PopcornAPP</button></a></li>
+                <li><a href="{{url_for('employment_intro')}}"><button>intro</button></a></li>
+            </ul>
+        
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    /* 토글 버튼 클릭시 안보이는건 보이게 보이는건 안보이게 하는 함수, (block이 아닐땐 block, block일땐 none*/
+    function toggleAnswer(element) {
+    const answer = element.nextElementSibling;
+    answer.style.display = answer.style.display
+    === 'block' ? 'none' : 'block';
+    }
+
+</script>
+{% endblock %}
+

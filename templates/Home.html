@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+.content3 {
+	margin: 200px 10px 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    gap: 40px; 
+}
+
+.time-container {
+    text-align: center; 
+    font-size: 24px; 
+    font-weight: bold;
+    color: #333; 
+}
+
+.game-container {
+    text-align: center; 
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+
+}
+
+.game-container h2 {
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.game-container input[type="number"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.game-container input[type="button"] {
+    width: 50%;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#check{
+    width: 10%;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.game-container input[type="button"]:hover {
+    background-color: #45a049; 
+}
+
+#text {
+    font-size: 18px;
+    color: #777;
+    margin-top: 15px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="headfixed">
+    <h1>Home</h1><br>
+    <a href="Home.html"><button class="buttonstyle">Home</button></a>
+    <a href="resume.html"><button class="buttonstyle">Resume</button></a>
+    <a href="introduction.html"><button class="buttonstyle">Self-introduction</button></a>
+    <a href="career.html"><button class="buttonstyle">Career</button></a>
+    <a href="project.html"><button class="buttonstyle">Project</button></a>
+    <a href="education.html"><button class="buttonstyle">Education</button></a>
+    <a href="/logout"><button class="logout-btn">Logout</button></a>
+</div>
+
+
+<div class="content3">
+
+    <div class="time-container">
+        <div id="in"></div>
+    </div>
+
+    
+    <div class="game-container">
+        <h2>숫자 맞추기 게임(1~100)</h2>
+        <p id="life"></p>
+        <input type="number" id="inputNumber" placeholder="1~100까지 숫자 입력" style="display: none;">
+		<input type="button" id="start" value="게임 시작" onclick="start()">
+    </div>
+
+    <input type="button" id="check" value="확인" onclick="check()" style="display: none;">
+    <p id="text"></p>
+
+    
+</div>
+{% endblock %}
+{% block js %}
+<script>
+	let life = "❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️"
+	let num = 20;                           // ❤️한개에 2자리 차지하여 20으로 선정
+	let nowLife = life.slice(0,num);        // slice를 활용하여 스트링 저장
+	document.getElementById("life").innerHTML = "";     // 처음 화면 life 안보이게 설정
+	let text = document.getElementById("text"); 
+	let randomNum;                          // 랜덤 변수를 밖에 설정해야 함수에서 함수로 이동할때 해당변수 사용가능
+
+	/* 게임 시작 버튼 클릭시 하트 표시, 랜덤숫자 발생 및 게임시작 버튼은 숨기고, 확인버튼은 표시함 */
+	function start(){
+		randomNum = Math.floor(Math.random()*100)+1;
+		console.log(randomNum); 
+		document.getElementById("life").innerHTML = nowLife;
+		document.getElementById("start").style.display = 'none';
+		document.getElementById("check").style.display = 'block';
+		document.getElementById("inputNumber").style.display = 'block';
+		document.getElementById("text").innerHTML = ""; 
+	}
+	
+	/* 확인 버튼 클릭시  */
+	function check(){                    
+		document.getElementById("inputNumber").style.display='block';
+		var inputNumber = document.getElementById("inputNumber").value;
+		document.getElementById("inputNumber").value=""; 
+		document.getElementById("inputNumber").focus();      
+		let nowLife = life.slice(0,num-2);
+		document.getElementById("life").innerHTML = nowLife;
+		num -= 2;
+		
+		
+		if(inputNumber!==""){
+			if(inputNumber<randomNum){    
+				text.innerHTML = "입력한 값이 더 작습니다.";
+			}else if(inputNumber>randomNum){ 
+				text.innerHTML = "입력한 값이 더 큽니다.";
+			}
+			else {
+				document.getElementById("inputNumber").style.display='none';
+				text.innerHTML = "😁정답입니다.👍"  
+				document.getElementById("start").style.display = 'block';
+				document.getElementById("check").style.display = 'none';
+				document.getElementById("inputNumber").style.display = 'none';
+				num=20;              
+			}      
+			
+			}else{
+			text.innerHTML = "값을 입력해주세요.";
+
+		}
+		if(num==0){
+			text.innerHTML = "기회를 모두 소진하였습니다. 정답은 " + randomNum + "이였습니다.";
+			document.getElementById("start").style.display = 'block';
+			document.getElementById("check").style.display = 'none';
+			document.getElementById("inputNumber").style.display = 'none';
+			num=20; 
+			
+		}
+				  
+	}
+				
+    function formatNumber(num) {
+        return (num < 10 ? '0' : '') + num;
+    }
+
+    function nowTime() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = formatNumber(date.getMonth() + 1);
+        var day = formatNumber(date.getDate());
+        var hours = formatNumber(date.getHours());
+        var minutes = formatNumber(date.getMinutes());
+        var seconds = formatNumber(date.getSeconds());
+        var now = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+        document.getElementById("in").innerHTML = now;
+    }
+
+    setInterval(nowTime, 1000); // 매초마다 시간 업데이트
+    nowTime(); // 페이지 로드 시 즉시 호출
+</script>
+{% endblock %}

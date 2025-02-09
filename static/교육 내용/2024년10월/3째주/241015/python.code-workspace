@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../python"
+		},
+		{
+			"path": "../Users/USER/python"
+		},
+		{
+			"path": "../limsonwoo"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "limsonwoo"
+	}
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Ranking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .podium {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 300px;
+            margin-top: 50px;
+        }
+
+        .podium-item {
+            width: 100px;
+            text-align: center;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .podium-item:first-child {
+            background-color: gold;
+        }
+
+        .podium-item:nth-child(2) {
+            background-color: silver;
+        }
+
+        .podium-item:nth-child(3) {
+            background-color: #cd7f32; /* Bronze color */
+        }
+
+        .podium-item .medal {
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .podium-item .name {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .podium-item .rank {
+            font-size: 18px;
+            color: white;
+            margin-top: 5px;
+        }
+
+        .first {
+            height: 180px;
+        }
+
+        .second {
+            height: 140px;
+        }
+
+        .third {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Olympic Ranking</h1>
+    <div class="podium">
+        <div id="second" class="podium-item second">
+            <div class="medal">🥈</div>
+            <div class="name"></div>
+            <div class="rank">2nd Place</div>
+        </div>
+        <div id="first" class="podium-item first">
+            <div class="medal">🥇</div>
+            <div class="name"></div>
+            <div class="rank">1st Place</div>
+        </div>
+        <div id="third" class="podium-item third">
+            <div class="medal">🥉</div>
+            <div class="name"></div>
+            <div class="rank">3rd Place</div>
+        </div>
+    </div>
+
+    <script>
+        // 수상자 데이터
+        const winners = [
+            { name: "Alice", rank: 1 },
+            { name: "Bob", rank: 2 },
+            { name: "Charlie", rank: 3 }
+        ];
+
+        // HTML 요소에 수상자 데이터 표시
+        document.getElementById("first").querySelector(".name").textContent = winners.find(w => w.rank === 1).name;
+        document.getElementById("second").querySelector(".name").textContent = winners.find(w => w.rank === 2).name;
+        document.getElementById("third").querySelector(".name").textContent = winners.find(w => w.rank === 3).name;
+    </script>
+</body>
+</html>

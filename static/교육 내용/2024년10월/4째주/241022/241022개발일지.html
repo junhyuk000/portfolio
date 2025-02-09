@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <meta charset="UTF-8">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body{
+                background-color: beige;
+                overflow-y: auto;
+                font-size: 15px;
+                font-weight: bold;
+
+            }
+            button#gohome:hover{
+                cursor: pointer;
+                background-color: green;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241022 강의내용
+        </div>
+        <div class="content">
+            <div id="in" style="font-size: 100px; font-weight: bold; text-align: center; margin-top: 100px;"></div>
+            <a href="/html포토폴리오/교육 내용.html"><button id="gohome" style="display: flex; font-size: large; font-weight: bold; width: 200px; height: 200px; display: block; margin: 5px auto;border: 0px; background-color: lightgreen; border-radius: 5px;">돌아가기</button></a>
+            
+            <script>
+                var idx =0;
+                function formatNumber(num){
+                    return ( num < 10? '0' : '') + num;
+                }
+                
+
+                function nowTime(){
+                    var date = new Date();
+                    var year = date.getFullYear();
+                    var month = formatNumber(date.getMonth()+1);
+                    var day = formatNumber(date.getDate());
+                    var hours = formatNumber(date.getHours());
+                    var minutes = formatNumber(date.getMinutes());
+                    var seconds = formatNumber(date.getSeconds());
+                    var now = year + "-" + month + "-" + day + " " + hours + ":"+minutes+":"+seconds;
+
+                    document.getElementById("in").innerHTML = now;
+                    // idx++;
+                    // idx = (idx >= aaa.length) ? 0 : idx;
+                }
+
+                const intervalId = setInterval(nowTime,1000); // setInterval(함수,1000); 여기서 1000은 1초를 가리킴
+
+                
+                nowTime();
+                
+            </script>
+        </div>
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241022개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="12x10표.html">12x10 표</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="dowhile문.html">do/while 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="forin문.html">for/in 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="for문.html">for 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="if문.html">if 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="preventDefault.html">preventDefault</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="switch문.html">switch 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="while문.html">while 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="구구단.html">구구단</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="나이와 비밀번호.html">나이와 비밀번호</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="더 큰 수를 변수에 대입.html">더 큰 수를 변수에 대입</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="로그인.html">로그인</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="요일 가져오기switch문.html">요일 가져오기</a>
+            <a target="newbox" href="241022.txt">메모장</a>
+    
+
+
+        </div>
+
+
+    </body>
+</html>

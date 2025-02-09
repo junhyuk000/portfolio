@@ -1,0 +1,31 @@
+body{
+    background-color: beige;
+    overflow-y: auto;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.headerfixed{
+    top: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    padding: 20px;
+    background-color: lightblue;
+    text-align: center;
+    box-shadow: 0 0 7px #999 ;
+}
+.footerfixed{
+    bottom: 0;
+    left:0;
+    right: 0;
+    padding: 20px;
+    position: fixed;
+    background-color: lightblue;
+    box-shadow: 0 0 7px #999 ;
+    text-align: center;
+}
+.content{
+    margin: 80px 10px 60px;
+
+}

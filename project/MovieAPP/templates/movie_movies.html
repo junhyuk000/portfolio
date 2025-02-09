@@ -1,0 +1,564 @@
+{% extends "movie_base.html" %}
+{% block css %}
+<style>
+/* 🎥 유튜브 영상 전체 컨테이너 */
+    .video-container {
+        width: 90%;  /* 브라우저 너비의 90% */
+        max-width: 1200px; /* 최대 크기 제한 */
+        height: 70vh; /* 브라우저 높이의 70% */
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 🎞️ 유튜브 영상 */
+    .video-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        object-fit: cover;
+    }
+
+
+    .button-container {
+    display: flex;
+    flex-wrap: wrap; /* ✅ 버튼이 화면에 맞게 줄바꿈 */
+    justify-content: center; /* ✅ 가운데 정렬 */
+    gap: 10px; /* ✅ 버튼 간격 조정 */
+    margin-top: 20px;
+    margin-bottom: 20px; /* ✅ 하단 여백 줄이기 */
+    }
+
+    .button-container .btn {
+        min-width: 120px; /* ✅ 버튼 최소 너비 설정 */
+        padding: 10px 15px; /* ✅ 버튼 여백 설정 */
+        font-size: 14px; /* ✅ 버튼 글꼴 크기 줄이기 */
+    }
+
+    /* ✅ 차트가 모바일에서도 적절한 크기로 표시되도록 조정 */
+    .chart-container {
+        display: flex;
+        justify-content: center;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto !important;
+    }
+
+    /* ✅ 테이블이 모바일에서도 넘치지 않도록 조정 */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table {
+        min-width: 400px; /* ✅ 최소 너비 설정하여 너무 작아지지 않게 함 */
+    }
+
+    /* 📌 모바일에서만 테이블 반응형 적용 */
+    @media (max-width: 768px) {
+        .row {
+            display: flex;
+            flex-direction: column; /* 모바일에서 테이블이 그래프 아래로 이동 */
+        }
+
+        .table-container {
+            overflow-x: auto; /* 표가 넘칠 경우 가로 스크롤 추가 */
+            max-width: 100%; /* 화면을 벗어나지 않도록 설정 */
+        }
+
+        .table {
+            min-width: 100%; /* 표 크기가 고정되지 않고 조정되도록 설정 */
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap; /* 표 내용 줄바꿈 방지 */
+        }
+    }
+
+
+    .trailer-container {
+        width: 100%;
+        max-width: 1200px; /* 최대 너비 설정 */
+        margin: 0 auto 20px;
+        text-align: center;
+    }
+
+    #trailer {
+        width: 100%;
+        height: 600px; /* 크기 확대 */
+    }
+
+    /* 모바일 화면에서 높이 조정 */
+    @media (max-width: 768px) {
+        #trailer {
+            height: 300px; /* 모바일에서는 더 작게 */
+        }
+    }
+
+    .swiper {
+        position: relative;
+        width: 100%;
+        max-width: 100vw;
+        height: 650px; /* ✅ 높이 조정 */
+        padding: 40px 0;
+        overflow: hidden;
+    }
+
+    .swiper-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .swiper-slide {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 250px;
+        position: relative;
+    }
+
+    /* ✅ 이미지 스타일 */
+    .swiper-slide img {
+        width: 250px;
+        height: 380px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* ✅ 마우스 오버 시 확대 효과 */
+    .swiper-slide:hover img {
+        transform: scale(1.05);
+    }
+
+    /* ✅ 기존 텍스트 오버레이 유지 */
+    .text-overlay {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        border-radius: 10px;
+        transition: opacity 0.3s ease-in-out;
+        opacity: 0;
+    }
+
+    .swiper-slide:hover .text-overlay {
+        opacity: 1;
+    }
+
+    .text-overlay h5,
+    .text-overlay p {
+        color: #ffffff;
+        margin: 5px 0;
+    }
+
+    /* ✅ Rank 텍스트 스타일 추가 */
+    .rank-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #333;
+        text-align: center;
+    }
+
+    /* ✅ 페이지네이션 중앙 정렬 */
+    .swiper-pagination {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    .swiper-pagination-bullet {
+        background-color: #bfa187 !important;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        opacity: 0.7;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #8a6f55 !important;
+    }
+
+    /* ✅ 네비게이션 버튼 위치 조정 */
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #bfa187 !important;
+        width: 40px;
+        height: 40px;
+        z-index: 10;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .swiper-button-next {
+        right: 10px;
+    }
+
+    .swiper-button-prev {
+        left: 10px;
+    }
+
+    #map { width: 100%; height: 500px; }
+    #placesList {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    #placesList li {
+        margin: 5px 0;
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ddd;
+        background: #f9f9f9;
+    }
+    #placesList li:hover { background: #e0e0e0; }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+<h2 style="color:  #283618; text-align: center;">🎬 오늘의 영화 </h2>
+<h3 style="color:  #bc6c25; text-align: center;">{% for movie in movies_info %}{% if movie.rank == 1 %}{{movie.title}}{%endif%}{% endfor %}</h3>
+
+<!-- 🎥 YouTube 영상 (전체 화면에 더 가깝게 확대) -->
+<div class="video-container">
+    <iframe id="trailer" class="video-frame" frameborder="0"
+        allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+</div>
+<div class="container">
+
+    <div class="swiper">
+        <h3 style="color: #283618; text-align: center;">영화 순위</h3>
+        <div class="swiper-wrapper">
+            {% for movie in movies_info|sort(attribute='rank') %}  <!-- ✅ Rank 순 정렬 -->
+            <div class="swiper-slide">
+                <h4 class="rank-text" style="color: #dda15e;">{{ movie.rank }}위</p>
+                <h4 class="rank-text" style="color: #606c38;">{{ movie.title }}</p>
+                <img src="/popcornapp/static/images/{{ movie.filename }}" alt="{{ movie.title }}">
+                
+                <!-- ✅ 기존 정보 유지 -->
+                <div class="text-overlay">
+                    <h5>{{ movie.title }}</h5>
+                    <p>평점: {{ movie.rating }}</p>
+                    <p>리뷰: {{ movie.reviews }}</p>
+                    <a href="/popcornapp/movie_youtube/{{ movie.title }}" class="btn btn-outline-light mx-2">예고편</a>
+                    <a href="/popcornapp/reviews/{{ movie.title }}/{{ movie.id }}" class="btn btn-outline-light mx-2">Review</a>
+                </div>
+
+
+                
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+<div class="text-center">
+
+        <!-- 차트 전환 버튼 -->
+        <h3 class="mb-4"  id="rank-title" style="color:#283618;">일일 관객수</h3>
+        <div class="d-flex flex-wrap justify-content-center mt-4 gap-2">
+            
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('t_audience')" style="color:  #ad7b67;">일일 관객수</button>
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('c_audience')" style="color:  #ad7b67;">누적 관객수</button>
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('t_sales')" style="color:  #ad7b67;">일일 매출액</button>
+            <button class="btn btn-outline-light mx-2" onclick="updateChartAndRank('c_sales')" style="color:  #ad7b67;">누적 매출액</button>
+        </div><br>
+    <div class="row">
+        <!-- 차트 영역 -->
+        <div class="col-md-8">
+            <canvas id="chart" style="max-width: 100%; height: 60vh;"></canvas>
+        </div>
+
+
+        <div class="col-md-4">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="background-color: #283618; color: white;">Rank</th>
+                        <th style="background-color: #283618; color: white;">Title</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-table-body">
+                    <!-- JavaScript에서 동적으로 데이터 추가 -->
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div><br><br>
+
+<h3 style="color: #283618;">근처 영화관</h3>
+<input type="text" id="searchInput" placeholder="주소를 입력하세요" style="width: 300px;">
+<button id="searchButton">검색</button>
+<div id="map"></div>
+<ul id="placesList"></ul>
+
+{% endblock %}
+
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=be47724c48a9357381269e671a99079c&libraries=services"></script>
+<script src="/popcornapp/static/js/map.js"></script>
+<script>
+     function loadTrailer(movieTitle) {
+        if (!movieTitle) return;
+
+        const trailerIframe = document.getElementById('trailer');
+        const query = encodeURIComponent(movieTitle + " official trailer");
+
+        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=AIzaSyCStt6OCKJD2YY1wOPVkR88PZMjknY3EPw`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.items || data.items.length === 0) {
+                    console.error("❌ 유튜브 API에서 결과를 찾을 수 없습니다!");
+                    return;
+                }
+                const videoId = data.items[0].id.videoId;
+                trailerIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0`;
+            })
+            .catch(error => console.error("YouTube API Error:", error));
+    }
+
+    // 페이지 로드 시 실행
+    document.addEventListener('DOMContentLoaded', function() {
+        const moviesInfo = {{ movies_info | tojson }};
+        const topMovie = moviesInfo.find(movie => movie.rank === 1);
+        if (topMovie) {
+            loadTrailer(topMovie.title);
+        }
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var swiper = new Swiper(".swiper", {
+        slidesPerView: 5, // 기본적으로 5개씩 표시
+        slidesPerGroup: 1,
+        spaceBetween: 20,
+        centeredSlides: false,
+        loop: true,
+        autoplay: {
+            delay: 2000, // 2초마다 슬라이드 변경
+            disableOnInteraction: false,
+        },
+        speed: 600,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            320: { // 모바일 작은 화면 (예: iPhone SE)
+                slidesPerView: 1,
+                spaceBetween: 5
+            },
+            480: { // 일반 모바일 화면
+                slidesPerView: 2,
+                spaceBetween: 10
+            },
+            768: { // 태블릿 화면
+                slidesPerView: 3,
+                spaceBetween: 15
+            },
+            1024: { // 데스크톱 (컨테이너 1600px 기준)
+                slidesPerView: 5, // 🟢 5개씩 보여줌
+                spaceBetween: 20
+            }
+        }
+    });
+
+
+        document.querySelector(".swiper").addEventListener("mouseenter", function() {
+            swiper.autoplay.stop();
+        });
+        document.querySelector(".swiper").addEventListener("mouseleave", function() {
+            swiper.autoplay.start();
+        });
+    });
+
+    // 템플릿에서 데이터 가져오기
+    const moviesData = {{ movies_data | tojson }};
+    const dataSets = {
+        t_sales: moviesData.map(movie => movie.t_sales),
+        c_sales: moviesData.map(movie => movie.c_sales),
+        t_audience: moviesData.map(movie => movie.t_audience),
+        c_audience: moviesData.map(movie => movie.c_audience),
+    };
+    const movieNames = moviesData.map(movie => movie.title);
+
+    let currentMetric = 't_audience';
+
+    // 막대 색상을 제목별로 다르게 설정
+    const barColors = movieNames.map((_, index) => {
+        const colors = [
+            'rgba(255, 99, 132, 0.8)',  // 빨간색
+            'rgba(54, 162, 235, 0.8)', // 파란색
+            'rgba(255, 206, 86, 0.8)', // 노란색
+            'rgba(75, 192, 192, 0.8)', // 초록색
+            'rgba(153, 102, 255, 0.8)', // 보라색
+            'rgba(255, 159, 64, 0.8)',  // 주황색
+            'rgba(99, 255, 132, 0.8)',  // 연초록색
+        ];
+        return colors[index % colors.length]; // 색상 배열을 반복적으로 할당
+    });
+
+    // 차트 초기화
+    const ctx = document.getElementById('chart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: movieNames,
+            datasets: [{
+                label: '일일 관객수',
+                data: dataSets[currentMetric],
+                backgroundColor: barColors, // 노란색 막대
+                borderColor: barColors.map(color => color.replace('0.8','1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false // 범례 표시 안 함
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'black' // X축 텍스트 색상
+                    },
+                    grid: {                        
+                        color: 'rgba(0, 0, 0, 0.2)', // X축 그리드 선 가시성 개선
+                        drawBorder: true
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: 'black' // Y축 텍스트 색상
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.2)', // Y축 그리드 선 가시성 개선
+                        drawBorder: true
+                    }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+// 차트 및 순위 업데이트
+    function updateChartAndRank(metric) {
+        currentMetric = metric;
+
+        // 차트 데이터 및 제목 업데이트
+        chart.data.datasets[0].data = dataSets[metric];
+        chart.data.datasets[0].label = getLabel(metric);
+        chart.update();
+
+        // 표 업데이트
+        updateRanking(metric);
+
+        // 순위표 제목 업데이트
+        const rankTitle = document.getElementById('rank-title');
+        rankTitle.textContent = `${getLabel(metric)}`;
+    }
+
+
+    // 순위 업데이트 함수
+    function updateRanking(metric) {
+        const rankingTableBody = document.getElementById('ranking-table-body');
+        rankingTableBody.innerHTML = ''; // 기존 데이터 삭제
+
+        // 데이터 정렬
+        const sortedMovies = [...moviesData].sort((a, b) => b[metric] - a[metric]);
+
+        // 정렬된 데이터로 표 생성
+        sortedMovies.forEach((movie, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="color: black;">${index + 1}</td>
+                <td style="color: black; white-space: nowrap;">${movie.title}</td>
+            `;
+            rankingTableBody.appendChild(row);
+        });
+    }
+
+    // 메트릭별 레이블 반환
+    function getLabel(metric) {
+        switch (metric) {
+            case 't_audience': return '일일 관객수';
+            case 'c_audience': return '누적 관객수';
+            case 't_sales': return '일일 매출액';
+            case 'c_sales': return '누적 매출액';
+            default: return '';
+        }
+    }
+    // 초기 순위 업데이트
+    updateRanking(currentMetric);
+
+    function loadKakaoMap() {
+        if (window.kakao && window.kakao.maps) {
+            console.log("카카오 맵 API 이미 로드됨");
+            if (typeof initializeMap === "function") {
+                initializeMap(); // 맵 초기화 실행
+            } else {
+                console.error("❌ initializeMap 함수가 정의되지 않음");
+            }
+            return;
+        }
+
+        var script = document.createElement("script");
+        script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_API_KEY&libraries=services";
+        script.async = true;
+        script.defer = true;
+
+        script.onload = function () {
+            console.log("✅ 카카오 맵 API 로드 완료");
+            if (typeof initializeMap === "function") {
+                initializeMap();
+            } else {
+                console.error("❌ initializeMap 함수가 여전히 정의되지 않음");
+            }
+        };
+
+        script.onerror = function () {
+            console.error("🚨 카카오 맵 API 로드 실패");
+            alert("카카오 맵을 로드하는 데 실패했습니다. 네트워크 상태를 확인하세요.");
+        };
+
+        document.head.appendChild(script);
+    }
+
+    window.onload = function () {
+        console.log("🌍 Window onload 실행");
+        loadKakaoMap();
+    };
+</script>
+{% endblock %}

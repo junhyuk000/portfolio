@@ -1,0 +1,168 @@
+
+    {% extends 'employment_base.html' %}
+    {% block css %}
+    <style>
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab.active {
+            background: #fff;
+            border-bottom: 1px solid #fff;
+            margin-bottom: -1px;
+        }
+        .filter-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+        .filter-container select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .result-container {
+            padding: 20px;
+            background: white;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+    {% endblock %}
+
+    {% block content %}
+    <div class="content">
+        <div class="wrap">
+
+            
+            <div class="filter-container">
+                <form id="filterForm">
+                    <select name="career" id="careerFilter">
+                        <option value="">경력 선택</option>
+                        <option value="신입">신입</option>
+                        <option value="경력">경력</option>
+                        <option value="무관">무관</option>
+                    </select>
+                    <select name="education" id="educationFilter">
+                        <option value="">학력 선택</option>
+                        <option value="고졸">고졸</option>
+                        <option value="초대졸">초대졸</option>
+                        <option value="대졸">대졸</option>
+                        <option value="석사">석사</option>
+                        <option value="박사">박사</option>
+                    </select>
+                    <select name="workType" id="workTypeFilter">
+                        <option value="">근무형태 선택</option>
+                        <option value="정규직">정규직</option>
+                        <option value="계약직">계약직</option>
+                        <option value="인턴">인턴</option>
+                    </select>
+                    <select name="site" id="siteFilter">
+                        <option value="">사이트 선택</option>
+                        <option value="사람인">사람인</option>
+                        <option value="잡코리아">잡코리아</option>
+                        <option value="인크루트">인크루트</option>
+                    </select>
+                    <button type="button" onclick="applyFilters()">Filter</button>
+                    <a href="{{url_for('employment_site.refresh_top10')}}">New</a>
+                </form>
+            </div>
+
+            <div class="result-container">
+                <h2>통합 검색결과</h2>
+                {% if results %}
+                    <table id="jobTable">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>사이트</th>
+                                <th>회사명</th>
+                                <th>제목</th>
+                                <th>주소</th>
+                                <th>경력</th>
+                                <th>학력</th>
+                                <th>근무형태</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in results %}
+                            <tr class="job-row">
+                                <td>{{ loop.index }}</td>
+                                <td>{{ result.site }}</td>
+                                <td>{{ result.company }}</td>
+                                <td>{{ result.title }}</td>
+                                <td>{{ result.address }}</td>
+                                <td>{{ result.career }}</td>
+                                <td>{{ result.school }}</td>
+                                <td>{{ result.work_type }}</td>
+                                <td><a href="{{ result.url }}" target="_blank">링크</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>검색 결과가 없습니다.</p>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block js %}
+    <script>
+        function applyFilters() {
+            const career = document.getElementById('careerFilter').value;
+            const education = document.getElementById('educationFilter').value;
+            const workType = document.getElementById('workTypeFilter').value;
+            const site = document.getElementById('siteFilter').value;
+            
+            const rows = document.getElementsByClassName('job-row');
+            
+            for (let row of rows) {
+                const siteCell = row.cells[1].innerText;
+                const careerCell = row.cells[5].innerText;
+                const educationCell = row.cells[6].innerText;
+                const workTypeCell = row.cells[7].innerText;
+                
+                const siteMatch = !site || siteCell.includes(site);
+                const careerMatch = !career || careerCell.includes(career);
+                const educationMatch = !education || educationCell.includes(education);
+                const workTypeMatch = !workType || workTypeCell.includes(workType);
+                
+                row.style.display = (siteMatch && careerMatch && educationMatch && workTypeMatch) ? '' : 'none';
+            }
+        }
+    </script>
+    {% endblock %}

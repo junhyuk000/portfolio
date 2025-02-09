@@ -1,0 +1,15 @@
+Html
+
+- Flex : 크기에 따라서 정렬해줌
+- name1, name2 {} -> and 개념
+- div.classname -> div.classname 자기자신
+  div .classname -> div 안에 .classname 가지고 있는 객체
+- <display>
+	inline (태그에 따라 default) <span>, <a>
+	block (태그에 따라 default) <div>, <h1>, <p>, <ul>, <ol>, <form>
+	inline-block
+	none
+- <a href="대상">링크</a>     하이퍼링크기능
+  <a href="#asd">링크</a> -> <div id="asd"> 책갈피기능
+
+- scroll-behavior : smooth; 스크롤이 스무스하게 넘어감

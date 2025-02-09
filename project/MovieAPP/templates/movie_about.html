@@ -1,0 +1,213 @@
+{% extends "movie_base.html" %}
+
+{% block css %}
+<style>
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .chart-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .chart-container canvas {
+        max-width: 800px;
+        max-height: 400px;
+    }
+
+    .description-container {
+        margin-top: 30px;
+        margin-bottom: 200px;
+        text-align: left;
+        color: black;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .highlight {
+        color: #f39c12;
+    }
+
+    .bold-highlight {
+        color: #e74c3c;
+        font-weight: bold;
+    }
+
+    .large-highlight {
+        color: #3498db;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2>홈페이지 소개</h2>
+
+    <!-- 버튼 -->
+    <div class="button-container">
+        <button class="btn btn-outline-light mx-2" onclick="updateChart('yearly_avg')" style="color:  #ad7b67;">연도별 관람객</button>
+        <button class="btn btn-outline-light mx-2" onclick="updateChart('pre_post_covid')" style="color:  #ad7b67;">코로나 전후 비교</button>
+        <button class="btn btn-outline-light mx-2" onclick="updateChart('pre_post_netflix')" style="color:  #ad7b67;">OTT 전후 비교</button>
+    </div>
+
+    <!-- 그래프 영역 -->
+    <div class="chart-container">
+        <canvas id="mainChart"></canvas>
+    </div>
+
+    <!-- 설명 영역 -->
+    <div class="description-container">
+        <p>
+            <span class="large-highlight">영화</span>는 단순한 영상 콘텐츠가 아니라 사람들에게 
+            <span class="highlight">특별한 경험</span>과 <span class="highlight">추억</span>을 선사합니다.
+            그러나 <strong class="bold-highlight">코로나19 팬데믹</strong> 이후, 그리고 
+            <strong class="bold-highlight">넷플릭스와 같은 OTT 서비스의 급격한 성장</strong>으로 인해 
+            영화관 관람객 수가 <span class="bold-highlight">크게 감소</span>하였습니다. 이에 따라 영화 산업은 
+            새로운 도전에 직면하게 되었고, 많은 영화가 관객들에게 제대로 다가가지 못하고 있는 상황입니다.
+        </p>
+        <p>
+            <span class="large-highlight">이 홈페이지</span>는 이러한 상황을 극복하기 위해 만들어졌습니다.
+            현재 상영 중인 영화들을 알리고, 관객들에게 영화관 관람의 즐거움을 다시 전달하고자 합니다.
+            이곳에서는 아래와 같은 정보를 통해 영화 팬들의 관심과 참여를 유도합니다:
+        </p>
+        <ul>
+            <li>현재 상영 중인 영화의 정보: 영화별 일일 매출액, 누적 매출액, 일일 관객수, 누적 관객수를 직관적인 그래프와 함께 제공합니다.</li>
+            <li>관객 리뷰 및 평가: 관객들이 직접 작성한 리뷰>와 평가를 통해 영화의 실제 매력을 발견할 수 있습니다.</li>
+            <li>영화 산업의 현황 분석: 코로나19 이전과 이후, 그리고 넷플릭스와 같은 OTT 서비스 성장 전후의 관람객 데이터를 비교하여 영화관 산업의 변화를 시각적으로 보여줍니다.</li>
+            <li>영화관람 독려: 현재 상영 중인 영화에 대한 풍부한 정보를 제공함으로써 관객들에게 영화관 방문의 동기를 부여합니다.</li>
+        </ul>
+        <p>
+            최근, <span class="large-highlight">OTT(Over-the-Top)</span> 서비스는 급격히 성장하며 전 세계적으로 콘텐츠 소비 방식을 혁신했습니다. 
+            특히 넷플릭스, 디즈니 플러스, 티빙 등 다양한 유료 가입형 OTT 플랫폼이 등장하면서, 
+            사람들이 집에서도 고품질 콘텐츠를 쉽게 즐길 수 있게 되었습니다.
+        </p>
+        <p>
+            국내에서도 2016년 넷플릭스의 진출을 시작으로, 
+            웨이브, 티빙, 왓챠와 같은 국내 플랫폼이 자리 잡았습니다. 
+            특히, 코로나19 팬데믹 동안 OTT 이용자 수가 폭발적으로 증가하며, 
+            콘텐츠 소비의 중심이 영화관에서 OTT로 옮겨가게 되었습니다.
+        </p>
+        <p>
+            이 홈페이지는 OTT와 영화관이 공존할 수 있는 방향을 모색합니다. 
+            OTT로 제공되는 콘텐츠와 영화관에서의 경험은 각각 고유의 매력을 지니고 있으며, 
+            관객들이 다시 영화관으로 발걸음을 옮길 수 있도록 다각적인 정보를 제공합니다.
+        </p>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let mainChart;
+
+    // 데이터를 Flask에서 가져옴
+    fetch('/popcornapp/movie_about')
+    .then(response => response.json())
+    .then(data => {
+        console.log("Fetched Data:", data);
+
+        if (!data) {
+            alert("데이터가 없습니다. 데이터를 확인해주세요.");
+            return;
+        }
+
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        mainChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.yearly_avg.map(item => item.year),
+                datasets: [{
+                    label: '평균 관객 수 (명)',
+                    data: data.yearly_avg.map(item => item.audiCnt),
+                    backgroundColor: data.yearly_avg.map(item =>
+                        item.year % 2 === 0 ? 'rgba(54, 162, 235, 0.8)' : 'rgba(255, 99, 132, 0.8)'
+                    )
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: '연도별 평균 일일 관객 수',
+                        color: '#333',
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#333',  /* ✅ X축 눈금 글자 색상 */
+                            font: {
+                                size: 14, /* ✅ X축 글자 크기 */
+                                weight: 'bold'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.2)', /* ✅ X축 눈금선 색상 */
+                            lineWidth: 1.5
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#333',  /* ✅ Y축 눈금 글자 색상 */
+                            font: {
+                                size: 14, /* ✅ Y축 글자 크기 */
+                                weight: 'bold'
+                            },
+                            callback: function(value) {
+                                return value.toLocaleString() + ' 명'; /* ✅ 값에 '명' 추가 */
+                            },
+                            stepSize: 500000  /* ✅ Y축 눈금 간격 조정 (예시) */
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.2)', /* ✅ Y축 눈금선 색상 */
+                            lineWidth: 1.5
+                        }
+                    }
+                }
+            }
+        });
+
+        window.updateChart = (metric) => {
+            if (metric === 'yearly_avg') {
+                mainChart.data.labels = data.yearly_avg.map(item => item.year);
+                mainChart.data.datasets[0].data = data.yearly_avg.map(item => item.audiCnt);
+                mainChart.options.plugins.title.text = '연도별 평균 일일 관객 수';
+            } else if (metric === 'pre_post_netflix') {
+                mainChart.data.labels = ['OTT 이전', 'OTT 이후'];
+                mainChart.data.datasets[0].data = data.pre_post_netflix;
+                mainChart.options.plugins.title.text = 'OTT 전후 평균 일일 관객 수 비교';
+            } else if (metric === 'pre_post_covid') {
+                mainChart.data.labels = ['코로나 이전', '코로나 이후'];
+                mainChart.data.datasets[0].data = data.pre_post_covid;
+                mainChart.options.plugins.title.text = '코로나 전후 평균 일일 관객 수 비교';
+            }
+            mainChart.update();
+        };
+    })
+    .catch(error => {
+        console.error("Error fetching movie data:", error);
+        alert("데이터를 불러오는데 실패했습니다.");
+    });
+
+</script>
+{% endblock %}

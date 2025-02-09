@@ -1,0 +1,167 @@
+
+/* 기본 스타일 */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #E8F1F2, #6b91cd); /* 배경 그라데이션 */
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 스타일 */
+.headfixed {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.headfixed h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+    margin: 0;
+    color: #333;
+    letter-spacing: 1.5px;
+}
+/* 로그아웃 버튼 위치 지정 */
+.logout-btn {
+    position: absolute; /* 절대 위치 설정 */
+    right: 20px; /* 오른쪽 끝에서 20px 떨어짐 */
+    top: 15px; /* 위에서 15px 떨어짐 */
+    background-color: #e57373;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 5px 15px rgba(229, 115, 115, 0.4);
+}
+
+.logout-btn:hover {
+    background-color: #b45555;
+    transform: scale(1.05);
+}
+
+/* 버튼 스타일 */
+.buttonstyle {
+    font-family: 'Roboto', sans-serif;
+    background-color: #ad7561;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+}
+
+.buttonstyle:hover {
+    background-color: #E8F1F2;
+    transform: scale(1.1);
+    color: #333;
+}
+
+/* 콘텐츠 영역 */
+.content, .content1 {
+    margin: 200px 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* 타이머 및 제목 스타일 */
+#in {
+    font-family: 'Playfair Display', serif;
+    font-size: 50px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .headfixed h1 {
+        font-size: 28px;
+    }
+    .buttonstyle {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+    #in {
+        font-size: 36px;
+    }
+}
+
+/* 로그인 페이지 스타일 */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6b91cd, #E8F1F2); /* 배경 그라데이션 */
+}
+
+.login-box {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-box h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.login-box input[type="text"]:focus,
+.login-box input[type="password"]:focus {
+    border-color: #6b91cd;
+}
+
+.login-box input[type="submit"] {
+    background-color: #6b91cd;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.login-box input[type="submit"]:hover {
+    background-color: #506a9e;
+    transform: scale(1.05);
+}

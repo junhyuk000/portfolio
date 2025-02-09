@@ -1,0 +1,23 @@
+https://themezy.com : 무료 정적 홈페이지
+
+filezilla : FTP 
+
+cafe24
+
+dothome.co.kr
+
+ - junhyuk000@dothome.co.kr  포토폴리오 홈페이지 
+	메뉴얼 https://builder20.dothome.co.kr/manual
+	관리자 로그인 id = admin
+
+https://www.ivyro.net/ 홈페이지
+
+
+
+
+Python(범용)
+
+	- 응용 프로그램 (exe, gui)
+	- 웹 ~.py -> http:// ~  -> Flask, django, FastAPI
+	- iot
+	- 프로그램 -> 파이참, 비쥬얼스튜디오, jupyter notebook - 아나콘다, 코랩

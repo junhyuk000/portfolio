@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241025 강의내용
+        </div>
+        <div class="content">
+            <div id="myBirthday"></div>
+            <script>
+                function birthday(){
+                    // 연, 월-1, 일, 시, 분 초 지정 특정날짜
+                    let day = new Date(2024, 12-1, 20, 12, 0, 0);
+
+                    // 특정날짜 : ISO 8601 형식
+                    let date1 = new Date('2023-10-27');
+                    let date2 = new date('2023-10-27T12:00:00');
+
+                    // 특정날짜 : 타임스탬프(밀리초)
+                    let date3 = new Date(1698403200000);
+
+                     // 기본 지정 측정 날짜
+                    const date = new Date('2024-12-20');
+                    const nowDate = new Date();
+                    const dDay = Math.ceil((date - nowDate)/(1000*60*60*24));
+                    
+
+                    document.getElementById('myBirthday').innerHTML = "다음 생일까지"+dDay + "일 남았습니다.";
+
+                }
+                setInterval(birthday,1000);
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241025개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Array 객체의 주요속성과 메소드.html">Array 객체의 주요속성과 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="d-day계산.html">d-day계산</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Date 객체 메소드.html">Date 객체 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="String 객체 메소드.html">String 객체 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="생일 D-day.html">생일 D-day</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="시계.html">시계</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="카운트다운.html">카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 최종버전.html">할일 목록 최종버전</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 최종버전2.html">할일 목록 최종버전2</a>
+            <a target="newbox" href="241025.txt">메모장</a>
+
+
+        </div>
+    </body>
+
+</html>

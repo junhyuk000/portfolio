@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241030 강의내용
+        </div>
+        <div class="content">
+            <h1>이미지 변경 예제</h1>
+            <div>
+
+            
+            <img id="myImg" style="display: block; width: 500px; height: 500px;"  src ="https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2FMjAxNjA5MzBfMTA4%2FMDAxNDc1MjAxNjAzODY1.fpsApcGx_Q8Fv-XhEbs7Gw8ZHUi_yBvtx635FcTCsBkg.3vouoMaeWk_T0FU2yGDKV_y48NyOppRTknyi5vIhdAAg.PNG.carpe1723%2F23.png&type=sc960_832">
+            <br><button id="changeImg1">이미지변경1</button>
+            <br><button id="changeImg2">이미지변경2</button>
+        </div>
+            <script>
+                const img = document.getElementById('myImg');
+                const button1 = document. getElementById('changeImg1');
+                const button2 = document. getElementById('changeImg2');
+
+                button1.addEventListener('mouseover', () =>{
+                    img.src ="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzA1MjZfMjE4%2FMDAxNjg1MDg0NzAzNjkw.6VL1MCdiNbVJURpCipqrxfLYgAWosbX1mfY4mLhKEwYg.HCYy3WLjhXoiFowfvijRjGW7LH8O0PZD-2hmdwOWeWwg.PNG.icehongbo%2F07.png&type=sc960_832";
+                });
+
+                button2.addEventListener('dblclick', () =>{ // 더블클릭
+                    img.src ="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn.crowdpic.net%2Fdetail-thumb%2Fthumb_d_6E75D39B2D4D777A0AADEB5B68E1C265.png&type=sc960_832";
+                });
+
+            </script>
+
+        </div>
+
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241030개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="addEventListener 메소드 예제.html">addEventListener 메소드 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="classList 메소드 예제.html">classList 메소드 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="getElementsByClassName 예제.html">getElementsByClassName 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="getElementsByTagName 예제.html">getElementsByTagName 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="LocalStorage 예제.html">LocalStorage 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="querySelectorAll을 활용한 갤러리.html">querySelectorAll을 활용한 갤러리</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="textContent,innerText차이.html">textContent,innerText차이</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드를 사용하기 위해 배열로 변환 예제.html">메서드를 사용하기 위해 배열로 변환 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="이미지 변경 예제.html">이미지 변경 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="제품명query.html">제품명query</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="캐릭터 장바구니.html">캐릭터 장바구니</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="파일 선택 버튼.html">파일 선택 버튼</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 localstorage.html">할일 목록 localstorage</a>
+            <a target="newbox" href="241030.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

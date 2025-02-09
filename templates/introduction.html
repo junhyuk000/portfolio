@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    .selfIntroduction{
+        width: 800px;
+        height: 800px;
+        background-color: white;
+        box-shadow: 0px 0px 7px #999;
+        text-align: center;
+        padding: 5px;
+        
+    }
+    .menu{
+        position: fixed;
+        height: auto;
+        width: auto;
+        background-color: aqua;
+        border-radius: 5px;
+        box-shadow: 0px 0px 7px #999;
+        margin-top: 250px; /* Adjusted to place it below the header */
+    }
+    ul{
+        width: 150px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        cursor: pointer;
+    }
+    li:hover{
+        background-color: #660505;
+        color: white;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="headfixed">
+    <h1>Self-introduction</h1><br>
+    <a href="Home.html"><button class="buttonstyle">Home</button></a>
+    <a href="resume.html"><button class="buttonstyle">Resume</button></a>
+    <a href="introduction.html"><button class="buttonstyle">Self-introduction</button></a>
+    <a href="career.html"><button class="buttonstyle">Career</button></a>
+    <a href="project.html"><button class="buttonstyle">Project</button></a>
+    <a href="education.html"><button class="buttonstyle">Education</button></a>
+    <a href="/logout"><button class="logout-btn">Logout</button></a>
+</div>
+<div class="menu">
+    <ul class="list">
+        <li id="write" onclick="show1()" style="border-bottom: 1px solid lightblue;">army</li>
+        <li id="write" onclick="show2()" style="border-bottom: 1px solid lightblue;">highschool</li>
+        <li id="write" onclick="show3()" style="border-bottom: 1px solid lightblue;">middleschool</li>
+        <li id="write" onclick="show4()">university</li>
+        
+    </ul>
+
+</div>
+<div class="content1">
+    <div class="selfIntroduction" id="selfIntroduction">
+    <div>
+        <h2>안녕하세요. 신준혁입니다.</h2>
+
+    </div>
+    </div>
+</div>
+{% endblock %}

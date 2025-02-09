@@ -1,0 +1,330 @@
+{% extends 'movie_base.html' %}
+{% block css %}
+<style>
+    /* 표가 모바일에서 넘칠 경우 자동 스크롤 가능하게 조정 */
+    .table-responsive {
+        width: 100%;
+        display: block;
+    }
+
+    table {
+        width: 100%; /* 표의 전체 너비를 크게 조정 */
+    }
+
+    table td, table th {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+    /* 표의 hover 효과 */
+    table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.1); /* 연한 회색 */
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    /* 툴팁 스타일 */
+    .tooltip-custom {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 14px;
+        max-width: 300px;
+        display: none;
+        z-index: 1000;
+        white-space: normal;
+    }
+
+    /* 정렬 버튼 & 필터 한 줄 정렬 */
+    .filters-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* 검색 필터 (제목, 감독, 배우, 검색버튼) 한 줄 정렬 */
+    .search-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* 검색 버튼 크기 조정 */
+    .search-btn {
+        width: auto;
+        white-space: nowrap;
+        padding: 5px 15px;
+    }
+
+    /* 검색 입력 필드 크기 조정 */
+    .form-control {
+        max-width: 200px;
+    }
+    /* 반응형 디자인: 화면이 600px 이하일 때 테이블을 스크롤 가능하게 조정 */
+    @media (max-width: 600px) {
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 */
+        }
+
+        table {
+            min-width: 600px; /* 최소 크기 지정하여 가로 스크롤 유도 */
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2 class="mt-4 mb-4 text-center">🎬 모든 영화 데이터 조회</h2>
+
+<div class="container">
+    <!-- 정렬 버튼 + 장르 & 국가 필터 -->
+    <div class="row mb-3">
+        <div class="col-12 filters-container">
+            <div class="btn-group" role="group">
+                <button id="sort-total_audience" class="btn btn-primary sort-btn" onclick="changeOrderBy('total_audience')">
+                    👥 관람객 순
+                </button>
+                <button id="sort-total_sales" class="btn btn-outline-primary sort-btn" onclick="changeOrderBy('total_sales')">
+                    💰 매출액 순
+                </button>
+            </div>
+            <select id="genre" class="form-control">
+                <option value="">🎭 장르</option>
+                {% for g in filters.genres %}
+                <option value="{{ g }}">{{ g }}</option>
+                {% endfor %}
+            </select>
+            <select id="nation" class="form-control">
+                <option value="">🌍 국가</option>
+                {% for n in filters.nations %}
+                <option value="{{ n }}">{{ n }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- 제목, 감독, 배우, 검색 버튼 한 줄 정렬 -->
+    <div class="row mb-3">
+        <div class="col-12 search-container">
+            <input type="text" id="title" class="form-control" placeholder="🎬 제목">
+            <input type="text" id="director" class="form-control" placeholder="🎬 감독">
+            <input type="text" id="actor" class="form-control" placeholder="🎬 배우">
+            <button class="btn btn-primary search-btn" onclick="searchMovies()">🔍 검색</button>
+        </div>
+    </div>
+
+    <!-- 반응형 테이블 -->
+    <div class="table-responsive">
+        <table id="movieTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>순위</th>
+                    <th>제목</th>
+                    <th>장르</th>
+                    <th>국가</th>
+                    <th>감독</th>
+                    <th>배우</th>
+                    <th>매출액</th>
+                    <th>관객수</th>
+                    <th>개봉일</th>
+                    <th>예고편</th>
+                </tr>
+            </thead>
+            <tbody id="movieData"></tbody>
+        </table>
+    </div>
+        <!-- 페이지네이션 컨테이너 추가 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-center">
+                    <div id="pagination" class="btn-group" role="group"></div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- 툴팁 요소 추가 -->
+<div id="tooltip" class="tooltip-custom"></div>
+
+<!-- AJAX -->
+<script>
+    function searchMovies() {
+        let query = `?title=${document.getElementById("title").value}&genre=${document.getElementById("genre").value}&nation=${document.getElementById("nation").value}&director=${document.getElementById("director").value}&actor=${document.getElementById("actor").value}`;
+        fetch(`/popcornapp/filter${query}`)
+            .then(response => response.json())
+            .then(data => updateTable(data));
+    }
+    let currentPage = 1;
+    let currentOrderBy = 'total_audience';  // 기본 정렬 기준
+
+    function updateTable(data) {
+        const tbody = document.getElementById('movieData');
+        tbody.innerHTML = '';
+
+        if (data.data && data.data.length > 0) {
+            data.data.forEach(movie => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${movie.rank}</td>
+                    <td>
+                        <span class="movie-title" data-tooltip="${movie.summary || '설명 없음'}">
+                            ${movie.movie_title}
+                        </span>
+                    </td>
+                    <td>${movie.genre || '-'}</td>
+                    <td>${movie.nations || '-'}</td>
+                    <td>${movie.director || '-'}</td>
+                    <td>${movie.actors || '-'}</td>
+                    <td>${formatNumber(movie.total_sales)}</td>
+                    <td>${formatNumber(movie.total_audience)}</td>
+                    <td>${movie.release_date || '-'}</td>
+                    <td><a href="/popcornapp/movie_youtube/${encodeURIComponent(movie.movie_title)}" target="_blank" class="btn btn-sm btn-outline-success">▶ 예고편</a></td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            updatePagination(data.pages);
+            setupTooltips();
+        } else {
+            tbody.innerHTML = `<tr><td colspan="9" class="text-center">검색 결과가 없습니다.</td></tr>`;
+            document.getElementById('pagination').innerHTML = '';
+        }
+    }
+
+    function setupTooltips() {
+        const tooltip = document.getElementById('tooltip');
+        
+        document.querySelectorAll('td').forEach(cell => {
+            // 셀 안의 텍스트가 생략되었는지 확인
+            if (cell.offsetWidth < cell.scrollWidth) {
+                cell.addEventListener('mouseenter', (e) => {
+                    tooltip.innerText = e.target.innerText; // 원본 전체 텍스트 표시
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = `${e.pageX + 10}px`;
+                    tooltip.style.top = `${e.pageY + 10}px`;
+                });
+
+                cell.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = `${e.pageX + 10}px`;
+                    tooltip.style.top = `${e.pageY + 10}px`;
+                });
+
+                cell.addEventListener('mouseleave', () => {
+                    tooltip.style.display = 'none';
+                });
+            }
+        });
+    }
+
+    function updatePagination(totalPages) {
+        const pagination = document.getElementById('pagination');
+        let paginationHtml = '';
+        
+        // 처음 페이지로 이동
+        paginationHtml += `
+            <button class="btn btn-secondary me-2" 
+                    onclick="changePage(1)"
+                    ${currentPage === 1 ? 'disabled' : ''}>
+                ≪
+            </button>
+        `;
+        
+        // 이전 페이지 버튼
+        paginationHtml += `
+            <button class="btn btn-secondary me-2" 
+                    onclick="changePage(${currentPage - 1})"
+                    ${currentPage === 1 ? 'disabled' : ''}>
+                ＜
+            </button>
+        `;
+        
+        // 페이지 번호들 (현재 페이지 주변 5개만 표시)
+        let startPage = Math.max(1, currentPage - 2);
+        let endPage = Math.min(totalPages, currentPage + 2);
+        
+        if (startPage > 1) {
+            paginationHtml += '<span class="mx-2">...</span>';
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            if (i === currentPage) {
+                paginationHtml += `
+                    <button class="btn btn-primary mx-1">${i}</button>
+                `;
+            } else {
+                paginationHtml += `
+                    <button class="btn btn-outline-primary mx-1" 
+                            onclick="changePage(${i})">
+                        ${i}
+                    </button>
+                `;
+            }
+        }
+        
+        if (endPage < totalPages) {
+            paginationHtml += '<span class="mx-2">...</span>';
+        }
+        
+        // 다음 페이지 버튼
+        paginationHtml += `
+            <button class="btn btn-secondary ms-2" 
+                    onclick="changePage(${currentPage + 1})"
+                    ${currentPage === totalPages ? 'disabled' : ''}>
+                ＞
+            </button>
+        `;
+        
+        // 마지막 페이지로 이동
+        paginationHtml += `
+            <button class="btn btn-secondary ms-2" 
+                    onclick="changePage(${totalPages})"
+                    ${currentPage === totalPages ? 'disabled' : ''}>
+                ≫
+            </button>
+        `;
+        
+        pagination.innerHTML = paginationHtml;
+    }
+
+    function changePage(page) {
+        currentPage = page;
+        searchMovies();
+    }
+
+    function changeOrderBy(orderBy) {
+        currentOrderBy = orderBy;
+        currentPage = 1;  // 정렬 기준이 바뀌면 첫 페이지로 이동
+        searchMovies();
+        
+        // 정렬 버튼 활성화 상태 업데이트
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.classList.remove('btn-primary');
+            btn.classList.add('btn-outline-primary');
+        });
+        document.getElementById(`sort-${orderBy}`).classList.remove('btn-outline-primary');
+        document.getElementById(`sort-${orderBy}`).classList.add('btn-primary');
+    }
+
+    function searchMovies() {
+        let query = `?page=${currentPage}&order_by=${currentOrderBy}&title=${document.getElementById("title").value}&genre=${document.getElementById("genre").value}&nation=${document.getElementById("nation").value}&director=${document.getElementById("director").value}&actor=${document.getElementById("actor").value}`;
+        fetch(`/popcornapp/filter${query}`)
+            .then(response => response.json())
+            .then(data => updateTable(data));
+    }
+
+    // 페이지 로드 시 초기 데이터 로딩
+    document.addEventListener('DOMContentLoaded', function() {
+        currentPage = 1;
+        searchMovies();
+    });
+
+    function formatNumber(num) {
+        return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '-';
+    }
+</script>
+
+{% endblock %}

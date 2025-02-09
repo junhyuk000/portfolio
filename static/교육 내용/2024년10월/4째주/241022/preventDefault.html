@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+    
+    <script>
+    
+    </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241022 강의내용
+        </div>
+        <div class="content">
+            <form id="myForm" onsubmit="return handleSubmit(event)">
+                <h2>이름 입력</h2>
+                <input type="text" id="name" placeholder="이름을 입력하세요" required>
+                <input type="submit" value="제출">
+            </form>
+
+            <script>
+                function handleSubmit(event){
+                    event.preventDefault(); // 기본 폼 제출 방지
+
+                    const name = document.getElementById('name').value;
+                    alert(`안녕하세요, ${name}님!`);
+                    myForm.submit(); // 강제로 폼 제출할수 있음
+                }
+            </script>
+<!------------------------------------------같은 내용 다른 코딩                                                                                           
+            <form id="myForm">
+                <h2>이름 입력</h2>
+                <input type="text" id="name" placeholder="이름을 입력하세요" required>
+                <input type="button" value="제출" onclick="handleSubmit(event)">
+            </form>
+
+            <script>
+                function handleSubmit(event){
+                    const name = document.getElementById('name').value;
+                    alert(`안녕하세요, ${name}님!`);
+                    myForm.submit(); // 강제로 폼 제출할수 있음
+                }
+            </script>
+        -->
+
+
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241022개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="12x10표.html">12x10 표</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="dowhile문.html">do/while 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="forin문.html">for/in 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="for문.html">for 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="if문.html">if 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="preventDefault.html">preventDefault</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="switch문.html">switch 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="while문.html">while 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="구구단.html">구구단</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="나이와 비밀번호.html">나이와 비밀번호</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="더 큰 수를 변수에 대입.html">더 큰 수를 변수에 대입</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="로그인.html">로그인</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="요일 가져오기switch문.html">요일 가져오기</a>
+            <a target="newbox" href="241022.txt">메모장</a>
+    
+
+
+        </div>
+
+</html>
+

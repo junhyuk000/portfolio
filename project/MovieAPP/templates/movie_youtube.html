@@ -1,0 +1,52 @@
+{% extends "movie_base.html" %}
+
+{% block css %}
+<style>
+    /* 비디오를 감싸는 컨테이너 */
+    .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px; /* 최대 너비 */
+        margin: 20px auto; /* 화면 중앙 정렬 */
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 비율 */
+    }
+
+    /* iframe 스타일 */
+    #videoPlayer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* 컨테이너 너비에 맞게 조정 */
+        height: 100%; /* 컨테이너 높이에 맞게 조정 */
+        border: none; /* 테두리 제거 */
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+<h1 style="color: #283618;">{{title}} 예고편</h1>
+
+<!-- 비디오를 감싸는 컨테이너 -->
+<div class="video-container">
+    <iframe
+        id="videoPlayer"
+        src=""
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+    const movieTitle = "{{ title | safe }}"; // 템플릿 변수 값을 JavaScript 전역 변수에 저장
+    console.log(`Movie Title (from Flask): ${movieTitle}`); // 디버깅용 로그
+</script>
+<script src="{{ url_for('popcornapp.static', filename='js/youtube.js') }}"></script>
+{% endblock %}

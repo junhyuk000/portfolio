@@ -1,0 +1,115 @@
+{% extends 'movie_base.html' %}
+{% block css %}
+<style>
+    /* a 태그 기본 스타일 */
+    a {
+        color: inherit; /* ✅ 부모 요소의 기본 글자색을 그대로 사용 */
+        text-decoration: none; /* ✅ 밑줄 제거 */
+        transition: color 0.3s ease-in-out; /* ✅ 부드러운 색상 변경 효과 */
+    }
+
+    /* a 태그 hover 시 색상 변경 */
+    a:hover {
+        color: #dda15e; /* ✅ 마우스를 올리면 색상이 변경됨 */
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+
+    {% if session['id'] %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: #ad7b67;">{% if title %}{{title}}{%endif%}</h2>
+        {% if title %}
+        <a href="/popcornapp/post/add/{{title}}/{{movie_id}}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> 글쓰기
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" id="review-table">
+            <thead class="table-dark">
+                <tr>
+                    <th style="text-align:center;width:70px;">번호</th>
+                    <th style="text-align:center;width:150px;">영화 제목</th>
+                    <th>제목</th>
+                    <th style="text-align:center;width:150px;">별점</th>
+                    <th style="text-align:center;width:100px;">작성자</th>
+                    <th style="text-align:center;width:150px;">작성일</th>
+                    <th style="text-align:center;width:100px;">조회수</th>
+                    <th style="text-align:center;width:100px;">추천수</th>
+                    <th style="text-align:center;width:100px;">이미지 첨부</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td class="row-number" style="text-align:center;color: black;"></td>
+                    <td style="text-align:center; color: black;"><a href="/popcornapp/post/{{title}}/{{post.id}}">
+                        {{post.movie_title}}</a>
+                    </td>
+                    <td>
+                        <a href="/popcornapp/post/{{title}}/{{post.id}}" style="color: black;" class="text-decoration-none">
+                            {% if post.spoiler %}❗스포일러가 포함되어 있습니다.{% else %}{{post.title}}{% endif %}
+                        </a>
+                    </td>
+                    <td style="text-align:center; color: yellow;">{% if post.rating == 10 %}★★★★★{%elif post.rating == 9%}★★★★☆{%elif post.rating == 8%}★★★★{%elif post.rating == 7%}★★★☆{%elif post.rating == 6%}★★★{%elif post.rating == 5%}★★☆{%elif post.rating == 4%}★★{%elif post.rating == 3%}★☆{%elif post.rating == 2%}★{%else%}☆{%endif%}</td>
+                    <td style="text-align:center; color: black">{% if post.username %}{{post.username}}{% else %}-{% endif %}</td>
+                    <td style="text-align:center; color: black">{{post.created_at.strftime('%Y-%m-%d')}}</td>
+                    <td style="text-align:center; color: black">{{post.views}}</td>
+                    <td style="text-align:center; color: black">{{post.recommend}}</td>
+                    <td style="text-align:center; color: black">
+                        {% if post.filename %}
+                            📋
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('popcornapp.review', title=title, movie_id=movie_id, page=page - 1) }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for i in range(1, total_pages + 1) %}
+                <li class="page-item {% if i == page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('popcornapp.review', title=title, movie_id=movie_id, page=i) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+            {% if page < total_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for('popcornapp.review', title=title, movie_id=movie_id, page=page + 1) }}">Next</a>
+                </li>
+            {% endif %}       
+        </ul>
+    </nav>
+    
+    {% else %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color: black;">로그인을 해야 이용 가능합니다.</h2>
+        <a href="/popcornapp/login" class="btn btn-primary">
+            <i class="fas fa-plus"></i> 로그인
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- JavaScript for Auto Numbering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const rows = document.querySelectorAll('#review-table tbody tr');
+        rows.forEach((row, index) => {
+            const numberCell = row.querySelector('.row-number');
+            if (numberCell) {
+                numberCell.textContent = index + 1; // 번호 생성 (1부터 시작)
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            .container{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+
+            }
+            .box{
+                display: block;
+                height: 350px;
+                width: 700px;
+                background-color: #ffff;
+                border-radius: 10px;
+                box-shadow: 0   0   10px #999;
+                padding-top:7px;
+                margin-right: 10px;                
+                float: left;
+                margin-bottom: 10px;
+                overflow-y: scroll;
+        
+            }
+            .ol1{
+                display: block;
+                width: 350px;
+                padding-top:7px;
+                margin-right: 10px;                
+                float: left;
+                margin-bottom: 10px;
+            }
+            .ol2{
+                display: block;
+                width: 200px;
+               padding-top:7px;
+                margin-right: 10px;                
+                float: right;
+                margin-bottom: 10px;
+                list-style-type: none;
+            }
+
+        </style>
+        <script>
+            /* 변수선언 */
+            var list1 = [];
+            var list2 = [];
+            var list3 = [];
+            var list4 = [];
+            var finishTime1 = []; 
+            var finishTime2 = [];
+            var finishTime3 = [];
+            var finishTime4 = [];
+
+            /* 항목추가버튼 함수(눌렀을때 항목이 추가 + 배열 push 사용하여 배열에도 추가) */
+            function addClick1(){ 
+                var a = document.getElementById("text1").value;
+                if (a){               
+                list1.push(a);             
+                document.getElementById('text1').value = "";
+                renderList1();
+                }  else{
+                    alert("입력을해주세요");
+                    return false;
+                }
+                
+            }
+            function addClick2(){    
+                var a = document.getElementById("text2").value;
+                if (a){               
+                list2.push(a);             
+                document.getElementById('text2').value = "";
+                renderList2();
+                }  else{
+                    alert("입력을해주세요");
+                    return false;
+                }
+            }
+            function addClick3(){    
+                var a = document.getElementById("text3").value;
+                if (a){               
+                list3.push(a);             
+                document.getElementById('text3').value = "";
+                renderList3();
+                }  else{
+                    alert("입력을해주세요");
+                    return false;
+                }
+            }
+            function addClick4(){    
+                var a = document.getElementById("text4").value;
+                if (a){               
+                list4.push(a);             
+                document.getElementById('text4').value = "";
+                renderList4();
+                }  else{
+                    alert("입력을해주세요");
+                    return false;
+                }
+            }
+            
+            /* 항목 전체삭제 버튼 함수 (전체삭제 버튼을 클릭하면 해당 항목 text가 모두 지워지며 배열에서도 모두 지워짐, 전체삭제는 위험하므로 confirm알람 추가) */
+            function listAllDelClick1(){
+                var a = confirm("정말 '중요하고 긴급한 일' 항목을 '전체삭제' 하시겠습니까?");
+                if(a){
+                document.getElementById("list1").innerHTML = "";
+                document.getElementById("finishTime1").innerHTML = "";
+                var x= list1.length;
+                var y = finishTime1.length;
+                list1.splice(0,x);
+                finishTime1.splice(0,y);
+                console.log("중요하고 긴급한 항목 : " + list1);
+                console.log("중요하고 긴급한 항목 완료 시간 : "+finishTime1);     
+
+                }else{
+                    return false;
+                }
+            }
+
+            function listAllDelClick2(){
+                var a = confirm("정말 '중요하고 긴급하지 않은 일' 항목을 '전체삭제' 하시겠습니까?");
+                if(a){
+                document.getElementById("list2").innerHTML = "";
+                document.getElementById("finishTime2").innerHTML = "";
+                var x= list2.length;
+                var y = finishTime2.length;
+                list2.splice(0,x);
+                finishTime2.splice(0,y);
+                console.log("중요하고 긴급하지 않은 항목 : "+list2);
+                console.log("중요하고 긴급하지 않은 항목 완료 시간 : "+finishTime2);     
+
+                }else{
+                    return false;
+                }
+            }
+
+            function listAllDelClick3(){
+                var a = confirm("정말 '중요하지 않고 긴급한 일' 항목을 '전체삭제' 하시겠습니까?");
+                if(a){
+                document.getElementById("list3").innerHTML = "";
+                document.getElementById("finishTime3").innerHTML = "";
+                var x= list3.length;
+                var y = finishTime3.length;
+                list3.splice(0,x);
+                finishTime1.splice(0,y);
+                console.log("중요하지 않고 긴급한 항목 : "+list3);
+                console.log("중요하지 않고 긴급한 항목 완료 시간 : "+finishTime3);     
+
+                }else{
+                    return false;
+                }
+            }
+
+            function listAllDelClick4(){
+                var a = confirm("정말 '중요하지 않고 긴급하지 않은 일' 항목을 '전체삭제' 하시겠습니까?");
+                if(a){
+                document.getElementById("list4").innerHTML = "";
+                document.getElementById("finishTime4").innerHTML = "";
+                var x= list4.length;
+                var y = finishTime4.length;
+                list4.splice(0,x);
+                finishTime4.splice(0,y);
+                console.log("중요하지 않고 긴급하지 않은 항목 : "+list4);
+                console.log("중요하지 않고 긴급하지 않은 항목 완료 시간 : "+finishTime4);     
+
+                }else{
+                    return false;
+                }
+            }
+
+           /* 마지막 배열 삭제 + 텍스트 삭제 버튼 함수(배열 pop을 활용하여 마지막 배열에서 삭제함) */
+            function delClick1(){
+                list1.pop();
+                renderList1();
+            }
+            function delClick2(){
+                list2.pop();
+                renderList2();
+            }
+              
+            function delClick3(){
+                list3.pop();
+                renderList3();
+            }
+              
+            function delClick4(){
+                list4.pop();
+                renderList4();
+            }
+
+            function formatNumber(num){
+                if(num < 10){
+                    return "0"+num;
+                }else{
+                    return num;
+                }
+            }
+
+            /* 완료버튼으로 순차적으로 완료시간 추가됨(배열에 앞부분부터 추가하는 것이라 중간에 완료가 안됨) */
+            function finishClick1(index){  
+                const nowTime = new Date();
+                const year = nowTime.getFullYear();
+                const month  = formatNumber(nowTime.getMonth() + 1);
+                const date = formatNumber(nowTime.getDate());
+                const hours = formatNumber(nowTime.getHours());
+                const minutes = formatNumber(nowTime.getMinutes());
+                const seconds = formatNumber(nowTime.getSeconds());  
+                document.getElementById("finishTime1").innerHTML += "<li>" + "[완료]" + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds + "</li><br>";
+                finishTime1.push(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+            }
+
+            function finishClick2(index){  
+                const nowTime = new Date();
+                const year = nowTime.getFullYear();
+                const month  = formatNumber(nowTime.getMonth() + 1);
+                const date = formatNumber(nowTime.getDate());
+                const hours = formatNumber(nowTime.getHours());
+                const minutes = formatNumber(nowTime.getMinutes());
+                const seconds = formatNumber(nowTime.getSeconds());  
+                document.getElementById("finishTime2").innerHTML += "<li>" + "[완료]" + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds + "</li><br>";
+                finishTime2.push(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+            }
+
+            function finishClick3(index){  
+                const nowTime = new Date();
+                const year = nowTime.getFullYear();
+                const month  = formatNumber(nowTime.getMonth() + 1);
+                const date = formatNumber(nowTime.getDate());
+                const hours = formatNumber(nowTime.getHours());
+                const minutes = formatNumber(nowTime.getMinutes());
+                const seconds = formatNumber(nowTime.getSeconds());  
+                document.getElementById("finishTime3").innerHTML += "<li>" + "[완료]" + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds + "</li><br>";
+                finishTime3.push(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+            }
+
+            function finishClick4(index){  
+                const nowTime = new Date();
+                const year = nowTime.getFullYear();
+                const month  = formatNumber(nowTime.getMonth() + 1);
+                const date = formatNumber(nowTime.getDate());
+                const hours = formatNumber(nowTime.getHours());
+                const minutes = formatNumber(nowTime.getMinutes());
+                const seconds = formatNumber(nowTime.getSeconds());  
+                document.getElementById("finishTime4").innerHTML += "<li>" + "[완료]" + year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds + "</li><br>";
+                finishTime4.push(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+            }
+
+
+            /* 텍스트 옆에 있는 삭제버튼 함수로 삭제 버튼 클릭시 해당 텍스트와 해당 인덱스 배열 삭제됨 */
+            function onlyDelClick1(index){
+                list1.splice(index,1);
+                finishTime1.splice(index,1);
+                renderList1();
+            }
+
+            function onlyDelClick2(index){
+                list2.splice(index,1);
+                finishTime2.splice(index,1);
+                renderList2();
+            }
+
+            function onlyDelClick3(index){
+                list3.splice(index,1);
+                finishTime3.splice(index,1);
+                renderList3();
+            }
+
+            function onlyDelClick4(index){
+                list4.splice(index,1);
+                finishTime4.splice(index,1);
+                renderList4();
+            }
+            
+            /* 랜더링 함수로 화면에 표시하는 함수 (forEach를 활용하여 텍스트 표시함) */
+            function renderList1(){
+                document.getElementById("list1").innerHTML = "";
+                list1.forEach((text1,index)=>{
+                    console.log(typeof index);
+                    console.log(index);
+                document.getElementById("list1").innerHTML += `<li>` + list1[index] + `<input type=button value='삭제' onclick = onlyDelClick1(${index})>` +`</li><br>` ;
+                });
+                console.log("중요하고 긴급한 항목 : " + list1);
+
+            }
+            function renderList2(){
+                document.getElementById("list2").innerHTML = "";
+                list2.forEach((text2,index)=>{
+                    console.log(typeof index);
+                    console.log(index);
+                document.getElementById("list2").innerHTML += `<li>` + list2[index] + `<input type=button value='삭제' onclick = onlyDelClick2(${index})>` +`</li><br>` ;
+                });
+                console.log("중요하고 긴급하지 않은 항목 : " + list2);
+
+            }
+
+            function renderList3(){
+                document.getElementById("list3").innerHTML = "";
+                list3.forEach((text3,index)=>{
+                    console.log(typeof index);
+                    console.log(index);
+                document.getElementById("list3").innerHTML += `<li>` + list3[index] + `<input type=button value='삭제' onclick = onlyDelClick3(${index})>` +`</li><br>` ;
+                });
+                console.log("중요하지 않고 긴급한 항목 : " + list3);
+
+            }
+
+           function renderList4(){
+                document.getElementById("list4").innerHTML = "";
+                list4.forEach((text4,index)=>{
+                    console.log(typeof index);
+                    console.log(index);
+                document.getElementById("list4").innerHTML += `<li>` + list4[index] + `<input type=button value='삭제' onclick = onlyDelClick4(${index})>` +`</li><br>` ;
+                });
+                console.log("중요하지 않고 긴급하지 않은 항목 : " + list4);
+
+            }
+            
+    
+
+            
+
+
+
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241024 강의내용
+        </div>
+
+            <div class="content">
+                
+
+
+    
+            <h2>할일 목록</h2>
+            <div class="container">
+           
+
+            <div class="box">
+                <div>
+                    <h3 style="color: red; text-align: center;">중요하고 긴급한 일</h3>
+                    <div style="display: flex; justify-content: center; margin: 5px;">
+                        <input type="text" id="text1" value="" placeholder="입력해주세요." style=" margin-right: 10px; width: 200px; border-radius: 5px;">
+                        <input type="submit" id="sm" value="항목 추가" style="color: red; font-weight: bold;margin-right: 5px;" onclick="addClick1()">
+                        <input type='button' value='마지막 항목 삭제' onclick='delClick1()' style="margin-right: 5px;">
+                        <input type="button" id="sm" value="전체 삭제" onclick="listAllDelClick1()" style="margin-right: 5px; color: white; background-color: red;">
+                        <input type="button" id="sm" value="완료" onclick="finishClick1()" style="color: white; background-color: green; font-weight: bold; margin-right: 5px;">
+    
+                    </div>                    
+                    <ol class="ol1" id="list1"></ol>
+                    <ol class="ol2" id="finishTime1"></ol>
+            </div>
+            </div>
+
+
+            <div class="box">
+                <div>
+                    <h3 style="color: orange; text-align: center;">중요하고 긴급하지 않은 일</h3>
+                    <div style="display: flex; justify-content: center; margin: 5px;">
+                        <input type="text" id="text2" value="" placeholder="입력해주세요." style=" margin-right: 10px; width: 200px; border-radius: 5px;">
+                        <input type="submit" id="sm" value="항목 추가" style="color: orange; font-weight: bold;margin-right: 5px;" onclick="addClick2()">
+                        <input type='button' value='마지막 항목 삭제' onclick='delClick2()' style="margin-right: 5px;">
+                        <input type="button" id="sm" value="전체 삭제" onclick="listAllDelClick2()" style="margin-right: 5px; color: white; background-color: red;">
+                        <input type="button" id="sm" value="완료" onclick="finishClick2()" style="margin-right: 5px; color: white; background-color: green;">
+    
+                    </div>
+                    
+                    <ol class="ol1" id="list2"></ol>
+                    <ol class="ol2" id="finishTime2"></ol>
+            </div>
+            </div>
+
+            <div class="box">
+                <div>
+                    <h3 style="color: green; text-align: center;">중요하지 않고 긴급한 일</h3>
+                    <div style="display: flex; justify-content: center; margin: 5px;">
+                        <input type="text" id="text3" value="" placeholder="입력해주세요." style=" margin-right: 10px; width: 200px; border-radius: 5px;">
+                        <input type="submit" id="sm" value="항목 추가" style="color: green; font-weight: bold;margin-right: 5px;" onclick="addClick3()">
+                        <input type='button' value='마지막 항목 삭제' onclick='delClick3()' style="margin-right: 5px;">
+                        <input type="button" id="sm" value="전체 삭제" onclick="listAllDelClick3()" style="margin-right: 5px; color: white; background-color: red;">
+                        <input type="button" id="sm" value="완료" onclick="finishClick3()" style="margin-right: 5px; color: white ; background-color: green;">
+    
+                    </div>
+                    
+                    <ol class="ol1" id="list3"></ol>
+                    <ol class="ol2" id="finishTime3"></ol>
+            </div>
+            </div>
+
+            <div class="box">
+                <div>
+                    <h3 style="color: lightgreen; text-align: center;">중요하지도 않고 긴급하지 않은 일</h3>
+                    <div style="display: flex; justify-content: center; margin: 5px;">
+                        <input type="text" id="text4" value="" placeholder="입력해주세요." style=" margin-right: 10px; width: 200px; border-radius: 5px;">
+                        <input type="submit" id="sm" value="항목 추가" style="color: lightgreen; font-weight: bold;margin-right: 5px;" onclick="addClick4()">
+                        <input type='button' value='마지막 항목 삭제' onclick='delClick4()' style="margin-right: 5px;">
+                        <input type="button" id="sm" value="전체 삭제" onclick="listAllDelClick4()" style="margin-right: 5px; color: white; background-color: red;">
+                        <input type="button" id="sm" value="완료" onclick="finishClick4()" style="margin-right: 5px; color: white; background-color: green;">
+    
+                    </div>
+                    
+                    <ol class="ol1" id="list4"></ol>
+                    <ol class="ol2" id="finishTime4"></ol>
+            </div>
+            </div>
+
+
+      
+        </div>
+      
+            
+        </div>
+
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241025개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Array 객체의 주요속성과 메소드.html">Array 객체의 주요속성과 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="d-day계산.html">d-day계산</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Date 객체 메소드.html">Date 객체 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="String 객체 메소드.html">String 객체 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="생일 D-day.html">생일 D-day</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="시계.html">시계</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="카운트다운.html">카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 최종버전.html">할일 목록 최종버전</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 최종버전2.html">할일 목록 최종버전2</a>
+            <a target="newbox" href="241025.txt">메모장</a>
+
+        </div>
+
+
+    </body>
+</html>

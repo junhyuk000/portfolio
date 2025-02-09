@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            table{
+                margin: auto;
+                border-collapse: collapse;
+                
+            }
+            th {
+                width: 50px;
+                border: 2px solid #000;
+                background-color: lightblue;
+            }
+            td {
+                border: 1px solid #000;
+                text-align: center;
+            }
+            td:hover{
+                background-color: #999;
+
+            }
+
+        </style>
+    
+
+    </head>
+    <body>
+        <div class="headerfixed">
+            241024 강의내용
+        </div>
+        <div class="content">
+            <h1>배열을 활용한 국영수 과목별 점수(점수를 입력할때마다 학생수 배열이 늘어남)</h1>
+           
+            <input type="text" id="korean"  placeholder="국어성적을 입력해주세요." value="" style="margin-right: 10px; width: 300px;" required>
+            <input type="text" id="math"  placeholder="수학성적을 입력해주세요." style="margin-right: 10px; width: 300px;" required>
+            <input type="text" id="english"  placeholder="영어성적을 입력해주세요." style="margin-right: 10px; width: 300px;"required>
+            <input type="button" value="성적입력" style="cursor: pointer; margin: 5px; color: white; border: none; border-radius: 5px; background-color: lightgreen;" onclick="SubjectPlus()">
+
+     
+        <p id="text">
+
+        </p>
+        
+            <script>
+                var korean = [];
+                var math = [];
+                var english = [];
+                var scores =[];
+                var sum = [];
+                var avg = [];
+
+
+                function SubjectPlus(){    
+                var a = document.getElementById("korean").value;
+                korean.push(parseInt(a));   
+                console.log(korean);
+                var x = korean.length -1;
+                document.getElementById("text").innerHTML += "학생"+korean.length + " [국어성적 : " + korean[x];
+                var b = document.getElementById("math").value;
+                math.push(parseInt(b));   
+                console.log(math);
+                var y = math.length -1;
+                document.getElementById("text").innerHTML +=" 수학성적 : " + math[y];
+                var c = document.getElementById("english").value;
+                english.push(parseInt(c));   
+                console.log(english);
+                var z = english.length -1;
+                document.getElementById("text").innerHTML += " 영어성적 : " + english[z];           
+                for (var i = 0; i < korean.length; i++){                   
+                    sum[i] = korean[i] + math[i]+ english[i];
+                    avg[i] = sum[i] / 3 ;                  
+                }
+                
+                var x= korean.length - 1;
+                document.getElementById("text").innerHTML += " 총점 : " + sum[x] + " 평균 : " + avg[x] + "]<br>";
+
+            }
+                
+                
+    
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241024개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="배열사용 리스트 추가 삭제.html">배열사용 리스트 추가 삭제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="배열을 활용한 성적입력.html">배열을 활용한 성적입력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="자바스크립트 함수.html">자바스크립트 함수</a>
+
+
+
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            .container *{
+                display: block;
+                border: 1px solid lightgray;
+                padding: 5px;
+                margin: 15px;
+
+            }
+            .boldFont{
+                font-weight: bold;
+                color: green;
+            }
+            
+            
+        </style>
+    
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script>
+            
+            $(function(){
+                $('button').on('click', function(){
+                    $("li").not(":odd")
+                    //$("li").filter(":odd")
+                    .css({"border":"2px solid green"});
+    
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241101 강의내용
+        </div>
+        <div class="content">
+            <h1>.filter(), .not() 메소드</h1>
+            <ul>
+                <li>첫 번째 아이템이에요!</li>
+                <li>두 번째 아이템이에요!</li>
+                <li>세 번째 아이템이에요!</li>
+                <li>네 번째 아이템이에요!</li>
+            </ul>
+            <p>제이쿼리에서 인덱스는 언제나 0부터 시작합니다!!</p>
+            <button>클래스 추가 및 제거</button>
+
+        </div>
+        
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241101개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="$.ajax() 메소드.html">$.ajax() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="$.each() 메소드.html">$.each() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="$.get(),$.post() 메소드.html">$.get(),$.post() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="add() 메소드.html">add() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="contents() 메소드.html">contents() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="each() 메소드.html">each() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="end() 메소드.html">end() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="filter(), not() 메소드.html">filter(), not() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="filter(), not() data활용 메소드.html">filter(), not() data활용 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Get 방식과 Post 방식의 비교.html">Get 방식과 Post 방식의 비교</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jQery 시작 Selector.html">jQery 시작 Selector</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="parent(),children() 메소드 (부모,자식 요소).html">parent(),children() 메소드 (부모,자식 요소)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="prop() 메소드.html">prop() 메소드</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="siblings() 메소드 (형제요소).html">siblings() 메소드 (형제요소)</a>
+            <a target="newbox" href="241101.txt">메모장</a>
+    
+    
+
+
+        </div>
+    </body>
+
+</html>

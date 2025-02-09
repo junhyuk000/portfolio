@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="utf-8">
+        <title>CSS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            #container{
+                padding: 20px;
+                margin: 10px;
+                border: 1px solid #000;
+                width: auto;
+            }
+            #header{
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #000;
+            }
+            #content{
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #000;
+                width: auto;
+                float: left;
+            }
+            #sidebar{
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #000;
+                float: right;
+                width: 300px;
+            }
+            #footer{
+                clear: both;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #000;
+            }
+            .head{
+                font-size: 50px;
+                font-weight: bold;
+            }
+            .mhead{
+                font-size: 30px;
+                font-weight: bold;
+            }
+            @media (_max-width: 820px){
+                #container{
+                    width: auto;
+                }
+                #content{
+                    float: none;
+                    width : auto;
+                }
+                #sidebar{
+                    float: none;
+                    width: auto;
+                }
+            }
+
+        </style>        
+    </head>
+    <body>
+        <div class="headerfixed">
+            24017 강의내용
+        </div>
+        <div class="content">
+        <div id="container">
+            <div id="header">
+                <p class="head">Responsive Layout</p>
+
+            </div>
+            <div id="content">
+                <p class="mhead">Content</p>
+                <p>전라북도(全羅北道) 김제시(金堤市)에 전해 내려오는 이야기. ‘가장 긴 이야기’의 주요 모티프는 <br>'속임수로 돈을 번 이야기꾼'과 '이야기 내기로 돈을 되찾은 아들'이다.아주 옛날, 이야기가 귀한 시절에 돈을 내고 <br>아주 긴 이야기를 들으러 간 아버지가 속임수로 돈을 잃어버리자 아들이 더 긴 이야기를 꾸며 내어 잃었던<br> 아버지의 돈을 되찾았다는 이야기로, 언어 희롱적 요소가 강한 민담이다.
+                    [출처] 가장 긴 이야기|작성자 틀</p>
+
+            </div>
+            <div id="sidebar">
+                <p class="mhead">Sidebar</p>
+                <ul>
+                    <li>
+                        전라북도
+                    </li>
+                    <li>
+                        김제시
+                    </li>
+                    <li>
+                        이야기
+                    </li>
+                </ul>
+
+            </div>
+            <div id="footer">
+                <p style="font-style: #999;">Copyright</p>
+
+            </div>
+        </div>
+
+        </div>
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241017개발일지.html">home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="margin.html">margin</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="outline.html">outline</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="position.html">position</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="trans.html">trans</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="float.html">float</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="columns.html">columns</a>
+            <a target="newbox" href="241017.txt">메모장</a>   
+        
+        </div>
+    </body>
+</html>

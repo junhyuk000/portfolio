@@ -1,0 +1,46 @@
+{% extends "movie_base.html" %}
+
+{% block content %}
+<div class="col-md-8 offset-md-2">
+    <h2 class="mb-4">Add a Review</h2>
+    <form method="POST" action="/popcornapp/post/add/{{movie_title}}/{{movie_id}}" enctype="multipart/form-data">
+        <div class="mb-3">
+            <h3 class="mb-4" style="color: white;">{{movie_title}}</h3>
+            
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label" style="color: wheat;">review Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="review-content" class="form-label" style="color: wheat;">Your Review</label>
+            <textarea class="form-control" id="review-content" name="review_content" rows="5" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="file" class="form-label" style="color: wheat;">첨부파일</label>
+            <input type="file" class="form-control" id="file" name="file" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif,.doc,.docx">
+            <div class="form-text" style="color: wheat;">허용된 파일 형식: txt, pdf, png, jpg, jpeg, gif, doc, docx</div>
+        </div>
+        <div class="mb-3">
+            <label for="rating" class="form-label" style="color: wheat;">Rating</label>
+            <select class="form-select" id="rating" name="rating" required>
+                <option value="10">10 - Perpect</option>
+                <option value="9">9 - A+</option>
+                <option value="8">8 - A</option>
+                <option value="7">7 - B+</option>
+                <option value="6">6 - B</option>
+                <option value="5">5 - C+</option>
+                <option value="4">4 - C</option>
+                <option value="3">3 - D+</option>
+                <option value="2">2 - D</option>
+                <option value="1">1 - F</option>
+            </select>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="spoiler" name="spoiler">
+            <label class="form-check-label" for="spoiler" style="color: wheat;">Contains Spoilers</label>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Submit Review</button>
+    </form>
+</div>
+{% endblock %}

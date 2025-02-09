@@ -1,0 +1,37 @@
+h1{font-size: 70px; text-align: center}
+.title {font-size: 100px; margin: auto auto;}
+.head {font-size: 50px; font-weight: bold; text-align: center;}
+.list {font-size: 30px; margin-top:8em; margin-left: 8em; line-height: 5em; font-weight: bold;}
+.titlebox{
+    border: 3px solid #000;
+    border-radius: 30px;
+    box-shadow:5px 5px 0px #999;
+     margin: 10em auto;}
+    body{
+        background-color: #999;
+    }
+    .footfixed{
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: skyblue;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 0 20px #999;
+    }
+    .content{
+        margin: 80px 20px 80px;
+        border-radius: 30px; 
+        border: 3px solid #000;
+        background-color: #fff;
+
+
+        
+    }
+    .textstyle{
+        font-weight: bold; 
+        padding-right: 2px; 
+        border-right: 1px solid #000;
+
+    }

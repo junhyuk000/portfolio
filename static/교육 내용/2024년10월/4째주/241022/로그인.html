@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script>
+    
+    </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241022 강의내용
+        </div>
+        <div class="content" style=" display: flex; justify-content: center; align-items: center;">
+            <div style="background-color: beige; width: 300px; padding: 10px; box-shadow: 0 0 7px rgba(0,0,0,0.1);">
+                <h1>로그인</h1>
+                <form id="login" onsubmit="return handleSubmit(event)">
+                    <input type="text" id="name" placeholder="사용자 이름" style="margin: 5px; width: 95%; " required><br>
+                    <input type="password" id="password" placeholder="비밀번호" style="margin: 5px; width: 95%; " required><br>
+                    <input type="submit" value="로그인" style="cursor: pointer; margin: 5px; color: white; border: none; border-radius: 5px; background-color: lightgreen;">
+                </form>
+                </div>
+    
+                <script>
+                    const realid = "신준혁";
+                    const realpassword = "abc123456";
+
+                    function handleSubmit(event){
+                        event.preventDefault(); // 기본 폼 제출 방지
+                        const name = document.getElementById('name').value;
+                        const password = document.getElementById('password').value;
+                        
+
+                        if (realid === name){
+                            if (realpassword === password){
+                                window.location.href = "preventDefault.html";
+                            }else{
+                                alert (`비밀번호가 다릅니다.`);
+
+                                document.getElementById('password').value = realpassword;
+                            } 
+                        }else{
+                            alert(`이름이 다릅니다.`);
+                            document.getElementById('name').value = realid;
+                        }
+
+                    }
+                </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241022개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="12x10표.html">12x10 표</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="dowhile문.html">do/while 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="forin문.html">for/in 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="for문.html">for 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="if문.html">if 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="preventDefault.html">preventDefault</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="switch문.html">switch 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="while문.html">while 문</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="구구단.html">구구단</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="나이와 비밀번호.html">나이와 비밀번호</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="더 큰 수를 변수에 대입.html">더 큰 수를 변수에 대입</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="로그인.html">로그인</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="요일 가져오기switch문.html">요일 가져오기</a>
+            <a target="newbox" href="241022.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>
+

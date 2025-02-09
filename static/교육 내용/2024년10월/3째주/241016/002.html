@@ -1,0 +1,28 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+<style>
+    .nanum-brush-script-regular {
+    font-family: "Nanum Brush Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+   /* h1 {color: rgb(165, 81, 81);}*/
+   /*h1[title="abc"]{color: rgb(22, 108, 129);}*/
+   h1[title^="abc"]{color: rgb(107, 47, 163);}
+   h1[title^="edf"]{color:#e40f0f !important}
+   h1[title$="edf"]{color:#4bb1ca}
+   h1[title*="qwe"]{color:#28e648 !important}
+   h1[title*="qwe"]{
+    color:#966915;
+    font-size: 50px;
+    font-family: "Nanum Brush Script";
+   }
+</style>
+
+<h1>CSS 학습</h1>
+<h1 title="abc">CSS 학습</h1>
+<h1 title="abc edf">CSS 학습</h1>
+<h1 title="edf abc">CSS 학습</h1>
+<h1 title="dxs edf">CSS 학습</h1>
+<h1 title="dxs qwe edf">CSS 학습</h1>

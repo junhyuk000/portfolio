@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241024 강의내용
+        </div>
+        <div class="content">
+            <h1>자바스크립트 함수</h1>
+
+            <script>
+                function addNum(x,y){
+                    document.write(x+y);
+                    //return  x + y;
+                }
+                addNum(3,7);
+                //document.write(addNum(8,3));
+
+                // 일반함수
+                function sqr(x,y){
+                    return x**y;
+                }
+                document.write("<br>"+sqr(5,3));
+
+
+                // 함수표현식
+                var sqr2 = function(x,y){
+                    return x**y;
+                }
+                document.write("<br>"+sqr2(5,2));
+
+                // 화살표 함수
+                var sqr3 = (x,y) => x**y;
+                //var sqr3 = (x,y) => {x**y}
+                document.write("<br>"+sqr3(2,4));
+
+                var score = [80, 90, 70];
+
+                function sum(dat){
+                    var res =0;
+                    for (var i=0; i< dat.length; i++){
+                         res += dat[i]; 
+                    }
+                    // var res = dat.map(x => x += x);
+                    return res;
+                }
+
+                console.log(sum(score));
+
+            </script>
+            
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241024개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="배열사용 리스트 추가 삭제.html">배열사용 리스트 추가 삭제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="배열을 활용한 성적입력.html">배열을 활용한 성적입력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="자바스크립트 함수.html">자바스크립트 함수</a>
+
+
+
+        </div>
+    </body>
+
+</html>

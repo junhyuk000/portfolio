@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            .thumbnail {
+                width: 100px;
+                cursor: pointer;
+                margin: 5px;
+            }
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241030 강의내용
+        </div>
+        <div class="content">
+            <h1>이미지 갤러리</h1>
+            <img id="mainImage" src="미니언즈.jpg" alt="Main Image" style="width: 450px;"><br>
+            <h3>썸네일</h3>
+            <img class="thumbnail" src="도라에몽.jpg" alt = "Thumbnail 1">
+            <img class="thumbnail" src="짱구.jpg" alt = "Thumbnail 2">
+            <img class="thumbnail" src="슈퍼마리오.jpg" alt = "Thumbnail 3">
+            <img class="thumbnail" src="오리.jpg" alt = "Thumbnail 4">
+
+            <script>
+                const mainImage = document.getElementById('mainImage');
+                const thumbnails = document.querySelectorAll('.thumbnail');
+
+                thumbnails.forEach(thumbnail => {
+                    thumbnail.addEventListener('click', () => {
+                        mainImage.src = thumbnail.src;
+                    });
+                });
+            </script>
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241030개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="addEventListener 메소드 예제.html">addEventListener 메소드 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="classList 메소드 예제.html">classList 메소드 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="getElementsByClassName 예제.html">getElementsByClassName 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="getElementsByTagName 예제.html">getElementsByTagName 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="LocalStorage 예제.html">LocalStorage 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="querySelectorAll을 활용한 갤러리.html">querySelectorAll을 활용한 갤러리</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="textContent,innerText차이.html">textContent,innerText차이</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드를 사용하기 위해 배열로 변환 예제.html">메서드를 사용하기 위해 배열로 변환 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="이미지 변경 예제.html">이미지 변경 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="제품명query.html">제품명query</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="캐릭터 장바구니.html">캐릭터 장바구니</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="파일 선택 버튼.html">파일 선택 버튼</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 localstorage.html">할일 목록 localstorage</a>
+            <a target="newbox" href="241030.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

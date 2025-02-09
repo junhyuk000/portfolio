@@ -1,0 +1,73 @@
+{% extends "movie_base.html" %}
+{% block css %}
+<style>
+    #map { width: 100%; height: 500px; }
+    #placesList {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    #placesList li {
+        margin: 5px 0;
+        cursor: pointer;
+        padding: 5px;
+        border: 1px solid #ddd;
+        background: #f9f9f9;
+    }
+    #placesList li:hover { background: #e0e0e0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h2>Cinemas Near Me</h2>
+<input type="text" id="searchInput" placeholder="주소를 입력하세요" style="width: 300px;">
+<button id="searchButton">검색</button>
+<div id="map"></div>
+<ul id="placesList"></ul>
+{% endblock %}
+{% block js %}
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=be47724c48a9357381269e671a99079c&libraries=services"></script>
+<script src="/popcornapp/static/js/map.js"></script>
+<script>
+    function loadKakaoMap() {
+        if (window.kakao && window.kakao.maps) {
+            console.log("카카오 맵 API 이미 로드됨");
+            if (typeof initializeMap === "function") {
+                initializeMap(); // 맵 초기화 실행
+            } else {
+                console.error("❌ initializeMap 함수가 정의되지 않음");
+            }
+            return;
+        }
+
+        var script = document.createElement("script");
+        script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_API_KEY&libraries=services";
+        script.async = true;
+        script.defer = true;
+
+        script.onload = function () {
+            console.log("✅ 카카오 맵 API 로드 완료");
+            if (typeof initializeMap === "function") {
+                initializeMap();
+            } else {
+                console.error("❌ initializeMap 함수가 여전히 정의되지 않음");
+            }
+        };
+
+        script.onerror = function () {
+            console.error("🚨 카카오 맵 API 로드 실패");
+            alert("카카오 맵을 로드하는 데 실패했습니다. 네트워크 상태를 확인하세요.");
+        };
+
+        document.head.appendChild(script);
+    }
+
+    window.onload = function () {
+        console.log("🌍 Window onload 실행");
+        loadKakaoMap();
+    };
+</script>
+
+{% endblock %}

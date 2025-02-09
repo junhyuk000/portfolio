@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            p{
+                cursor: pointer;
+            }
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241031 강의내용
+        </div>
+        <div class="content">
+            <h1>필터 선택자</h1>
+            <p class="jq">이제부터 <span>제이쿼리</span>를 다 같이 공부해보죠!!</p>
+            <p class="jq">클래스 선택자로 특정 요소들을 한번에 선택할 수 있어요!</p>
+            <p class="jq">마우스로 글씨를 클릭해보세요!!</p>
+            <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+            <script>
+                $(function(){
+                    //$("p").on("click", function(){  
+                        //$("p:eq(2)").on("click", function(){  // 인덱스값을 받아 그 부분만 적용
+                        $("p").eq(1).on("click", function(){  
+                            $(".jq").css({"border":"2px solid orange","background-color":"lightblue","color":"white","box-shadow":"0 0 7px #999"}); // {}를 사용하여 스타일을 1개가 아닌 여러개 설정 가능
+                    })
+                })
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241031개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드 체이닝.html">메서드 체이닝</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드 체이닝2.html">메서드 체이닝2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="선택한 요소의 저장(jquery).html">선택한 요소의 저장(jquery) 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="선택한 요소의 필터링(jquery).html">선택한 요소의 필터링(jquery) 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="속성 선택자(jquery).html">속성 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="아이디 선택자(jquery).html">아이디 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="클래스 선택자(jquery).html">클래스 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="필터 선택자(jquery).html">필터 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="after,before를 활용한 행추가.html">after,before를 활용한 행추가</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="animate.html">animate</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="append,prepend.html">append,prepend</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="check박스 입력값 배열변환.html">check박스 입력값 배열변환</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="disabled 활용.html">disabled 활용</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Form 요소의 선택.html">Form 요소의 선택</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="HTML 태그 선택자(jquery).html">HTML 태그 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="input focus 선택자.html">input focus 선택자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jquery 선택자.html">jquery 선택자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jQuery.html">jQuery</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="toggle,show,hide.html">toggle,show,hide</a>
+            <a target="newbox" href="241031.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

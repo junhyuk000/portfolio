@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            #myBox{
+                background-color: red;
+                position: relative;
+                width: 300px;
+                height: 300px;
+            }
+            
+        </style>
+    
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script>
+            $(function(){
+
+                $("#addButton").on('click',function(){
+                    $('#list').append("<li>.append()로 추가된 아이템이에요!</li>");
+                    $('#list').prepend("<li>.prepend()로 추가된 아이템이에요!!</li>");
+
+                });
+                $("#firstButton").on('click',function(){
+                    $('#first').appendTo('#list');
+        
+                    
+                });
+                $("#secondButton").on('click',function(){
+                    $('#second').appendTo('#list');
+    
+                });
+                $("#thirdButton").on('click',function(){
+                    $('#third').appendTo('#list');
+                 
+                    
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <div class="headerfixed">
+            241031 강의내용
+        </div>
+        <div class="content">
+            <h1>.append(), .prepend() 메소드</h1>
+            <ul id="list">
+                <li id="first">첫 번째 아이템이에요!</li>
+                <li id="second">두 번째 아이템이에요!</li>
+                <li id="third">세 번째 아이템이에요!</li>
+                
+
+            </ul>
+            <button id="addButton">추가</button>   
+            <button id="firstButton">첫 번째 버튼</button>
+            <button id="secondButton">두 번째 버튼</button>
+            <button id="thirdButton">세 번째 버튼</button>
+          
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241031개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드 체이닝.html">메서드 체이닝</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드 체이닝2.html">메서드 체이닝2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="선택한 요소의 저장(jquery).html">선택한 요소의 저장(jquery) 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="선택한 요소의 필터링(jquery).html">선택한 요소의 필터링(jquery) 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="속성 선택자(jquery).html">속성 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="아이디 선택자(jquery).html">아이디 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="클래스 선택자(jquery).html">클래스 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="필터 선택자(jquery).html">필터 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="after,before를 활용한 행추가.html">after,before를 활용한 행추가</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="animate.html">animate</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="append,prepend.html">append,prepend</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="check박스 입력값 배열변환.html">check박스 입력값 배열변환</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="disabled 활용.html">disabled 활용</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="Form 요소의 선택.html">Form 요소의 선택</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="HTML 태그 선택자(jquery).html">HTML 태그 선택자(jquery)</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="input focus 선택자.html">input focus 선택자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jquery 선택자.html">jquery 선택자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="jQuery.html">jQuery</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="toggle,show,hide.html">toggle,show,hide</a>
+            <a target="newbox" href="241031.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

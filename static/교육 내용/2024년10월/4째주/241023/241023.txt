@@ -1,0 +1,90 @@
+함수 정리해서 자바스크립트에 정리해놀것
+개발시 메뉴얼 작성 ex) 함수 사용법, 함수 동작방법, 변수가 뭘로 정의 되엇는지, 이벤트가 언제 동작하는지 등등 자료 남겨 놓아야함
+- break; : 반복문 빠져나오기
+for(var i=1; i < 10; i++){
+	console.log(i);
+	if(i==5) break; 
+}// 5까지 표시하고 반복문 탈출
+
+- continue; : 계속 진행
+for(var i=1; i < 10; i++){
+	if(i==5) continue; 
+	console.log(i);
+}// 5만 빼고 표시함
+
+- function(변수) == 변수 =>
+- function() == () =>
+- 랜더링
+
+- for(let 변수 in 배열>{
+	일반배열 - index
+	연관배열 - key
+}
+
+------------------배열-------------------
+배열 생성 방법
+- var a= 1(정수 리터럴); var a = "굿모닝"(문자열 리터럴); 
+- new : 객체선언
+1. 배열 리털럴 사용
+	- const numbers = [1,2,3,4,5];
+
+2. Array 생성자 함수 사용
+	- const colors = new Array("Red", "Green", "Blue");
+	- const emptyArray = new Array(5); // 길이가 5인 빈 배열 생성
+
+3. 스프레드 연산자(Spread Operator)를 사용한 배열 복사
+	- const originalArray = [1,2,3];
+	- const copyArray = [...originalArray]; // 배열 복사
+	- const mergedArray = [...originalArray, 4, 5] // 배열 병합
+
+배열 메소드
+1. push
+	- 배열의 끝에 하나 이상의 요소를 추가하고, 새로운 배열의 길이를 반환합니다.
+	- const animals = ["Dog", "Cat"];
+	- animals.push("Rabbit");
+	- console.log(animals); // ["Dog", "Cat", "Rabbit"]
+
+2. pop
+	- 배열의 마지막 요소를 제거하고, 제거된 요소를 반환합니다.
+	- const numbers = [1, 2, 3];
+	- const lastNumber = numbers.pop();
+	- console.log(lastNumber); // 3
+	- console.log(numbers); // [1, 2]
+
+3. shift
+	- 배열의 첫 번째 요소를 제거하고, 제거된 요소를 반환합니다.
+	- const fruits = ["Apple", "Banana", "Cherry"];
+	- const firstFruit = fruits.shift();
+	- console.log(firstFruit); // "Apple"
+	- console.log(fruits); // ["Banana", "Cherry"]
+
+4. unshift
+	- 배열의 맨 앞에 하나 이상의 요소를 추가하고, 새로운 배열의 길이를 반환합니다.
+
+5. slice
+	- 배열의 일부를 선택하여 새로운 배열로 반환합니다. 원본 배열은 변경되지 않습니다.
+
+6. splice
+	- 배열의 요소를 제거, 교체, 또는 추가하여 배열을 변경합니다.
+
+7. concat
+	- 두 개 이상의 배열을 결합하여 새로운 배열을 반환합니다.
+	- const combined = arr1.concat(arr2);
+8. map
+	- 배열의 모든 요소에 대해 함수를 호출하고, 그 결과를 새로운 배열로 반환합니다.
+	- const numbers = [1, 2, 3];
+	- const squared = nubers.map((num) => num*num);
+	- console.log(squared); // [1, 4, 9]
+
+9. filter
+	- 배열의 모든 요소에 대해 함수를 호출하고, 그 결과가 true인 요소들만 새로운 배열로 반환합니다.
+	- const nubers = [1, 2, 3, 4, 5];
+	- const evenNumbers = nubers.filter((num) => num % 2 ===0);
+	- console.log(evenNumbers); // [2, 4]
+
+10. reduce
+	- 배열의 모든 요소에 대해 함수를 호출하고, 그 결과를 단일 값으로 축소합니다.
+	- const nubers = [1, 2, 3, 4, 5];
+	- const sum = numbers.reduce((acc, num) => acc + num, 0);
+	- cosole.loge(sum); // 15
+

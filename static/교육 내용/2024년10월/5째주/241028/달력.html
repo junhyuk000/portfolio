@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            table{
+                margin: auto;
+                border-collapse: collapse;
+                
+            }
+            th {
+                width: 50px;
+                border: 2px solid #000;
+                background-color: lightblue;
+            }
+            td {
+                border: 1px solid #000;
+                text-align: center;
+            }
+
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241028 강의내용
+        </div>
+        <div class="content">
+            <table id="a">
+                <thead id="thead">
+
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+
+            </table>
+            <script>
+                let day = [[1,2,3,4,5], 
+                            [6,7,8,9,10,11,12], 
+                            [13,14,15,16,17,18,19], 
+                            [20,21,22,23,24,25,26], 
+                            [27,28,29,30,31]];
+                let first = day[0];
+                first.unshift("","");
+                console.log(first);
+                let second = day[1];
+                let third = day[2];
+                let fourth = day[3];
+                let fifth = day[4]
+                fifth.push("","");
+                console.log(fifth);
+                // let date =["",""];
+                // for (var i = 2; i<33; i++){
+                //     date.push(i-1);
+                // }
+                // console.log(date);
+    
+                document.getElementById("thead").innerHTML = "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
+               
+                    for (var i = 0; i<5;i++){  
+                        let row;                  
+                        row = "<tr>";
+                        for(var j = 0; j<7;j++){
+                        row += "<td>"+ day[i][j] + "</td>";
+                    }                        
+                        row += "</tr>";
+                        document.getElementById("tbody").innerHTML += row; 
+                        
+                    }           
+
+                
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241028개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="각 월의 마지막 일 수를 확인 방법.html">각 월의 마지막 일 수를 확인 방법</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="날짜 카운트다운.html">날짜 카운트다운</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력.html">달력</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="달력2.html">달력2</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자 맞추기 게임.html">랜덤 숫자 맞추기 게임</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="랜덤 숫자.html">랜덤 숫자</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="알람창.html">알람창</a>
+            <a target="newbox" href="241028.txt">메모장</a>
+
+
+        </div>
+    </body>
+
+</html>

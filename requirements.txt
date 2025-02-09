@@ -1,0 +1,10 @@
+flask
+flask-session
+mysql-connector-python
+pymysql
+pytz
+requests
+beautifulsoup4
+pandas
+selenium
+webdriver-manager

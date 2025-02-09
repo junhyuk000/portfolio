@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            
+        </style>
+    
+        <script>
+    
+        </script>
+    </head>
+    <body>
+        <div class="headerfixed">
+            241030 강의내용
+        </div>
+        <div class="content">
+            <input type="text" id="taskInput" placeholder="할 일을 입력하세요">
+            <input type="button" id="addTaskButton" value="추가">
+            <input type="button" id="clearTasksButton" value="모두 지우기">
+            <input type="button" id="loadTasksButton" value="로드">
+            <h2>목록</h2>
+            <ul id="taskList"></ul>
+            <ul id="finishList"></ul>
+
+            <script>
+                let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+               // const finishList = document.getElementById('finishList');
+                const taskList = document.getElementById('taskList');
+                const taskInput = document.getElementById('taskInput');
+                const addTaskButton = document.getElementById('addTaskButton');
+                const clearTasksButton = document.getElementById('clearTasksButton');
+                const loadTasksButton = document.getElementById('loadTasksButton');
+
+                /* 추가버튼  */
+                addTaskButton.addEventListener('click', ()=>{
+                    const task = taskInput.value.trim();
+                    if (task){
+                        tasks.push(task);
+                        taskInput.value = '';
+                        saveTasks();
+                        displayTasks();
+                    }
+                });
+
+                /* 전체삭제버튼 */
+                clearTasksButton.addEventListener('click', ()=>{
+                    tasks=[];
+                    saveTasks();
+                    displayTasks();
+                })
+
+                /* 선택된 인덱스만 삭제하는 버튼 splice를 활용하여 삭제 */
+                function deleteTask(index){
+                    tasks.splice(index,1);
+                    displayTasks();
+                    saveTasks();
+                }
+
+                /* 랜더링 */
+                function displayTasks(){
+                    taskList.innerHTML = '';
+                    //finishList.innerHTML = '';
+                    tasks.forEach((task, index)=>{
+                        const li = document.createElement('li');
+                        li.textContent = task;
+
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = '삭제';
+                        deleteButton.className = 'delete-button';
+                        deleteButton.addEventListener('click', ()=>{
+                            deleteTask(index);
+                        });
+                        li.appendChild(deleteButton);
+                        taskList.appendChild(li);
+
+                        const finishButton = document.createElement('button');
+                        finishButton.textContent = '완료';
+                        finishButton.className = 'finish-button';
+                        finishButton.addEventListener('click', ()=>{
+                            // li.removeChild(finishButton);
+                            // li.removeChild(deleteButton);
+                            const nowTime = new Date();
+                            const year = nowTime.getFullYear();
+                            const month  = formatNumber(nowTime.getMonth() + 1);
+                            const date = formatNumber(nowTime.getDate());
+                            const hours = formatNumber(nowTime.getHours());
+                            const minutes = formatNumber(nowTime.getMinutes());
+                            const seconds = formatNumber(nowTime.getSeconds());  
+                            const time = document.createTextNode('[완료]'+ year+ "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+                            li.replaceChild(time,finishButton);
+                            li.removeChild(deleteButton);
+                            
+                        });
+                        li.appendChild(finishButton);
+                        taskList.appendChild(li);
+                    });
+                    console.log(tasks);
+                }
+
+                /* localSorage에 저장 */
+                function saveTasks(){
+                    localStorage.setItem('tasks', JSON.stringify(tasks));
+                }
+
+                function formatNumber(num){
+                if(num < 10){
+                    return "0"+num;
+                }else{
+                    return num;
+                }
+                }
+
+
+                /**/
+                
+
+            
+
+            </script>
+
+        </div>
+    
+    
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241030개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="addEventListener 메소드 예제.html">addEventListener 메소드 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="classList 메소드 예제.html">classList 메소드 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="getElementsByClassName 예제.html">getElementsByClassName 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="getElementsByTagName 예제.html">getElementsByTagName 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="LocalStorage 예제.html">LocalStorage 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="querySelectorAll을 활용한 갤러리.html">querySelectorAll을 활용한 갤러리</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="textContent,innerText차이.html">textContent,innerText차이</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="메서드를 사용하기 위해 배열로 변환 예제.html">메서드를 사용하기 위해 배열로 변환 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="이미지 변경 예제.html">이미지 변경 예제</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="제품명query.html">제품명query</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="캐릭터 장바구니.html">캐릭터 장바구니</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="파일 선택 버튼.html">파일 선택 버튼</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="할일 목록 localstorage.html">할일 목록 localstorage</a>
+            <a target="newbox" href="241030.txt">메모장</a>
+    
+
+
+        </div>
+    </body>
+
+</html>

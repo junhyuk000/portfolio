@@ -1,0 +1,44 @@
+{% extends 'movie_base.html' %}
+
+{% block content %}
+    <div class="container mt-4" style="text-align:center;">
+        
+            
+        
+
+        
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="text-center">회원가입</h2>
+        <form method="POST" action="/popcornapp/register" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="username" class="form-label" style="color: black;">이름</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="userid" class="form-label" style="color: black;">아이디</label>
+                <input type="text" class="form-control" id="userid" name="userid" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label" style="color: black;">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label" style="color: black;">비밀번호 확인</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <div class="mb-3">            
+            <label for="file" class="form-label" style="color: black;">프로필 사진(선택)</label>
+            <input type="file" class="form-control" id="file" name="file" accept=".txt,.pdf,.png,.jpg,.jpeg,.gif,.doc,.docx">
+            <div class="form-text" style="color: black;">허용된 파일 형식: txt, pdf, png, jpg, jpeg, gif, doc, docx</div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">회원가입</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="/popcornapp/login">이미 계정이 있으신가요? 로그인하기</a>
+        </div>
+    </div>
+</div>
+
+    </div>
+{% endblock %}

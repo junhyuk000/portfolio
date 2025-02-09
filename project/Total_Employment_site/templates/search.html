@@ -1,0 +1,12 @@
+{% extends 'employment_base.html' %}
+{% block content %}
+<div class="search-container">
+    <form method="POST" action="{{ url_for('employment_site.search') }}">
+        <input type="text" class="search-input" placeholder="검색어를 입력해주세요" name="search_query" required>
+        <button type="submit" class="btn search-btn">
+            검색
+        </button>
+    </form>
+	{#<a href="{{  url_for('employment_site.total')  }}" target="_blank">통합</a>#}
+</div>
+{% endblock %}

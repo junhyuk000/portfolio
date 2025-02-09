@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <style>
+            .yfixed{
+                height: auto;
+                width: auto;
+                position: fixed;
+                background-color: beige;
+            }
+            ul {
+                background-color: bisque;
+                width: 150px;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+            li a{
+                display: block;
+                color: #000;
+                text-decoration: none;
+                font-weight: bold;
+                cursor: pointer;
+
+            }
+            li a:hover{
+                background-color: #660505;
+                color: white;
+            }
+            li a:active{
+                /*display: none;*/
+                visibility: hidden;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="content">
+        <div class="headerfixed">
+            241018 개발일지
+        </div>
+        <h1>수직 내비게이션 바</h1>
+        
+        <div class="yfixed">
+            <ul>
+                <li><a>Home</a></li>
+                <li><a>Html</a></li>
+                <li><a>CSS</a></li>
+                <li><a>자바스크립트</a></li>
+            </ul>
+        </div>
+        <div class="footerfixed">
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="241018개발일지.html">Home</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="나의 개발일지 블로그.html">나의 개발일지 블로그</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="드롭다운 메뉴.html">드롭다운 메뉴</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="드롭다운 효과.html">드롭다운 효과</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="상품 장바구니.html">상품장바구니</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="수직 내비게이션 바.html">수직 내비게이션 바</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="토글.html">토글</a>
+            <a style="padding-right: 5px; border-right: 1px solid #000;" href="학원 홈페이지.html">학원 홈페이지</a>
+            <a target="newbox" href="241018.txt">메모장</a>
+    
+
+
+        </div>
+        </div>
+    </body>
+</html>
