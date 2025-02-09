@@ -18,14 +18,17 @@ CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
 
 def get_chrome_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # GUI 없는 환경에서 실행
+    chrome_options.add_argument("--headless")  # GUI 없이 실행
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")  # /dev/shm 문제 방지
-    chrome_options.add_argument("--disable-gpu")  # GPU 비활성화
-    # chrome_options.add_argument("--disable-software-rasterizer")  # 렌더링 이슈 방지
-    # chrome_options.add_argument("--remote-debugging-port=9222")  # 디버깅 포트 설정
-    # chrome_options.add_argument(f'--proxy-server={"http://5.9.198.34:55555"}')  # 프록시 설정
-    service = Service(CHROMEDRIVER_PATH)
+    chrome_options.add_argument("--disable-dev-shm-usage")
+
+    # ChromeDriver 경로 설정
+    chrome_driver_path = "/usr/bin/chromedriver"
+
+    # Chrome 실행 경로 명시
+    chrome_options.binary_location = "/usr/lib/chromium/chromium"
+
+    service = Service(chrome_driver_path)
     return webdriver.Chrome(service=service, options=chrome_options)
 
 ###변경
