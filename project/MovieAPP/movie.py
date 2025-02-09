@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, send_from_directory, jsonify ,request, redirect, session,flash, Blueprint
+from flask import Flask, url_for, render_template, send_from_directory, jsonify ,request, redirect, session,flash, Blueprint, current_app
 from functools import wraps
 import os
 from datetime import datetime
@@ -86,7 +86,7 @@ def register():
         
         filename = file.filename if file else None
         if filename:
-            file_path = os.path.join(app.config['USER_IMAGE_FOLDER'], filename)
+            file_path = os.path.join(current_app.config['USER_IMAGE_FOLDER'], filename)
             file.save(file_path)
             
         if manager.duplicate_user(id):
@@ -100,12 +100,13 @@ def register():
     return render_template('movie_register.html')
 
 
-### 로그아웃
 @popcornapp.route('/logout')
 def delete_session_data():
-    session.clear()
+    session.pop('id', None)  # 특정 키만 삭제
+    session.pop('name', None)
+    session.pop('filename', None)
     flash("로그아웃 되었습니다.", "success")
-    return render_template('movie_login.html')
+    return redirect(url_for('popcornapp.login'))
 
 ### 내정보
 @popcornapp.route('/myinfo')
@@ -248,7 +249,7 @@ def add_post(movie_title,movie_id):
         filename = None
         if file and file.filename:
             filename = file.filename
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
 
         if manager.insert_post(title, content, filename, userid, username, rating, spoiler, movie_title, movie_id):
@@ -271,7 +272,7 @@ def edit_post(id):
         filename = file.filename if file else None
         
         if filename:
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
         
         # 게시글 정보를 업데이트
@@ -294,7 +295,7 @@ def delete_post(id):
     if post:
         file = post.get('filename')
         if file:
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file)
+            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file)
             os.remove(file_path)
             flash("file삭제",'success')
             if manager.delete_post(id,user_id):
