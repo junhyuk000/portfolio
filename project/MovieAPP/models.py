@@ -403,6 +403,7 @@ class DBManager:
         return filename.strip()  # 앞뒤 공백 제거
 
     ### 이미지파일 movies 테이블에 업데이트
+
     def update_filename_in_db(self, table_name):
         """
         데이터베이스에서 title 컬럼에 해당하는 filename 값을 업데이트합니다.
@@ -410,15 +411,22 @@ class DBManager:
         try:
             self.connect()
 
-            # 이미지 파일 목록 가져오기
-            image_files = os.listdir("/static/images")
-            noimage_path = os.path.join('/static/images', 'noimage.jpg')
+            # ✅ 현재 실행 중인 파일의 디렉토리 기준으로 static 경로 가져오기
+            base_dir = os.path.abspath(os.path.dirname(__file__))  # 현재 파일의 절대 경로 가져오기
+            image_folder = os.path.join(base_dir, "static", "images")  # 상대경로 변환
 
-            # noimage.jpg 확인
-            if 'noimage.jpg' not in image_files:
-                print("Warning: 'noimage.jpg' 파일이 존재하지 않습니다.")
+            # ✅ 폴더가 없으면 자동 생성
+            if not os.path.exists(image_folder):
+                os.makedirs(image_folder)
+                print(f"📂 Created directory: {image_folder}")
 
-            # SQL로 title 데이터 가져오기
+            # ✅ 이미지 파일 목록 가져오기
+            image_files = os.listdir(image_folder)
+            print(f"🖼️ Found image files: {image_files}")
+
+            noimage_path = os.path.join(image_folder, 'noimage.jpg')
+
+            # ✅ 데이터베이스 연결 후 파일 업데이트 (기존 로직 유지)
             self.cursor.execute(f"SELECT id, title FROM {table_name}")
             rows = self.cursor.fetchall()
 
@@ -427,22 +435,22 @@ class DBManager:
                 sanitized_title = self.sanitize_filename(title)
                 matched_file = None
 
-                # 이미지 파일 이름 매칭
+                # ✅ 이미지 파일이 존재하는지 확인
                 for image_file in image_files:
                     file_name, _ = os.path.splitext(image_file)
                     if sanitized_title[:15] == file_name[:15]:
                         matched_file = image_file
                         break
 
-                # 이미지가 없으면 noimage.jpg 사용
+                # ✅ 이미지가 없으면 noimage.jpg 사용
                 if not matched_file:
                     matched_file = "noimage.jpg"
 
-                # SQL UPDATE
+                # ✅ 데이터베이스 업데이트 실행
                 sql = f"""
                     UPDATE {table_name}
                     SET filename = %s
-                    WHERE title = %s AND (filename IS NULL OR filename = 'noimage.jpg');
+                    WHERE title = %s;
                 """
                 values = (matched_file, title)
                 self.cursor.execute(sql, values)
@@ -451,10 +459,11 @@ class DBManager:
             self.connection.commit()
             print(f"{self.cursor.rowcount} rows updated in {table_name} table.")
 
-        except mysql.connector.Error as error:
-            print(f"Error updating filename: {error}")
+        except Exception as e:
+            print(f"❌ Error updating filename: {e}")
         finally:
             self.disconnect()
+
 
     ### KOBIS사이트에서 일별 박스오피스 및 영화 상세정보 API 가져와서 PANDAS를 활용하여 필요한 데이터 추출    
     def moives_info(self):
