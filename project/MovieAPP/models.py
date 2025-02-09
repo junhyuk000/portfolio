@@ -18,7 +18,13 @@ class DBManager:
         # MySQL 데이터베이스 연결
         self.connection = None
         self.cursor = None
-        
+    
+    def initialize_movies_data(self):
+        """ 앱 시작 시 한 번만 실행할 함수 """
+        self.moives_info()
+        self.movies_images()
+        self.update_filename_in_db("movies")
+
     def connect(self):
         try:
             if not self.connection or not self.connection.is_connected():

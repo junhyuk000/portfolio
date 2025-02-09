@@ -1,6 +1,6 @@
 from flask import Flask, url_for, render_template, send_from_directory, redirect, session, request
 from project.Total_Employment_site.site import employment_site
-from project.MovieAPP.movie import popcornapp
+from project.MovieAPP.movie import popcornapp, manager
 from functools import wraps
 from flask_session import Session # 서버용 세션 모듈
 from datetime import timedelta
@@ -30,6 +30,8 @@ Session(app)
 # 블루프린트 등록
 app.register_blueprint(employment_site)
 app.register_blueprint(popcornapp)
+
+manager.initialize_movies_data()
 
 users = {
     '신준혁': {'password':'1234', 'role':'admin'},

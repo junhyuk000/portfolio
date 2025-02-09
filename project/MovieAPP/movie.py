@@ -15,9 +15,6 @@ popcornapp = Blueprint('popcornapp', __name__,
                           url_prefix='/popcornapp')
 
 manager = DBManager()
-manager.moives_info()
-manager.movies_images()
-manager.update_filename_in_db("movies")
 
 
 ### images 폴더 static/images 폴더로 연결
