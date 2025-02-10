@@ -71,7 +71,7 @@
         <div class="project-title" onclick="toggleProject(this, 'popcornapp-content')">📌 PopcornAPP (개인 프로젝트)</div>
         <div id="popcornapp-content" class="project-content">
             <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
+            <button class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('popcornapp.movies') }}"><button class="btn">🔗 PopcornAPP 사이트 이동</button></a>
         </div>
     </div>
@@ -81,18 +81,23 @@
         <div class="project-title" onclick="toggleProject(this, 'employment-content')">📌 Total_Employment_Site (개인 프로젝트)</div>
         <div id="employment-content" class="project-content">
             <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml') }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('employment_site.index') }}"><button class="btn">🔗 Total_Employment_Site 이동</button></a>
         </div>
     </div>
 
     <!-- PDF 및 Excel 뷰어 영역 -->
-    <iframe id="fileViewer" class="viewer-container"></iframe>
+    <iframe id="fileViewer" class="viewer-container" style="width: 100%; height: 1000px; border: none;"></iframe>
+
 </div>
 {% endblock %}
 
 {% block js %}
 <script>
+    
+    function showExcel(fileUrl) {
+        const viewer = document.getElementById("fileViewer");
+
     function toggleProject(element, contentId) {
         document.querySelectorAll('.project-content').forEach(content => {
             if (content.id !== contentId) {
