@@ -2,20 +2,23 @@
 {% block css %}
 <style>
     .content-wrapper {
-        text-align: left;
-        margin: 200px 20px 20px;
-        max-width: 800px;
+        text-align: center; /* 중앙 정렬 */
+        margin: 100px auto;
+        max-width: 1000px;
     }
 
     /* 프로젝트 제목 스타일 */
     .project-title {
-        font-size: 22px;
+        font-size: 24px;
         font-weight: bold;
-        margin: 15px 0;
+        margin: 20px 0;
         cursor: pointer;
         transition: color 0.3s;
-        padding: 10px;
-        border-bottom: 1px solid #ddd;
+        padding: 15px;
+        border-bottom: 2px solid #ddd;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
     }
 
     .project-title:hover {
@@ -25,8 +28,8 @@
     /* 프로젝트 내용 */
     .project-content {
         display: none;
-        padding-left: 20px;
-        margin-top: 10px;
+        margin-top: 20px;
+        text-align: center;
     }
 
     /* 버튼 스타일 */
@@ -35,14 +38,13 @@
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
+        padding: 12px 20px;
+        border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin: 5px 0;
-        text-align: left;
-        width: 100%;
-        max-width: 250px;
+        margin: 10px auto;
+        text-align: center;
+        width: 300px;
     }
 
     .btn:hover {
@@ -53,10 +55,39 @@
     .viewer-container {
         display: none;
         margin-top: 20px;
+        width: 90%;
+        height: 800px;
+        border: 2px solid #ddd;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        background: white;
+    }
+
+    /* Excel 데이터 표시 스타일 */
+    .excel-viewer {
+        display: none;
+        margin: 20px auto;
+        width: 90%;
+        max-height: 800px;
+        overflow: auto;
+        border: 2px solid #ddd;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        background: white;
+        padding: 20px;
+    }
+
+    table {
         width: 100%;
-        height: 600px;
+        border-collapse: collapse;
+    }
+
+    th, td {
         border: 1px solid #ddd;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f4f4f4;
     }
 </style>
 {% endblock %}
@@ -65,46 +96,91 @@
 <div class="content-wrapper">
     <!-- PopcornAPP -->
     <div class="project">
-        <div class="project-title" onclick="toggleProject(this)">📌 PopcornAPP (개인 프로젝트)</div>
-        <div class="project-content">
-            <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf', _external=True) }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx', _external=True) }}')">📊 WBS 및 요구사항 보기</button>
+        <div class="project-title" onclick="toggleProject(this, 'popcornapp-content')">📌 PopcornAPP (개인 프로젝트)</div>
+        <div id="popcornapp-content" class="project-content">
+            <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PPT (PDF) 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('popcornapp.movies') }}"><button class="btn">🔗 PopcornAPP 사이트 이동</button></a>
         </div>
     </div>
 
     <!-- Total_Employment_Site -->
     <div class="project">
-        <div class="project-title" onclick="toggleProject(this)">📌 Total_Employment_Site (개인 프로젝트)</div>
-        <div class="project-content">
-            <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf', _external=True) }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx', _external=True) }}')">📊 WBS 및 요구사항 보기</button>
+        <div class="project-title" onclick="toggleProject(this, 'employment-content')">📌 Total_Employment_Site (개인 프로젝트)</div>
+        <div id="employment-content" class="project-content">
+            <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PPT (PDF) 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('employment_site.index') }}"><button class="btn">🔗 Total_Employment_Site 이동</button></a>
         </div>
     </div>
 
     <!-- PDF 및 Excel 뷰어 영역 -->
     <iframe id="fileViewer" class="viewer-container"></iframe>
+    <div id="excelViewer" class="excel-viewer"></div>
 </div>
 {% endblock %}
 
 {% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 <script>
-    function toggleProject(element) {
-        const content = element.nextElementSibling;
+    function toggleProject(element, contentId) {
+        // 모든 프로젝트 내용을 숨김
+        document.querySelectorAll('.project-content').forEach(content => {
+            if (content.id !== contentId) {
+                content.style.display = "none";
+            }
+        });
+
+        // 클릭한 프로젝트 내용 토글
+        const content = document.getElementById(contentId);
         content.style.display = content.style.display === "block" ? "none" : "block";
     }
 
     function showPdf(fileUrl) {
+        document.getElementById("excelViewer").style.display = "none"; // 엑셀 뷰어 숨김
         const viewer = document.getElementById("fileViewer");
         viewer.style.display = "block";
         viewer.src = fileUrl;
     }
 
     function showExcel(fileUrl) {
-        const viewer = document.getElementById("fileViewer");
-        viewer.style.display = "block";
-        viewer.src = "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(fileUrl);
+        document.getElementById("fileViewer").style.display = "none"; // PDF 뷰어 숨김
+        const excelViewer = document.getElementById("excelViewer");
+        excelViewer.style.display = "block";
+        excelViewer.innerHTML = "<h3>📊 WBS 및 요구사항 보기</h3><p>엑셀 파일을 로드 중...</p>";
+
+        fetch(fileUrl)
+            .then(response => response.arrayBuffer())
+            .then(data => {
+                const workbook = XLSX.read(new Uint8Array(data), { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+                displayExcelData(jsonData);
+            })
+            .catch(error => {
+                excelViewer.innerHTML = "<p>❌ 엑셀 파일을 불러오는 데 실패했습니다.</p>";
+                console.error("Error loading Excel file:", error);
+            });
+    }
+
+    function displayExcelData(data) {
+        const excelViewer = document.getElementById("excelViewer");
+        excelViewer.innerHTML = "<h3>📊 WBS 및 요구사항 보기</h3>";
+
+        const table = document.createElement("table");
+        data.forEach((row, rowIndex) => {
+            let tr = document.createElement("tr");
+            row.forEach(cell => {
+                let td = document.createElement(rowIndex === 0 ? "th" : "td");
+                td.textContent = cell;
+                tr.appendChild(td);
+            });
+            table.appendChild(tr);
+        });
+
+        excelViewer.appendChild(table);
     }
 </script>
 {% endblock %}
