@@ -2,12 +2,11 @@
 {% block css %}
 <style>
     .content-wrapper {
-        text-align: center; /* 중앙 정렬 */
+        text-align: center;
         margin: 100px auto;
         max-width: 1000px;
     }
 
-    /* 프로젝트 제목 스타일 */
     .project-title {
         font-size: 24px;
         font-weight: bold;
@@ -25,14 +24,12 @@
         color: #007bff;
     }
 
-    /* 프로젝트 내용 */
     .project-content {
         display: none;
         margin-top: 20px;
         text-align: center;
     }
 
-    /* 버튼 스타일 */
     .btn {
         display: block;
         background-color: #007bff;
@@ -51,12 +48,11 @@
         background-color: #0056b3;
     }
 
-    /* PDF 및 Excel 뷰어 */
     .viewer-container {
         display: none;
         margin-top: 20px;
         width: 100%;
-        height: 1000px; /* 크기 확대 */
+        height: 1000px;
         border: none;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
         background: white;
@@ -66,7 +62,6 @@
 
 {% block content %}
 <div class="content-wrapper">
-    <!-- PopcornAPP -->
     <div class="project">
         <div class="project-title" onclick="toggleProject(this, 'popcornapp-content')">📌 PopcornAPP (개인 프로젝트)</div>
         <div id="popcornapp-content" class="project-content">
@@ -76,7 +71,6 @@
         </div>
     </div>
 
-    <!-- Total_Employment_Site -->
     <div class="project">
         <div class="project-title" onclick="toggleProject(this, 'employment-content')">📌 Total_Employment_Site (개인 프로젝트)</div>
         <div id="employment-content" class="project-content">
@@ -86,18 +80,13 @@
         </div>
     </div>
 
-    <!-- PDF 및 Excel 뷰어 영역 -->
-    <iframe id="fileViewer" class="viewer-container" style="width: 100%; height: 1000px; border: none;"></iframe>
-
+    <!-- PDF 및 Excel 뷰어 -->
+    <iframe id="fileViewer" class="viewer-container"></iframe>
 </div>
 {% endblock %}
 
 {% block js %}
 <script>
-    
-    function showExcel(fileUrl) {
-        const viewer = document.getElementById("fileViewer");
-
     function toggleProject(element, contentId) {
         document.querySelectorAll('.project-content').forEach(content => {
             if (content.id !== contentId) {
@@ -118,7 +107,7 @@
     function showExcel(fileUrl) {
         const viewer = document.getElementById("fileViewer");
         viewer.style.display = "block";
-        viewer.src = "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(fileUrl);
+        viewer.src = fileUrl;  // ✅ Google Sheets URL은 그대로 삽입해야 함
     }
 </script>
 {% endblock %}
