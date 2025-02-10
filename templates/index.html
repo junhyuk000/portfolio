@@ -1,109 +1,130 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
-    /* ✅ 헤더와 겹치지 않도록 전체 컨텐츠에 여백 추가 */
+    /* ✅ 전체 레이아웃 정리 */
     .content-wrapper {
         text-align: center;
-        margin: 0 auto;
-        max-width: 1000px;
-        padding-top: 100px; /* 헤더 높이만큼 추가 */
+        margin: 100px auto;
+        max-width: 1200px;
     }
 
-    /* ✅ 프로젝트 제목이 헤더 아래에서 보이도록 수정 */
-    .project-title {
-        font-size: 24px;
-        font-weight: bold;
-        margin: 80px 0 20px; /* 헤더와 겹치지 않도록 위쪽 여백 추가 */
-        cursor: pointer;
-        transition: color 0.3s;
-        padding: 15px;
-        border-bottom: 2px solid #ddd;
-        display: inline-block;
+    /* ✅ 프로젝트 카드 전체 레이아웃 (그리드 배치) */
+    .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* 반응형 2열 */
+        gap: 20px;
+        justify-content: center;
+    }
+
+    /* ✅ 개별 프로젝트 카드 디자인 */
+    .project-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .project-card:hover {
+        transform: scale(1.02);
+    }
+
+    /* ✅ 프로젝트 정보 테이블 */
+    .project-info {
         width: 100%;
-        text-align: center;
+        border-collapse: collapse;
+        margin-bottom: 15px;
     }
 
-    .project-title:hover {
+    .project-info td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .project-info td:first-child {
+        font-weight: bold;
         color: #007bff;
+        width: 30%;
     }
 
-    .project-content {
-        display: none;
-        margin-top: 20px;
-        text-align: center;
-    }
-
+    /* ✅ 버튼 스타일 */
     .btn {
-        display: block;
+        display: inline-block;
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 12px 20px;
+        padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s;
-        margin: 10px auto;
-        text-align: center;
-        width: 300px;
+        text-decoration: none;
+        margin-right: 10px;
     }
 
     .btn:hover {
         background-color: #0056b3;
     }
 
-    /* ✅ 헤더 아래에서 PDF 및 Excel 뷰어가 보이도록 조정 */
-    .viewer-container {
-        display: none;
-        position: fixed;
-        top: 140px;
-        left: 0;
-        width: 100vw;
-        height: calc(100vh - 140px);
-        background: white;
-        border: none;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
+    /* ✅ 반응형 (모바일에서는 한 줄) */
+    @media (max-width: 768px) {
+        .projects-container {
+            grid-template-columns: 1fr; /* 모바일에서는 한 개씩 표시 */
+        }
     }
 
-    /* ✅ 닫기 버튼 위치 조정 */
-    .close-btn {
-        display: none;
-        position: fixed;
-        top: 150px;
-        right: 20px;
-        background-color: red;
-        color: white;
-        font-size: 18px;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        z-index: 1100;
-    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="content-wrapper">
-    <div class="project">
-        <div class="project-title" onclick="toggleProject(this, 'popcornapp-content')">📌 PopcornAPP (개인 프로젝트)</div>
-        <div id="popcornapp-content" class="project-content">
-            <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 및 요구사항 보기</button>
-            <a href="{{ url_for('popcornapp.movies') }}"><button class="btn">🔗 PopcornAPP 사이트 이동</button></a>
+    <div class="projects-container">
+        <!-- PopcornAPP 프로젝트 -->
+        <div class="project-card">
+            <h2>📌 PopcornAPP (개인 프로젝트)</h2>
+            <table class="project-info">
+                <tr>
+                    <td>프로젝트 이름:</td>
+                    <td>PopcornAPP</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 기술:</td>
+                    <td>Python, Flask, HTML, CSS, JavaScript</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 내용:</td>
+                    <td>영화 정보를 제공하는 웹 애플리케이션</td>
+                </tr>
+            </table>
+            <a class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PDF 보기</a>
+            <a class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</a>
+            <a class="btn" href="{{ url_for('popcornapp.movies') }}">🔗 프로젝트 이동</a>
+        </div>
+
+        <!-- Total_Employment_Site 프로젝트 -->
+        <div class="project-card">
+            <h2>📌 Total_Employment_Site (개인 프로젝트)</h2>
+            <table class="project-info">
+                <tr>
+                    <td>프로젝트 이름:</td>
+                    <td>Total Employment Site</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 기술:</td>
+                    <td>Python, Django, HTML, CSS</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 내용:</td>
+                    <td>구직자와 기업을 연결하는 채용 플랫폼</td>
+                </tr>
+            </table>
+            <a class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PDF 보기</a>
+            <a class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</a>
+            <a class="btn" href="{{ url_for('employment_site.index') }}">🔗 프로젝트 이동</a>
         </div>
     </div>
 
-    <div class="project">
-        <div class="project-title" onclick="toggleProject(this, 'employment-content')">📌 Total_Employment_Site (개인 프로젝트)</div>
-        <div id="employment-content" class="project-content">
-            <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 및 요구사항 보기</button>
-            <a href="{{ url_for('employment_site.index') }}"><button class="btn">🔗 Total_Employment_Site 이동</button></a>
-        </div>
-    </div>
-
-    <!-- 📌 PDF 및 Excel 뷰어 -->
+    <!-- PDF 및 Excel 뷰어 -->
     <iframe id="fileViewer" class="viewer-container"></iframe>
     <button id="closeViewer" class="close-btn" onclick="closeViewer()">닫기</button>
 </div>
@@ -111,17 +132,6 @@
 
 {% block js %}
 <script>
-    function toggleProject(element, contentId) {
-        document.querySelectorAll('.project-content').forEach(content => {
-            if (content.id !== contentId) {
-                content.style.display = "none";
-            }
-        });
-
-        const content = document.getElementById(contentId);
-        content.style.display = content.style.display === "block" ? "none" : "block";
-    }
-
     function showPdf(fileUrl) {
         const viewer = document.getElementById("fileViewer");
         const closeBtn = document.getElementById("closeViewer");
