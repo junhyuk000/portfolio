@@ -50,6 +50,10 @@ def img_file(filename):
 def js_file(filename):
     return send_from_directory('static/js', filename)
 
+@app.route('/files/<path:filename>')
+def files_file(filename):
+    return send_from_directory('static/files', filename)
+
 @app.route('/교육 내용/<path:filename>')
 def port_file(filename):
     return send_from_directory('static/교육 내용', filename)
