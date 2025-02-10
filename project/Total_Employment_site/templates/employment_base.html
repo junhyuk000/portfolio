@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="{{ url_for('direct1_file') }}" class="portfolio-link">Portfolio</a>
+        <a href="{{ url_for('index') }}" class="portfolio-link">Portfolio</a>
         <ul class="nav-links">
             <li><a href="{{ url_for('employment_site.index') }}" class="{% if active_tab == 'home' %}text-green-500{% endif %}">Home</a></li>
             <li><a href="{{ url_for('employment_site.top10') }}" class="{% if active_tab == 'top10' %}text-green-500{% endif %}">Top 10</a></li>

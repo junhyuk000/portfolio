@@ -34,10 +34,6 @@ app.register_blueprint(popcornapp)
 manager.initialize_movies_data()
 
 
-
-
-
-
 @app.route('/pdf/<path:filename>')
 def pdf_file(filename):
     return send_from_directory('static/pdf', filename)
@@ -59,6 +55,7 @@ def port_file(filename):
     return send_from_directory('static/교육 내용', filename)
 
 
+    
 
 @app.route('/education')
 def education():
@@ -86,9 +83,12 @@ def career():
 @app.route('/html포토폴리오/교육 내용.html')
 def re_education():
     return redirect(url_for('education'))
+
+
+
                         
 @app.route('/')
-def index():
+def direct1_file():
     return render_template('index.html')
 
 
@@ -96,7 +96,6 @@ def index():
 def employment_intro():
     return render_template('employment_intro.html', active_tab='contact')
    
-
 
 
 
