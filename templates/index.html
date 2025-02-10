@@ -51,51 +51,15 @@
         background-color: #0056b3;
     }
 
-    /* PDF 뷰어 */
+    /* PDF 및 Excel 뷰어 */
     .viewer-container {
         display: none;
         margin-top: 20px;
         width: 100%;
-        height: 1000px; /* PDF 뷰어 크기 확대 */
-        border: 2px solid #ddd;
+        height: 1000px; /* 크기 확대 */
+        border: none;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
         background: white;
-    }
-
-    /* Excel 뷰어 */
-    .excel-viewer {
-        display: none;
-        margin: 20px auto;
-        width: 90%;
-        max-height: 1000px;
-        overflow: auto;
-        border: 2px solid #ddd;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-        background: white;
-        padding: 20px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f4f4f4;
-    }
-
-    /* 엑셀 시트 선택 */
-    #sheetSelector {
-        display: none;
-        margin: 10px auto;
-        padding: 10px;
-        font-size: 16px;
     }
 </style>
 {% endblock %}
@@ -107,7 +71,7 @@
         <div class="project-title" onclick="toggleProject(this, 'popcornapp-content')">📌 PopcornAPP (개인 프로젝트)</div>
         <div id="popcornapp-content" class="project-content">
             <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx', _external=True) }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('popcornapp.movies') }}"><button class="btn">🔗 PopcornAPP 사이트 이동</button></a>
         </div>
     </div>
@@ -117,23 +81,18 @@
         <div class="project-title" onclick="toggleProject(this, 'employment-content')">📌 Total_Employment_Site (개인 프로젝트)</div>
         <div id="employment-content" class="project-content">
             <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx', _external=True) }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('employment_site.index') }}"><button class="btn">🔗 Total_Employment_Site 이동</button></a>
         </div>
     </div>
 
     <!-- PDF 및 Excel 뷰어 영역 -->
     <iframe id="fileViewer" class="viewer-container"></iframe>
-    <select id="sheetSelector" onchange="changeSheet()"></select>
-    <div id="excelViewer" class="excel-viewer"></div>
 </div>
 {% endblock %}
 
 {% block js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 <script>
-    let workbookData = {};  // 여러 시트 데이터를 저장
-
     function toggleProject(element, contentId) {
         document.querySelectorAll('.project-content').forEach(content => {
             if (content.id !== contentId) {
@@ -146,62 +105,15 @@
     }
 
     function showPdf(fileUrl) {
-        document.getElementById("excelViewer").style.display = "none";
-        document.getElementById("sheetSelector").style.display = "none";
         const viewer = document.getElementById("fileViewer");
         viewer.style.display = "block";
         viewer.src = fileUrl;
     }
 
     function showExcel(fileUrl) {
-        document.getElementById("fileViewer").style.display = "none";
-        const excelViewer = document.getElementById("excelViewer");
-        excelViewer.style.display = "block";
-        const sheetSelector = document.getElementById("sheetSelector");
-        sheetSelector.style.display = "block";
-        sheetSelector.innerHTML = ""; 
-
-        fetch(fileUrl)
-            .then(response => response.arrayBuffer())
-            .then(data => {
-                const workbook = XLSX.read(new Uint8Array(data), { type: "array" });
-                workbookData = workbook.Sheets;
-
-                // 시트 목록 추가
-                workbook.SheetNames.forEach(sheetName => {
-                    let option = document.createElement("option");
-                    option.value = sheetName;
-                    option.textContent = sheetName;
-                    sheetSelector.appendChild(option);
-                });
-
-                displayExcelSheet(workbook.SheetNames[0]); 
-            })
-            .catch(error => {
-                excelViewer.innerHTML = "<p>❌ 엑셀 파일을 불러오는 데 실패했습니다.</p>";
-                console.error("Error loading Excel file:", error);
-            });
-    }
-
-    function changeSheet() {
-        const selectedSheet = document.getElementById("sheetSelector").value;
-        displayExcelSheet(selectedSheet);
-    }
-
-    function displayExcelSheet(sheetName) {
-        const excelViewer = document.getElementById("excelViewer");
-        const sheet = workbookData[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-        let table = "<table>";
-        jsonData.forEach(row => {
-            table += "<tr>";
-            row.forEach(cell => table += `<td>${cell || ""}</td>`);
-            table += "</tr>";
-        });
-        table += "</table>";
-
-        excelViewer.innerHTML = `<h3>📊 ${sheetName}</h3>` + table;
+        const viewer = document.getElementById("fileViewer");
+        viewer.style.display = "block";
+        viewer.src = "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(fileUrl);
     }
 </script>
 {% endblock %}
