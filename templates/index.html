@@ -5,15 +5,20 @@
     .content-wrapper {
         text-align: center;
         margin: 100px auto;
-        max-width: 1200px;
+        max-width: 100%;
+        display: flex;
+        justify-content: center; /* 중앙 정렬 */
+        align-items: center; /* 수직 정렬 */
+        height: calc(100vh - 120px); /* 화면 높이에서 헤더 높이 제외 */
     }
 
-    /* ✅ 프로젝트 카드 전체 레이아웃 (그리드 배치) */
+    /* ✅ 프로젝트 카드 전체 레이아웃 (가로 정렬) */
     .projects-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* 반응형 2열 */
-        gap: 20px;
+        display: flex;
+        gap: 30px; /* 카드 사이 간격 */
         justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap; /* 반응형: 줄 바꿈 허용 */
     }
 
     /* ✅ 개별 프로젝트 카드 디자인 */
@@ -24,6 +29,7 @@
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         text-align: left;
         transition: transform 0.3s ease-in-out;
+        width: 400px; /* 카드 너비 지정 */
     }
 
     .project-card:hover {
@@ -45,7 +51,7 @@
     .project-info td:first-child {
         font-weight: bold;
         color: #007bff;
-        width: 30%;
+        width: 35%;
     }
 
     /* ✅ 버튼 스타일 */
@@ -66,10 +72,11 @@
         background-color: #0056b3;
     }
 
-    /* ✅ 반응형 (모바일에서는 한 줄) */
-    @media (max-width: 768px) {
+    /* ✅ 반응형 (모바일에서는 자동 줄 바꿈) */
+    @media (max-width: 900px) {
         .projects-container {
-            grid-template-columns: 1fr; /* 모바일에서는 한 개씩 표시 */
+            flex-direction: column; /* 모바일에서는 세로 정렬 */
+            align-items: center;
         }
     }
 
@@ -123,10 +130,6 @@
             <a class="btn" href="{{ url_for('employment_site.index') }}">🔗 프로젝트 이동</a>
         </div>
     </div>
-
-    <!-- PDF 및 Excel 뷰어 -->
-    <iframe id="fileViewer" class="viewer-container"></iframe>
-    <button id="closeViewer" class="close-btn" onclick="closeViewer()">닫기</button>
 </div>
 {% endblock %}
 
