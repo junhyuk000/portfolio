@@ -48,14 +48,14 @@
         background-color: #0056b3;
     }
 
-    /* 📌 전체 화면을 가득 채우는 Viewer */
+    /* 📌 헤더 아래에서 시작하는 전체 화면 Viewer */
     .viewer-container {
         display: none;
         position: fixed;
-        top: 0;
+        top: 60px;  /* 헤더 높이만큼 아래에서 시작 */
         left: 0;
-        width: 100vw; /* 전체 화면 너비 */
-        height: 90vh; /* 전체 화면 높이 */
+        width: 100vw;
+        height: calc(100vh - 60px); /* 헤더를 제외한 높이 */
         background: white;
         border: none;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
@@ -66,7 +66,7 @@
     .close-btn {
         display: none;
         position: fixed;
-        top: 10px;
+        top: 70px; /* 헤더 바로 아래에 배치 */
         right: 20px;
         background-color: red;
         color: white;
@@ -77,7 +77,6 @@
         cursor: pointer;
         z-index: 1100;
     }
-
 </style>
 {% endblock %}
 
