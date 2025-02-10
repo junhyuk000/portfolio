@@ -88,7 +88,7 @@ def re_education():
 
                         
 @app.route('/')
-def direct1_file():
+def index():
     return render_template('index.html')
 
 
