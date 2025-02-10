@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
+    /* ✅ 헤더와 겹치지 않도록 전체 컨텐츠에 여백 추가 */
     .content-wrapper {
         text-align: center;
-        margin: 100px auto;
+        margin: 0 auto;
         max-width: 1000px;
+        padding-top: 100px; /* 헤더 높이만큼 추가 */
     }
 
+    /* ✅ 프로젝트 제목이 헤더 아래에서 보이도록 수정 */
     .project-title {
         font-size: 24px;
         font-weight: bold;
-        margin: 20px 0;
+        margin: 80px 0 20px; /* 헤더와 겹치지 않도록 위쪽 여백 추가 */
         cursor: pointer;
         transition: color 0.3s;
         padding: 15px;
@@ -48,25 +51,25 @@
         background-color: #0056b3;
     }
 
-    /* 📌 헤더 아래에서 시작하는 전체 화면 Viewer */
+    /* ✅ 헤더 아래에서 PDF 및 Excel 뷰어가 보이도록 조정 */
     .viewer-container {
         display: none;
         position: fixed;
-        top: 120px;  /* 헤더 높이만큼 아래에서 시작 */
+        top: 140px;
         left: 0;
         width: 100vw;
-        height: calc(100vh - 120px); /* 헤더를 제외한 높이 */
+        height: calc(100vh - 140px);
         background: white;
         border: none;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
         z-index: 1000;
     }
 
-    /* 📌 닫기 버튼 (뷰어 전체 화면에서 사용) */
+    /* ✅ 닫기 버튼 위치 조정 */
     .close-btn {
         display: none;
         position: fixed;
-        top: 130px; /* 헤더 바로 아래에 배치 */
+        top: 150px;
         right: 20px;
         background-color: red;
         color: white;
