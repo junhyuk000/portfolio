@@ -7,18 +7,18 @@
         margin: 100px auto;
         max-width: 100%;
         display: flex;
-        justify-content: center; /* 중앙 정렬 */
-        align-items: center; /* 수직 정렬 */
-        height: calc(100vh - 120px); /* 화면 높이에서 헤더 높이 제외 */
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 120px);
     }
 
     /* ✅ 프로젝트 카드 전체 레이아웃 (가로 정렬) */
     .projects-container {
         display: flex;
-        gap: 30px; /* 카드 사이 간격 */
+        gap: 30px;
         justify-content: center;
         align-items: flex-start;
-        flex-wrap: wrap; /* 반응형: 줄 바꿈 허용 */
+        flex-wrap: wrap;
     }
 
     /* ✅ 개별 프로젝트 카드 디자인 */
@@ -27,13 +27,21 @@
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: left;
+        text-align: center; /* 모든 텍스트와 요소 가운데 정렬 */
         transition: transform 0.3s ease-in-out;
-        width: 500px; /* 카드 너비 지정 */
+        width: 500px;
     }
 
     .project-card:hover {
         transform: scale(1.02);
+    }
+
+    /* ✅ 이미지 스타일 */
+    .project-card img {
+        display: block;
+        margin: 0 auto; /* 가운데 정렬 */
+        max-width: 100%; /* 반응형 지원 */
+        border-radius: 8px;
     }
 
     /* ✅ 프로젝트 정보 테이블 */
@@ -65,7 +73,7 @@
         cursor: pointer;
         transition: background-color 0.3s;
         text-decoration: none;
-        margin-right: 10px;
+        margin: 10px auto;
     }
 
     .btn:hover {
@@ -75,7 +83,7 @@
     /* ✅ 반응형 (모바일에서는 자동 줄 바꿈) */
     @media (max-width: 900px) {
         .projects-container {
-            flex-direction: column; /* 모바일에서는 세로 정렬 */
+            flex-direction: column;
             align-items: center;
         }
     }
@@ -88,7 +96,7 @@
     <div class="projects-container">
         <!-- PopcornAPP 프로젝트 -->
         <div class="project-card">
-            <img src="/images/popcornapp.png" style="width: 400px;">
+            <img src="/images/popcornapp.png">
             <h2>📌 PopcornAPP (개인 프로젝트)</h2>
             <table class="project-info">
                 <tr>
@@ -111,7 +119,7 @@
 
         <!-- Total_Employment_Site 프로젝트 -->
         <div class="project-card">
-            <img src="/images/totalemploy.png" style="width: 400px;">
+            <img src="/images/totalemploy.png">
             <h2>📌 Total_Employment_Site (개인 프로젝트)</h2>
             <table class="project-info">
                 <tr>
