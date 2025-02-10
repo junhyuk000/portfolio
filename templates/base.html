@@ -9,19 +9,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* ✅ 기본 스타일 */
+        
+        /* 기본 스타일 */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #E8F1F2, #6b91cd);
+            background: linear-gradient(135deg, #E8F1F2, #6b91cd); /* 배경 그라데이션 */
             color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* ✅ 헤더 스타일 */
+        /* 헤더 스타일 */
         .headfixed {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 15px 0;
@@ -33,6 +34,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+
         .headfixed h1 {
             font-family: 'Roboto', sans-serif;
             font-size: 36px;
@@ -41,7 +43,7 @@
             letter-spacing: 1.5px;
         }
 
-        /* ✅ 버튼 기본 스타일 */
+        /* 버튼 기본 스타일 */
         .buttonstyle {
             font-family: 'Roboto', sans-serif;
             background-color: #506a9e;
@@ -57,22 +59,26 @@
             box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
         }
 
-        /* ✅ 버튼 hover 상태 */
+        /* 버튼 hover 상태 (마우스 올렸을 때) */
+        .buttonstyle:active,
         .buttonstyle:hover {
             background-color: #E8F1F2;
             transform: scale(1.1);
             color: #333;
         }
 
-        /* ✅ 버튼 active 상태 (현재 페이지) */
-        .buttonstyle.active {
-            background-color: #1a3d7a !important; /* 진한 파란색 */
-            color: white !important;
-            transform: scale(1.05);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+
+        /* 콘텐츠 영역 */
+        .content, .content1 {
+            margin: 200px 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* ✅ 반응형 디자인 */
+
+        /* 반응형 디자인 */
         @media (max-width: 768px) {
             .headfixed h1 {
                 font-size: 28px;
@@ -81,9 +87,14 @@
                 font-size: 14px;
                 padding: 10px 20px;
             }
+            #in {
+                font-size: 36px;
+            }
         }
+
+
     </style>
-    {% block css %}{% endblock %}
+{% block css %}{% endblock %}
 </head>
 <body>
     <div class="headfixed">
@@ -94,9 +105,27 @@
         <a href="/career"><button class="buttonstyle {% if request.path == '/career' %}active{% endif %}">Career</button></a>
         <a href="/education"><button class="buttonstyle {% if request.path == '/education' %}active{% endif %}">Education</button></a>
     </div>
-
     {% block content %}{% endblock %}
 
-    {% block js %}{% endblock %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".buttonstyle");
+    
+            buttons.forEach(button => {
+                button.addEventListener("click", function () {
+                    // 기존에 활성화된 버튼에서 active 클래스 제거
+                    buttons.forEach(btn => btn.classList.remove("active"));
+                    
+                    // 클릭한 버튼에 active 클래스 추가
+                    this.classList.add("active");
+                });
+            });
+        });
+    </script>
+    
+        
+    {% block js %}
+    {% endblock %}
 </body>
 </html>
+
