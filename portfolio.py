@@ -6,7 +6,7 @@ from flask_session import Session # 서버용 세션 모듈
 from datetime import timedelta
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 app.secret_key = 'your_secret_key'  # 세션 암호화 키
 
 # app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -33,6 +33,11 @@ app.register_blueprint(popcornapp)
 
 manager.initialize_movies_data()
 
+
+# 정적 파일을 외부에서 접근할 수 있도록 라우트 추가
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory('static', filename)
 
 @app.route('/pdf/<path:filename>')
 def pdf_file(filename):
