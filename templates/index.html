@@ -48,15 +48,36 @@
         background-color: #0056b3;
     }
 
+    /* 📌 전체 화면을 가득 채우는 Viewer */
     .viewer-container {
         display: none;
-        margin-top: 20px;
-        width: 100%;
-        height: 1000px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw; /* 전체 화면 너비 */
+        height: 90vh; /* 전체 화면 높이 */
+        background: white;
         border: none;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-        background: white;
+        z-index: 1000;
     }
+
+    /* 📌 닫기 버튼 (뷰어 전체 화면에서 사용) */
+    .close-btn {
+        display: none;
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        background-color: red;
+        color: white;
+        font-size: 18px;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1100;
+    }
+
 </style>
 {% endblock %}
 
@@ -80,8 +101,9 @@
         </div>
     </div>
 
-    <!-- PDF 및 Excel 뷰어 -->
+    <!-- 📌 PDF 및 Excel 뷰어 -->
     <iframe id="fileViewer" class="viewer-container"></iframe>
+    <button id="closeViewer" class="close-btn" onclick="closeViewer()">닫기</button>
 </div>
 {% endblock %}
 
@@ -100,14 +122,26 @@
 
     function showPdf(fileUrl) {
         const viewer = document.getElementById("fileViewer");
+        const closeBtn = document.getElementById("closeViewer");
         viewer.style.display = "block";
         viewer.src = fileUrl;
+        closeBtn.style.display = "block"; // 닫기 버튼 표시
     }
 
     function showExcel(fileUrl) {
         const viewer = document.getElementById("fileViewer");
+        const closeBtn = document.getElementById("closeViewer");
         viewer.style.display = "block";
-        viewer.src = fileUrl;  // ✅ Google Sheets URL은 그대로 삽입해야 함
+        viewer.src = fileUrl;
+        closeBtn.style.display = "block"; // 닫기 버튼 표시
+    }
+
+    function closeViewer() {
+        const viewer = document.getElementById("fileViewer");
+        const closeBtn = document.getElementById("closeViewer");
+        viewer.style.display = "none";
+        viewer.src = "";
+        closeBtn.style.display = "none"; // 닫기 버튼 숨김
     }
 </script>
 {% endblock %}
