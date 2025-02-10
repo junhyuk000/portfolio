@@ -60,25 +60,25 @@ def port_file(filename):
 
 
 
-@app.route('/education.html')
+@app.route('/education')
 def education():
     return render_template('education.html')
 
     
 
-@app.route('/resume.html')
+@app.route('/resume')
 def resume():
     return render_template('resume.html')
 
    
 
-@app.route('/introduction.html')
+@app.route('/introduction')
 def introduction():
     return render_template('introduction.html')
 
     
 
-@app.route('/career.html')
+@app.route('/career')
 def career():
     return render_template('career.html')
  
@@ -86,9 +86,6 @@ def career():
 @app.route('/html포토폴리오/교육 내용.html')
 def re_education():
     return redirect(url_for('education'))
-
-
-
                         
 @app.route('/')
 def index():
