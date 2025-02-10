@@ -71,7 +71,7 @@
         <div class="project-title" onclick="toggleProject(this, 'popcornapp-content')">📌 PopcornAPP (개인 프로젝트)</div>
         <div id="popcornapp-content" class="project-content">
             <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx', _external=True) }}')">📊 WBS 및 요구사항 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('popcornapp.movies') }}"><button class="btn">🔗 PopcornAPP 사이트 이동</button></a>
         </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="project-title" onclick="toggleProject(this, 'employment-content')">📌 Total_Employment_Site (개인 프로젝트)</div>
         <div id="employment-content" class="project-content">
             <button class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PPT (PDF) 보기</button>
-            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx', _external=True) }}')">📊 WBS 및 요구사항 보기</button>
+            <button class="btn" onclick="showExcel('{{ url_for('static', filename='files/popcornapp_wbs.xlsx') }}')">📊 WBS 및 요구사항 보기</button>
             <a href="{{ url_for('employment_site.index') }}"><button class="btn">🔗 Total_Employment_Site 이동</button></a>
         </div>
     </div>
