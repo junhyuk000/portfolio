@@ -39,8 +39,8 @@
     /* ✅ 이미지 스타일 */
     .project-card img {
         display: block;
-        margin: 0 auto; /* 가운데 정렬 */
-        max-width: 100%; /* 반응형 지원 */
+        margin: 0 auto;
+        max-width: 100%;
         border-radius: 8px;
     }
 
@@ -62,9 +62,17 @@
         width: 35%;
     }
 
+    /* ✅ 버튼 컨테이너 - 버튼들을 가로로 중앙 정렬 */
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
     /* ✅ 버튼 스타일 */
     .btn {
-        display: inline-block;
         background-color: #007bff;
         color: white;
         border: none;
@@ -73,7 +81,7 @@
         cursor: pointer;
         transition: background-color 0.3s;
         text-decoration: none;
-        margin: 10px auto;
+        font-size: 14px;
     }
 
     .btn:hover {
@@ -105,16 +113,18 @@
                 </tr>
                 <tr>
                     <td>프로젝트 기술:</td>
-                    <td>Python, Flask, HTML, CSS, JavaScript</td>
+                    <td>Python, Flask, Blueprint, session, API, MySQL, HTML, CSS, JavaScript</td>
                 </tr>
                 <tr>
                     <td>프로젝트 내용:</td>
                     <td>영화 정보를 제공하는 웹 애플리케이션</td>
                 </tr>
             </table>
-            <a class="btn" onclick="showPdf('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PDF 보기</a>
-            <a class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</a>
-            <a class="btn" href="{{ url_for('popcornapp.movies') }}">🔗 프로젝트 이동</a>
+            <div class="btn-container">
+                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PDF 보기</button>
+                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</button>
+                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 이동</a>
+            </div>
         </div>
 
         <!-- Total_Employment_Site 프로젝트 -->
@@ -128,16 +138,18 @@
                 </tr>
                 <tr>
                     <td>프로젝트 기술:</td>
-                    <td>Python, Django, HTML, CSS</td>
+                    <td>Python, Flask, Blueprint, selenium, HTML, CSS</td>
                 </tr>
                 <tr>
                     <td>프로젝트 내용:</td>
                     <td>구직자와 기업을 연결하는 채용 플랫폼</td>
                 </tr>
             </table>
-            <a class="btn" onclick="showPdf('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PDF 보기</a>
-            <a class="btn" onclick="showExcel('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</a>
-            <a class="btn" href="{{ url_for('employment_site.index') }}">🔗 프로젝트 이동</a>
+            <div class="btn-container">
+                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PDF 보기</button>
+                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</button>
+                <a class="btn" href="{{ url_for('employment_site.index') }}" target="_blank">🔗 프로젝트 이동</a>
+            </div>
         </div>
     </div>
 </div>
@@ -145,28 +157,8 @@
 
 {% block js %}
 <script>
-    function showPdf(fileUrl) {
-        const viewer = document.getElementById("fileViewer");
-        const closeBtn = document.getElementById("closeViewer");
-        viewer.style.display = "block";
-        viewer.src = fileUrl;
-        closeBtn.style.display = "block"; // 닫기 버튼 표시
-    }
-
-    function showExcel(fileUrl) {
-        const viewer = document.getElementById("fileViewer");
-        const closeBtn = document.getElementById("closeViewer");
-        viewer.style.display = "block";
-        viewer.src = fileUrl;
-        closeBtn.style.display = "block"; // 닫기 버튼 표시
-    }
-
-    function closeViewer() {
-        const viewer = document.getElementById("fileViewer");
-        const closeBtn = document.getElementById("closeViewer");
-        viewer.style.display = "none";
-        viewer.src = "";
-        closeBtn.style.display = "none"; // 닫기 버튼 숨김
+    function openInNewTab(url) {
+        window.open(url, '_blank'); // 새 창에서 열기
     }
 </script>
 {% endblock %}
