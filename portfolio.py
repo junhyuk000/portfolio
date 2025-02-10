@@ -33,31 +33,9 @@ app.register_blueprint(popcornapp)
 
 manager.initialize_movies_data()
 
-users = {
-    '신준혁': {'password':'1234', 'role':'admin'},
-    'user0': {'password':'0000', 'role':'guest'},
-    'hyundai': {'password':'1234', 'role':'user'}
-}
 
 
 
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if session['user'] not in users:
-            return '로그인이 필요합니다.', 401
-        return f(*args, **kwargs)
-    return decorated_function
-
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    if session['role'] == 'admin':
-        return render_template('Home.html')
-    elif session['role'] == 'user':
-        return render_template('user.html')
-    return render_template('Home.html')
 
 
 @app.route('/pdf/<path:filename>')
@@ -80,36 +58,27 @@ def js_file(filename):
 def port_file(filename):
     return send_from_directory('static/교육 내용', filename)
 
-@app.route('/project.html')
-@login_required
-def direct1_file():
-    return render_template('project.html')
 
-    
 
 @app.route('/education.html')
-@login_required
 def education():
     return render_template('education.html')
 
     
 
 @app.route('/resume.html')
-@login_required
 def resume():
     return render_template('resume.html')
 
    
 
 @app.route('/introduction.html')
-@login_required
 def introduction():
     return render_template('introduction.html')
 
     
 
 @app.route('/career.html')
-@login_required
 def career():
     return render_template('career.html')
  
@@ -120,48 +89,17 @@ def re_education():
 
 
 
-@app.route('/user')
-@app.route('/user.html')
-@login_required
-def user():
-    return render_template('user.html')
-
-
                         
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/home')
-@app.route('/Home.html')
-@login_required
-def home():
-    return render_template('Home.html')
 
 @app.route('/employment_intro')
 def employment_intro():
     return render_template('employment_intro.html', active_tab='contact')
    
 
-
-@app.route('/login', methods=['GET','POST'])
-def login():
-    if request.method == 'POST':
-        user_id = request.form.get('user_id')  # ✅ KeyError 방지
-        password = request.form.get('password')
-        if user_id in users and users[user_id]['password'] == password:
-            session['user'] = user_id 
-            session['role'] = users[user_id]['role']  # 사용자 역할 저장
-            return redirect(url_for('dashboard'))
-        return f'로그인 실패<br><br><a href="/login">login</a>'
-        
-    return render_template('login.html')
-
-
-@app.route('/logout')
-def logout():
-    session.pop('user', None)  # session 내 user 삭제
-    return redirect(url_for('index'))
 
 
 

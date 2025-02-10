@@ -23,6 +23,13 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 기본 hover 스타일 */
+.headfixed:hover,
+.headfixed.hovered {
+    background-color: rgba(200, 200, 200, 0.9);
+    transition: background-color 0.3s ease-in-out;
+}
+
 .headfixed h1 {
     font-family: 'Roboto', sans-serif;
     font-size: 36px;

@@ -12,10 +12,27 @@
     {% block css %}{% endblock %}
 </head>
 <body>
+    <div class="headfixed">
+        <h1>Home</h1><br>
+        <a href="Home.html"><button class="buttonstyle">Home</button></a>
+        <a href="resume.html"><button class="buttonstyle">Resume</button></a>
+        <a href="introduction.html"><button class="buttonstyle">Self-introduction</button></a>
+        <a href="career.html"><button class="buttonstyle">Career</button></a>
+        <a href="education.html"><button class="buttonstyle">Education</button></a>
+    </div>
     {% block content %}{% endblock %}
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const header = document.querySelector(".headfixed");
+        
+            header.addEventListener("click", function () {
+                header.classList.toggle("hovered");
+            });
+        });
+    </script>
+        
     {% block js %}
-
     {% endblock %}
 </body>
 </html>
