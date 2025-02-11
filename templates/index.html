@@ -1,24 +1,32 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
-    /* ✅ 전체 레이아웃 정리 */
+    /* ✅ 전체 레이아웃 정리 (자기소개는 세로 정렬, 프로젝트 카드는 가로 정렬) */
     .content-wrapper {
         text-align: center;
         margin: 100px auto;
         max-width: 100%;
         display: flex;
+        flex-direction: column; /* 자기소개는 위, 프로젝트 카드는 아래 */
         justify-content: center;
         align-items: center;
-        height: calc(100vh - 120px);
+        height: auto; /* 높이를 자동으로 조정 */
     }
 
-    /* ✅ 프로젝트 카드 전체 레이아웃 (가로 정렬) */
+    /* ✅ 자기소개 박스 (가운데 정렬) */
+    .intro-section {
+        text-align: center;
+        max-width: 800px;
+        margin-bottom: 60px; /* 프로젝트 카드와 간격 조정 */
+    }
+
+    /* ✅ 프로젝트 카드 전체 레이아웃 (가로 정렬 유지) */
     .projects-container {
         display: flex;
         gap: 30px;
         justify-content: center;
         align-items: flex-start;
-        flex-wrap: wrap;
+        flex-wrap: wrap; /* 카드들이 가로 정렬되지만, 화면이 작아지면 줄 바꿈 */
     }
 
     /* ✅ 개별 프로젝트 카드 디자인 */
@@ -103,7 +111,7 @@
 {% block content %}
 <div class="content-wrapper">
     <!-- ✅ 자기소개 추가 (가운데 정렬) -->
-    <div style="text-align: center; max-width: 800px; margin-bottom: 60px;">
+    <div class="intro-section">
         <h1 style="font-size: 2.5em; color: #007bff;">👋 Welcome to My Portfolio</h1>
         <p style="font-size: 1.2em; color: #555;">
             Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자입니다.<br>
@@ -112,7 +120,7 @@
         </p>
     </div>
 
-    <!-- ✅ 기존 프로젝트 카드 유지 -->
+    <!-- ✅ 기존 프로젝트 카드 유지 (가로 정렬) -->
     <div class="projects-container">
         <!-- PopcornAPP 프로젝트 -->
         <div class="project-card">
@@ -129,7 +137,7 @@
                 </tr>
                 <tr>
                     <td>프로젝트 내용:</td>
-                    <td>영화 정보 및 영화 추첨시스템 제공하는 사이트</td>
+                    <td>영화 정보 및 영화 추첨 시스템 제공하는 사이트</td>
                 </tr>
             </table>
             <div class="btn-container">
@@ -154,7 +162,7 @@
                 </tr>
                 <tr>
                     <td>프로젝트 내용:</td>
-                    <td>구직 사이트 크롤링 하여 제공하는 사이트</td>
+                    <td>구직 사이트 크롤링하여 제공하는 사이트</td>
                 </tr>
             </table>
             <div class="btn-container">
