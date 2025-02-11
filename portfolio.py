@@ -84,9 +84,9 @@ def introduction():
 
     
 
-@app.route('/career')
-def career():
-    return render_template('career.html')
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
  
 
 @app.route('/html포토폴리오/교육 내용.html')

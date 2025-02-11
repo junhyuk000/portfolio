@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 800px;
+        margin: auto; /* 가운데 정렬 */
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* ✅ 전체 페이지 정렬 */
+    .content1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 120px);
+    }
+
+    /* ✅ Contact 박스 */
+    .contact-box {
+        box-shadow: 0 0 7px #999;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: white;
+        width: 850px;
+        text-align: center;
+    }
+
+    /* ✅ 문의 폼 스타일 */
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+    .form-group label {
+        font-weight: bold;
+    }
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .submit-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 16px;
+    }
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content1">
+    <div class="contact-box">
+        <h2>📞 Contact Me</h2>
+        <p>궁금한 점이 있다면 언제든지 연락주세요!</p>
+
+        <!-- ✅ 연락처 정보 -->
+        <table>
+            <tr>
+                <th>📧 이메일</th>
+                <td>your_email@example.com</td>
+            </tr>
+            <tr>
+                <th>📱 전화번호</th>
+                <td>+82-10-1234-5678</td>
+            </tr>
+            <tr>
+                <th>💻 GitHub</th>
+                <td><a href="https://github.com/yourgithub" target="_blank">github.com/yourgithub</a></td>
+            </tr>
+            <tr>
+                <th>🔗 LinkedIn</th>
+                <td><a href="https://linkedin.com/in/yourlinkedin" target="_blank">linkedin.com/in/yourlinkedin</a></td>
+            </tr>
+        </table>
+
+        <!-- ✅ 문의 폼 -->
+        <h3 style="margin-top: 20px;">✉ 문의하기</h3>
+        <form action="/submit_contact" method="POST">
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">메시지</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">문의 보내기</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
