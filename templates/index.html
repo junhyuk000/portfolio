@@ -102,6 +102,17 @@
 
 {% block content %}
 <div class="content-wrapper">
+    <!-- ✅ 자기소개 추가 (가운데 정렬) -->
+    <div style="text-align: center; max-width: 800px; margin-bottom: 60px;">
+        <h1 style="font-size: 2.5em; color: #007bff;">👋 Welcome to My Portfolio</h1>
+        <p style="font-size: 1.2em; color: #555;">
+            Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자입니다.<br>
+            API 설계, MySQL 데이터 관리, 서버 운영 및 도메인 배포까지 경험하며,  
+            <strong>소통과 협업</strong>을 통해 최적의 솔루션을 도출하는 것을 중요하게 생각합니다. 🚀
+        </p>
+    </div>
+
+    <!-- ✅ 기존 프로젝트 카드 유지 -->
     <div class="projects-container">
         <!-- PopcornAPP 프로젝트 -->
         <div class="project-card">
@@ -155,6 +166,7 @@
     </div>
 </div>
 {% endblock %}
+
 
 {% block js %}
 <script>
