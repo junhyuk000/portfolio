@@ -251,16 +251,16 @@ def add_post(movie_title,movie_id):
 
         if manager.insert_post(title, content, filename, userid, username, rating, spoiler, movie_title, movie_id):
             flash("리뷰가 성공적으로 추가되었습니다!", "success")
-            return redirect(f'/reviews/{movie_title}/{movie_id}')
+            return redirect(f'/popcornapp/reviews/{movie_title}/{movie_id}')
         else:
             flash("리뷰 추가 실패!", "error")
             return redirect(request.url)
 
     return render_template('movie_review_add.html', movie_title=movie_title, movie_id=movie_id )
 
-### 리뷰 수정
-@popcornapp.route('/post/edit/<int:id>', methods=['GET', 'POST'])
-def edit_post(id):
+### 리뷰 수정(수정)
+@popcornapp.route('/post/edit/<movie_title>/<int:id>', methods=['GET', 'POST'])
+def edit_post(movie_title, id):
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
@@ -269,19 +269,19 @@ def edit_post(id):
         filename = file.filename if file else None
         
         if filename:
-            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            file_path = os.path.join(popcornapp.config['UPLOAD_FOLDER'], filename)
             file.save(file_path)
         
         # 게시글 정보를 업데이트
         if manager.update_post(id, title, content, filename):
             flash("업데이트 성공!", "success")
-            return redirect(url_for('popcornapp.movies'))  # 성공 시 메인 페이지로 리디렉션
+            return redirect(f'/popcornapp/post/{movie_title}/{id}')
         return flash("게시글 수정 실패,400", 'error')  # 실패 시 400 에러 반환
 
     # GET 요청: 게시글 정보를 가져와 폼에 표시
     post = manager.get_post_by_id(id)
     if post:
-        return render_template('movie_edit.html', post=post)  # 수정 페이지 렌더링
+        return render_template('movie_edit.html', movie_title = movie_title, id=id, post=post)  # 수정 페이지 렌더링
     return flash("게시글을 찾을 수 없습니다.404", 'error')
 
 ### 리뷰 삭제
@@ -292,20 +292,20 @@ def delete_post(id):
     if post:
         file = post.get('filename')
         if file:
-            file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], file)
+            file_path = os.path.join(popcornapp.config['UPLOAD_FOLDER'], file)
             os.remove(file_path)
             flash("file삭제",'success')
             if manager.delete_post(id,user_id):
                 flash("게시물 삭제 성공!","success")
-                return redirect(url_for('popcornapp.movies'))
-            return f'<script>alert("파일 삭제 성공! 게시물 삭제 실패!");location.href="{url_for("popcornapp.register")}"</script>' # 스크립트로 alert알람창 띄우기
+                return redirect(f'/popcornapp/reviews/{post["movie_title"]}/{post["movie_id"]}')
+            return f'<script>alert("파일 삭제 성공! 게시물 삭제 실패!");location.href="{url_for("register")}"</script>' # 스크립트로 alert알람창 띄우기
         else:
             if manager.delete_post(id,user_id):
                 flash("게시물 삭제 성공!","success")
-                return redirect(url_for('popcornapp.movies'))
+                return redirect(f'/popcornapp/reviews/{post["movie_title"]}/{post["movie_id"]}')
         flash("삭제실패",'error')
     
-    return redirect(url_for('popcornapp.view'))
+    return redirect(url_for('view'))
 
 # ### 영화 랭킹(일일 관객수, 누적 관객수, 일일 매출액, 누적 매출액) 시각화
 # @app.route('/movie_ranks')
