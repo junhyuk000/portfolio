@@ -20,7 +20,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: calc(100vh - 120px);
+
     }
 
     /* ✅ Contact 박스 */
@@ -33,33 +33,29 @@
         text-align: center;
     }
 
-    /* ✅ 문의 폼 스타일 */
-    .form-group {
-        margin-bottom: 15px;
-        text-align: left;
-    }
-    .form-group label {
-        font-weight: bold;
-    }
-    .form-group input, .form-group textarea {
-        width: 100%;
-        padding: 8px;
-        margin-top: 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    .submit-btn {
-        background-color: #007bff;
-        color: white;
+    .btn {
+        background-color: #ffcd00;
+        color: black;
         border: none;
-        padding: 10px 15px;
-        cursor: pointer;
+        padding: 12px 15px;
         border-radius: 5px;
-        width: 100%;
+        cursor: pointer;
         font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 250px;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 20px auto;
     }
-    .submit-btn:hover {
-        background-color: #0056b3;
+    .btn:hover {
+        background-color: #e5b700;
+    }
+    .kakao-icon {
+        width: 24px;
+        height: 24px;
     }
 </style>
 {% endblock %}
@@ -74,39 +70,27 @@
         <table>
             <tr>
                 <th>📧 이메일</th>
-                <td>your_email@example.com</td>
+                <td>junhyuk000@naver.com</td>
             </tr>
             <tr>
                 <th>📱 전화번호</th>
-                <td>+82-10-1234-5678</td>
+                <td>010-8856-9125</td>
             </tr>
             <tr>
                 <th>💻 GitHub</th>
-                <td><a href="https://github.com/yourgithub" target="_blank">github.com/yourgithub</a></td>
+                <td><a href="https://github.com/junhyuk000" target="_blank">github.com/junhyuk000</a></td>
             </tr>
             <tr>
-                <th>🔗 LinkedIn</th>
-                <td><a href="https://linkedin.com/in/yourlinkedin" target="_blank">linkedin.com/in/yourlinkedin</a></td>
+                <th>🗒️ Notion</th>
+                <td><a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank">notion.so/Programming</a></td>
             </tr>
         </table>
 
-        <!-- ✅ 문의 폼 -->
-        <h3 style="margin-top: 20px;">✉ 문의하기</h3>
-        <form action="/submit_contact" method="POST">
-            <div class="form-group">
-                <label for="name">이름</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">이메일</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">메시지</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">문의 보내기</button>
-        </form>
+        <!-- ✅ 카카오톡 문의 버튼 -->
+        <a href="https://open.kakao.com/o/srmtfyfh" target="_blank" class="btn">
+            <img src="/images/kakao_icon.png" class="kakao-icon" alt="KakaoTalk">
+            카카오톡으로 문의하기
+        </a>
     </div>
 </div>
 {% endblock %}
