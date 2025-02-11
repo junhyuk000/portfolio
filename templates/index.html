@@ -102,59 +102,47 @@
 
 {% block content %}
 <div class="content-wrapper">
+    <!-- ✅ 한눈에 보는 소개 -->
+    <div style="text-align: center; margin-bottom: 60px;">
+        <h1 style="font-size: 2.5em; color: #007bff;">👋 Welcome to My Portfolio</h1>
+        <p style="font-size: 1.2em; color: #555; max-width: 800px; margin: 20px auto;">
+            Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자입니다.<br>
+            API 설계, MySQL 데이터 관리, 서버 운영 및 도메인 배포까지 경험하며, 
+            **소통과 협업**을 통해 최적의 솔루션을 도출하는 것을 중요하게 생각합니다. 🚀
+        </p>
+    </div>
+
+    <!-- ✅ 대표 프로젝트 하이라이트 -->
+    <h2 style="text-align: center; font-size: 2em; color: #333; margin-bottom: 20px;">✨ Featured Projects</h2>
+
     <div class="projects-container">
         <!-- PopcornAPP 프로젝트 -->
         <div class="project-card">
             <img src="/images/popcornapp.png">
-            <h2>📌 PopcornAPP (개인 프로젝트)</h2>
-            <table class="project-info">
-                <tr>
-                    <td>프로젝트 이름:</td>
-                    <td>PopcornAPP</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 기술:</td>
-                    <td>Python, Flask, Blueprint, session, API, MySQL, HTML, CSS, JavaScript</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 내용:</td>
-                    <td>영화 정보 및 영화 추첨시스템 제공하는 사이트</td>
-                </tr>
-            </table>
+            <h3>📌 PopcornAPP</h3>
+            <p style="color: #555; margin-bottom: 10px;">
+                Flask 기반으로 제작된 영화 정보 및 추첨 시스템 제공 사이트.
+            </p>
             <div class="btn-container">
-                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PDF 보기</button>
-                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</button>
-                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 이동</a>
+                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 보기</a>
             </div>
         </div>
 
-        <!-- Total_Employment_Site 프로젝트 -->
+        <!-- Total Employment Site 프로젝트 -->
         <div class="project-card">
             <img src="/images/totalemploy.png">
-            <h2>📌 Total_Employment_Site (개인 프로젝트)</h2>
-            <table class="project-info">
-                <tr>
-                    <td>프로젝트 이름:</td>
-                    <td>Total Employment Site</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 기술:</td>
-                    <td>Python, Flask, Blueprint, selenium, HTML, CSS</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 내용:</td>
-                    <td>구직 사이트 크롤링 하여 제공하는 사이트</td>
-                </tr>
-            </table>
+            <h3>📌 Total Employment Site</h3>
+            <p style="color: #555; margin-bottom: 10px;">
+                Selenium을 활용한 구직 사이트 크롤링 서비스.
+            </p>
             <div class="btn-container">
-                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PDF 보기</button>
-                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</button>
-                <a class="btn" href="{{ url_for('employment_site.index') }}" target="_blank">🔗 프로젝트 이동</a>
+                <a class="btn" href="{{ url_for('employment_site.index') }}" target="_blank">🔗 프로젝트 보기</a>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
 
 {% block js %}
 <script>
