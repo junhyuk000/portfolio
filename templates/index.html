@@ -1,25 +1,24 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
-    /* ✅ 전체 레이아웃 수정 (가운데 정렬 & 세로 정렬) */
+    /* ✅ 전체 레이아웃 정리 */
     .content-wrapper {
         text-align: center;
         margin: 100px auto;
         max-width: 100%;
         display: flex;
-        flex-direction: column; /* 요소들을 세로 정렬 */
         justify-content: center;
         align-items: center;
+        height: calc(100vh - 120px);
     }
 
-    /* ✅ 프로젝트 카드 전체 레이아웃 */
+    /* ✅ 프로젝트 카드 전체 레이아웃 (가로 정렬) */
     .projects-container {
         display: flex;
-        flex-wrap: wrap;
         gap: 30px;
         justify-content: center;
-        align-items: center; /* 카드들을 수직 중앙 정렬 */
-        margin-top: 20px;
+        align-items: flex-start;
+        flex-wrap: wrap;
     }
 
     /* ✅ 개별 프로젝트 카드 디자인 */
@@ -28,13 +27,66 @@
         border-radius: 10px;
         padding: 20px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
+        text-align: center; /* 모든 텍스트와 요소 가운데 정렬 */
         transition: transform 0.3s ease-in-out;
         width: 500px;
     }
 
     .project-card:hover {
         transform: scale(1.02);
+    }
+
+    /* ✅ 이미지 스타일 */
+    .project-card img {
+        display: block;
+        height: 200px;
+        margin: 0 auto;
+        max-width: 100%;
+        border-radius: 8px;
+    }
+
+    /* ✅ 프로젝트 정보 테이블 */
+    .project-info {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+
+    .project-info td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .project-info td:first-child {
+        font-weight: bold;
+        color: #007bff;
+        width: 35%;
+    }
+
+    /* ✅ 버튼 컨테이너 - 버튼들을 가로로 중앙 정렬 */
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    /* ✅ 버튼 스타일 */
+    .btn {
+        background-color: #8ba9d6;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
     }
 
     /* ✅ 반응형 (모바일에서는 자동 줄 바꿈) */
@@ -44,55 +96,65 @@
             align-items: center;
         }
     }
-</style>
 
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="content-wrapper">
-    <!-- ✅ 한눈에 보는 소개 (가운데 정렬) -->
-    <div style="text-align: center; max-width: 800px;">
-        <h1 style="font-size: 2.5em; color: #007bff;">👋 Welcome to My Portfolio</h1>
-        <p style="font-size: 1.2em; color: #555;">
-            Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자입니다.<br>
-            API 설계, MySQL 데이터 관리, 서버 운영 및 도메인 배포까지 경험하며,  
-            <strong>소통과 협업</strong>을 통해 최적의 솔루션을 도출하는 것을 중요하게 생각합니다. 🚀
-        </p>
-    </div>
-
-    <!-- ✅ 프로젝트 섹션 (아래 정렬) -->
-    <h2 style="text-align: center; font-size: 2em; color: #333; margin-top: 40px;">✨ Featured Projects</h2>
-
     <div class="projects-container">
         <!-- PopcornAPP 프로젝트 -->
         <div class="project-card">
             <img src="/images/popcornapp.png">
-            <h3>📌 PopcornAPP</h3>
-            <p style="color: #555;">
-                Flask 기반으로 제작된 영화 정보 및 추첨 시스템 제공 사이트.
-            </p>
+            <h2>📌 PopcornAPP (개인 프로젝트)</h2>
+            <table class="project-info">
+                <tr>
+                    <td>프로젝트 이름:</td>
+                    <td>PopcornAPP</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 기술:</td>
+                    <td>Python, Flask, Blueprint, session, API, MySQL, HTML, CSS, JavaScript</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 내용:</td>
+                    <td>영화 정보 및 영화 추첨시스템 제공하는 사이트</td>
+                </tr>
+            </table>
             <div class="btn-container">
-                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 보기</a>
+                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PDF 보기</button>
+                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</button>
+                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 이동</a>
             </div>
         </div>
 
-        <!-- Total Employment Site 프로젝트 -->
+        <!-- Total_Employment_Site 프로젝트 -->
         <div class="project-card">
             <img src="/images/totalemploy.png">
-            <h3>📌 Total Employment Site</h3>
-            <p style="color: #555;">
-                Selenium을 활용한 구직 사이트 크롤링 서비스.
-            </p>
+            <h2>📌 Total_Employment_Site (개인 프로젝트)</h2>
+            <table class="project-info">
+                <tr>
+                    <td>프로젝트 이름:</td>
+                    <td>Total Employment Site</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 기술:</td>
+                    <td>Python, Flask, Blueprint, selenium, HTML, CSS</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 내용:</td>
+                    <td>구직 사이트 크롤링 하여 제공하는 사이트</td>
+                </tr>
+            </table>
             <div class="btn-container">
-                <a class="btn" href="{{ url_for('employment_site.index') }}" target="_blank">🔗 프로젝트 보기</a>
+                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 PDF 보기</button>
+                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 WBS 보기</button>
+                <a class="btn" href="{{ url_for('employment_site.index') }}" target="_blank">🔗 프로젝트 이동</a>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
-
-
-
 
 {% block js %}
 <script>
