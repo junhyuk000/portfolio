@@ -7,7 +7,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="/images/id-card-16.png" type="image/png">
+    <link rel="icon" href="/images/port-16.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         
@@ -99,12 +99,12 @@
 </head>
 <body>
     <div class="headfixed">
-        <h1 style="font-weight: bold;"><img src="/images/id-card-64.png"> PORTFOLIO</h1><br>
+        <h1 style="font-weight: bold;"><img src="/images/port-64.png"> PORTFOLIO</h1><br>
         <a href="/"><button class="buttonstyle {% if request.path == '/' %}active{% endif %}"><img src="/images/home-32.png"></button></a>
-        <a href="/resume"><button class="buttonstyle {% if request.path == '/resume' %}active{% endif %}">Resume</button></a>
-        <a href="/introduction"><button class="buttonstyle {% if request.path == '/introduction' %}active{% endif %}">Self-introduction</button></a>
-        <a href="/contact"><button class="buttonstyle {% if request.path == '/career' %}active{% endif %}">Contact</button></a>
-        <a href="/education"><button class="buttonstyle {% if request.path == '/education' %}active{% endif %}">Education</button></a>
+        <a href="/resume"><button class="buttonstyle {% if request.path == '/resume' %}active{% endif %}"><img src="/images/resume-32.png"></button></a>
+        <a href="/introduction"><button class="buttonstyle {% if request.path == '/introduction' %}active{% endif %}"><img src="/images/me-32.png"></button></a>
+        <a href="/contact"><button class="buttonstyle {% if request.path == '/career' %}active{% endif %}"><img src="/images/contact-32.png"></button></a>
+        <a href="/education"><button class="buttonstyle {% if request.path == '/education' %}active{% endif %}"><img src="/images/education-32.png"></button></a>
     </div>
     {% block content %}{% endblock %}
 
