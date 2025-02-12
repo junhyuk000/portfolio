@@ -39,10 +39,9 @@
 
 <div class="menu">
     <ul class="list">
-        <li id="write" onclick="show1()" style="border-bottom: 1px solid lightblue;">army</li>
-        <li id="write" onclick="show2()" style="border-bottom: 1px solid lightblue;">highschool</li>
-        <li id="write" onclick="show3()" style="border-bottom: 1px solid lightblue;">middleschool</li>
-        <li id="write" onclick="show4()">university</li>
+        <li id="write" onclick="show1()" style="border-bottom: 1px solid lightblue;">About Me</li>
+        <li id="write" onclick="show2()" style="border-bottom: 1px solid lightblue;">Experience</li>
+        <li id="write" onclick="show3()" style="border-bottom: 1px solid lightblue;">Education</li>
         
     </ul>
 
@@ -50,9 +49,46 @@
 <div class="content1">
     <div class="selfIntroduction" id="selfIntroduction">
     <div>
-        <h2>안녕하세요. 신준혁입니다.</h2>
+
 
     </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+function show1() {
+    document.getElementById("selfIntroduction").innerHTML = `
+        <h2>About Me</h2>
+        <p>
+            <strong>Flask</strong>와 <strong>Blueprint</strong>를 활용한 웹 개발부터 <strong>머신러닝</strong>과 <strong>딥러닝</strong>까지, 
+            데이터 중심의 애플리케이션을 구축하는 개발자입니다. 
+        </p>
+        <p>
+            <strong>Python</strong>과 <strong>MySQL</strong>을 기반으로 API 설계 및 데이터 서버 운영을 경험했으며, 
+            <strong>Ubuntu 가상환경</strong>에서 웹 서버와 데이터 서버를 구축하고, 
+            <strong>IPTime 포트 포워딩</strong>과 <strong>Cloudflare</strong>를 활용한 도메인 연결까지 직접 구현할 수 있습니다.
+        </p>
+        <p>
+            기술뿐만 아니라, <strong>원활한 소통과 협력</strong>을 중요하게 생각합니다. 
+            팀원들과의 적극적인 커뮤니케이션을 통해 문제를 해결하고, 
+            개발자뿐만 아니라 기획자, 디자이너와도 원활하게 협업하며 <strong>최적의 솔루션</strong>을 도출하는 것을 목표로 합니다. 
+            특히, 복잡한 기술 개념을 쉽게 설명하고 의견을 조율하는 과정에서 강점을 발휘합니다.
+        </p>
+        <p>
+            <strong>웹과 AI</strong>를 결합한 솔루션 개발에 관심이 많으며, 
+            사용자 중심의 서비스와 데이터 기반의 인사이트를 제공하는 프로젝트를 진행하는 것을 즐깁니다.
+        </p>
+    `;
+}
+
+function show2(){
+     document.getElementById("selfIntroduction").innerHTML="<p>자기소개내용자기소개내용</p>";
+ }
+ function show3(){
+    document.getElementById("selfIntroduction").innerHTML="<p>자기소개내용자기소개내용자기소개내용</p>";
+}
+
+</script>
 {% endblock %}
