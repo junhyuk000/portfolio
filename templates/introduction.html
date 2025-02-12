@@ -3,42 +3,47 @@
 <style>
     /* ✅ 메뉴 스타일 수정 */
     .menu {
-        position: absolute;
-        top: 200px; /* selfIntroduction 위에 배치 */
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #9cb7dc;
-        border-radius: 5px;
-        box-shadow: 0px 0px 7px #999;
-        padding: 5px 0;
+    position: absolute;
+    top: 200px; /* selfIntroduction 위에 배치 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #9cb7dc;
+    border-radius: 5px;
+    box-shadow: 0px 0px 7px #999;
+    padding: 5px 20px; /* 좌우 여백 추가 */
+    display: flex; /* ✅ 가로 정렬을 위한 flex 사용 */
+    justify-content: center;
+    align-items: center;
     }
 
     ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        text-align: center;
-        cursor: pointer;
+        display: flex; /* ✅ 가로 배치를 위한 flex 적용 */
     }
 
     li {
-        width: 150px;
-        padding: 10px;
-        border-bottom: 1px solid lightblue;
+        padding: 10px 20px; /* ✅ 메뉴 간격 조정 */
+        border-right: 1px solid lightblue; /* ✅ 구분선 추가 */
         transition: background-color 0.3s, color 0.3s;
+    }
+
+    li:last-child {
+        border-right: none; /* ✅ 마지막 요소 구분선 제거 */
     }
 
     /* ✅ hover 스타일 */
     li:hover {
-        background-color: #660505;
+        background-color: #001f3f;
         color: white;
     }
 
     /* ✅ 클릭 시 hover 스타일 유지 */
     .active {
-        background-color: #660505;
+        background-color: #001f3f;
         color: white;
-    }
+}
 
     /* ✅ 자기소개 영역 */
     .selfIntroduction {
