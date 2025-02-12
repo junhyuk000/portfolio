@@ -1,65 +1,70 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
-    .selfIntroduction{
-        width: 800px;
-        height: 800px;
-        background-color: white;
-        box-shadow: 0px 0px 7px #999;
-        text-align: center;
-        padding: 5px;
-        
-    }
-    .menu{
-        position: fixed;
-        height: auto;
-        width: auto;
+    /* ✅ 메뉴 스타일 수정 */
+    .menu {
+        position: absolute;
+        top: 100px; /* selfIntroduction 위에 배치 */
+        left: 50%;
+        transform: translateX(-50%);
         background-color: aqua;
         border-radius: 5px;
         box-shadow: 0px 0px 7px #999;
-        margin-top: 250px; /* Adjusted to place it below the header */
+        padding: 5px 0;
     }
-    ul{
-        width: 150px;
+
+    ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         text-align: center;
         cursor: pointer;
     }
-    li:hover{
+
+    li {
+        width: 150px;
+        padding: 10px;
+        border-bottom: 1px solid lightblue;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* ✅ hover 스타일 */
+    li:hover {
         background-color: #660505;
         color: white;
+    }
+
+    /* ✅ 클릭 시 hover 스타일 유지 */
+    .active {
+        background-color: #660505;
+        color: white;
+    }
+
+    /* ✅ 자기소개 영역 */
+    .selfIntroduction {
+        width: 800px;
+        height: 800px;
+        background-color: white;
+        box-shadow: 0px 0px 7px #999;
+        text-align: center;
+        padding: 20px;
+        margin: 200px auto 0 auto; /* 메뉴와 간격 확보 */
     }
 
 </style>
 {% endblock %}
 
 {% block content %}
-
 <div class="menu">
     <ul class="list">
-        <li id="write" onclick="show1()" style="border-bottom: 1px solid lightblue;">About Me</li>
-        <li id="write" onclick="show2()" style="border-bottom: 1px solid lightblue;">Experience</li>
-        <li id="write" onclick="show3()" style="border-bottom: 1px solid lightblue;">Education</li>
-        
+        <li id="aboutMe" onclick="showSection('aboutMe')" class="active">About Me</li>
+        <li id="experience" onclick="showSection('experience')">Experience</li>
+        <li id="education" onclick="showSection('education')">Education</li>
     </ul>
-
 </div>
+
 <div class="content1">
     <div class="selfIntroduction" id="selfIntroduction">
-    <div>
-
-
-    </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block js %}
-<script>
-function show1() {
-    document.getElementById("selfIntroduction").innerHTML = `
         <h2>About Me</h2>
         <p>
             <strong>Flask</strong>와 <strong>Blueprint</strong>를 활용한 웹 개발부터 <strong>머신러닝</strong>과 <strong>딥러닝</strong>까지, 
@@ -80,15 +85,44 @@ function show1() {
             <strong>웹과 AI</strong>를 결합한 솔루션 개발에 관심이 많으며, 
             사용자 중심의 서비스와 데이터 기반의 인사이트를 제공하는 프로젝트를 진행하는 것을 즐깁니다.
         </p>
-    `;
-}
+    </div>
+</div>
+{% endblock %}
 
-function show2(){
-     document.getElementById("selfIntroduction").innerHTML="<p>자기소개내용자기소개내용</p>";
- }
- function show3(){
-    document.getElementById("selfIntroduction").innerHTML="<p>자기소개내용자기소개내용자기소개내용</p>";
-}
+{% block js %}
+<script>
+function showSection(section) {
+    // ✅ 메뉴 버튼 클릭 시 기존 active 클래스 제거
+    document.querySelectorAll(".menu ul li").forEach(li => li.classList.remove("active"));
 
+    // ✅ 현재 클릭된 메뉴에 active 클래스 추가 (hover 스타일 유지)
+    document.getElementById(section).classList.add("active");
+
+    // ✅ 각 섹션에 맞는 내용 표시
+    let content = {
+        aboutMe: `
+            <h2>About Me</h2>
+            <p><strong>Flask</strong>와 <strong>Blueprint</strong>를 활용한 웹 개발부터 <strong>머신러닝</strong>과 <strong>딥러닝</strong>까지, 데이터 중심의 애플리케이션을 구축하는 개발자입니다.</p>
+            <p><strong>Python</strong>과 <strong>MySQL</strong>을 기반으로 API 설계 및 데이터 서버 운영을 경험했으며, <strong>Ubuntu 가상환경</strong>에서 웹 서버와 데이터 서버를 구축하고, <strong>IPTime 포트 포워딩</strong>과 <strong>Cloudflare</strong>를 활용한 도메인 연결까지 직접 구현할 수 있습니다.</p>
+            <p>기술뿐만 아니라, <strong>원활한 소통과 협력</strong>을 중요하게 생각합니다. 팀원들과의 적극적인 커뮤니케이션을 통해 문제를 해결하고, 개발자뿐만 아니라 기획자, 디자이너와도 원활하게 협업하며 <strong>최적의 솔루션</strong>을 도출하는 것을 목표로 합니다. 특히, 복잡한 기술 개념을 쉽게 설명하고 의견을 조율하는 과정에서 강점을 발휘합니다.</p>
+            <p><strong>웹과 AI</strong>를 결합한 솔루션 개발에 관심이 많으며, 사용자 중심의 서비스와 데이터 기반의 인사이트를 제공하는 프로젝트를 진행하는 것을 즐깁니다.</p>
+        `,
+        experience: `
+            <h2>Experience</h2>
+            <p>✅ Flask 및 Django를 활용한 백엔드 개발 경험</p>
+            <p>✅ MySQL 및 PostgreSQL을 활용한 데이터베이스 설계 및 운영</p>
+            <p>✅ AWS, Ubuntu 기반의 서버 운영 경험</p>
+            <p>✅ 데이터 분석 및 머신러닝 프로젝트 경험 (TensorFlow, scikit-learn 등)</p>
+        `,
+        education: `
+            <h2>Education</h2>
+            <p>📌 2021년 - 현재: 컴퓨터공학 학사 과정</p>
+            <p>📌 2020년: AI & 데이터 분석 과정 수료</p>
+            <p>📌 2019년: 웹 개발 및 Django 기반 프로젝트 참여</p>
+        `
+    };
+
+    document.getElementById("selfIntroduction").innerHTML = content[section];
+}
 </script>
 {% endblock %}
