@@ -35,9 +35,9 @@ def get_chrome_driver():
 
 # MySQL 데이터베이스 연결 설정
 DB_CONFIG = {
-    'host': '121.165.69.56',
+    'host': '10.0.66.19',
     'user': 'root',
-    'password': '1234',
+    'password': 'Wnsgur151@',
     'database': 'employment',
     'charset': 'utf8mb4'
 }
