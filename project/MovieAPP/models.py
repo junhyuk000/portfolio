@@ -29,7 +29,7 @@ class DBManager:
         try:
             if not self.connection or not self.connection.is_connected():
                 self.connection = mysql.connector.connect(
-                    host='10.0.66.19',
+                    host='192.168.0.19',
                     user='root',
                     password='Wnsgur151@',
                     database='movie_db',
