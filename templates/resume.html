@@ -37,22 +37,23 @@
         margin-right: auto;
     }
 
-    /* ✅ 모든 테이블 동일한 스타일 적용 */
+    /* ✅ 표 컨테이너 (가로 스크롤 적용) */
     .table-container {
         display: flex;
         flex-direction: column;
-        align-items: center; /* 중앙 정렬 */
+        align-items: center;
         width: 100%;
-        max-width: 850px; /* ✅ 학력사항 밑줄과 동일한 너비 */
-        margin: 0 auto;
+        max-width: 850px;
+        overflow-x: auto; /* ✅ 모바일에서 넘칠 경우 스크롤 */
     }
 
+    /* ✅ 테이블 스타일 */
     table {
         border-collapse: collapse;
         width: 100%;
-        max-width: 100%;
-        table-layout: fixed; /* 고정 크기 적용 */
-        overflow-x: auto;
+        min-width: 700px; /* ✅ 화면이 줄어도 표가 너무 작아지지 않도록 설정 */
+        table-layout: fixed;
+        word-wrap: break-word;
     }
 
     th, td {
@@ -60,7 +61,8 @@
         padding: 8px;
         text-align: center;
         font-size: 1em;
-        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+        white-space: normal; /* ✅ 줄 바꿈 허용 */
+        word-break: break-word; /* ✅ 긴 단어 자동 줄바꿈 */
     }
 
     th {
@@ -69,7 +71,8 @@
 
     /* ✅ 인적사항 표의 사진 크기 조정 */
     .profile-img {
-        width: 120px;
+        width: 100px;
+        max-width: 100%;
         height: auto;
         display: block;
         margin: 0 auto;
@@ -92,6 +95,10 @@
         .table-container {
             max-width: 100%;
             overflow-x: auto;
+        }
+
+        table {
+            min-width: 600px;
         }
 
         th, td {
@@ -150,7 +157,7 @@
             </div>
         </div>
 
-        <!-- ✅ 2. 학력사항 (길이 동일하게 설정) -->
+        <!-- ✅ 2. 학력사항 -->
         <div>
             <h3>2. 학력사항</h3>
             <div class="table-container">
@@ -171,25 +178,6 @@
                         <td>배재대학교</td><td>전자공학과</td><td>2015.03</td><td>2022.02</td>
                         <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>대전</td>
                     </tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- ✅ 3. 자격사항 (길이 동일하게 설정) -->
-        <div>
-            <h3>3. 자격사항</h3>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th style="width: 35%;" colspan="2">자격증명</th>
-                        <th style="width: 15%;">등급</th>
-                        <th style="width: 20%;">취득일</th>
-                        <th style="width: 30%;">발급기관</th>
-                    </tr>
-                    <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
-                    <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
-                    <tr><td colspan="2">전기기사</td><td>기사</td><td>2021.06.02</td><td>한국산업인력공단</td></tr>
-                    <tr><td colspan="2">전기공사기사</td><td>기사</td><td>2021.08.20</td><td>한국산업인력공단</td></tr>
                 </table>
             </div>
         </div>
