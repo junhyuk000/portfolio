@@ -23,28 +23,27 @@
             flex-direction: column;
         }
 
-        /* ✅ 헤더 스타일 */
         .headfixed {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 15px 0;
-            text-align: center;
+            display: flex;
+            justify-content: center; /* 중앙 정렬 유지 */
+            align-items: center;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
-            display: flex;
-            justify-content: space-between; /* 좌우 정렬 */
-            align-items: center;
-            padding: 10px 5%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* PORTFOLIO 텍스트 중앙 정렬 */
         .headfixed h1 {
-            font-family: 'Roboto', sans-serif;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 36px;
-            margin: 0 0 10px;
-            color: #333;
-            letter-spacing: 1.5px;
+            font-weight: bold;
+            margin: 0;
         }
 
         /* ✅ 네비게이션 버튼 컨테이너 (가운데 정렬 유지) */
