@@ -106,11 +106,27 @@
         background-color: #0056b3;
     }
 
-    /* ✅ 반응형 (모바일에서는 자동 줄 바꿈) */
+    /* ✅ 반응형 스타일 (태블릿 및 모바일 조정) */
     @media (max-width: 900px) {
+        .content-wrapper {
+            height: auto;
+            padding: 20px;
+        }
+
         .projects-container {
-            flex-direction: column;
+            flex-direction: column; /* 세로 정렬 */
             align-items: center;
+        }
+
+        .project-card {
+            width: 90%; /* 모바일에서는 너비 90% */
+            max-width: 400px;
+        }
+
+        .btn {
+            padding: 10px 12px;
+            font-size: 13px;
+            min-width: 100px;
         }
     }
 
