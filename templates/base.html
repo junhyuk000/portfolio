@@ -95,8 +95,46 @@
             padding: 20px;
         }
 
+        /* ✅ 다운로드 버튼 스타일 */
+        .download-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto; /* 오른쪽 정렬 */
+        }
+
+        .download-btn {
+            background-color: #ffcd00;
+            color: black;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .download-btn img {
+            width: 18px;
+            height: auto;
+        }
+
+        .download-btn:hover {
+            background-color: #e5b700;
+            transform: scale(1.05);
+        }
+
+
         /* ✅ 반응형 (모바일 & 태블릿 최적화) */
         @media (max-width: 1024px) {
+            .download-btn {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
             .headfixed h1 {
                 font-size: 28px;
             }
@@ -121,6 +159,16 @@
                 font-size: 13px;
                 padding: 8px 12px;
             }
+            .download-buttons {
+                margin-top: 10px;
+                justify-content: center;
+                width: 100%;
+            }
+            .download-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        
         }
     </style>
     {% block css %}{% endblock %}
@@ -129,24 +177,37 @@
 <body>
     <div class="headfixed">
         <h1 style="font-weight: bold;">PORTFOLIO</h1>
-        <div class="nav-container">
-            <a href="/"><button class="buttonstyle {% if request.path == '/' %}active{% endif %}">
-                <img src="/images/home-32.png">
-            </button></a>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 90%; max-width: 1200px; margin: auto;">
+            <!-- ✅ 네비게이션 버튼 -->
+            <div class="nav-container">
+                <a href="/"><button class="buttonstyle {% if request.path == '/' %}active{% endif %}">
+                    <img src="/images/home-32.png">
+                </button></a>
+                <a href="/resume"><button class="buttonstyle {% if request.path == '/resume' %}active{% endif %}">
+                    <img src="/images/resume-32.png">
+                </button></a>
+                <a href="/introduction"><button class="buttonstyle {% if request.path == '/introduction' %}active{% endif %}">
+                    <img src="/images/me-32.png">
+                </button></a>
+                <a href="/contact"><button class="buttonstyle {% if request.path == '/contact' %}active{% endif %}">
+                    <img src="/images/contact-32.png">
+                </button></a>
+                <!-- <a href="/education"><button class="buttonstyle {% if request.path == '/education' %}active{% endif %}"><img src="/images/education-32.png"></button></a> -->
+            </div>
 
-            <a href="/resume"><button class="buttonstyle {% if request.path == '/resume' %}active{% endif %}">
-                <img src="/images/resume-32.png">
-            </button></a>
-
-            <a href="/introduction"><button class="buttonstyle {% if request.path == '/introduction' %}active{% endif %}">
-                <img src="/images/me-32.png">
-            </button></a>
-
-            <a href="/contact"><button class="buttonstyle {% if request.path == '/contact' %}active{% endif %}">
-                <img src="/images/contact-32.png">
-            </button></a>
-            <!-- <a href="/education"><button class="buttonstyle {% if request.path == '/education' %}active{% endif %}"><img src="/images/education-32.png"></button></a> -->
+            <!-- ✅ 포트폴리오 & 이력서 다운로드 버튼 -->
+            <div class="download-buttons">
+                <a href="/static/files/portfolio.pdf" download class="download-btn">
+                    <img src="/images/download-icon.png"> 포트폴리오 다운로드
+                </a>
+                <a href="/static/files/resume.pdf" download class="download-btn">
+                    <img src="/images/download-icon.png"> 이력서 다운로드
+                </a>
+            </div>
         </div>
+           
+
+
     </div>
 
     {% block content %}{% endblock %}
