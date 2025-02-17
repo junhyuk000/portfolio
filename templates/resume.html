@@ -31,27 +31,20 @@
         border-bottom: 2px solid #000;
         padding-bottom: 5px;
         width: 100%;
-        max-width: 850px; /* ✅ 학력사항 표와 너비 일치 */
         text-align: left;
-        margin-left: auto;
-        margin-right: auto;
     }
 
-    /* ✅ 표 컨테이너 (가로 스크롤 적용) */
+    /* ✅ 표 컨테이너 (가로 스크롤 추가) */
     .table-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         width: 100%;
-        max-width: 850px;
-        overflow-x: auto; /* ✅ 모바일에서 넘칠 경우 스크롤 */
+        overflow-x: auto; /* 📌 모바일에서 넘칠 경우 가로 스크롤 */
     }
 
     /* ✅ 테이블 스타일 */
     table {
         border-collapse: collapse;
         width: 100%;
-        min-width: 700px; /* ✅ 화면이 줄어도 표가 너무 작아지지 않도록 설정 */
+        min-width: 750px; /* 📌 화면이 줄어도 너무 작아지지 않도록 설정 */
         table-layout: fixed;
         word-wrap: break-word;
     }
@@ -61,8 +54,8 @@
         padding: 8px;
         text-align: center;
         font-size: 1em;
-        white-space: normal; /* ✅ 줄 바꿈 허용 */
-        word-break: break-word; /* ✅ 긴 단어 자동 줄바꿈 */
+        white-space: normal; /* 📌 줄 바꿈 허용 */
+        word-break: break-word; /* 📌 긴 단어 자동 줄바꿈 */
     }
 
     th {
@@ -93,8 +86,8 @@
         }
 
         .table-container {
-            max-width: 100%;
-            overflow-x: auto;
+            width: 100%;
+            overflow-x: auto; /* 📌 테이블이 잘리지 않고 가로 스크롤 가능 */
         }
 
         table {
@@ -195,8 +188,6 @@
                     </tr>
                     <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
                     <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
-                    <tr><td colspan="2">전기기사</td><td>기사</td><td>2021.06.02</td><td>한국산업인력공단</td></tr>
-                    <tr><td colspan="2">전기공사기사</td><td>기사</td><td>2021.08.20</td><td>한국산업인력공단</td></tr>
                 </table>
             </div>
         </div>
