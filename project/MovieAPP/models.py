@@ -467,7 +467,7 @@ class DBManager:
 
     ### KOBIS사이트에서 일별 박스오피스 및 영화 상세정보 API 가져와서 PANDAS를 활용하여 필요한 데이터 추출    
     def moives_info(self):
-        servicekey = '99556954bd3c66c6e974b03cad91fccf'
+        servicekey = 'd7a0924126eacdbb035f75d1ca4a5a00'
         today = datetime.now()
         yesterday = today - timedelta(days=1)
         yesterday_formatted = yesterday.strftime('%Y%m%d')
