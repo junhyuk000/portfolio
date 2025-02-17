@@ -60,12 +60,10 @@
         margin: 0 auto;
     }
 
-    /* ✅ 반응형 조정 */
+    /* ✅ 태블릿 (768px 이하)에서 자동 축소 */
     @media (max-width: 768px) {
         .resume-container {
-            padding: 15px;
-            width: 100%;
-            overflow-x: auto; /* 모바일에서만 가로 스크롤 가능 */
+            transform: scale(0.9); /* 90% 크기로 축소 */
         }
 
         h1 {
@@ -77,7 +75,7 @@
         }
 
         table {
-            min-width: 900px; /* 이력서 크기 작아지지 않도록 */
+            min-width: 800px;
         }
 
         th, td {
@@ -86,8 +84,35 @@
         }
 
         .profile-img {
-            max-width: 80px;
-            height: auto;
+            max-width: 80px; /* 태블릿에서 이미지 크기 조정 */
+        }
+    }
+
+    /* ✅ 모바일 (480px 이하)에서 자동 축소 */
+    @media (max-width: 480px) {
+        .resume-container {
+            transform: scale(0.8); /* 80% 크기로 축소 */
+        }
+
+        h1 {
+            font-size: 1.6em;
+        }
+
+        h3 {
+            font-size: 1.2em;
+        }
+
+        table {
+            min-width: 700px;
+        }
+
+        th, td {
+            font-size: 0.8em;
+            padding: 5px;
+        }
+
+        .profile-img {
+            max-width: 60px; /* 모바일에서 이미지 크기 조정 */
         }
     }
 
