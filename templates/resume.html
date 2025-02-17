@@ -16,20 +16,30 @@
         padding: 20px;
         background-color: white;
         width: 100%;
-        max-width: 900px; /* 📌 기본적으로 너비 고정 */
+        max-width: 900px; /* 이력서 컨테이너 width는 그대로 두기 */
+        margin: 0 auto;
     }
 
-    /* ✅ 표 컨테이너 */
-    .table-container {
+    /* ✅ 제목 스타일 */
+    h1 {
+        text-align: center;
+        font-size: 2em;
+    }
+
+    h3 {
+        margin-top: 20px;
+        font-size: 1.5em;
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
         width: 100%;
-        overflow-x: auto;
+        text-align: left;
     }
 
-    /* ✅ 테이블 스타일 */
+    /* ✅ 표 스타일 */
     table {
         border-collapse: collapse;
         width: 100%;
-        min-width: 900px; /* 📌 화면이 줄어도 표가 유지됨 */
+        min-width: 900px; /* 표는 고정된 최소 크기 */
         table-layout: fixed;
         word-wrap: break-word;
     }
@@ -39,41 +49,22 @@
         padding: 8px;
         text-align: center;
         font-size: 1em;
-        white-space: normal;
-        word-break: break-word;
+        white-space: normal; /* 줄 바꿈 허용 */
+        word-break: break-word; /* 긴 단어 자동 줄바꿈 */
     }
 
     th {
         background-color: #f2f2f2;
     }
 
-    /* ✅ 모바일 반응형 조정 */
-    @media (max-width: 768px) {
-        .resume-container {
-            width: 100%; /* 📌 모바일에서는 가로 크기를 화면에 맞춤 */
-            max-width: 100%; /* 📌 가로 크기 제한 해제 */
-            overflow-x: auto; /* 📌 모바일에서도 가로 스크롤 가능 */
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            min-width: 100%; /* 📌 모바일에서는 테이블이 화면 크기에 맞게 조정 */
-        }
-
-        th, td {
-            font-size: 0.9em;
-            padding: 6px;
-        }
-
-        .profile-img {
-            max-width: 80px;
-            height: auto;
-        }
+    /* ✅ 인적사항 표의 사진 크기 조정 */
+    .profile-img {
+        width: 100px;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
     }
-
 
     /* ✅ 반응형 조정 */
     @media (max-width: 768px) {
