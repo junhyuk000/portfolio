@@ -2,7 +2,6 @@
 {% block css %}
 <style>
 
-
     /* ✅ 이력서 컨테이너 */
     .resume-container {
         box-shadow: 0 0 7px #999;
@@ -10,7 +9,7 @@
         padding: 20px;
         background-color: white;
         width: 100%;
-        max-width: 900px; /* 이력서 컨테이너 width는 그대로 두기 */
+        max-width: 900px; /* 기본 웹 크기 유지 */
         margin: 0 auto;
     }
 
@@ -33,7 +32,7 @@
     table {
         border-collapse: collapse;
         width: 100%;
-        min-width: 900px; /* 표는 고정된 최소 크기 */
+        min-width: unset; /* 작은 화면에서도 자동 크기 조정 */
         table-layout: fixed;
         word-wrap: break-word;
     }
@@ -43,8 +42,8 @@
         padding: 8px;
         text-align: center;
         font-size: 1em;
-        white-space: normal; /* 줄 바꿈 허용 */
-        word-break: break-word; /* 긴 단어 자동 줄바꿈 */
+        white-space: normal;
+        word-break: break-word;
     }
 
     th {
@@ -62,22 +61,28 @@
 
     /* ✅ 반응형 조정 */
     @media (max-width: 768px) {
+        .content1 {
+            padding: 10px;
+        }
+
         .resume-container {
-            padding: 15px;
             width: 100%;
-            overflow-x: auto; /* 모바일에서만 가로 스크롤 가능 */
+            max-width: 100%;
+            transform: scale(0.9); /* 모바일에서 축소 */
+            transform-origin: top center;
         }
 
         h1 {
-            font-size: 1.8em;
+            font-size: 1.5em;
         }
 
         h3 {
-            font-size: 1.3em;
+            font-size: 1.2em;
         }
 
         table {
-            min-width: 900px; /* 이력서 크기 작아지지 않도록 */
+            width: 100%;
+            min-width: unset;
         }
 
         th, td {
@@ -87,11 +92,31 @@
 
         .profile-img {
             max-width: 80px;
-            height: auto;
         }
     }
 
-    
+    @media (max-width: 480px) {
+        .resume-container {
+            transform: scale(0.85); /* 더 작은 화면에서 추가 축소 */
+        }
+
+        h1 {
+            font-size: 1.3em;
+        }
+
+        h3 {
+            font-size: 1.1em;
+        }
+
+        th, td {
+            font-size: 0.75em;
+            padding: 5px;
+        }
+
+        .profile-img {
+            max-width: 70px;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -116,100 +141,71 @@
                     <th>영문</th><td>Shin Jun Hyuk</td>
                     <th>생년월일</th><td>1996.12.20</td>
                 </tr>
-                <tr>
-                    <th rowspan="2">연락처</th>
-                    <th>자택</th><td></td>
-                    <th>e-mail</th><td>junhyuk000@naver.com</td>
-                </tr>
-                <tr>
-                    <th>휴대폰</th><td>010-8856-9125</td>
-                    <th>보훈여부</th><td><input type="checkbox">Y<input type="checkbox" checked>N</td>
-                </tr>
-                <tr>
-                    <th>주소</th><td colspan="5">경기도 수원시 장안구 화산로 85, 121동 1303호</td>
-                </tr>
-                <tr>
-                    <th>병역</th>
-                    <td colspan="2"><input type="checkbox" checked>필<input type="checkbox">미필<input type="checkbox">면제</td>
-                    <th colspan="2">면제사유</th><td></td>
-                </tr>
             </table>
         </div>
 
-        <!-- ✅ 2. 학력사항 (길이 동일하게 설정) -->
+        <!-- ✅ 2. 학력사항 -->
         <div>
             <h3>2. 학력사항</h3>
             <table>
                 <tr>
-                    <th style="width: 25%;">학교명</th>
-                    <th style="width: 20%;">전공</th>
-                    <th style="width: 15%;">입학일자</th>
-                    <th style="width: 15%;">졸업일자</th>
-                    <th style="width: 15%;">졸업구분</th>
-                    <th style="width: 10%;">소재지</th>
+                    <th>학교명</th>
+                    <th>전공</th>
+                    <th>입학일자</th>
+                    <th>졸업일자</th>
+                    <th>졸업구분</th>
+                    <th>소재지</th>
                 </tr>
                 <tr>
                     <td>배재대학교</td><td>전자공학과</td><td>2015.03</td><td>2022.02</td>
                     <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>대전</td>
-                </tr>                
-                <tr>
-                    <td>동원고등학교</td><td>인문계열</td><td>2012.03</td><td>2015.02</td>
-                    <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>수원</td>
                 </tr>
             </table>
         </div>
 
-        <!-- ✅ 3. 경력사항 (길이 동일하게 설정) -->
+        <!-- ✅ 3. 경력사항 -->
         <div>
             <h3>3. 경력사항</h3>
             <table>
                 <tr>
-                    <th style="width: 25%;">회사명</th>
-                    <th style="width: 20%;">부서명/직급</th>
-                    <th style="width: 15%;">입사일자</th>
-                    <th style="width: 15%;">퇴사일자</th>
-                    <th style="width: 15%;">퇴사사유</th>
-                    <th style="width: 10%;">소재지</th>
+                    <th>회사명</th>
+                    <th>부서명/직급</th>
+                    <th>입사일자</th>
+                    <th>퇴사일자</th>
+                    <th>퇴사사유</th>
+                    <th>소재지</th>
                 </tr>
                 <tr>
                     <td>텍슨</td><td>ESS전장설계/사원</td><td>2023.03</td><td>2024.05</td>
                     <td>직종변경 준비</td><td>수원</td>
                 </tr>
-                <tr>
-                    <td>한국전기안전공사</td><td>기술진단부/인턴</td><td>2021.10</td><td>2022.01</td>
-                    <td>인턴 수료</td><td>대전</td>
-                </tr>
             </table>
         </div>
 
-        <!-- ✅ 4. 자격사항 (길이 동일하게 설정) -->
+        <!-- ✅ 4. 자격사항 -->
         <div>
             <h3>4. 자격사항</h3>
             <table>
                 <tr>
-                    <th style="width: 35%;" colspan="2">자격증명</th>
-                    <th style="width: 15%;">등급</th>
-                    <th style="width: 20%;">취득일</th>
-                    <th style="width: 30%;">발급기관</th>
+                    <th colspan="2">자격증명</th>
+                    <th>등급</th>
+                    <th>취득일</th>
+                    <th>발급기관</th>
                 </tr>
                 <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
-                <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
-                <tr><td colspan="2">전기기사</td><td>기사</td><td>2021.06.02</td><td>한국산업인력공단</td></tr>
-                <tr><td colspan="2">전기공사기사</td><td>기사</td><td>2021.08.20</td><td>한국산업인력공단</td></tr>
-                <tr><td colspan="2">한국사능력검정2급</td><td>2급</td><td>2022.06.24</td><td>국사편찬위원회</td></tr>
             </table>
         </div>
 
-        <!-- ✅ 5. 교육사항 (길이 동일하게 설정) -->
+        <!-- ✅ 5. 교육사항 -->
         <div>
             <h3>5. 교육사항</h3>
             <table>
                 <tr>
-                    <th style="width: 55%;">교육명</th>
-                    <th style="width: 15%;">교육처</th>
-                    <th style="width: 30%;">기간</th>
+                    <th>교육명</th>
+                    <th>교육처</th>
+                    <th>기간</th>
                 </tr>
-                <tr><td>[인공지능]AIOT를 이용한 빅데이터 분석 산업솔루션 개발</td><td>(주)세종교육</td><td>2024-10-04~2025-04-29</td></tr>
+                <tr><td>[AI] 빅데이터 분석</td><td>(주)세종교육</td><td>2024-10-04~2025-04-29</td></tr>
             </table>
         </div>
     </div>
