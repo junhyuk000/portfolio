@@ -37,7 +37,7 @@
         border-collapse: collapse;
         width: 100%;
         max-width: 100%;
-        table-layout: fixed; /* 길이 맞춤 */
+        table-layout: fixed; /* 모든 표 길이 동일하게 설정 */
         overflow-x: auto;
         display: block;
     }
@@ -45,7 +45,7 @@
     th, td {
         border: 1px solid #000;
         padding: 8px;
-        text-align: left;
+        text-align: center;
         font-size: 1em;
     }
 
@@ -53,7 +53,7 @@
         background-color: #f2f2f2;
     }
 
-    /* ✅ 인적사항 테이블 조정 */
+    /* ✅ 인적사항 표의 사진 크기 조정 */
     .profile-img {
         width: 120px;
         height: auto;
@@ -135,12 +135,17 @@
             </table>
         </div>
 
-        <!-- ✅ 2. 학력사항 -->
+        <!-- ✅ 2. 학력사항 (길이 통일) -->
         <div>
             <h3>2. 학력사항</h3>
             <table>
                 <tr>
-                    <th>학교명</th><th>전공</th><th>입학일자</th><th>졸업일자</th><th>졸업구분</th><th>소재지</th>
+                    <th style="width: 25%;">학교명</th>
+                    <th style="width: 20%;">전공</th>
+                    <th style="width: 15%;">입학일자</th>
+                    <th style="width: 15%;">졸업일자</th>
+                    <th style="width: 15%;">졸업구분</th>
+                    <th style="width: 10%;">소재지</th>
                 </tr>
                 <tr>
                     <td>동원고등학교</td><td>인문계열</td><td>2012.03</td><td>2015.02</td>
@@ -153,12 +158,15 @@
             </table>
         </div>
 
-        <!-- ✅ 3. 자격사항 -->
+        <!-- ✅ 3. 자격사항 (길이 통일) -->
         <div>
             <h3>3. 자격사항</h3>
             <table>
                 <tr>
-                    <th colspan="2">자격증명</th><th>등급</th><th>취득일</th><th>발급기관</th>
+                    <th style="width: 30%;" colspan="2">자격증명</th>
+                    <th style="width: 20%;">등급</th>
+                    <th style="width: 20%;">취득일</th>
+                    <th style="width: 30%;">발급기관</th>
                 </tr>
                 <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
                 <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
