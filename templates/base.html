@@ -34,9 +34,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between; /* 좌우 정렬 */
             align-items: center;
-            transition: all 0.3s ease-in-out;
+            padding: 10px 5%;
         }
 
         .headfixed h1 {
@@ -47,12 +47,13 @@
             letter-spacing: 1.5px;
         }
 
-        /* ✅ 네비게이션 버튼 스타일 */
+        /* ✅ 네비게이션 버튼 컨테이너 (가운데 정렬 유지) */
         .nav-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 10px;
+            flex-grow: 1;
         }
 
         .buttonstyle {
@@ -95,13 +96,13 @@
             padding: 20px;
         }
 
-        /* ✅ 다운로드 버튼 스타일 */
+        /* ✅ 다운로드 버튼 컨테이너 (오른쪽 정렬) */
         .download-buttons {
             display: flex;
             gap: 10px;
-            margin-left: auto; /* 오른쪽 정렬 */
         }
 
+        /* ✅ 다운로드 버튼 스타일 */
         .download-btn {
             background-color: #ffcd00;
             color: black;
@@ -129,6 +130,7 @@
         }
 
 
+
         /* ✅ 반응형 (모바일 & 태블릿 최적화) */
         @media (max-width: 1024px) {
             .download-btn {
@@ -146,7 +148,8 @@
 
         @media (max-width: 768px) {
             .headfixed {
-                padding: 10px 0;
+                flex-direction: column;
+                align-items: center;
             }
             .headfixed h1 {
                 font-size: 24px;
@@ -162,7 +165,6 @@
             .download-buttons {
                 margin-top: 10px;
                 justify-content: center;
-                width: 100%;
             }
             .download-btn {
                 font-size: 12px;
