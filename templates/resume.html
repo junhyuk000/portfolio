@@ -9,7 +9,7 @@
         width: 100%;
     }
 
-    /* ✅ 이력서 박스 */
+    /* ✅ 이력서 컨테이너 */
     .resume-container {
         box-shadow: 0 0 7px #999;
         border-radius: 5px;
@@ -30,16 +30,29 @@
         font-size: 1.5em;
         border-bottom: 2px solid #000;
         padding-bottom: 5px;
+        width: 100%;
+        max-width: 850px; /* ✅ 학력사항 표와 너비 일치 */
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     /* ✅ 모든 테이블 동일한 스타일 적용 */
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 중앙 정렬 */
+        width: 100%;
+        max-width: 850px; /* ✅ 학력사항 밑줄과 동일한 너비 */
+        margin: 0 auto;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;
         max-width: 100%;
         table-layout: fixed; /* 고정 크기 적용 */
         overflow-x: auto;
-        display: block;
     }
 
     th, td {
@@ -76,10 +89,9 @@
             font-size: 1.3em;
         }
 
-        table {
-            display: block;
+        .table-container {
+            max-width: 100%;
             overflow-x: auto;
-            white-space: nowrap;
         }
 
         th, td {
@@ -139,43 +151,45 @@
         <!-- ✅ 2. 학력사항 (길이 동일하게 설정) -->
         <div>
             <h3>2. 학력사항</h3>
-            <table>
-                <tr>
-                    <th style="width: 25%;">학교명</th>
-                    <th style="width: 20%;">전공</th>
-                    <th style="width: 15%;">입학일자</th>
-                    <th style="width: 15%;">졸업일자</th>
-                    <th style="width: 15%;">졸업구분</th>
-                    <th style="width: 10%;">소재지</th>
-                </tr>
-                <tr>
-                    <td>동원고등학교</td><td>인문계열</td><td>2012.03</td><td>2015.02</td>
-                    <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>수원</td>
-                </tr>
-                <tr>
-                    <td>배재대학교</td><td>전자공학과</td><td>2015.03</td><td>2022.02</td>
-                    <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>대전</td>
-                </tr>
-            </table>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th style="width: 25%;">학교명</th>
+                        <th style="width: 20%;">전공</th>
+                        <th style="width: 15%;">입학일자</th>
+                        <th style="width: 15%;">졸업일자</th>
+                        <th style="width: 15%;">졸업구분</th>
+                        <th style="width: 10%;">소재지</th>
+                    </tr>
+                    <tr>
+                        <td>동원고등학교</td><td>인문계열</td><td>2012.03</td><td>2015.02</td>
+                        <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>수원</td>
+                    </tr>
+                    <tr>
+                        <td>배재대학교</td><td>전자공학과</td><td>2015.03</td><td>2022.02</td>
+                        <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>대전</td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
         <!-- ✅ 3. 자격사항 (길이 동일하게 설정) -->
         <div>
             <h3>3. 자격사항</h3>
-            <table>
-                <tr>
-                    <th style="width: 35%;" colspan="2">자격증명</th>
-                    <th style="width: 15%;">등급</th>
-                    <th style="width: 20%;">취득일</th>
-                    <th style="width: 30%;">발급기관</th>
-                </tr>
-                <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
-                <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
-                <tr><td colspan="2">전기기사</td><td>기사</td><td>2021.06.02</td><td>한국산업인력공단</td></tr>
-                <tr><td colspan="2">전기공사기사</td><td>기사</td><td>2021.08.20</td><td>한국산업인력공단</td></tr>
-                <tr><td colspan="2">한국사능력검정2급</td><td>2급</td><td>2022.06.24</td><td>국사편찬위원회</td></tr>
-                <tr><td colspan="2">2종보통운전면허</td><td>2종</td><td>2016.01.15</td><td>경찰청</td></tr>
-            </table>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th style="width: 35%;" colspan="2">자격증명</th>
+                        <th style="width: 15%;">등급</th>
+                        <th style="width: 20%;">취득일</th>
+                        <th style="width: 30%;">발급기관</th>
+                    </tr>
+                    <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
+                    <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
+                    <tr><td colspan="2">전기기사</td><td>기사</td><td>2021.06.02</td><td>한국산업인력공단</td></tr>
+                    <tr><td colspan="2">전기공사기사</td><td>기사</td><td>2021.08.20</td><td>한국산업인력공단</td></tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
