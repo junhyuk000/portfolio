@@ -32,12 +32,12 @@
         padding-bottom: 5px;
     }
 
-    /* ✅ 테이블 스타일 */
+    /* ✅ 모든 테이블 동일한 스타일 적용 */
     table {
         border-collapse: collapse;
         width: 100%;
         max-width: 100%;
-        table-layout: fixed; /* 모든 표 길이 동일하게 설정 */
+        table-layout: fixed; /* 고정 크기 적용 */
         overflow-x: auto;
         display: block;
     }
@@ -47,6 +47,7 @@
         padding: 8px;
         text-align: center;
         font-size: 1em;
+        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
     }
 
     th {
@@ -108,8 +109,8 @@
                         <img src="images/junhyuk.jpg" class="profile-img">
                     </th>
                     <th rowspan="2" style="width: 15%;">성명</th>
-                    <th style="width: 10%;">한글</th><td>신준혁</td>
-                    <th style="width: 10%;">한문</th><td>辛峻赫</td>
+                    <th style="width: 15%;">한글</th><td style="width: 20%;">신준혁</td>
+                    <th style="width: 15%;">한문</th><td style="width: 20%;">辛峻赫</td>
                 </tr>
                 <tr>
                     <th>영문</th><td>Shin Jun Hyuk</td>
@@ -135,7 +136,7 @@
             </table>
         </div>
 
-        <!-- ✅ 2. 학력사항 (길이 통일) -->
+        <!-- ✅ 2. 학력사항 (길이 동일하게 설정) -->
         <div>
             <h3>2. 학력사항</h3>
             <table>
@@ -158,13 +159,13 @@
             </table>
         </div>
 
-        <!-- ✅ 3. 자격사항 (길이 통일) -->
+        <!-- ✅ 3. 자격사항 (길이 동일하게 설정) -->
         <div>
             <h3>3. 자격사항</h3>
             <table>
                 <tr>
-                    <th style="width: 30%;" colspan="2">자격증명</th>
-                    <th style="width: 20%;">등급</th>
+                    <th style="width: 35%;" colspan="2">자격증명</th>
+                    <th style="width: 15%;">등급</th>
                     <th style="width: 20%;">취득일</th>
                     <th style="width: 30%;">발급기관</th>
                 </tr>
