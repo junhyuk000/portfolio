@@ -7,6 +7,7 @@
         justify-content: center;
         padding: 20px;
         width: 100%;
+        overflow-x: auto; /* 📌 모바일에서 가로 스크롤 가능하도록 */
     }
 
     /* ✅ 이력서 컨테이너 */
@@ -16,7 +17,8 @@
         padding: 20px;
         background-color: white;
         width: 100%;
-        max-width: 900px;
+        min-width: 900px; /* 📌 모바일에서도 컨테이너가 잘리지 않도록 */
+        overflow-x: auto; /* 📌 표가 넘칠 경우 가로 스크롤 */
     }
 
     /* ✅ 제목 스타일 */
@@ -34,17 +36,11 @@
         text-align: left;
     }
 
-    /* ✅ 표 컨테이너 (가로 스크롤 추가) */
-    .table-container {
-        width: 100%;
-        overflow-x: auto; /* 📌 모바일에서 넘칠 경우 가로 스크롤 */
-    }
-
-    /* ✅ 테이블 스타일 */
+    /* ✅ 표 스타일 */
     table {
         border-collapse: collapse;
         width: 100%;
-        min-width: 750px; /* 📌 화면이 줄어도 너무 작아지지 않도록 설정 */
+        min-width: 900px; /* 📌 화면이 줄어도 표가 잘리지 않도록 설정 */
         table-layout: fixed;
         word-wrap: break-word;
     }
@@ -75,6 +71,7 @@
     @media (max-width: 768px) {
         .resume-container {
             padding: 15px;
+            min-width: 100%;
         }
 
         h1 {
@@ -85,13 +82,8 @@
             font-size: 1.3em;
         }
 
-        .table-container {
-            width: 100%;
-            overflow-x: auto; /* 📌 테이블이 잘리지 않고 가로 스크롤 가능 */
-        }
-
         table {
-            min-width: 600px;
+            min-width: 900px; /* 📌 이력서 전체 크기가 작아지지 않도록 */
         }
 
         th, td {
@@ -115,81 +107,75 @@
         <!-- ✅ 1. 인적사항 -->
         <div>
             <h3>1. 인적사항</h3>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th rowspan="4" style="width: 18%;">
-                            <img src="images/junhyuk.jpg" class="profile-img">
-                        </th>
-                        <th rowspan="2" style="width: 12%;">성명</th>
-                        <th style="width: 12%;">한글</th><td style="width: 23%;">신준혁</td>
-                        <th style="width: 12%;">한문</th><td style="width: 23%;">辛峻赫</td>
-                    </tr>
-                    <tr>
-                        <th>영문</th><td>Shin Jun Hyuk</td>
-                        <th>생년월일</th><td>1996.12.20</td>
-                    </tr>
-                    <tr>
-                        <th rowspan="2">연락처</th>
-                        <th>자택</th><td></td>
-                        <th>e-mail</th><td>junhyuk000@naver.com</td>
-                    </tr>
-                    <tr>
-                        <th>휴대폰</th><td>010-8856-9125</td>
-                        <th>보훈여부</th><td><input type="checkbox">Y<input type="checkbox" checked>N</td>
-                    </tr>
-                    <tr>
-                        <th>주소</th><td colspan="5">경기도 수원시 장안구 화산로 85, 121동 1303호</td>
-                    </tr>
-                    <tr>
-                        <th>병역</th>
-                        <td colspan="2"><input type="checkbox" checked>필<input type="checkbox">미필<input type="checkbox">면제</td>
-                        <th colspan="2">면제사유</th><td></td>
-                    </tr>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <th rowspan="4" style="width: 18%;">
+                        <img src="images/junhyuk.jpg" class="profile-img">
+                    </th>
+                    <th rowspan="2" style="width: 12%;">성명</th>
+                    <th style="width: 12%;">한글</th><td style="width: 23%;">신준혁</td>
+                    <th style="width: 12%;">한문</th><td style="width: 23%;">辛峻赫</td>
+                </tr>
+                <tr>
+                    <th>영문</th><td>Shin Jun Hyuk</td>
+                    <th>생년월일</th><td>1996.12.20</td>
+                </tr>
+                <tr>
+                    <th rowspan="2">연락처</th>
+                    <th>자택</th><td></td>
+                    <th>e-mail</th><td>junhyuk000@naver.com</td>
+                </tr>
+                <tr>
+                    <th>휴대폰</th><td>010-8856-9125</td>
+                    <th>보훈여부</th><td><input type="checkbox">Y<input type="checkbox" checked>N</td>
+                </tr>
+                <tr>
+                    <th>주소</th><td colspan="5">경기도 수원시 장안구 화산로 85, 121동 1303호</td>
+                </tr>
+                <tr>
+                    <th>병역</th>
+                    <td colspan="2"><input type="checkbox" checked>필<input type="checkbox">미필<input type="checkbox">면제</td>
+                    <th colspan="2">면제사유</th><td></td>
+                </tr>
+            </table>
         </div>
 
         <!-- ✅ 2. 학력사항 (길이 동일하게 설정) -->
         <div>
             <h3>2. 학력사항</h3>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th style="width: 25%;">학교명</th>
-                        <th style="width: 20%;">전공</th>
-                        <th style="width: 15%;">입학일자</th>
-                        <th style="width: 15%;">졸업일자</th>
-                        <th style="width: 15%;">졸업구분</th>
-                        <th style="width: 10%;">소재지</th>
-                    </tr>
-                    <tr>
-                        <td>동원고등학교</td><td>인문계열</td><td>2012.03</td><td>2015.02</td>
-                        <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>수원</td>
-                    </tr>
-                    <tr>
-                        <td>배재대학교</td><td>전자공학과</td><td>2015.03</td><td>2022.02</td>
-                        <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>대전</td>
-                    </tr>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <th style="width: 25%;">학교명</th>
+                    <th style="width: 20%;">전공</th>
+                    <th style="width: 15%;">입학일자</th>
+                    <th style="width: 15%;">졸업일자</th>
+                    <th style="width: 15%;">졸업구분</th>
+                    <th style="width: 10%;">소재지</th>
+                </tr>
+                <tr>
+                    <td>동원고등학교</td><td>인문계열</td><td>2012.03</td><td>2015.02</td>
+                    <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>수원</td>
+                </tr>
+                <tr>
+                    <td>배재대학교</td><td>전자공학과</td><td>2015.03</td><td>2022.02</td>
+                    <td><input type="checkbox" checked>졸업<input type="checkbox">예정</td><td>대전</td>
+                </tr>
+            </table>
         </div>
 
         <!-- ✅ 3. 자격사항 (길이 동일하게 설정) -->
         <div>
             <h3>3. 자격사항</h3>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th style="width: 35%;" colspan="2">자격증명</th>
-                        <th style="width: 15%;">등급</th>
-                        <th style="width: 20%;">취득일</th>
-                        <th style="width: 30%;">발급기관</th>
-                    </tr>
-                    <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
-                    <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <th style="width: 35%;" colspan="2">자격증명</th>
+                    <th style="width: 15%;">등급</th>
+                    <th style="width: 20%;">취득일</th>
+                    <th style="width: 30%;">발급기관</th>
+                </tr>
+                <tr><td colspan="2">정보처리기사</td><td>기사</td><td>2020.08.28</td><td>한국산업인력공단</td></tr>
+                <tr><td colspan="2">컴퓨터활용능력1급</td><td>1급</td><td>2020.11.27</td><td>대한상공회의소</td></tr>
+            </table>
         </div>
     </div>
 </div>
