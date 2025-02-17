@@ -7,7 +7,6 @@
         justify-content: center;
         padding: 20px;
         width: 100%;
-        overflow-x: auto; /* 📌 모바일에서 가로 스크롤 가능하도록 */
     }
 
     /* ✅ 이력서 컨테이너 */
@@ -17,8 +16,8 @@
         padding: 20px;
         background-color: white;
         width: 100%;
-        min-width: 900px; /* 📌 모바일에서도 컨테이너가 잘리지 않도록 */
-        overflow-x: auto; /* 📌 표가 넘칠 경우 가로 스크롤 */
+        max-width: 900px; /* 이력서 컨테이너 width는 그대로 두기 */
+        margin: 0 auto;
     }
 
     /* ✅ 제목 스타일 */
@@ -40,7 +39,7 @@
     table {
         border-collapse: collapse;
         width: 100%;
-        min-width: 900px; /* 📌 화면이 줄어도 표가 잘리지 않도록 설정 */
+        min-width: 900px; /* 표는 고정된 최소 크기 */
         table-layout: fixed;
         word-wrap: break-word;
     }
@@ -50,8 +49,8 @@
         padding: 8px;
         text-align: center;
         font-size: 1em;
-        white-space: normal; /* 📌 줄 바꿈 허용 */
-        word-break: break-word; /* 📌 긴 단어 자동 줄바꿈 */
+        white-space: normal; /* 줄 바꿈 허용 */
+        word-break: break-word; /* 긴 단어 자동 줄바꿈 */
     }
 
     th {
@@ -71,7 +70,8 @@
     @media (max-width: 768px) {
         .resume-container {
             padding: 15px;
-            min-width: 100%;
+            width: 100%;
+            overflow-x: auto; /* 모바일에서만 가로 스크롤 가능 */
         }
 
         h1 {
@@ -83,7 +83,7 @@
         }
 
         table {
-            min-width: 900px; /* 📌 이력서 전체 크기가 작아지지 않도록 */
+            min-width: 900px; /* 이력서 크기 작아지지 않도록 */
         }
 
         th, td {
