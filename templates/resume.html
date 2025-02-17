@@ -9,7 +9,7 @@
         width: 100%;
     }
 
-    /* ✅ 이력서 박스 디자인 */
+    /* ✅ 이력서 박스 */
     .resume-container {
         box-shadow: 0 0 7px #999;
         border-radius: 5px;
@@ -37,6 +37,7 @@
         border-collapse: collapse;
         width: 100%;
         max-width: 100%;
+        table-layout: fixed; /* 길이 맞춤 */
         overflow-x: auto;
         display: block;
     }
@@ -50,6 +51,14 @@
 
     th {
         background-color: #f2f2f2;
+    }
+
+    /* ✅ 인적사항 테이블 조정 */
+    .profile-img {
+        width: 120px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
     }
 
     /* ✅ 반응형 조정 */
@@ -77,7 +86,7 @@
             padding: 6px;
         }
 
-        img {
+        .profile-img {
             max-width: 80px;
             height: auto;
         }
@@ -95,20 +104,25 @@
             <h3>1. 인적사항</h3>
             <table>
                 <tr>
-                    <th rowspan="4" style="width: 100px;">
-                        <img src="images/junhyuk.jpg" width="100px" height="auto">
+                    <th rowspan="4" style="width: 15%;">
+                        <img src="images/junhyuk.jpg" class="profile-img">
                     </th>
-                    <th rowspan="2">성명</th><th>한글</th><td>신준혁</td><th>한문</th><td>辛峻赫</td>
+                    <th rowspan="2" style="width: 15%;">성명</th>
+                    <th style="width: 10%;">한글</th><td>신준혁</td>
+                    <th style="width: 10%;">한문</th><td>辛峻赫</td>
                 </tr>
                 <tr>
-                    <th>영문</th><td>Shin Jun Hyuk</td><th>생년월일</th><td>1996.12.20</td>
+                    <th>영문</th><td>Shin Jun Hyuk</td>
+                    <th>생년월일</th><td>1996.12.20</td>
                 </tr>
                 <tr>
-                    <th rowspan="2">연락처</th><th>자택</th><td></td><th>e-mail</th><td>junhyuk000@naver.com</td>
+                    <th rowspan="2">연락처</th>
+                    <th>자택</th><td></td>
+                    <th>e-mail</th><td>junhyuk000@naver.com</td>
                 </tr>
                 <tr>
-                    <th>휴대폰</th><td>010-8856-9125</td><th>보훈여부</th>
-                    <td><input type="checkbox">Y<input type="checkbox" checked>N</td>
+                    <th>휴대폰</th><td>010-8856-9125</td>
+                    <th>보훈여부</th><td><input type="checkbox">Y<input type="checkbox" checked>N</td>
                 </tr>
                 <tr>
                     <th>주소</th><td colspan="5">경기도 수원시 장안구 화산로 85, 121동 1303호</td>
@@ -152,19 +166,6 @@
                 <tr><td colspan="2">전기공사기사</td><td>기사</td><td>2021.08.20</td><td>한국산업인력공단</td></tr>
                 <tr><td colspan="2">한국사능력검정2급</td><td>2급</td><td>2022.06.24</td><td>국사편찬위원회</td></tr>
                 <tr><td colspan="2">2종보통운전면허</td><td>2종</td><td>2016.01.15</td><td>경찰청</td></tr>
-            </table>
-        </div>
-
-        <!-- ✅ 4. 어학능력 -->
-        <div>
-            <h3>4. 어학능력</h3>
-            <table>
-                <tr>
-                    <th>외국어명</th><th colspan="2">시험명</th><th colspan="2">응시년월</th><th>점수</th>
-                </tr>
-                <tr>
-                    <td>영어</td><td colspan="2">Toeic_Speaking</td><td colspan="2">2022.08.20</td><td>140(IH)</td>
-                </tr>
             </table>
         </div>
     </div>
