@@ -32,6 +32,10 @@ def okt_tokenizer(text):
   tokens = okt.morphs(text)
   return tokens
 
+# 📌 joblib.load() 실행 시 `globals()`를 사용하여 `okt_tokenizer` 전달
+tfidf_vectorizer = joblib.load(TFIDF_PATH, globals())
+text_mining_model = joblib.load(MODEL_PATH, globals())
+
 # 모델 로드
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
     tfidf_vectorizer = joblib.load(TFIDF_PATH)
