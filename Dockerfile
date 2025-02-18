@@ -3,8 +3,11 @@ FROM python:3.12-slim
 # 환경 변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 필요한 패키지 설치 (Java 추가)
-RUN apt-get update && apt-get install -y \
+# 패키지 리스트 업데이트 (별도로 실행)
+RUN apt-get update
+
+# 필요한 패키지 설치 (Java 포함)
+RUN apt-get install -y \
     curl \
     wget \
     unzip \
