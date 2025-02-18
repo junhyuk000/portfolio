@@ -4,13 +4,13 @@ import joblib
 class TokenizerWrapper:
     def __init__(self):
         self.okt = Okt()
-    
+
     def tokenize(self, text):
         return self.okt.morphs(text)
 
-# ✅ 전역적으로 사용할 객체 생성
+# 객체 생성
 tokenizer = TokenizerWrapper()
 
-# ✅ 이 파일이 실행될 때만 모델을 새로 저장
-if __name__ == "__main__":
-    joblib.dump(tokenizer, "tokenizer.pkl")
+# ✅ `tokenize` 메서드만 저장 (Okt 객체는 피클링 불가)
+joblib.dump(tokenizer.tokenize, "/app/project/MovieAPP/static/model/tokenizer.pkl")
+print("✅ 토크나이저 함수가 성공적으로 저장되었습니다!")
