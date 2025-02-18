@@ -2,8 +2,25 @@
 
 <html lang="en">
 <head><meta charset="utf-8"/>
+  <link rel="stylesheet" href="style.css">
+  <style>
+      body{
+          background-color: beige;
+          overflow-y: auto;
+          font-size: 15px;
+          font-weight: bold;
+
+      }
+      
+      button#gohome:hover{
+          cursor: pointer;
+          background-color: green;
+      }
+
+
+  </style>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>250212(머신러닝)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>250212(타이타닉 생존여부 예측)</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7509,52 +7526,10 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+  <div class="headerfixed">
+    250212 강의내용
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D">머신러닝<a class="anchor-link" href="#%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D">¶</a></h1><p>지도학습은 입력 데이터와 해당하는 정답(레이블)이 주어진 상태에서 모델을 학습하는 방법입니다. 목표는 새로운 데이터에 대한 얘측을 수행하는 것입니다.</p>
-<h3 id="%EC%A3%BC%EC%9A%94-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">주요 알고리즘<a class="anchor-link" href="#%EC%A3%BC%EC%9A%94-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">¶</a></h3><ul>
-<li>회귀 분석 (Regression)</li>
-<li>선형 회귀 (Linear Regression): 입력 변수와 출력 변수 간의 선형 관계를 모델링.</li>
-<li>로지스틱 회귀 (Logistic Regression): 예측 문제를 해결하기 위한 회귀방법.</li>
-<li>분류(Classification)</li>
-<li>로지스틱 회귀 (Logistic Regression): 이진 분류 문제를 해결하기 위한 회귀 방법.</li>
-<li>결정 트리(Decision Tree): 데이터를 트리 구조로 분할하여 분류.</li>
-<li>랜덤 포레스트 (Random Forest): 여러 개의 결정 트리를 결합하여 예측 성능 향상.</li>
-<li>서포트 벡터 머신 (Support Vector Machine): 데이터 포인트를 분리하는 최적의 경계를 찾음.</li>
-<li>신경망 (Neural Networks): 다층 구조를 통해 복잡한 패턴 인식.</li>
-</ul>
-<h2 id="2.-%EB%B9%84%EC%A7%80%EB%8F%84-%ED%95%99%EC%8A%B5-(Unsupervised-Learning)">2. 비지도 학습 (Unsupervised Learning)<a class="anchor-link" href="#2.-%EB%B9%84%EC%A7%80%EB%8F%84-%ED%95%99%EC%8A%B5-(Unsupervised-Learning)">¶</a></h2><p>비지도학습은 레이블이 없는 데이터에서 숨겨진 구조를 학습하는 방법입니다. 주로 데이터의 군집화나 차원 축소에 사용됩니다.</p>
-<h3 id="%EC%A3%BC%EC%9A%94-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">주요 알고리즘<a class="anchor-link" href="#%EC%A3%BC%EC%9A%94-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">¶</a></h3><ul>
-<li>군집화 (Clustering)</li>
-<li>K-평균 (K-Means): 데이터를 K개의 클러스터로 나누는 알고리즘.</li>
-<li>계층적 군집화 (Hierarchical Clustering): 데이터 간의 거리 기반으로 계층적 구조를 형성.</li>
-<li>차원 축소 (Dimensionality Reduction)</li>
-<li>주성분 분석 (PCA): 데이터의 분산을 최대화하는 방향으로 차원을 축소.</li>
-</ul>
-<h2 id="%EA%B2%B0%EB%A1%A0">결론<a class="anchor-link" href="#%EA%B2%B0%EB%A1%A0">¶</a></h2><p>머신러닝의 지도학습과 비지도학습은 각각의 목적에 따라 다양한 알고리즘을 통해 데이터를 분석하고 모델을 학습합니다. 각 알고리즘은 특정 문제에 따라 장단점이 있으므로, 상황에 맞는 선택이 중요합니다.</p>
-</div>
-</div>
-</div>
-</div>
+<main>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7562,8 +7537,19 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%EC%9D%98%EC%82%AC%EA%B2%B0%EC%A0%95-%EB%82%98%EB%AC%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">의사결정 나무 알고리즘<a class="anchor-link" href="#%EC%9D%98%EC%82%AC%EA%B2%B0%EC%A0%95-%EB%82%98%EB%AC%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">¶</a></h2><ul>
-<li></li>
+<li>타이타닉 생존여부 예측</li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="1.-%ED%95%84%EC%9A%94-%ED%8C%A8%ED%82%A4%EC%A7%80-import">1. 필요 패키지 import<a class="anchor-link" href="#1.-%ED%95%84%EC%9A%94-%ED%8C%A8%ED%82%A4%EC%A7%80-import">¶</a></h3>
 </div>
 </div>
 </div>
@@ -7572,7 +7558,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -7589,19 +7575,51 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="2.-%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0">2. 타이타닉 데이터 불러오기<a class="anchor-link" href="#2.-%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="3.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%90%EC%83%89">3. 데이터 탐색<a class="anchor-link" href="#3.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%90%EC%83%89">¶</a></h3>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 아이리스(iris) 데이터셋 사용</span>
-
-<span class="c1"># 깃허브에 있는 csv 파일을 읽어와서 데이터프레임 df로 넣는다.</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv'</span><span class="p">)</span>
-<span class="n">df</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span>
 </pre></div>
 </div>
 </div>
@@ -7612,9 +7630,9 @@ a.anchor-link {
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-012507d0-4ea4-44c9-9f88-51715072183e">
+<div class="colab-df-container" id="df-a8ab85dc-8fda-462a-ab28-85636c8a159b">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -7633,53 +7651,95 @@ a.anchor-link {
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>sepal_length</th>
-<th>sepal_width</th>
-<th>petal_length</th>
-<th>petal_width</th>
-<th>species</th>
+<th>PassengerId</th>
+<th>Survived</th>
+<th>Pclass</th>
+<th>Name</th>
+<th>Sex</th>
+<th>Age</th>
+<th>SibSp</th>
+<th>Parch</th>
+<th>Ticket</th>
+<th>Fare</th>
+<th>Cabin</th>
+<th>Embarked</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>0</th>
-<td>5.1</td>
-<td>3.5</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>setosa</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+<td>Braund, Mr. Owen Harris</td>
+<td>male</td>
+<td>22.0</td>
+<td>1</td>
+<td>0</td>
+<td>A/5 21171</td>
+<td>7.2500</td>
+<td>NaN</td>
+<td>S</td>
 </tr>
 <tr>
 <th>1</th>
-<td>4.9</td>
-<td>3.0</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>setosa</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+<td>female</td>
+<td>38.0</td>
+<td>1</td>
+<td>0</td>
+<td>PC 17599</td>
+<td>71.2833</td>
+<td>C85</td>
+<td>C</td>
 </tr>
 <tr>
 <th>2</th>
-<td>4.7</td>
-<td>3.2</td>
-<td>1.3</td>
-<td>0.2</td>
-<td>setosa</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>Heikkinen, Miss. Laina</td>
+<td>female</td>
+<td>26.0</td>
+<td>0</td>
+<td>0</td>
+<td>STON/O2. 3101282</td>
+<td>7.9250</td>
+<td>NaN</td>
+<td>S</td>
 </tr>
 <tr>
 <th>3</th>
-<td>4.6</td>
-<td>3.1</td>
-<td>1.5</td>
-<td>0.2</td>
-<td>setosa</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+<td>female</td>
+<td>35.0</td>
+<td>1</td>
+<td>0</td>
+<td>113803</td>
+<td>53.1000</td>
+<td>C123</td>
+<td>S</td>
 </tr>
 <tr>
 <th>4</th>
-<td>5.0</td>
-<td>3.6</td>
-<td>1.4</td>
-<td>0.2</td>
-<td>setosa</td>
+<td>5</td>
+<td>0</td>
+<td>3</td>
+<td>Allen, Mr. William Henry</td>
+<td>male</td>
+<td>35.0</td>
+<td>0</td>
+<td>0</td>
+<td>373450</td>
+<td>8.0500</td>
+<td>NaN</td>
+<td>S</td>
 </tr>
 <tr>
 <th>...</th>
@@ -7688,54 +7748,96 @@ a.anchor-link {
 <td>...</td>
 <td>...</td>
 <td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 </tr>
 <tr>
-<th>145</th>
-<td>6.7</td>
-<td>3.0</td>
-<td>5.2</td>
-<td>2.3</td>
-<td>virginica</td>
+<th>886</th>
+<td>887</td>
+<td>0</td>
+<td>2</td>
+<td>Montvila, Rev. Juozas</td>
+<td>male</td>
+<td>27.0</td>
+<td>0</td>
+<td>0</td>
+<td>211536</td>
+<td>13.0000</td>
+<td>NaN</td>
+<td>S</td>
 </tr>
 <tr>
-<th>146</th>
-<td>6.3</td>
-<td>2.5</td>
-<td>5.0</td>
-<td>1.9</td>
-<td>virginica</td>
+<th>887</th>
+<td>888</td>
+<td>1</td>
+<td>1</td>
+<td>Graham, Miss. Margaret Edith</td>
+<td>female</td>
+<td>19.0</td>
+<td>0</td>
+<td>0</td>
+<td>112053</td>
+<td>30.0000</td>
+<td>B42</td>
+<td>S</td>
 </tr>
 <tr>
-<th>147</th>
-<td>6.5</td>
-<td>3.0</td>
-<td>5.2</td>
-<td>2.0</td>
-<td>virginica</td>
+<th>888</th>
+<td>889</td>
+<td>0</td>
+<td>3</td>
+<td>Johnston, Miss. Catherine Helen "Carrie"</td>
+<td>female</td>
+<td>NaN</td>
+<td>1</td>
+<td>2</td>
+<td>W./C. 6607</td>
+<td>23.4500</td>
+<td>NaN</td>
+<td>S</td>
 </tr>
 <tr>
-<th>148</th>
-<td>6.2</td>
-<td>3.4</td>
-<td>5.4</td>
-<td>2.3</td>
-<td>virginica</td>
+<th>889</th>
+<td>890</td>
+<td>1</td>
+<td>1</td>
+<td>Behr, Mr. Karl Howell</td>
+<td>male</td>
+<td>26.0</td>
+<td>0</td>
+<td>0</td>
+<td>111369</td>
+<td>30.0000</td>
+<td>C148</td>
+<td>C</td>
 </tr>
 <tr>
-<th>149</th>
-<td>5.9</td>
-<td>3.0</td>
-<td>5.1</td>
-<td>1.8</td>
-<td>virginica</td>
+<th>890</th>
+<td>891</td>
+<td>0</td>
+<td>3</td>
+<td>Dooley, Mr. Patrick</td>
+<td>male</td>
+<td>32.0</td>
+<td>0</td>
+<td>0</td>
+<td>370376</td>
+<td>7.7500</td>
+<td>NaN</td>
+<td>Q</td>
 </tr>
 </tbody>
 </table>
-<p>150 rows × 5 columns</p>
+<p>891 rows × 12 columns</p>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-012507d0-4ea4-44c9-9f88-51715072183e')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-a8ab85dc-8fda-462a-ab28-85636c8a159b')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -7782,12 +7884,12 @@ a.anchor-link {
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-012507d0-4ea4-44c9-9f88-51715072183e button.colab-df-convert');
+        document.querySelector('#df-a8ab85dc-8fda-462a-ab28-85636c8a159b button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-012507d0-4ea4-44c9-9f88-51715072183e');
+        const element = document.querySelector('#df-a8ab85dc-8fda-462a-ab28-85636c8a159b');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -7805,8 +7907,8 @@ a.anchor-link {
       }
     </script>
 </div>
-<div id="df-587984b9-57de-4d85-9a30-46d7d0488b0a">
-<button class="colab-df-quickchart" onclick="quickchart('df-587984b9-57de-4d85-9a30-46d7d0488b0a')" style="display:none;" title="Suggest charts">
+<div id="df-3075a62c-9318-4be9-85a4-57b49a22bf58">
+<button class="colab-df-quickchart" onclick="quickchart('df-3075a62c-9318-4be9-85a4-57b49a22bf58')" style="display:none;" title="Suggest charts">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <g>
 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
@@ -7919,13 +8021,13 @@ a.anchor-link {
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-587984b9-57de-4d85-9a30-46d7d0488b0a button');
+        document.querySelector('#df-3075a62c-9318-4be9-85a4-57b49a22bf58 button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
-<div id="id_5ffed464-b139-44a7-ba58-b5ac4208e992">
+<div id="id_51aace95-e66b-40a4-84bb-78d9cac3eadf">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -7965,7 +8067,7 @@ a.anchor-link {
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_5ffed464-b139-44a7-ba58-b5ac4208e992 button.colab-df-generate');
+        document.querySelector('#id_51aace95-e66b-40a4-84bb-78d9cac3eadf button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -7986,33 +8088,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>(150, 5)</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -8029,17 +8105,24 @@ a.anchor-link {
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
-RangeIndex: 150 entries, 0 to 149
-Data columns (total 5 columns):
- #   Column        Non-Null Count  Dtype  
----  ------        --------------  -----  
- 0   sepal_length  150 non-null    float64
- 1   sepal_width   150 non-null    float64
- 2   petal_length  150 non-null    float64
- 3   petal_width   150 non-null    float64
- 4   species       150 non-null    object 
-dtypes: float64(4), object(1)
-memory usage: 6.0+ KB
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
 </pre>
 </div>
 </div>
@@ -8050,7 +8133,7 @@ memory usage: 6.0+ KB
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -8064,9 +8147,9 @@ memory usage: 6.0+ KB
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[14]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-40673ef9-c862-43bf-affe-c2513938ad9a">
+<div class="colab-df-container" id="df-556cb769-5655-4812-a592-f1a56e377115">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8085,75 +8168,102 @@ memory usage: 6.0+ KB
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>sepal_length</th>
-<th>sepal_width</th>
-<th>petal_length</th>
-<th>petal_width</th>
+<th>PassengerId</th>
+<th>Survived</th>
+<th>Pclass</th>
+<th>Age</th>
+<th>SibSp</th>
+<th>Parch</th>
+<th>Fare</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>count</th>
-<td>150.000000</td>
-<td>150.000000</td>
-<td>150.000000</td>
-<td>150.000000</td>
+<td>891.000000</td>
+<td>891.000000</td>
+<td>891.000000</td>
+<td>714.000000</td>
+<td>891.000000</td>
+<td>891.000000</td>
+<td>891.000000</td>
 </tr>
 <tr>
 <th>mean</th>
-<td>5.843333</td>
-<td>3.057333</td>
-<td>3.758000</td>
-<td>1.199333</td>
+<td>446.000000</td>
+<td>0.383838</td>
+<td>2.308642</td>
+<td>29.699118</td>
+<td>0.523008</td>
+<td>0.381594</td>
+<td>32.204208</td>
 </tr>
 <tr>
 <th>std</th>
-<td>0.828066</td>
-<td>0.435866</td>
-<td>1.765298</td>
-<td>0.762238</td>
+<td>257.353842</td>
+<td>0.486592</td>
+<td>0.836071</td>
+<td>14.526497</td>
+<td>1.102743</td>
+<td>0.806057</td>
+<td>49.693429</td>
 </tr>
 <tr>
 <th>min</th>
-<td>4.300000</td>
-<td>2.000000</td>
 <td>1.000000</td>
-<td>0.100000</td>
+<td>0.000000</td>
+<td>1.000000</td>
+<td>0.420000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
 </tr>
 <tr>
 <th>25%</th>
-<td>5.100000</td>
-<td>2.800000</td>
-<td>1.600000</td>
-<td>0.300000</td>
+<td>223.500000</td>
+<td>0.000000</td>
+<td>2.000000</td>
+<td>20.125000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>7.910400</td>
 </tr>
 <tr>
 <th>50%</th>
-<td>5.800000</td>
+<td>446.000000</td>
+<td>0.000000</td>
 <td>3.000000</td>
-<td>4.350000</td>
-<td>1.300000</td>
+<td>28.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>14.454200</td>
 </tr>
 <tr>
 <th>75%</th>
-<td>6.400000</td>
-<td>3.300000</td>
-<td>5.100000</td>
-<td>1.800000</td>
+<td>668.500000</td>
+<td>1.000000</td>
+<td>3.000000</td>
+<td>38.000000</td>
+<td>1.000000</td>
+<td>0.000000</td>
+<td>31.000000</td>
 </tr>
 <tr>
 <th>max</th>
-<td>7.900000</td>
-<td>4.400000</td>
-<td>6.900000</td>
-<td>2.500000</td>
+<td>891.000000</td>
+<td>1.000000</td>
+<td>3.000000</td>
+<td>80.000000</td>
+<td>8.000000</td>
+<td>6.000000</td>
+<td>512.329200</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-40673ef9-c862-43bf-affe-c2513938ad9a')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-556cb769-5655-4812-a592-f1a56e377115')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8200,12 +8310,12 @@ memory usage: 6.0+ KB
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-40673ef9-c862-43bf-affe-c2513938ad9a button.colab-df-convert');
+        document.querySelector('#df-556cb769-5655-4812-a592-f1a56e377115 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-40673ef9-c862-43bf-affe-c2513938ad9a');
+        const element = document.querySelector('#df-556cb769-5655-4812-a592-f1a56e377115');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8223,8 +8333,8 @@ memory usage: 6.0+ KB
       }
     </script>
 </div>
-<div id="df-c13760d7-60b2-46b5-851c-fa2a99d49275">
-<button class="colab-df-quickchart" onclick="quickchart('df-c13760d7-60b2-46b5-851c-fa2a99d49275')" style="display:none;" title="Suggest charts">
+<div id="df-e5c399dd-dc23-4630-aaf9-51e1c584f07a">
+<button class="colab-df-quickchart" onclick="quickchart('df-e5c399dd-dc23-4630-aaf9-51e1c584f07a')" style="display:none;" title="Suggest charts">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <g>
 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
@@ -8337,7 +8447,7 @@ memory usage: 6.0+ KB
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-c13760d7-60b2-46b5-851c-fa2a99d49275 button');
+        document.querySelector('#df-e5c399dd-dc23-4630-aaf9-51e1c584f07a button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
@@ -8349,17 +8459,32 @@ memory usage: 6.0+ KB
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="4.-%EC%A0%84%EC%B2%98%EB%A6%AC">4. 전처리<a class="anchor-link" href="#4.-%EC%A0%84%EC%B2%98%EB%A6%AC">¶</a></h3>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [15]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'species'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">'setosa'</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">'versicolor'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">'virginica'</span><span class="p">:</span><span class="mi">2</span><span class="p">},</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1">#df['species'] = df['species'].map({'setosa':0, 'versicolor':1, 'virginica':2})</span>
-<span class="n">df</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Age 컬럼의 결측값을 평균으로 대치</span>
+<span class="n">d_mean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">d_mean</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># 출발항구코드 컬럼의 결측값을 최빈값으로 대치</span>
+<span class="n">d_mode</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Embarked'</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'Embarked'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">d_mode</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8372,22 +8497,57 @@ memory usage: 6.0+ KB
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>&lt;ipython-input-6-46aba6d9356d&gt;:1: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+<pre>&lt;ipython-input-15-b3329ffa5fbc&gt;:3: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
 The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
 
 For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
 
 
-  df['species'].replace({'setosa':0,'versicolor':1,'virginica':2},inplace=True)
-&lt;ipython-input-6-46aba6d9356d&gt;:1: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
-  df['species'].replace({'setosa':0,'versicolor':1,'virginica':2},inplace=True)
+  df['Age'].fillna(d_mean, inplace = True)
+&lt;ipython-input-15-b3329ffa5fbc&gt;:7: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df['Embarked'].fillna(d_mode, inplace = True)
 </pre>
 </div>
 </div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Sex 컬럼값을 1과 0으로 레이블인코딩</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'Sex'</span><span class="p">]</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Sex'</span><span class="p">])</span>
+
+<span class="c1"># Embarked(출발항구코드) 컬럼값을 0, 1, 2로 레이블인코딩</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'Embarked'</span><span class="p">]</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Embarked'</span><span class="p">])</span>
+
+<span class="c1"># SibSp(형제배우자수), Parch(부모자녀수)의 값을 더해서 FamilySize 컬럼(파생변수)을 생성한다.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'FamilySize'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'SibSp'</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Parch'</span><span class="p">]</span>
+
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-26fc3b70-7f3d-4b80-87c6-844172510a87">
+<div class="colab-df-container" id="df-a8d70b53-eece-4cc8-ba55-2ec1a251c448">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8406,52 +8566,100 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 <thead>
 <tr style="text-align: right;">
 <th></th>
-<th>sepal_length</th>
-<th>sepal_width</th>
-<th>petal_length</th>
-<th>petal_width</th>
-<th>species</th>
+<th>PassengerId</th>
+<th>Survived</th>
+<th>Pclass</th>
+<th>Name</th>
+<th>Sex</th>
+<th>Age</th>
+<th>SibSp</th>
+<th>Parch</th>
+<th>Ticket</th>
+<th>Fare</th>
+<th>Cabin</th>
+<th>Embarked</th>
+<th>FamilySize</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <th>0</th>
-<td>5.1</td>
-<td>3.5</td>
-<td>1.4</td>
-<td>0.2</td>
+<td>1</td>
 <td>0</td>
+<td>3</td>
+<td>Braund, Mr. Owen Harris</td>
+<td>1</td>
+<td>22.000000</td>
+<td>1</td>
+<td>0</td>
+<td>A/5 21171</td>
+<td>7.2500</td>
+<td>NaN</td>
+<td>2</td>
+<td>1</td>
 </tr>
 <tr>
 <th>1</th>
-<td>4.9</td>
-<td>3.0</td>
-<td>1.4</td>
-<td>0.2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
 <td>0</td>
+<td>38.000000</td>
+<td>1</td>
+<td>0</td>
+<td>PC 17599</td>
+<td>71.2833</td>
+<td>C85</td>
+<td>0</td>
+<td>1</td>
 </tr>
 <tr>
 <th>2</th>
-<td>4.7</td>
-<td>3.2</td>
-<td>1.3</td>
-<td>0.2</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>Heikkinen, Miss. Laina</td>
+<td>0</td>
+<td>26.000000</td>
+<td>0</td>
+<td>0</td>
+<td>STON/O2. 3101282</td>
+<td>7.9250</td>
+<td>NaN</td>
+<td>2</td>
 <td>0</td>
 </tr>
 <tr>
 <th>3</th>
-<td>4.6</td>
-<td>3.1</td>
-<td>1.5</td>
-<td>0.2</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
 <td>0</td>
+<td>35.000000</td>
+<td>1</td>
+<td>0</td>
+<td>113803</td>
+<td>53.1000</td>
+<td>C123</td>
+<td>2</td>
+<td>1</td>
 </tr>
 <tr>
 <th>4</th>
-<td>5.0</td>
-<td>3.6</td>
-<td>1.4</td>
-<td>0.2</td>
+<td>5</td>
+<td>0</td>
+<td>3</td>
+<td>Allen, Mr. William Henry</td>
+<td>1</td>
+<td>35.000000</td>
+<td>0</td>
+<td>0</td>
+<td>373450</td>
+<td>8.0500</td>
+<td>NaN</td>
+<td>2</td>
 <td>0</td>
 </tr>
 <tr>
@@ -8461,54 +8669,102 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 <td>...</td>
 <td>...</td>
 <td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
 </tr>
 <tr>
-<th>145</th>
-<td>6.7</td>
-<td>3.0</td>
-<td>5.2</td>
-<td>2.3</td>
+<th>886</th>
+<td>887</td>
+<td>0</td>
 <td>2</td>
+<td>Montvila, Rev. Juozas</td>
+<td>1</td>
+<td>27.000000</td>
+<td>0</td>
+<td>0</td>
+<td>211536</td>
+<td>13.0000</td>
+<td>NaN</td>
+<td>2</td>
+<td>0</td>
 </tr>
 <tr>
-<th>146</th>
-<td>6.3</td>
-<td>2.5</td>
-<td>5.0</td>
-<td>1.9</td>
+<th>887</th>
+<td>888</td>
+<td>1</td>
+<td>1</td>
+<td>Graham, Miss. Margaret Edith</td>
+<td>0</td>
+<td>19.000000</td>
+<td>0</td>
+<td>0</td>
+<td>112053</td>
+<td>30.0000</td>
+<td>B42</td>
 <td>2</td>
+<td>0</td>
 </tr>
 <tr>
-<th>147</th>
-<td>6.5</td>
-<td>3.0</td>
-<td>5.2</td>
-<td>2.0</td>
+<th>888</th>
+<td>889</td>
+<td>0</td>
+<td>3</td>
+<td>Johnston, Miss. Catherine Helen "Carrie"</td>
+<td>0</td>
+<td>29.699118</td>
+<td>1</td>
 <td>2</td>
+<td>W./C. 6607</td>
+<td>23.4500</td>
+<td>NaN</td>
+<td>2</td>
+<td>3</td>
 </tr>
 <tr>
-<th>148</th>
-<td>6.2</td>
-<td>3.4</td>
-<td>5.4</td>
-<td>2.3</td>
-<td>2</td>
+<th>889</th>
+<td>890</td>
+<td>1</td>
+<td>1</td>
+<td>Behr, Mr. Karl Howell</td>
+<td>1</td>
+<td>26.000000</td>
+<td>0</td>
+<td>0</td>
+<td>111369</td>
+<td>30.0000</td>
+<td>C148</td>
+<td>0</td>
+<td>0</td>
 </tr>
 <tr>
-<th>149</th>
-<td>5.9</td>
-<td>3.0</td>
-<td>5.1</td>
-<td>1.8</td>
-<td>2</td>
+<th>890</th>
+<td>891</td>
+<td>0</td>
+<td>3</td>
+<td>Dooley, Mr. Patrick</td>
+<td>1</td>
+<td>32.000000</td>
+<td>0</td>
+<td>0</td>
+<td>370376</td>
+<td>7.7500</td>
+<td>NaN</td>
+<td>1</td>
+<td>0</td>
 </tr>
 </tbody>
 </table>
-<p>150 rows × 5 columns</p>
+<p>891 rows × 13 columns</p>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-26fc3b70-7f3d-4b80-87c6-844172510a87')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-a8d70b53-eece-4cc8-ba55-2ec1a251c448')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8555,12 +8811,12 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-26fc3b70-7f3d-4b80-87c6-844172510a87 button.colab-df-convert');
+        document.querySelector('#df-a8d70b53-eece-4cc8-ba55-2ec1a251c448 button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-26fc3b70-7f3d-4b80-87c6-844172510a87');
+        const element = document.querySelector('#df-a8d70b53-eece-4cc8-ba55-2ec1a251c448');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8578,8 +8834,8 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
       }
     </script>
 </div>
-<div id="df-647b2713-3cc1-4739-8795-22877e08d437">
-<button class="colab-df-quickchart" onclick="quickchart('df-647b2713-3cc1-4739-8795-22877e08d437')" style="display:none;" title="Suggest charts">
+<div id="df-e46dd16b-4857-451d-8238-5ebc90da6b9e">
+<button class="colab-df-quickchart" onclick="quickchart('df-e46dd16b-4857-451d-8238-5ebc90da6b9e')" style="display:none;" title="Suggest charts">
 <svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
 <g>
 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
@@ -8692,13 +8948,13 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
     }
     (() => {
       let quickchartButtonEl =
-        document.querySelector('#df-647b2713-3cc1-4739-8795-22877e08d437 button');
+        document.querySelector('#df-e46dd16b-4857-451d-8238-5ebc90da6b9e button');
       quickchartButtonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
     })();
   </script>
 </div>
-<div id="id_24c19ca1-0725-4723-8b48-8b754e0125f3">
+<div id="id_6046ea5f-4e53-4422-99fe-260df3c090f8">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -8738,7 +8994,7 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_24c19ca1-0725-4723-8b48-8b754e0125f3 button.colab-df-generate');
+        document.querySelector('#id_6046ea5f-4e53-4422-99fe-260df3c090f8 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -8754,37 +9010,15 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 분석 데이터셋 준비</span>
-<span class="c1"># X는 독립변수(설명변수), y는 종속변수 (목표변수)</span>
-<span class="c1"># random_stat: 호출할 때마다 동일한 학습, 테스트용 데이터 세트를 생성하기 위해 주어지는 인자</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">"sepal_length"</span><span class="p">,</span><span class="s2">"sepal_width"</span><span class="p">,</span><span class="s2">"petal_length"</span><span class="p">,</span><span class="s2">"petal_width"</span><span class="p">]]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [17]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (개수, 열)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (개수, 열)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (개수, 열)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># (개수, 열)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -8797,11 +9031,54 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>(120, 4)
-(30, 4)
-(120,)
-(30,)
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    int64  
+ 5   Age          891 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     891 non-null    int64  
+ 12  FamilySize   891 non-null    int64  
+dtypes: float64(2), int64(8), object(3)
+memory usage: 90.6+ KB
 </pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="5.-%EB%B6%84%EC%84%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A4%80%EB%B9%84-(%ED%95%99%EC%8A%B5%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0)">5. 분석 데이터셋 준비 (학습을 위한 데이터)<a class="anchor-link" href="#5.-%EB%B6%84%EC%84%9D-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A4%80%EB%B9%84-(%ED%95%99%EC%8A%B5%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0)">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># X는 독립변수(설명변수), y는 종속변수(목표변수) # Pclass (객실등급)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">'Pclass'</span><span class="p">,</span> <span class="s1">'Sex'</span><span class="p">,</span> <span class="s1">'Age'</span><span class="p">,</span> <span class="s1">'Fare'</span><span class="p">,</span> <span class="s1">'Embarked'</span><span class="p">,</span> <span class="s1">'FamilySize'</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Survived'</span><span class="p">]</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -8811,7 +9088,563 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [19]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">X</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[19]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-4c3de355-db4f-4d99-bf2a-2ae3074e7056">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Pclass</th>
+<th>Sex</th>
+<th>Age</th>
+<th>Fare</th>
+<th>Embarked</th>
+<th>FamilySize</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>3</td>
+<td>1</td>
+<td>22.000000</td>
+<td>7.2500</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<th>1</th>
+<td>1</td>
+<td>0</td>
+<td>38.000000</td>
+<td>71.2833</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<th>2</th>
+<td>3</td>
+<td>0</td>
+<td>26.000000</td>
+<td>7.9250</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<th>3</th>
+<td>1</td>
+<td>0</td>
+<td>35.000000</td>
+<td>53.1000</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<th>4</th>
+<td>3</td>
+<td>1</td>
+<td>35.000000</td>
+<td>8.0500</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>886</th>
+<td>2</td>
+<td>1</td>
+<td>27.000000</td>
+<td>13.0000</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<th>887</th>
+<td>1</td>
+<td>0</td>
+<td>19.000000</td>
+<td>30.0000</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<th>888</th>
+<td>3</td>
+<td>0</td>
+<td>29.699118</td>
+<td>23.4500</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<th>889</th>
+<td>1</td>
+<td>1</td>
+<td>26.000000</td>
+<td>30.0000</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>890</th>
+<td>3</td>
+<td>1</td>
+<td>32.000000</td>
+<td>7.7500</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>891 rows × 6 columns</p>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-4c3de355-db4f-4d99-bf2a-2ae3074e7056')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
+
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
+
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
+
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
+
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
+
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-4c3de355-db4f-4d99-bf2a-2ae3074e7056 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-4c3de355-db4f-4d99-bf2a-2ae3074e7056');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
+
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="df-426d2e75-2908-4b99-8a82-d4324d15c89b">
+<button class="colab-df-quickchart" onclick="quickchart('df-426d2e75-2908-4b99-8a82-d4324d15c89b')" style="display:none;" title="Suggest charts">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"></path>
+</g>
+</svg>
+</button>
+<style>
+  .colab-df-quickchart {
+      --bg-color: #E8F0FE;
+      --fill-color: #1967D2;
+      --hover-bg-color: #E2EBFA;
+      --hover-fill-color: #174EA6;
+      --disabled-fill-color: #AAA;
+      --disabled-bg-color: #DDD;
+  }
+
+  [theme=dark] .colab-df-quickchart {
+      --bg-color: #3B4455;
+      --fill-color: #D2E3FC;
+      --hover-bg-color: #434B5C;
+      --hover-fill-color: #FFFFFF;
+      --disabled-bg-color: #3B4455;
+      --disabled-fill-color: #666;
+  }
+
+  .colab-df-quickchart {
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    fill: var(--fill-color);
+    height: 32px;
+    padding: 0;
+    width: 32px;
+  }
+
+  .colab-df-quickchart:hover {
+    background-color: var(--hover-bg-color);
+    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    fill: var(--button-hover-fill-color);
+  }
+
+  .colab-df-quickchart-complete:disabled,
+  .colab-df-quickchart-complete:disabled:hover {
+    background-color: var(--disabled-bg-color);
+    fill: var(--disabled-fill-color);
+    box-shadow: none;
+  }
+
+  .colab-df-spinner {
+    border: 2px solid var(--fill-color);
+    border-color: transparent;
+    border-bottom-color: var(--fill-color);
+    animation:
+      spin 1s steps(1) infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+      border-left-color: var(--fill-color);
+    }
+    20% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    30% {
+      border-color: transparent;
+      border-left-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+      border-right-color: var(--fill-color);
+    }
+    40% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-top-color: var(--fill-color);
+    }
+    60% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+    }
+    80% {
+      border-color: transparent;
+      border-right-color: var(--fill-color);
+      border-bottom-color: var(--fill-color);
+    }
+    90% {
+      border-color: transparent;
+      border-bottom-color: var(--fill-color);
+    }
+  }
+</style>
+<script>
+    async function quickchart(key) {
+      const quickchartButtonEl =
+        document.querySelector('#' + key + ' button');
+      quickchartButtonEl.disabled = true;  // To prevent multiple clicks.
+      quickchartButtonEl.classList.add('colab-df-spinner');
+      try {
+        const charts = await google.colab.kernel.invokeFunction(
+            'suggestCharts', [key], {});
+      } catch (error) {
+        console.error('Error during call to suggestCharts:', error);
+      }
+      quickchartButtonEl.classList.remove('colab-df-spinner');
+      quickchartButtonEl.classList.add('colab-df-quickchart-complete');
+    }
+    (() => {
+      let quickchartButtonEl =
+        document.querySelector('#df-426d2e75-2908-4b99-8a82-d4324d15c89b button');
+      quickchartButtonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+    })();
+  </script>
+</div>
+<div id="id_bcdd009f-2875-4d55-9019-d5ac8b290d73">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
+
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
+
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('X')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_bcdd009f-2875-4d55-9019-d5ac8b290d73 button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('X');
+      }
+      })();
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[20]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>Survived</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>0</td>
+</tr>
+<tr>
+<th>1</th>
+<td>1</td>
+</tr>
+<tr>
+<th>2</th>
+<td>1</td>
+</tr>
+<tr>
+<th>3</th>
+<td>1</td>
+</tr>
+<tr>
+<th>4</th>
+<td>0</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+</tr>
+<tr>
+<th>886</th>
+<td>0</td>
+</tr>
+<tr>
+<th>887</th>
+<td>1</td>
+</tr>
+<tr>
+<th>888</th>
+<td>0</td>
+</tr>
+<tr>
+<th>889</th>
+<td>1</td>
+</tr>
+<tr>
+<th>890</th>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>891 rows × 1 columns</p>
+</div><br/><label><b>dtype:</b> int64</label>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [22]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># test_size=0.2: 학습셋= 80%, 테스트셋=20% 설정 (0.2는 20%를 의미)</span>
+<span class="c1"># random_state=11: 데이터셋을 랜덤하게 섞는다 (11은 seed값으로 처음에 섞인 순서를 유지하도록 함 = 일관성을 위해)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [23]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># shape 속성을 이용하여, 결과 데이터셋의 크기 살펴보기</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 학습 데이터(독립변수)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 테스트 데이터(독립변수)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 학습 데이터(종속변수)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># 테스트 데이터(종속변수)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>(712, 6)
+(179, 6)
+(712,)
+(179,)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="6.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-%EC%88%98%ED%96%89-(%ED%95%99%EC%8A%B5-%EC%88%98%ED%96%89)">6. 데이터 분석 수행 (학습 수행)<a class="anchor-link" href="#6.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-%EC%88%98%ED%96%89-(%ED%95%99%EC%8A%B5-%EC%88%98%ED%96%89)">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [24]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># DecisionTreeClassifier 객체 생성</span>
@@ -8828,7 +9661,7 @@ For example, when doing 'df[col].method(value, inplace=True)', try using 'df.met
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <style>#sk-container-id-1 {
   /* Definition of color scheme common for light and dark mode */
@@ -9245,8 +10078,19 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div class="sk-top-container" id="sk-container-id-1"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(random_state=11)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br/>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input checked="" class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"/><label class="sk-toggleable__label fitted sk-toggleable__label-arrow" for="sk-estimator-id-1"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" href="https://scikit-learn.org/1.6/modules/generated/sklearn.tree.DecisionTreeClassifier.html" rel="noreferrer" target="_blank">?<span>Documentation for DecisionTreeClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>DecisionTreeClassifier(random_state=11)</pre></div> </div></div></div></div>
+</style><div class="sk-top-container" id="sk-container-id-1"><div class="sk-text-repr-fallback"><pre>DecisionTreeClassifier(random_state=11)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</br></b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input checked="" class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"/><label class="sk-toggleable__label fitted sk-toggleable__label-arrow" for="sk-estimator-id-1"><div><div>DecisionTreeClassifier</div></div><div><a class="sk-estimator-doc-link fitted" href="https://scikit-learn.org/1.6/modules/generated/sklearn.tree.DecisionTreeClassifier.html" rel="noreferrer" target="_blank">?<span>Documentation for DecisionTreeClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>DecisionTreeClassifier(random_state=11)</pre></div> </div></div></div></div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="7.-%ED%95%99%EC%8A%B5-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8(%EC%98%88%EC%B8%A1-%EC%88%98%ED%96%89)">7. 학습 결과 확인(예측 수행)<a class="anchor-link" href="#7.-%ED%95%99%EC%8A%B5-%EA%B2%B0%EA%B3%BC-%ED%99%95%EC%9D%B8(%EC%98%88%EC%B8%A1-%EC%88%98%ED%96%89)">¶</a></h3>
 </div>
 </div>
 </div>
@@ -9255,11 +10099,10 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [25]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 예측 수행</span>
-<span class="n">pred</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">pred</span>
 </pre></div>
 </div>
@@ -9271,10 +10114,17 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[25]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>array([2, 2, 1, 1, 2, 0, 1, 0, 0, 1, 1, 1, 1, 2, 2, 0, 2, 1, 2, 2, 1, 0,
-       0, 1, 0, 0, 2, 1, 0, 1])</pre>
+<pre>array([1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1,
+       0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1,
+       1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+       0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0,
+       1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1,
+       0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+       1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0,
+       1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0,
+       0, 1, 0])</pre>
 </div>
 </div>
 </div>
@@ -9284,12 +10134,15 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 실제값과 예측값의 차이</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="c1"># y_test(type = series) 실제값을 출력</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>          <span class="c1"># pred 예측값을 출력</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 예측 결과 출력</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pred</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">prediction</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Passenger </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> survived."</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Passenger </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> did not survive."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9302,10 +10155,198 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>[2 2 2 1 2 0 1 0 0 1 2 1 1 2 2 0 2 1 2 2 1 0 0 1 0 0 2 1 0 1]
-[2 2 1 1 2 0 1 0 0 1 1 1 1 2 2 0 2 1 2 2 1 0 0 1 0 0 2 1 0 1]
+<pre>Passenger 1 survived.
+Passenger 2 did not survive.
+Passenger 3 did not survive.
+Passenger 4 survived.
+Passenger 5 did not survive.
+Passenger 6 did not survive.
+Passenger 7 did not survive.
+Passenger 8 survived.
+Passenger 9 did not survive.
+Passenger 10 did not survive.
+Passenger 11 did not survive.
+Passenger 12 did not survive.
+Passenger 13 did not survive.
+Passenger 14 did not survive.
+Passenger 15 did not survive.
+Passenger 16 did not survive.
+Passenger 17 did not survive.
+Passenger 18 did not survive.
+Passenger 19 survived.
+Passenger 20 survived.
+Passenger 21 did not survive.
+Passenger 22 survived.
+Passenger 23 did not survive.
+Passenger 24 survived.
+Passenger 25 did not survive.
+Passenger 26 did not survive.
+Passenger 27 did not survive.
+Passenger 28 did not survive.
+Passenger 29 did not survive.
+Passenger 30 survived.
+Passenger 31 survived.
+Passenger 32 survived.
+Passenger 33 survived.
+Passenger 34 survived.
+Passenger 35 did not survive.
+Passenger 36 did not survive.
+Passenger 37 did not survive.
+Passenger 38 did not survive.
+Passenger 39 survived.
+Passenger 40 did not survive.
+Passenger 41 did not survive.
+Passenger 42 did not survive.
+Passenger 43 survived.
+Passenger 44 survived.
+Passenger 45 survived.
+Passenger 46 survived.
+Passenger 47 survived.
+Passenger 48 did not survive.
+Passenger 49 survived.
+Passenger 50 did not survive.
+Passenger 51 did not survive.
+Passenger 52 did not survive.
+Passenger 53 did not survive.
+Passenger 54 survived.
+Passenger 55 did not survive.
+Passenger 56 did not survive.
+Passenger 57 did not survive.
+Passenger 58 did not survive.
+Passenger 59 did not survive.
+Passenger 60 did not survive.
+Passenger 61 did not survive.
+Passenger 62 survived.
+Passenger 63 survived.
+Passenger 64 survived.
+Passenger 65 did not survive.
+Passenger 66 did not survive.
+Passenger 67 did not survive.
+Passenger 68 did not survive.
+Passenger 69 survived.
+Passenger 70 did not survive.
+Passenger 71 did not survive.
+Passenger 72 did not survive.
+Passenger 73 did not survive.
+Passenger 74 survived.
+Passenger 75 did not survive.
+Passenger 76 did not survive.
+Passenger 77 survived.
+Passenger 78 did not survive.
+Passenger 79 survived.
+Passenger 80 did not survive.
+Passenger 81 survived.
+Passenger 82 did not survive.
+Passenger 83 survived.
+Passenger 84 did not survive.
+Passenger 85 survived.
+Passenger 86 survived.
+Passenger 87 survived.
+Passenger 88 did not survive.
+Passenger 89 survived.
+Passenger 90 did not survive.
+Passenger 91 did not survive.
+Passenger 92 did not survive.
+Passenger 93 did not survive.
+Passenger 94 did not survive.
+Passenger 95 survived.
+Passenger 96 did not survive.
+Passenger 97 survived.
+Passenger 98 did not survive.
+Passenger 99 did not survive.
+Passenger 100 survived.
+Passenger 101 did not survive.
+Passenger 102 did not survive.
+Passenger 103 survived.
+Passenger 104 did not survive.
+Passenger 105 did not survive.
+Passenger 106 did not survive.
+Passenger 107 did not survive.
+Passenger 108 did not survive.
+Passenger 109 did not survive.
+Passenger 110 survived.
+Passenger 111 did not survive.
+Passenger 112 did not survive.
+Passenger 113 survived.
+Passenger 114 survived.
+Passenger 115 did not survive.
+Passenger 116 survived.
+Passenger 117 did not survive.
+Passenger 118 did not survive.
+Passenger 119 survived.
+Passenger 120 did not survive.
+Passenger 121 did not survive.
+Passenger 122 survived.
+Passenger 123 survived.
+Passenger 124 did not survive.
+Passenger 125 did not survive.
+Passenger 126 did not survive.
+Passenger 127 did not survive.
+Passenger 128 did not survive.
+Passenger 129 did not survive.
+Passenger 130 did not survive.
+Passenger 131 survived.
+Passenger 132 survived.
+Passenger 133 survived.
+Passenger 134 survived.
+Passenger 135 survived.
+Passenger 136 did not survive.
+Passenger 137 survived.
+Passenger 138 did not survive.
+Passenger 139 did not survive.
+Passenger 140 survived.
+Passenger 141 survived.
+Passenger 142 did not survive.
+Passenger 143 did not survive.
+Passenger 144 did not survive.
+Passenger 145 did not survive.
+Passenger 146 did not survive.
+Passenger 147 did not survive.
+Passenger 148 did not survive.
+Passenger 149 survived.
+Passenger 150 did not survive.
+Passenger 151 did not survive.
+Passenger 152 survived.
+Passenger 153 did not survive.
+Passenger 154 did not survive.
+Passenger 155 survived.
+Passenger 156 survived.
+Passenger 157 survived.
+Passenger 158 did not survive.
+Passenger 159 did not survive.
+Passenger 160 did not survive.
+Passenger 161 did not survive.
+Passenger 162 did not survive.
+Passenger 163 did not survive.
+Passenger 164 survived.
+Passenger 165 did not survive.
+Passenger 166 did not survive.
+Passenger 167 survived.
+Passenger 168 did not survive.
+Passenger 169 did not survive.
+Passenger 170 survived.
+Passenger 171 did not survive.
+Passenger 172 survived.
+Passenger 173 survived.
+Passenger 174 did not survive.
+Passenger 175 did not survive.
+Passenger 176 did not survive.
+Passenger 177 did not survive.
+Passenger 178 survived.
+Passenger 179 did not survive.
 </pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="8.-%EC%84%B1%EB%8A%A5-%ED%8F%89%EA%B0%80">8. 성능 평가<a class="anchor-link" href="#8.-%EC%84%B1%EB%8A%A5-%ED%8F%89%EA%B0%80">¶</a></h3>
 </div>
 </div>
 </div>
@@ -9314,7 +10355,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [27]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 모델 성능 - 정확도 측정</span>
@@ -9333,22 +10374,67 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>0.9333333333333333
+<pre>0.7877094972067039
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="9.-%EC%83%88%EB%A1%9C%EC%9A%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%98%88%EC%B8%A1">9. 새로운 데이터 예측<a class="anchor-link" href="#9.-%EC%83%88%EB%A1%9C%EC%9A%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%98%88%EC%B8%A1">¶</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 새로운 데이터 준비</span>
+<span class="n">new_passenger</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'Pclass'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span>
+    <span class="s1">'Sex'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s1">'Age'</span><span class="p">:</span> <span class="p">[</span><span class="mi">35</span><span class="p">,</span><span class="mi">28</span><span class="p">,</span><span class="mi">45</span><span class="p">],</span>
+    <span class="s1">'Fare'</span><span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+    <span class="s1">'Embarked'</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s1">'FamilySize'</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># 새로운 데이터 예측</span>
+<span class="c1"># predictions = model.predict(new_passenger)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_passenger</span><span class="p">)</span>
+
+<span class="c1"># 예측 결과 출력</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predictions</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">prediction</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Passenger </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> survived."</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Passenger </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> did not survive."</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Passenger 1 did not survive.
+Passenger 2 did not survive.
+Passenger 3 did not survive.
+</pre>
 </div>
 </div>
 </div>
@@ -9369,5 +10455,13 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 </main>
+<div class="footerfixed">
+  <a style="padding-right: 5px; border-right: 1px solid #000;" href="250212개발일지.html">Home</a>
+  <a style="padding-right: 5px; border-right: 1px solid #000;" href="250212(머신러닝).html">머신러닝</a>
+  <a style="padding-right: 5px; border-right: 1px solid #000;" href="250212(타이타닉 생존여부 예측).html">타이타닉 생존여부 예측</a>
+
+
+
+</div>
 </body>
 </html>
