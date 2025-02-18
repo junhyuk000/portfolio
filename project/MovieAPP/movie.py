@@ -51,18 +51,23 @@ if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
 else:
     print("❌ 모델 파일을 찾을 수 없습니다.")
 
-print(f"TFIDF 모델 경로: {TFIDF_PATH}")
-print(f"감성 분석 모델 경로: {MODEL_PATH}")
+
+# 모델 로드 확인용 디버깅 코드 추가
+print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}")
 
 if not os.path.exists(TFIDF_PATH):
     print("❌ TFIDF 모델 파일이 존재하지 않습니다.")
 if not os.path.exists(MODEL_PATH):
     print("❌ 감성 분석 모델 파일이 존재하지 않습니다.")
 
-if tfidf_vectorizer is None:
-    print("❌ tfidf_vectorizer가 로드되지 않았습니다.")
-if text_mining_model is None:
-    print("❌ text_mining_model이 로드되지 않았습니다.")
+try:
+    tfidf_vectorizer = joblib.load(TFIDF_PATH)
+    text_mining_model = joblib.load(MODEL_PATH)
+    print("✅ 모델이 정상적으로 로드되었습니다!")
+except Exception as e:
+    print(f"❌ 모델 로드 중 오류 발생: {e}")
+    tfidf_vectorizer, text_mining_model = None, None
+
 
 
 ### images 폴더 static/images 폴더로 연결
