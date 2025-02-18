@@ -9,7 +9,7 @@ from models import DBManager
 import pandas as pd
 import joblib
 import re
-
+from konlpy.tag import Okt
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -23,6 +23,14 @@ manager = DBManager()
 MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
+
+# 커스텀 토크나이저 정의
+okt = Okt()
+
+# 문장을 토큰화 하기 위해 okt_tokenizer 함수를 정의하고 okt.morphs() 함수를 사용하여 형태소 단위로 토큰화 작업을 수행
+def okt_tokenizer(text):
+  tokens = okt.morphs(text)
+  return tokens
 
 # 모델 로드
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):

@@ -8,3 +8,4 @@ gunicorn
 gevent
 joblib
 scikit-learn
+konlpy
