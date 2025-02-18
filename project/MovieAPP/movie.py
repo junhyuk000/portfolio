@@ -259,6 +259,8 @@ def view_post(id,title):
         sentiment = "긍정" if prediction[0] == 1 else "부정"
     else:
         sentiment = "중립"  # 내용이 없거나 분석 불가한 경우
+    
+    print(sentiment)
     all_comments = manager.get_all_comments()
     comments = []
     for comment in all_comments:
