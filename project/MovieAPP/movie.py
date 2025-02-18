@@ -7,6 +7,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models import DBManager
 import pandas as pd
+import pickle
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -16,6 +17,14 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
+MODEL_PATH = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/tfidf.pkl"
+
+if os.path.exists(MODEL_PATH):
+    with open(MODEL_PATH, 'rb') as model_file:
+        text_mining_model = pickle.load(model_file)
+    print("✅ 모델이 성공적으로 로드되었습니다.")
+else:
+    print("❌ 모델 파일을 찾을 수 없습니다.")
 
 ### images 폴더 static/images 폴더로 연결
 @popcornapp.route('/images/<path:filename>')
@@ -222,12 +231,21 @@ def review(title,movie_id):
 def view_post(id,title):
     post = manager.get_post_by_id(id)
     views = manager.increment_hits(id)
+    text = post['content']
+    # 모델이 로드되지 않았다면 오류 반환
+    if text_mining_model is None:
+        return jsonify({"error": "모델이 로드되지 않았습니다."}), 500
+    prediction = text_mining_model.predict([text])  # 예측 실행
+    if prediction == 0:
+        model = '부정'
+    else :
+        model = '긍정'
     all_comments = manager.get_all_comments()
     comments = []
     for comment in all_comments:
         if comment['post_id'] == id:
             comments.append(comment)
-    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id)
+    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id, model = model)
 
 
 ### 리뷰 추가
