@@ -27,4 +27,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Gunicorn을 사용하여 Flask 애플리케이션 실행
-CMD ["gunicorn", "-w", "2", "-k", "gevent", "portfolio:app", "--bind", "0.0.0.0:8080", "--reload"]
+CMD ["gunicorn", "-w", "2", "-k", "gevent", "portfolio:app", "--bind", "0.0.0.0:80", "--reload"]
