@@ -3,18 +3,23 @@ FROM python:3.12-slim
 # 환경 변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 필요한 패키지 설치
+# 필요한 패키지 설치 (Java 추가)
 RUN apt-get update && apt-get install -y \
     curl \
     wget \
     unzip \
     chromium \
     chromium-driver \
+    openjdk-11-jdk \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 환경 변수 설정 (Selenium이 Chrome을 찾을 수 있도록)
 ENV CHROME_BIN=/usr/bin/chromium
 ENV CHROMEDRIVER_BIN=/usr/bin/chromedriver
+
+# Java 환경 변수 설정
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH="$JAVA_HOME/bin:$PATH"
 
 # 작업 디렉토리 설정
 WORKDIR /app
