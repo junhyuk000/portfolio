@@ -9,7 +9,7 @@ from models import DBManager
 import pandas as pd
 import joblib
 import re
-from konlpy.tag import Okt
+from tokenizer import okt_tokenizer
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -24,16 +24,6 @@ MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
-
-
-
-# Okt 토크나이저 정의
-okt = Okt()
-
-# 문장을 토큰화하기 위한 커스텀 토크나이저
-def okt_tokenizer(text):
-    return okt.morphs(text)
-
 # 📌 joblib.load() 실행 시 `custom_objects` 전달
 custom_objects = {"okt_tokenizer": okt_tokenizer}
 
@@ -41,32 +31,28 @@ custom_objects = {"okt_tokenizer": okt_tokenizer}
 tfidf_vectorizer = None
 text_mining_model = None
 
+def load_with_custom_objects(file_path):
+    try:
+        return joblib.load(file_path)
+    except AttributeError as e:
+        print(f"🔍 AttributeError 발생: {e}")
+        print("📌 Custom objects 적용하여 재시도")
+        return joblib.load(file_path, custom_objects={"okt_tokenizer": okt_tokenizer})
+
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
     try:
-        tfidf_vectorizer = joblib.load(TFIDF_PATH)
-        text_mining_model = joblib.load(MODEL_PATH)
+        tfidf_vectorizer = load_with_custom_objects(TFIDF_PATH)
+        text_mining_model = load_with_custom_objects(MODEL_PATH)
         print("✅ 모델이 성공적으로 로드되었습니다.")
     except Exception as e:
         print(f"❌ 모델 로드 중 오류 발생: {e}")
-else:
-    print("❌ 모델 파일을 찾을 수 없습니다.")
+        tfidf_vectorizer, text_mining_model = None, None  # 오류 발생 시 모델을 None으로 설정
 
-
-# 모델 로드 확인용 디버깅 코드 추가
+# 📌 모델 로드 확인용 디버깅 코드 추가
 print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}")
 
-if not os.path.exists(TFIDF_PATH):
-    print("❌ TFIDF 모델 파일이 존재하지 않습니다.")
-if not os.path.exists(MODEL_PATH):
-    print("❌ 감성 분석 모델 파일이 존재하지 않습니다.")
-
-try:
-    tfidf_vectorizer = joblib.load(TFIDF_PATH)
-    text_mining_model = joblib.load(MODEL_PATH)
-    print("✅ 모델이 정상적으로 로드되었습니다!")
-except Exception as e:
-    print(f"❌ 모델 로드 중 오류 발생: {e}")
-    tfidf_vectorizer, text_mining_model = None, None
+if tfidf_vectorizer is None or text_mining_model is None:
+    print("❌ 감성 분석 모델이 정상적으로 로드되지 않았습니다.")
 
 
 
