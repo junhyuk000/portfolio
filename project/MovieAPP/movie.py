@@ -7,7 +7,9 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models import DBManager
 import pandas as pd
-import pickle
+import joblib
+import re
+
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -17,13 +19,18 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
-MODEL_PATH = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/tfidf.pkl"
+# 모델 경로 설정
+TFIDF_PATH = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/tfidf.pkl"
+MODEL_PATH = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/SA_lr_best.pkl"
 
-if os.path.exists(MODEL_PATH):
-    with open(MODEL_PATH, 'rb') as model_file:
-        text_mining_model = pickle.load(model_file)
+# 모델 로드
+if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
+    tfidf_vectorizer = joblib.load(TFIDF_PATH)  # TF-IDF 벡터라이저 로드
+    text_mining_model = joblib.load(MODEL_PATH)  # 감성 분석 모델 로드
     print("✅ 모델이 성공적으로 로드되었습니다.")
 else:
+    tfidf_vectorizer = None
+    text_mining_model = None
     print("❌ 모델 파일을 찾을 수 없습니다.")
 
 ### images 폴더 static/images 폴더로 연결
@@ -232,20 +239,32 @@ def view_post(id,title):
     post = manager.get_post_by_id(id)
     views = manager.increment_hits(id)
     text = post['content']
+    if not text:
+        return jsonify({"error": "텍스트를 입력하세요."}), 400
+
     # 모델이 로드되지 않았다면 오류 반환
-    if text_mining_model is None:
+    if tfidf_vectorizer is None or text_mining_model is None:
         return jsonify({"error": "모델이 로드되지 않았습니다."}), 500
-    prediction = text_mining_model.predict([text])  # 예측 실행
-    if prediction == 0:
-        model = '부정'
-    else :
-        model = '긍정'
+
+    # 📌 1. 입력 텍스트 전처리 (한글만 추출)
+    text_processed = re.compile(r'[ㄱ-ㅣ가-힣]+').findall(text)
+    text_cleaned = " ".join(text_processed) if text_processed else ""
+
+    # 📌 2. 전처리된 텍스트를 TF-IDF 벡터화
+    if text_cleaned:
+        text_vectorized = tfidf_vectorizer.transform([text_cleaned])
+
+        # 📌 3. 감성 분석 모델 예측
+        prediction = text_mining_model.predict(text_vectorized)
+        sentiment = "긍정" if prediction[0] == 1 else "부정"
+    else:
+        sentiment = "중립"  # 내용이 없거나 분석 불가한 경우
     all_comments = manager.get_all_comments()
     comments = []
     for comment in all_comments:
         if comment['post_id'] == id:
             comments.append(comment)
-    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id, model = model)
+    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id, sentiment = sentiment)
 
 
 ### 리뷰 추가
