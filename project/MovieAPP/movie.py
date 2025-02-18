@@ -24,6 +24,9 @@ MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
+
+
+
 # Okt 토크나이저 정의
 okt = Okt()
 
@@ -47,6 +50,20 @@ if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
         print(f"❌ 모델 로드 중 오류 발생: {e}")
 else:
     print("❌ 모델 파일을 찾을 수 없습니다.")
+
+print(f"TFIDF 모델 경로: {TFIDF_PATH}")
+print(f"감성 분석 모델 경로: {MODEL_PATH}")
+
+if not os.path.exists(TFIDF_PATH):
+    print("❌ TFIDF 모델 파일이 존재하지 않습니다.")
+if not os.path.exists(MODEL_PATH):
+    print("❌ 감성 분석 모델 파일이 존재하지 않습니다.")
+
+if tfidf_vectorizer is None:
+    print("❌ tfidf_vectorizer가 로드되지 않았습니다.")
+if text_mining_model is None:
+    print("❌ text_mining_model이 로드되지 않았습니다.")
+
 
 ### images 폴더 static/images 폴더로 연결
 @popcornapp.route('/images/<path:filename>')
