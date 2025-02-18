@@ -11,9 +11,9 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     ca-certificates \
     gnupg \
-    chromium \
+    chromium-common \
     chromium-driver \
-    openjdk-11-jdk-headless \
+    openjdk-11-jdk \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 환경 변수 설정 (Selenium이 Chrome을 찾을 수 있도록)
