@@ -24,23 +24,23 @@ MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
+# 📌 Gunicorn이 okt_tokenizer를 찾을 수 있도록 전역 네임스페이스에 추가
+globals()["okt_tokenizer"] = okt_tokenizer  # ✅ 전역 변수 등록
+
 # 📌 모델 로드 최적화
 tfidf_vectorizer = None
 text_mining_model = None
 
-# ✅ 해결책: `globals()`에 커스텀 함수 등록 후 로드
-globals()["okt_tokenizer"] = okt_tokenizer  # 전역 객체에 등록
-
 def load_model(file_path):
-    """ 📌 joblib.load() 실행 시 okt_tokenizer 문제 해결 """
+    """ 📌 joblib.load() 실행 시 AttributeError 방지 """
     try:
         return joblib.load(file_path)
     except AttributeError as e:
         print(f"🔍 AttributeError 발생: {e}")
-        print("📌 Gunicorn에서 okt_tokenizer를 찾을 수 없을 가능성 있음. 재시도.")
-        return joblib.load(file_path)  # 다시 시도
+        print("📌 Gunicorn 환경에서 okt_tokenizer를 찾을 수 없을 가능성 있음. 전역 등록 후 재시도.")
+        return joblib.load(file_path)  # ✅ okt_tokenizer가 등록된 상태에서 다시 로드
 
-# 모델 로드
+# ✅ 모델 로드 시도
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
     try:
         tfidf_vectorizer = load_model(TFIDF_PATH)
@@ -55,7 +55,6 @@ print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}")
 
 if tfidf_vectorizer is None or text_mining_model is None:
     print("❌ 감성 분석 모델이 정상적으로 로드되지 않았습니다.")
-
 
 
 ### images 폴더 static/images 폴더로 연결
