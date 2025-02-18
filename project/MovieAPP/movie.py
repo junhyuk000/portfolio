@@ -20,13 +20,14 @@ popcornapp = Blueprint('popcornapp', __name__,
 manager = DBManager()
 
 # 모델 경로 설정
-TFIDF_PATH = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/tfidf.pkl"
-MODEL_PATH = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/SA_lr_best.pkl"
+MODEL_DIR = "/app/project/MovieAPP/static/model/"
+TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
+MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
 # 모델 로드
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
-    tfidf_vectorizer = joblib.load(TFIDF_PATH)  # TF-IDF 벡터라이저 로드
-    text_mining_model = joblib.load(MODEL_PATH)  # 감성 분석 모델 로드
+    tfidf_vectorizer = joblib.load(TFIDF_PATH)
+    text_mining_model = joblib.load(MODEL_PATH)
     print("✅ 모델이 성공적으로 로드되었습니다.")
 else:
     tfidf_vectorizer = None
