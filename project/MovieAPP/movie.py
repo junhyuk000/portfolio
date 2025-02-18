@@ -82,7 +82,8 @@ def register():
         file = request.files['file']
         
         filename = file.filename if file else None
-        user_image_folder = os.path.join(current_app.root_path, 'MovieAPP', 'static', 'user_image')
+        user_image_folder = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/user_image"
+
         if filename:
             file_path = os.path.join(user_image_folder, filename)
             file.save(file_path)
