@@ -24,26 +24,28 @@ MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
-# 커스텀 토크나이저 정의
+# Okt 토크나이저 정의
 okt = Okt()
 
-# 문장을 토큰화 하기 위해 okt_tokenizer 함수를 정의하고 okt.morphs() 함수를 사용하여 형태소 단위로 토큰화 작업을 수행
+# 문장을 토큰화하기 위한 커스텀 토크나이저
 def okt_tokenizer(text):
-  tokens = okt.morphs(text)
-  return tokens
+    return okt.morphs(text)
 
-# 📌 joblib.load() 실행 시 `globals()`를 사용하여 `okt_tokenizer` 전달
-tfidf_vectorizer = joblib.load(TFIDF_PATH, globals())
-text_mining_model = joblib.load(MODEL_PATH, globals())
+# 📌 joblib.load() 실행 시 `custom_objects` 전달
+custom_objects = {"okt_tokenizer": okt_tokenizer}
 
-# 모델 로드
+# 📌 모델 로드 최적화
+tfidf_vectorizer = None
+text_mining_model = None
+
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
-    tfidf_vectorizer = joblib.load(TFIDF_PATH)
-    text_mining_model = joblib.load(MODEL_PATH)
-    print("✅ 모델이 성공적으로 로드되었습니다.")
+    try:
+        tfidf_vectorizer = joblib.load(TFIDF_PATH)
+        text_mining_model = joblib.load(MODEL_PATH)
+        print("✅ 모델이 성공적으로 로드되었습니다.")
+    except Exception as e:
+        print(f"❌ 모델 로드 중 오류 발생: {e}")
 else:
-    tfidf_vectorizer = None
-    text_mining_model = None
     print("❌ 모델 파일을 찾을 수 없습니다.")
 
 ### images 폴더 static/images 폴더로 연결

@@ -10,3 +10,7 @@ selenium
 webdriver-manager
 gunicorn
 gevent
+joblib
+scikit-learn
+konlpy
+JPype1
