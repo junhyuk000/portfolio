@@ -3,12 +3,8 @@ FROM python:3.12-slim
 # 환경 변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 저장소 업데이트 및 OpenJDK 저장소 활성화
-RUN echo "deb http://deb.debian.org/debian bookworm main contrib non-free" > /etc/apt/sources.list && \
-    apt-get update
-
 # 필수 패키지 설치
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     curl \
     wget \
     unzip \
@@ -17,7 +13,7 @@ RUN apt-get install -y \
     gnupg \
     chromium \
     chromium-driver \
-    default-jdk \
+    openjdk-11-jdk \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 환경 변수 설정 (Selenium이 Chrome을 찾을 수 있도록)
@@ -32,11 +28,14 @@ ENV PATH="$JAVA_HOME/bin:$PATH"
 WORKDIR /app
 
 # 필요한 Python 패키지 설치
-COPY requirements.txt .
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 애플리케이션 코드 복사
 COPY . .
+
+# 모델 파일 복사 (필요한 경우)
+COPY project/MovieAPP/static/model /app/project/MovieAPP/static/model
 
 # Gunicorn을 사용하여 Flask 애플리케이션 실행
 CMD ["gunicorn", "-w", "2", "-k", "gevent", "portfolio:app", "--bind", "0.0.0.0:80", "--reload"]
