@@ -9,7 +9,7 @@ from models import DBManager
 import pandas as pd
 import joblib
 import re
-from tokenizer import okt_tokenizer
+from tokenizer import tokenizer
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -24,8 +24,8 @@ MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
-# 📌 Gunicorn이 okt_tokenizer를 찾을 수 있도록 전역 네임스페이스에 추가
-globals()["okt_tokenizer"] = okt_tokenizer  # ✅ 전역 변수 등록
+# ✅ Gunicorn이 `okt_tokenizer`를 찾을 수 있도록 `globals()`에 추가
+globals()["TokenizerWrapper"] = tokenizer.__class__
 
 # 📌 모델 로드 최적화
 tfidf_vectorizer = None
@@ -37,8 +37,8 @@ def load_model(file_path):
         return joblib.load(file_path)
     except AttributeError as e:
         print(f"🔍 AttributeError 발생: {e}")
-        print("📌 Gunicorn 환경에서 okt_tokenizer를 찾을 수 없을 가능성 있음. 전역 등록 후 재시도.")
-        return joblib.load(file_path)  # ✅ okt_tokenizer가 등록된 상태에서 다시 로드
+        print("📌 Gunicorn 환경에서 TokenizerWrapper를 찾을 수 없을 가능성 있음. 전역 등록 후 재시도.")
+        return joblib.load(file_path)  # ✅ TokenizerWrapper가 등록된 상태에서 다시 로드
 
 # ✅ 모델 로드 시도
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
