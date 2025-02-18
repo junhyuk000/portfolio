@@ -24,29 +24,31 @@ MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
-# 📌 joblib.load() 실행 시 `custom_objects` 전달
-custom_objects = {"okt_tokenizer": okt_tokenizer}
-
 # 📌 모델 로드 최적화
 tfidf_vectorizer = None
 text_mining_model = None
 
-def load_with_custom_objects(file_path):
+# ✅ 해결책: `globals()`에 커스텀 함수 등록 후 로드
+globals()["okt_tokenizer"] = okt_tokenizer  # 전역 객체에 등록
+
+def load_model(file_path):
+    """ 📌 joblib.load() 실행 시 okt_tokenizer 문제 해결 """
     try:
         return joblib.load(file_path)
     except AttributeError as e:
         print(f"🔍 AttributeError 발생: {e}")
-        print("📌 Custom objects 적용하여 재시도")
-        return joblib.load(file_path, custom_objects={"okt_tokenizer": okt_tokenizer})
+        print("📌 Gunicorn에서 okt_tokenizer를 찾을 수 없을 가능성 있음. 재시도.")
+        return joblib.load(file_path)  # 다시 시도
 
+# 모델 로드
 if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
     try:
-        tfidf_vectorizer = load_with_custom_objects(TFIDF_PATH)
-        text_mining_model = load_with_custom_objects(MODEL_PATH)
+        tfidf_vectorizer = load_model(TFIDF_PATH)
+        text_mining_model = load_model(MODEL_PATH)
         print("✅ 모델이 성공적으로 로드되었습니다.")
     except Exception as e:
         print(f"❌ 모델 로드 중 오류 발생: {e}")
-        tfidf_vectorizer, text_mining_model = None, None  # 오류 발생 시 모델을 None으로 설정
+        tfidf_vectorizer, text_mining_model = None, None
 
 # 📌 모델 로드 확인용 디버깅 코드 추가
 print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}")
