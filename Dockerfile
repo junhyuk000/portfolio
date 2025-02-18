@@ -3,17 +3,14 @@ FROM python:3.12-slim
 # 환경 변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 필요한 리포지토리 추가 및 패키지 목록 업데이트
+# 패키지 목록 업데이트 및 필수 패키지 설치
 RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    && add-apt-repository universe \
-    && apt-get update
-
-# 필요한 패키지 설치 (Java 및 Chromium 포함)
-RUN apt-get install -y \
     curl \
     wget \
     unzip \
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
     chromium \
     chromium-driver \
     openjdk-11-jdk-headless \
