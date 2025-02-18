@@ -6,3 +6,4 @@ pandas
 flask
 gunicorn
 gevent
+joblib
