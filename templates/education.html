@@ -10,7 +10,7 @@
 
     .box {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 최소 300px, 가능한 만큼 채움 */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 기본적으로 3개씩 표시 */
         gap: 20px;
         padding: 20px;
         background-color: #f9f9f9;
@@ -20,12 +20,20 @@
         margin: 0 auto; /* 가운데 정렬 */
     }
 
-    /* 반응형 적용 */
-    @media (max-width: 768px) {
+    /* 태블릿에서 2개씩 표시 */
+    @media (max-width: 1024px) {
         .box {
-            grid-template-columns: 1fr; /* 모바일에서 한 줄에 1개 */
+            grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개 */
         }
     }
+
+    /* 모바일에서 1개씩 표시 */
+    @media (max-width: 600px) {
+        .box {
+            grid-template-columns: 1fr; /* 한 줄에 1개 */
+        }
+    }
+
     .folder-group {
         background-color: #fff;
         padding: 15px;
