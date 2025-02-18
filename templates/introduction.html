@@ -1,70 +1,71 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
-    /* ✅ 메뉴 스타일 수정 */
     .menu {
-    position: absolute;
-    top: 200px; /* selfIntroduction 위에 배치 */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #9cb7dc;
-    border-radius: 5px;
-    box-shadow: 0px 0px 7px #999;
-    padding: 5px 20px; /* 좌우 여백 추가 */
-    display: flex; /* ✅ 가로 정렬을 위한 flex 사용 */
-    justify-content: center;
-    align-items: center;
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #9cb7dc;
+        border-radius: 5px;
+        box-shadow: 0px 0px 7px #999;
+        padding: 5px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        display: flex; /* ✅ 가로 배치를 위한 flex 적용 */
+        display: flex;
     }
 
     li {
-        padding: 10px 20px; /* ✅ 메뉴 간격 조정 */
-        border-right: 1px solid lightblue; /* ✅ 구분선 추가 */
+        padding: 10px 20px;
+        border-right: 1px solid lightblue;
         transition: background-color 0.3s, color 0.3s;
+        cursor: pointer;
     }
 
     li:last-child {
-        border-right: none; /* ✅ 마지막 요소 구분선 제거 */
+        border-right: none;
     }
 
-    /* ✅ hover 스타일 */
     li:hover {
         background-color: #001f3f;
         color: white;
     }
 
-    /* ✅ 클릭 시 hover 스타일 유지 */
     .active {
-        background-color:#e8f1f2;
+        background-color: #e8f1f2;
         color: black;
-}
-
-    /* ✅ 자기소개 영역 */
-    .selfIntroduction {
-        width: 800px;
-        height: 800px;
-        background-color: white;
-        box-shadow: 0px 0px 7px #999;
-        text-align: center;
-        padding: 20px;
-        margin: 50px auto 0 auto; /* 메뉴와 간격 확보 */
     }
 
+    .selfIntroduction {
+        width: 800px;
+        height: auto;
+        background-color: white;
+        box-shadow: 0px 0px 7px #999;
+        text-align: left;
+        padding: 20px;
+        margin: 50px auto 0 auto;
+        line-height: 1.6;
+    }
+
+    .selfIntroduction p {
+        margin-bottom: 15px;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="menu">
-    <ul class="list">
+    <ul>
         <li id="aboutMe" onclick="showSection('aboutMe')" class="active">About Me</li>
         <li id="experience" onclick="showSection('experience')">Experience</li>
-        <li id="education" onclick="showSection('career')">Career</li>
+        <li id="career" onclick="showSection('career')">Career</li>
     </ul>
 </div>
 
@@ -72,15 +73,23 @@
     <div class="selfIntroduction" id="selfIntroduction">
         <h2>About Me</h2>
         <p>
-            안녕하세요. IT 인프라 운영과 클라우드 환경 구축에 대한 열정을 가진 신준혁입니다.<br>
-
-            저는 2015년부터 2022년까지 전자공학을 전공하며 IT 시스템과 네트워크에 대한 이해를 쌓아왔으며,<br>2020년에는 정보처리기사 자격증을 취득하여 체계적인 소프트웨어 및 시스템 운영 역량을 갖추게 되었습니다. <br>또한, 2024년 10월부터 AIoT를 활용한 빅데이터 분석 산업 교육을 수강하며, 데이터 기반의 IT 환경에 대한 이해도를 높이고 있습니다.<br>
-            
-            IT 인프라와 서버 운영은 단순히 기술적인 역량만으로 이루어지는 것이 아니라, 원활한 소통과 협업이 필수적인 요소라고 생각합니다. <br>전직장에서 베트남 출장을 가서 다양한 사람들과 협업하고, 의견을 조율하며 더 나은 솔루션을 도출하는 과정에서 커뮤니케이션의 중요성을 깊이 깨달았습니다. <br>또한, 기술적인 문제를 해결하기 위해 함께 고민하고 해결하는 과정에서 협업의 가치와 시너지를 경험할 수 있었습니다.
-            
-            저는 단순히 혼자만의 역량을 키우는 것이 아니라, 팀원들과의 원활한 협업을 통해 더 효율적인 시스템을 구축하고 문제를 해결하는 능력을 갖추는 것이 중요하다고 생각합니다. <br>앞으로도 이러한 협업 능력을 더욱 발전시켜 다양한 환경에서 효과적으로 IT 인프라를 운영할 수 있도록 노력하겠습니다.
-            
-            <br>제 목표는 지속적인 학습과 경험을 통해 IT 인프라와 서버 운영 분야에서 전문성을 강화하고, 변화하는 기술 트렌드에 발맞춰 나가는 것입니다. <br>특히, 클라우드 및 온프레미스 환경에서의 서버 운영, 네트워크 관리, 보안 및 자동화 도구 활용 등의 역량을 더욱 심화하여, IT 시스템을 안정적으로 운영하고 발전시킬 수 있는 전문가가 되고자 합니다.
+            안녕하세요. IT 인프라 운영과 클라우드 환경 구축에 대한 열정을 가진 신준혁입니다.
+        </p>
+        <p>
+            저는 2015년부터 2022년까지 전자공학을 전공하며 IT 시스템과 네트워크에 대한 이해를 쌓아왔으며,
+            2020년에는 정보처리기사 자격증을 취득하여 체계적인 소프트웨어 및 시스템 운영 역량을 갖추게 되었습니다.
+            또한, 2024년 10월부터 AIoT를 활용한 빅데이터 분석 산업 교육을 수강하며, 데이터 기반의 IT 환경에 대한
+            이해도를 높이고 있습니다.
+        </p>
+        <p>
+            IT 인프라와 서버 운영은 단순한 기술이 아니라 원활한 소통과 협업이 필수 요소라고 생각합니다.
+            베트남 출장 경험을 통해 다양한 사람들과 협업하고, 의견을 조율하며 더 나은 솔루션을 도출하는 과정에서
+            커뮤니케이션의 중요성을 깨달았습니다.
+        </p>
+        <p>
+            저는 협업 능력을 발전시켜 다양한 환경에서 효과적으로 IT 인프라를 운영할 수 있도록 노력하겠습니다.
+            특히, 클라우드 및 온프레미스 환경에서의 서버 운영, 네트워크 관리, 보안 및 자동화 도구 활용 역량을
+            더욱 심화하여, IT 시스템을 안정적으로 운영하고 발전시킬 수 있는 전문가가 되고자 합니다.
         </p>
     </div>
 </div>
@@ -89,62 +98,42 @@
 {% block js %}
 <script>
 function showSection(section) {
-    // ✅ 메뉴 버튼 클릭 시 기존 active 클래스 제거
     document.querySelectorAll(".menu ul li").forEach(li => li.classList.remove("active"));
-
-    // ✅ 현재 클릭된 메뉴에 active 클래스 추가 (hover 스타일 유지)
     document.getElementById(section).classList.add("active");
-
-    // ✅ 각 섹션에 맞는 내용 표시
+    
     let content = {
         aboutMe: `
             <h2>About Me</h2>
-            <p>
-            안녕하세요. IT 인프라 운영과 클라우드 환경 구축에 대한 열정을 가진 신준혁입니다.<br>
-
-            저는 2015년부터 2022년까지 전자공학을 전공하며 IT 시스템과 네트워크에 대한 이해를 쌓아왔으며,<br>2020년에는 정보처리기사 자격증을 취득하여 체계적인 소프트웨어 및 시스템 운영 역량을 갖추게 되었습니다. <br>또한, 2024년 10월부터 AIoT를 활용한 빅데이터 분석 산업 교육을 수강하며, 데이터 기반의 IT 환경에 대한 이해도를 높이고 있습니다.<br>
-            
-            IT 인프라와 서버 운영은 단순히 기술적인 역량만으로 이루어지는 것이 아니라, 원활한 소통과 협업이 필수적인 요소라고 생각합니다. <br>전직장에서 베트남 출장을 가서 다양한 사람들과 협업하고, 의견을 조율하며 더 나은 솔루션을 도출하는 과정에서 커뮤니케이션의 중요성을 깊이 깨달았습니다. <br>또한, 기술적인 문제를 해결하기 위해 함께 고민하고 해결하는 과정에서 협업의 가치와 시너지를 경험할 수 있었습니다.
-            
-            저는 단순히 혼자만의 역량을 키우는 것이 아니라, 팀원들과의 원활한 협업을 통해 더 효율적인 시스템을 구축하고 문제를 해결하는 능력을 갖추는 것이 중요하다고 생각합니다. <br>앞으로도 이러한 협업 능력을 더욱 발전시켜 다양한 환경에서 효과적으로 IT 인프라를 운영할 수 있도록 노력하겠습니다.
-            
-            <br>제 목표는 지속적인 학습과 경험을 통해 IT 인프라와 서버 운영 분야에서 전문성을 강화하고, 변화하는 기술 트렌드에 발맞춰 나가는 것입니다. <br>특히, 클라우드 및 온프레미스 환경에서의 서버 운영, 네트워크 관리, 보안 및 자동화 도구 활용 등의 역량을 더욱 심화하여, IT 시스템을 안정적으로 운영하고 발전시킬 수 있는 전문가가 되고자 합니다.
-        </p>`,
+            <p>안녕하세요. IT 인프라 운영과 클라우드 환경 구축에 대한 열정을 가진 신준혁입니다.</p>
+            <p>저는 2015년부터 2022년까지 전자공학을 전공하며 IT 시스템과 네트워크에 대한 이해를 쌓았으며,
+                2020년에는 정보처리기사 자격증을 취득하였습니다.</p>
+            <p>IT 인프라와 서버 운영은 단순한 기술이 아니라 원활한 소통과 협업이 필수 요소라고 생각합니다.
+                베트남 출장 경험을 통해 다양한 사람들과 협업하며 커뮤니케이션의 중요성을 깨달았습니다.</p>
+            <p>저는 협업 능력을 발전시켜 IT 시스템을 안정적으로 운영하고 발전시킬 수 있는 전문가가 되고자 합니다.</p>
+        `,
         experience: `
             <h2>Experience</h2>
-            <p>최근에는 Ubuntu 가상환경에서 웹 서버와 데이터 서버를 구축하는 프로젝트를 진행하였으며, <br>이를 위해 Python, Flask, Blueprint, HTML, API, MySQL, Selenium을 활용하였습니다. <br>서버 운영의 안정성을 고려하여 Iptime 포트 포워딩을 통해 도메인 연결을 구현하였고, 이를 Git과 Docker를 이용해 효율적으로 관리하였습니다. <br>이러한 경험을 바탕으로 서버 구축, 네트워크 설정 및 보안에 대한 실무적 감각을 키웠습니다.
-
-<br>또한, AWS 환경에서도 직접 서버를 운영해본 경험이 있습니다. Lightsail 및 EC2를 활용하여 클라우드 환경에서의 서비스 운영 및 배포를 경험하였으며, 이를 체계적으로 정리하여 PPT로 기록하였습니다. <br>이러한 경험을 통해 On-Premise와 Cloud 환경을 모두 경험하며, 각각의 특성과 운영 방식을 비교 분석할 수 있는 역량을 갖추게 되었습니다.</p>
+            <p>최근에는 Ubuntu 가상환경에서 웹 서버와 데이터 서버를 구축하는 프로젝트를 진행하였으며, 이를 위해 Python, Flask, Blueprint, HTML, API, MySQL, Selenium을 활용하였습니다. 서버 운영의 안정성을 고려하여 Iptime 포트 포워딩을 통해 도메인 연결을 구현하였고, 이를 Git과 Docker를 이용해 효율적으로 관리하였습니다. 이러한 경험을 바탕으로 서버 구축, 네트워크 설정 및 보안에 대한 실무적 감각을 키웠습니다.</p>
+            <p>또한, AWS 환경에서도 직접 서버를 운영해본 경험이 있습니다. Lightsail 및 EC2를 활용하여 클라우드 환경에서의 서비스 운영 및 배포를 경험하였으며, 이를 체계적으로 정리하여 PPT로 기록하였습니다. 이러한 경험을 통해 On-Premise와 Cloud 환경을 모두 경험하며, 각각의 특성과 운영 방식을 비교 분석할 수 있는 역량을 갖추게 되었습니다.</p>
         `,
         career: `
             <h2>Career</h2>
-            <p>지원 분야와 관련은 없지만, 해당 베트남 출장 경험을 토대로 소통과 협업이 필수적인 요소라고 생각하게 되었습니다.
-                (주)텍슨 ESS전장설계/사원
-                1) 프로젝트명: POWIN Waratah ES, CS
-
-- 소속회사 : Texon
-
-- 주요 역할 : BOM 작성, 검토자료 작성 및 전기 Function Test Check Sheet 작성
-
-- 업무 성과 : 전기 Function Test Check Sheet를 작성 후 베트남 직원들을 교육하여 Test 진행.
-모든 전장품 테스트로 인하여 안전한 ESS 제작.
-
-2) 프로젝트명 : Fluence GEn7 Alpha prototype
-
-- 소속회사 : Texon
-
-- 주요 역할 : 회로도 파악 후 부품 선정 및 회로설계 오류 파악, 전기 Function Test Check Sheet 작성
-
-- 업무 성과 : 회로 설계 오류를 파악 하여 피드백을 하여 회로도를 수정하고 전기 Function Test 진행 하여 Prototype 완성
-한국전기안전공사 기술진단부/인턴
-- 수행기간 : 202110 ~202112(약 3개월)
-
-- 주요 역할 : 멀티미터기를 사용한 누락전류 측정 및 열화상 카메라를 사용한 전기점검
-</p>
+            <p>지원 분야와 관련은 없지만, 해당 베트남 출장 경험을 토대로 소통과 협업이 필수적인 요소라고 생각하게 되었습니다.</p>
+            <p>(주)텍슨 ESS전장설계/사원</p>
+            <P>1) 프로젝트명: POWIN Waratah ES, CS</p>
+            <P>- 소속회사 : Texon</p>
+            <P>- 주요 역할 : BOM 작성, 검토자료 작성 및 전기 Function Test Check Sheet 작성</p>
+            <p>- 업무 성과 : 전기 Function Test Check Sheet를 작성 후 베트남 직원들을 교육하여 Test 진행.</p>
+            <p>모든 전장품 테스트로 인하여 안전한 ESS 제작.</p>
+            <p>2) 프로젝트명 : Fluence GEn7 Alpha prototype</P>
+            <p>- 소속회사 : Texon</p>
+            <p>- 주요 역할 : 회로도 파악 후 부품 선정 및 회로설계 오류 파악, 전기 Function Test Check Sheet 작성</p>
+            <p>- 업무 성과 : 회로 설계 오류를 파악 하여 피드백을 하여 회로도를 수정하고 전기 Function Test 진행 하여 Prototype 완성</p>
+            <p>한국전기안전공사 기술진단부/인턴</p>
+            <p>주요 역할: 멀티미터기를 사용한 누락전류 측정 및 열화상 카메라를 사용한 전기점검 수행</p>
         `
     };
-
+    
     document.getElementById("selfIntroduction").innerHTML = content[section];
 }
 </script>
-{% endblock %}
