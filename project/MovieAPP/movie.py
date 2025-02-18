@@ -9,7 +9,7 @@ from models import DBManager
 import pandas as pd
 import joblib
 import re
-from tokenizer import tokenizer
+from tokenizer import TokenizerWrapper
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -23,13 +23,15 @@ manager = DBManager()
 MODEL_DIR = "/app/project/MovieAPP/static/model/"
 TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
 MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
+TOKENIZER_PATH = os.path.join(MODEL_DIR, "tokenizer.pkl")  # ✅ Tokenizer 파일 추가
 
-# ✅ Gunicorn이 `okt_tokenizer`를 찾을 수 있도록 `globals()`에 추가
-globals()["TokenizerWrapper"] = tokenizer.__class__
+# ✅ Gunicorn이 `TokenizerWrapper`를 찾을 수 있도록 `globals()`에 추가
+globals()["TokenizerWrapper"] = TokenizerWrapper
 
 # 📌 모델 로드 최적화
 tfidf_vectorizer = None
 text_mining_model = None
+tokenizer = None
 
 def load_model(file_path):
     """ 📌 joblib.load() 실행 시 AttributeError 방지 """
@@ -41,19 +43,20 @@ def load_model(file_path):
         return joblib.load(file_path)  # ✅ TokenizerWrapper가 등록된 상태에서 다시 로드
 
 # ✅ 모델 로드 시도
-if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH):
+if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH) and os.path.exists(TOKENIZER_PATH):
     try:
-        tfidf_vectorizer = load_model(TFIDF_PATH)
-        text_mining_model = load_model(MODEL_PATH)
+        tokenizer = joblib.load(TOKENIZER_PATH)  # ✅ Tokenizer도 함께 로드
+        tfidf_vectorizer = joblib.load(TFIDF_PATH)
+        text_mining_model = joblib.load(MODEL_PATH)
         print("✅ 모델이 성공적으로 로드되었습니다.")
     except Exception as e:
         print(f"❌ 모델 로드 중 오류 발생: {e}")
-        tfidf_vectorizer, text_mining_model = None, None
+        tfidf_vectorizer, text_mining_model, tokenizer = None, None, None
 
 # 📌 모델 로드 확인용 디버깅 코드 추가
-print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}")
+print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}, {TOKENIZER_PATH}")
 
-if tfidf_vectorizer is None or text_mining_model is None:
+if tfidf_vectorizer is None or text_mining_model is None or tokenizer is None:
     print("❌ 감성 분석 모델이 정상적으로 로드되지 않았습니다.")
 
 
