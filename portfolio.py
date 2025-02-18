@@ -11,7 +11,8 @@ app.secret_key = 'your_secret_key'  # 세션 암호화 키
 
 # app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static','uploads')
-app.config['USER_IMAGE_FOLDER'] = os.path.join(app.root_path, 'static','user_image')
+app.config['USER_IMAGE_FOLDER'] = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/user_image"
+
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # 영구 유지여부 False 브라우저가 열려있는 동안만 저장, True 일땐 브라우저 닫아도 기본값(1달)으로 정해져있는 시간동안 저장
