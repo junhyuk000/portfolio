@@ -7,9 +7,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models import DBManager
 import pandas as pd
-import joblib
-import re
-from tokenizer import TokenizerWrapper
+
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -18,46 +16,6 @@ popcornapp = Blueprint('popcornapp', __name__,
                           url_prefix='/popcornapp')
 
 manager = DBManager()
-
-# 모델 경로 설정
-MODEL_DIR = "/app/project/MovieAPP/static/model/"
-TFIDF_PATH = os.path.join(MODEL_DIR, "tfidf.pkl")
-MODEL_PATH = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
-TOKENIZER_PATH = os.path.join(MODEL_DIR, "tokenizer.pkl")  # ✅ Tokenizer 파일 추가
-
-# ✅ Gunicorn이 `TokenizerWrapper`를 찾을 수 있도록 `globals()`에 추가
-globals()["TokenizerWrapper"] = TokenizerWrapper
-
-# 📌 모델 로드 최적화
-tfidf_vectorizer = None
-text_mining_model = None
-tokenizer = None
-
-def load_model(file_path):
-    """ 📌 joblib.load() 실행 시 AttributeError 방지 """
-    try:
-        return joblib.load(file_path)
-    except AttributeError as e:
-        print(f"🔍 AttributeError 발생: {e}")
-        print("📌 Gunicorn 환경에서 TokenizerWrapper를 찾을 수 없을 가능성 있음. 전역 등록 후 재시도.")
-        return joblib.load(file_path)  # ✅ TokenizerWrapper가 등록된 상태에서 다시 로드
-
-# ✅ 모델 로드 시도
-if os.path.exists(TFIDF_PATH) and os.path.exists(MODEL_PATH) and os.path.exists(TOKENIZER_PATH):
-    try:
-        tokenizer = joblib.load(TOKENIZER_PATH)  # ✅ Tokenizer도 함께 로드
-        tfidf_vectorizer = joblib.load(TFIDF_PATH)
-        text_mining_model = joblib.load(MODEL_PATH)
-        print("✅ 모델이 성공적으로 로드되었습니다.")
-    except Exception as e:
-        print(f"❌ 모델 로드 중 오류 발생: {e}")
-        tfidf_vectorizer, text_mining_model, tokenizer = None, None, None
-
-# 📌 모델 로드 확인용 디버깅 코드 추가
-print(f"✅ 모델 경로: {TFIDF_PATH}, {MODEL_PATH}, {TOKENIZER_PATH}")
-
-if tfidf_vectorizer is None or text_mining_model is None or tokenizer is None:
-    print("❌ 감성 분석 모델이 정상적으로 로드되지 않았습니다.")
 
 
 ### images 폴더 static/images 폴더로 연결
@@ -265,35 +223,13 @@ def review(title,movie_id):
 def view_post(id,title):
     post = manager.get_post_by_id(id)
     views = manager.increment_hits(id)
-    text = post['content']
-    if not text:
-        return jsonify({"error": "텍스트를 입력하세요."}), 400
 
-    # 모델이 로드되지 않았다면 오류 반환
-    if tfidf_vectorizer is None or text_mining_model is None:
-        return jsonify({"error": "모델이 로드되지 않았습니다."}), 500
-
-    # 📌 1. 입력 텍스트 전처리 (한글만 추출)
-    text_processed = re.compile(r'[ㄱ-ㅣ가-힣]+').findall(text)
-    text_cleaned = " ".join(text_processed) if text_processed else ""
-
-    # 📌 2. 전처리된 텍스트를 TF-IDF 벡터화
-    if text_cleaned:
-        text_vectorized = tfidf_vectorizer.transform([text_cleaned])
-
-        # 📌 3. 감성 분석 모델 예측
-        prediction = text_mining_model.predict(text_vectorized)
-        sentiment = "긍정" if prediction[0] == 1 else "부정"
-    else:
-        sentiment = "중립"  # 내용이 없거나 분석 불가한 경우
-    
-    print(sentiment)
     all_comments = manager.get_all_comments()
     comments = []
     for comment in all_comments:
         if comment['post_id'] == id:
             comments.append(comment)
-    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id, sentiment = sentiment)
+    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id)
 
 
 ### 리뷰 추가
