@@ -2,21 +2,29 @@
 {% block css %}
 <style>
     .content-wrapper {
-        text-align: left; /* 왼쪽 정렬 */
-        margin-left: 20px; /* 왼쪽 여백 */
-        margin: 200px 10px 20px;
+        text-align: left; /* 왼쪽 정렬 유지 */
+        max-width: 1600px; /* 최대 너비 */
+        margin: 200px auto 20px; /* 위 여백 + 가운데 정렬 */
+        padding: 0 20px; /* 좌우 패딩 추가 */
     }
+
     .box {
-        display: grid; /* CSS Grid 사용 */
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 최소 250px, 가능한 만큼 채움 */
-        gap: 20px; /* 열 간격 */
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 최소 300px, 가능한 만큼 채움 */
+        gap: 20px;
         padding: 20px;
         background-color: #f9f9f9;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 1600px;
-        margin-left: 20px; /* 왼쪽 여백을 추가하여 화면 왼쪽으로 정렬 */
-        margin-right: 0; /* 오른쪽 여백 제거 */
+        max-width: 100%;
+        margin: 0 auto; /* 가운데 정렬 */
+    }
+
+    /* 반응형 적용 */
+    @media (max-width: 768px) {
+        .box {
+            grid-template-columns: 1fr; /* 모바일에서 한 줄에 1개 */
+        }
     }
     .folder-group {
         background-color: #fff;
