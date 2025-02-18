@@ -83,7 +83,7 @@ def register():
         
         filename = file.filename if file else None
         if filename:
-            file_path = os.path.join(current_app.config['user_image'], filename)
+            file_path = os.path.join(current_app.config['static/user_image'], filename)
             file.save(file_path)
             
         if manager.duplicate_user(id):
