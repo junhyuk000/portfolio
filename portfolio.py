@@ -1,3 +1,6 @@
+from gevent import monkey
+monkey.patch_all()  # 🚀 최상단에서 패치 적용
+
 from flask import Flask, url_for, render_template, send_from_directory, redirect, session, request
 from project.Total_Employment_site.site import employment_site
 from project.MovieAPP.movie import popcornapp, manager
