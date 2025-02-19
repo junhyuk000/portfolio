@@ -897,7 +897,7 @@ class DBManager:
     def loc_ip(self, user_ip):
         url = f"https://ipinfo.io/{user_ip}?token=08f027512e9236"
         try:
-            response = requests.get(url)
+            response = requests.get(url, verify=False)
             data = response.json()  # JSON 응답을 딕셔너리로 변환
             
             if "loc" in data:
