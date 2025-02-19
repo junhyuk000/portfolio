@@ -32,7 +32,12 @@ Session(app)
 app.register_blueprint(employment_site)
 app.register_blueprint(popcornapp)
 
-manager.initialize_movies_data()
+try:
+    manager.initialize_movies_data()
+    print("✅ 영화 데이터 초기화 성공!")
+except Exception as e:
+    print(f"⚠️ 영화 데이터 초기화 실패: {e}")
+
 
 
 # 정적 파일을 외부에서 접근할 수 있도록 라우트 추가
