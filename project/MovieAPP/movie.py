@@ -10,9 +10,9 @@ import pandas as pd
 from konlpy.tag import Okt
 import re
 import joblib
-# 모델 파일 경로
-tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
-model_path = "/app/project/MovieAPP/static/model/SA_lr_best.pkl"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+tfidf_path = os.path.join(BASE_DIR, "static", "model", "tfidf.pkl")
+model_path = os.path.join(BASE_DIR, "static", "model", "SA_lr_best.pkl")
 
 # Okt 토크나이저 정의
 okt = Okt()
