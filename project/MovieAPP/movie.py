@@ -14,11 +14,12 @@ import joblib
 tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
 model_path = "/app/project/MovieAPP/static/model/SA_lr_best.pkl"
 
-
 # Okt 토크나이저 정의
 okt = Okt()
+
 def okt_tokenizer(text):
     return okt.morphs(text)
+
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -28,15 +29,16 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
-def okt_tokenizer(text):
-    return okt.morphs(text)
 
-# 모델 로드 시, `okt_tokenizer`를 수동으로 전달
+# 모델 파일 경로
+tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
+model_path = "/app/project/MovieAPP/static/model/SA_lr_best.pkl"
+
+# ✅ `globals()`에 `okt_tokenizer` 등록 후 모델 로드
+globals()["okt_tokenizer"] = okt_tokenizer
+
 tfidf = joblib.load(tfidf_path)
 model = joblib.load(model_path)
-
-# `okt_tokenizer`를 `tfidf`에 다시 적용
-tfidf.tokenizer = okt_tokenizer
 
 
 ### images 폴더 static/images 폴더로 연결
