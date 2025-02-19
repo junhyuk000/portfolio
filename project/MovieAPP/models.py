@@ -338,7 +338,7 @@ class DBManager:
     ### 영화 이미지 requests, BeautifulSoup을 활용하여 제목과 함께 저장    
     def movies_images(self):
         url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%EC%98%81%ED%99%94+%EC%88%9C%EC%9C%84"
-        base_dir = os.path.abspath(os.getcwd())
+        base_dir = os.path.abspath(os.path.dirname(__file__))
         save_dir = os.path.join(base_dir, "static", "images")
 
         if not os.path.exists(save_dir):
