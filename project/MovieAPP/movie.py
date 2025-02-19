@@ -10,11 +10,16 @@ import pandas as pd
 from konlpy.tag import Okt
 import re
 import joblib
+# 모델 파일 경로
+tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
+model_path = "/app/project/MovieAPP/static/model/SA_lr_best.pkl"
 
-# `okt_tokenizer` 정의
+
+# Okt 토크나이저 정의
+okt = Okt()
 def okt_tokenizer(text):
-    okt = Okt()
     return okt.morphs(text)
+
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
                           static_folder='static', 
@@ -23,22 +28,15 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
-# 🔹 joblib.load() 실행 전에 `globals()`에 `okt_tokenizer`를 등록
-globals()["okt_tokenizer"] = okt_tokenizer
+def okt_tokenizer(text):
+    return okt.morphs(text)
 
-MODEL_DIR = "/app/project/MovieAPP/static/model"
-tfidf_path = f"{MODEL_DIR}/tfidf.pkl"
-model_path = f"{MODEL_DIR}/SA_lr_best.pkl"
+# 모델 로드 시, `okt_tokenizer`를 수동으로 전달
+tfidf = joblib.load(tfidf_path)
+model = joblib.load(model_path)
 
-try:
-    # 🔹 모델 로드 (이제 okt_tokenizer를 찾을 수 있음)
-    tfidf = joblib.load(tfidf_path)
-    model = joblib.load(model_path)
-
-    print("✅ 모델 로드 성공!")
-except AttributeError as e:
-    print(f"❌ 모델 로드 실패: {e}")
-
+# `okt_tokenizer`를 `tfidf`에 다시 적용
+tfidf.tokenizer = okt_tokenizer
 
 
 ### images 폴더 static/images 폴더로 연결
