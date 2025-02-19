@@ -11,7 +11,10 @@ from konlpy.tag import Okt
 import re
 import joblib
 
-
+# `okt_tokenizer` 정의
+def okt_tokenizer(text):
+    okt = Okt()
+    return okt.morphs(text)
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
                           static_folder='static', 
@@ -20,23 +23,21 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
-# 모델 파일이 저장된 경로
 MODEL_DIR = "/app/project/MovieAPP/static/model"
-tfidf_path = os.path.join(MODEL_DIR, "tfidf.pkl")
-model_path = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
+tfidf_path = f"{MODEL_DIR}/tfidf.pkl"
+model_path = f"{MODEL_DIR}/SA_lr_best.pkl"
 
-# Okt tokenizer 함수 정의 (반드시 추가 필요)
-okt = Okt()
-
-def okt_tokenizer(text):
-    return okt.morphs(text)
-
-# joblib.load() 호출 시 globals() 전달하여 pickle에서 참조할 수 있도록 함
-tfidf = joblib.load(tfidf_path, mmap_mode=None)
-sa_model = joblib.load(model_path, mmap_mode=None)
-
-# Tokenizer 설정
-tfidf.tokenizer = okt_tokenizer
+# joblib.load()에 custom objects 전달
+try:
+    tfidf = joblib.load(tfidf_path, mmap_mode=None)
+    model = joblib.load(model_path, mmap_mode=None)
+    print("✅ 모델 로드 성공!")
+except AttributeError as e:
+    print(f"❌ 모델 로드 실패: {e}")
+    # 다시 로드하면서 `okt_tokenizer`를 명시적으로 등록
+    tfidf = joblib.load(tfidf_path, mmap_mode=None, custom_objects={"okt_tokenizer": okt_tokenizer})
+    model = joblib.load(model_path, mmap_mode=None)
+    print("🔄 모델을 `okt_tokenizer` 포함하여 다시 로드 완료!")
 
 
 
