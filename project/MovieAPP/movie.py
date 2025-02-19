@@ -35,17 +35,17 @@ model_path = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 # 파일이 존재하는지 확인 후 로드
 if os.path.exists(tfidf_path):
     tfidf = joblib.load(tfidf_path)
-    print("🔍 tfidf 객체 타입:", type(tfidf))
-    print("✅ tfidf.pkl 로드 성공")
+    print("🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍 tfidf 객체 타입:", type(tfidf))
+    print("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ tfidf.pkl 로드 성공")
     tfidf.tokenizer = okt_tokenizer
 else:
-    print(f"❌ 오류: tfidf.pkl 파일을 찾을 수 없습니다. 확인된 경로: {tfidf_path}")
+    print(f"❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ 오류: tfidf.pkl 파일을 찾을 수 없습니다. 확인된 경로: {tfidf_path}")
 
 if os.path.exists(model_path):
     model = joblib.load(model_path)
-    print("✅ SA_lr_best.pkl 로드 성공")
+    print("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ SA_lr_best.pkl 로드 성공")
 else:
-    print(f"❌ 오류: SA_lr_best.pkl 파일을 찾을 수 없습니다. 확인된 경로: {model_path}")
+    print(f"❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ 오류: SA_lr_best.pkl 파일을 찾을 수 없습니다. 확인된 경로: {model_path}")
 
 
 
