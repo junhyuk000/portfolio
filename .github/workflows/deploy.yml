@@ -21,6 +21,6 @@ jobs:
           command_timeout: 300s
           debug: true
           script: |
-            cd /home/junhyuk/flask_app/MovieAPP
+            cd /home/junhyuk/flask_app/portfolio
             git pull origin main
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart gunicorn_app
