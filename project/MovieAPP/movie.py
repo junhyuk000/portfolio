@@ -25,7 +25,7 @@ popcornapp = Blueprint('popcornapp', __name__,
 manager = DBManager()
 
 # 모델 파일이 저장된 경로
-MODEL_DIR = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model/"
+MODEL_DIR = "/app/portfolio/project/MovieAPP/static/model"
 
 # 모델 로드
 tfidf_path = os.path.join(MODEL_DIR, "tfidf.pkl")
