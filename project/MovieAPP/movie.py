@@ -24,10 +24,13 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
+# 모델 파일이 저장된 경로
+MODEL_DIR = "/home/junhyuk/flask_app/portfolio/project/MovieAPP/static/model"
 
-base_dir = os.path.abspath(os.path.dirname(__file__))
-tfidf_path = os.path.join(base_dir, "static/model/tfidf.pkl")
-model_path = os.path.join(base_dir, "static/model/SA_lr_best.pkl")
+# 모델 로드
+tfidf_path = os.path.join(MODEL_DIR, "tfidf.pkl")
+model_path = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
+
 
 # 파일이 존재하는지 확인 후 로드
 if os.path.exists(tfidf_path):
