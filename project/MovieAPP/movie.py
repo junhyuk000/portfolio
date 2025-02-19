@@ -7,8 +7,14 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models import DBManager
 import pandas as pd
+from konlpy.tag import Okt
+import re
+import joblib
 
-
+okt = Okt()
+def okt_tokenizer(text):
+    tokens = okt.morphs(text)
+    return tokens
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -17,6 +23,26 @@ popcornapp = Blueprint('popcornapp', __name__,
                           url_prefix='/popcornapp')
 
 manager = DBManager()
+
+
+base_dir = os.path.abspath(os.path.dirname(__file__))
+tfidf_path = os.path.join(base_dir, "static/model/tfidf.pkl")
+model_path = os.path.join(base_dir, "static/model/SA_lr_best.pkl")
+# 파일이 존재하는지 확인 후 로드
+if os.path.exists(tfidf_path):
+    tfidf = joblib.load(tfidf_path)
+    print("🔍 tfidf 객체 타입:", type(tfidf))
+    print("✅ tfidf.pkl 로드 성공")
+else:
+    print(f"❌ 오류: tfidf.pkl 파일을 찾을 수 없습니다. 확인된 경로: {tfidf_path}")
+
+if os.path.exists(model_path):
+    model = joblib.load(model_path)
+    print("✅ SA_lr_best.pkl 로드 성공")
+else:
+    print(f"❌ 오류: SA_lr_best.pkl 파일을 찾을 수 없습니다. 확인된 경로: {model_path}")
+
+tfidf.tokenizer = okt_tokenizer
 
 
 
@@ -225,13 +251,26 @@ def review(title,movie_id):
 def view_post(id,title):
     post = manager.get_post_by_id(id)
     views = manager.increment_hits(id)
+    text = post['content']
+    text_processed= re.compile(r'[ㄱ-ㅣ가-힣]+').findall(text)
+    text_processed = [' '.join(text_processed)]
+    print(f"🔍 text_processed 타입: {type(text_processed)}")
+    print(f"🔍 text_processed 내용: {text_processed}")
+
+    text_tfidf = tfidf.transform(text_processed)
+    prediction = model.predict(text_tfidf)[0]
+
+    if prediction == 1:
+        sentiment = "긍정"
+    else:
+        sentiment = "부정"
 
     all_comments = manager.get_all_comments()
     comments = []
     for comment in all_comments:
         if comment['post_id'] == id:
             comments.append(comment)
-    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id)
+    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id, sentiment=sentiment)
 
 ### 리뷰 추가
 ### 파일업로드: method='POST' enctype="multipart/form-data" type='file accept= '.png,.jpg,.gif
