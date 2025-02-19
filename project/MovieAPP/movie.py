@@ -34,12 +34,15 @@ manager = DBManager()
 tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
 model_path = "/app/project/MovieAPP/static/model/SA_lr_best.pkl"
 
-# `globals()`에 등록
+# ✅ okt_tokenizer를 globals()에 등록
 globals()["okt_tokenizer"] = okt_tokenizer
 
-# ✅ `joblib.load()`에서 `globals()` 전달
-tfidf = joblib.load(tfidf_path, mmap_mode=None)
-model = joblib.load(model_path, mmap_mode=None)
+with open(tfidf_path, "rb") as tfidf_file:
+    tfidf = joblib.load(tfidf_file)
+
+with open(model_path, "rb") as model_file:
+    model = joblib.load(model_file)
+
 
 
 ### images 폴더 static/images 폴더로 연결
