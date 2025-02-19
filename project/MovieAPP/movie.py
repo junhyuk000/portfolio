@@ -7,6 +7,9 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from models import DBManager
 import pandas as pd
+from konlpy.tag import Okt
+import re
+import joblib
 
 
 # Blueprint 정의
@@ -16,6 +19,21 @@ popcornapp = Blueprint('popcornapp', __name__,
                           url_prefix='/popcornapp')
 
 manager = DBManager()
+
+okt =Okt()
+
+def okt_tokenizer(text):
+    tokens = okt.morphs(text)
+    return tokens
+
+base_dir = os.path.abspath(os.path.dirname(__file__))  # 현재 파일의 위치
+tfidf_path = os.path.join(base_dir, "static", "model", "tfidf.pkl")
+model_path = os.path.join(base_dir, "static", "model", "SA_lr_best.pkl")
+tfidf = joblib.load(tfidf_path)
+model = joblib.load(model_path)
+
+# okt)tokenizer 함수를 tfidf 객체에 다시 설정
+tfidf.tokenizer =okt_tokenizer
 
 
 ### images 폴더 static/images 폴더로 연결
@@ -223,13 +241,21 @@ def review(title,movie_id):
 def view_post(id,title):
     post = manager.get_post_by_id(id)
     views = manager.increment_hits(id)
-
+    text = post['content']
+    text_processed = re.compile(r'[ㄱ-ㅣ가-힣]+').findall(text)
+    text_processed = [" ".join(text_processed)]
+    text_tfidf = tfidf.transform(text_tfidf)[0]
+    prediction = model.predict(text_tfidf)[0]
+    if prediction == 0:
+        sentiment = "부정"
+    else:
+        sentiment = "긍정"
     all_comments = manager.get_all_comments()
     comments = []
     for comment in all_comments:
         if comment['post_id'] == id:
             comments.append(comment)
-    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id)
+    return render_template('movie_view.html',title=title,post=post, views=views, comments=comments, id=id, sentiment=sentiment)
 
 
 ### 리뷰 추가
