@@ -29,8 +29,8 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
-# ✅ okt_tokenizer를 globals()에 등록
-globals()["okt_tokenizer"] = okt_tokenizer
+# 모듈의 __main__ 네임스페이스에 직접 등록
+sys.modules['__main__'].okt_tokenizer = okt_tokenizer
 
 # 모델 파일 경로
 tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
