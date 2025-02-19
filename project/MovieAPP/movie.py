@@ -10,6 +10,8 @@ import pandas as pd
 from konlpy.tag import Okt
 import re
 import joblib
+
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 tfidf_path = os.path.join(BASE_DIR, "static", "model", "tfidf.pkl")
 model_path = os.path.join(BASE_DIR, "static", "model", "SA_lr_best.pkl")
@@ -32,9 +34,6 @@ manager = DBManager()
 # 모듈의 __main__ 네임스페이스에 직접 등록
 sys.modules['__main__'].okt_tokenizer = okt_tokenizer
 
-# 모델 파일 경로
-tfidf_path = "/app/project/MovieAPP/static/model/tfidf.pkl"
-model_path = "/app/project/MovieAPP/static/model/SA_lr_best.pkl"
 
 
 # ✅ `custom_objects` 없이 직접 로드 가능
