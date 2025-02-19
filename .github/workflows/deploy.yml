@@ -1,23 +1,26 @@
 name: Deploy to Server
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          timeout: 60s
-          command_timeout: 300s
-          debug: true
-          script: |
-            cd /home/junhyuk/flask_app/MovieAPP
-            git pull origin main
-            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart gunicorn_app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          timeout: 60s
+          command_timeout: 300s
+          debug: true
+          script: |
+            cd /home/junhyuk/flask_app/MovieAPP
+            git pull origin main
+            echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart gunicorn_app
