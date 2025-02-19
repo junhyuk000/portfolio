@@ -10,8 +10,10 @@ from pytz import timezone
 import pandas as pd
 import json
 import re
+import urllib3
 
 
+http = urllib3.PoolManager(cert_reqs='CERT_NONE')  # ✅ SSL 인증서 검증 비활성화
 
 class DBManager:
     def __init__(self):
@@ -897,15 +899,19 @@ class DBManager:
     def loc_ip(self, user_ip):
         url = f"https://ipinfo.io/{user_ip}?token=08f027512e9236"
         try:
-            response = requests.get(url, verify=False)
-            data = response.json()  # JSON 응답을 딕셔너리로 변환
+            response = http.request("GET", url, timeout=5)
+            data = json.loads(response.data.decode("utf-8"))
             
             if "loc" in data:
-                return data["loc"]  # 위도, 경도 반환
+                return data["loc"]
             else:
                 return "Location not found"
 
-        except requests.exceptions.RequestException as e:
+        except urllib3.exceptions.SSLError as e:
+            return f"SSL Error: {e}"
+        except urllib3.exceptions.MaxRetryError:
+            return "Error: Maximum retry exceeded"
+        except Exception as e:
             return f"Error: {e}"
 
     def popcorns_lot(self, movie_id, movie_title, user_id):
