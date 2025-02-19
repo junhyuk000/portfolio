@@ -11,10 +11,6 @@ from konlpy.tag import Okt
 import re
 import joblib
 
-okt = Okt()
-def okt_tokenizer(text):
-    tokens = okt.morphs(text)
-    return tokens
 
 # Blueprint 정의
 popcornapp = Blueprint('popcornapp', __name__, 
@@ -26,29 +22,22 @@ manager = DBManager()
 
 # 모델 파일이 저장된 경로
 MODEL_DIR = "/app/project/MovieAPP/static/model"
-
-# 모델 로드
 tfidf_path = os.path.join(MODEL_DIR, "tfidf.pkl")
 model_path = os.path.join(MODEL_DIR, "SA_lr_best.pkl")
 
+# Okt tokenizer 함수 정의 (반드시 추가 필요)
+okt = Okt()
 
-# 파일이 존재하는지 확인 후 로드
-if os.path.exists(tfidf_path):
-    tfidf = joblib.load(tfidf_path, mmap_mode=None)  # TF-IDF 모델 로드
-    print("🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍🔍 tfidf 객체 타입:", type(tfidf))
-    print("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ tfidf.pkl 로드 성공")
-    
-else:
-    print(f"❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ 오류: tfidf.pkl 파일을 찾을 수 없습니다. 확인된 경로: {tfidf_path}")
+def okt_tokenizer(text):
+    return okt.morphs(text)
 
-if os.path.exists(model_path):
-    model = joblib.load(model_path, mmap_mode=None)  # Sentiment Analysis 모델 로드
-    print("✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅ SA_lr_best.pkl 로드 성공")
-else:
-    print(f"❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ 오류: SA_lr_best.pkl 파일을 찾을 수 없습니다. 확인된 경로: {model_path}")
+# joblib.load() 호출 시 globals() 전달하여 pickle에서 참조할 수 있도록 함
+tfidf = joblib.load(tfidf_path, mmap_mode=None)
+sa_model = joblib.load(model_path, mmap_mode=None)
 
-
+# Tokenizer 설정
 tfidf.tokenizer = okt_tokenizer
+
 
 
 ### images 폴더 static/images 폴더로 연결
