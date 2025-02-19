@@ -10,7 +10,7 @@
                 작성자: <a href="/popcornapp/userinfo/{{post.userid}}">{{ post.userid }}</a> |
                 조회수: <span id="views-count">{{ post.views }}</span> |
                 추천수: <span id="recommend-count">{{ post.recommend }}</span>  |
-                <p style="color: black; font-weight: bold;">AI 감성: {{sentiment}}</p>
+                <p style="color: black; font-weight: bold;">AI 감성: {% if sentiment == '긍정' %}😁{% else %}🥹{% endif %}</p>
 
             </div>
         </div>
