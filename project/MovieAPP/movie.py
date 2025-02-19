@@ -23,21 +23,21 @@ popcornapp = Blueprint('popcornapp', __name__,
 
 manager = DBManager()
 
+# 🔹 joblib.load() 실행 전에 `globals()`에 `okt_tokenizer`를 등록
+globals()["okt_tokenizer"] = okt_tokenizer
+
 MODEL_DIR = "/app/project/MovieAPP/static/model"
 tfidf_path = f"{MODEL_DIR}/tfidf.pkl"
 model_path = f"{MODEL_DIR}/SA_lr_best.pkl"
 
-# joblib.load()에 custom objects 전달
 try:
-    tfidf = joblib.load(tfidf_path, mmap_mode=None)
-    model = joblib.load(model_path, mmap_mode=None)
+    # 🔹 모델 로드 (이제 okt_tokenizer를 찾을 수 있음)
+    tfidf = joblib.load(tfidf_path)
+    model = joblib.load(model_path)
+
     print("✅ 모델 로드 성공!")
 except AttributeError as e:
     print(f"❌ 모델 로드 실패: {e}")
-    # 다시 로드하면서 `okt_tokenizer`를 명시적으로 등록
-    tfidf = joblib.load(tfidf_path, mmap_mode=None, custom_objects={"okt_tokenizer": okt_tokenizer})
-    model = joblib.load(model_path, mmap_mode=None)
-    print("🔄 모델을 `okt_tokenizer` 포함하여 다시 로드 완료!")
 
 
 
