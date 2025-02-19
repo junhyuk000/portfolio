@@ -29,11 +29,18 @@ def okt_tokenizer(text):
 base_dir = os.path.abspath(os.path.dirname(__file__))  # 현재 파일의 위치
 tfidf_path = os.path.join(base_dir, "static", "model", "tfidf.pkl")
 model_path = os.path.join(base_dir, "static", "model", "SA_lr_best.pkl")
-tfidf = joblib.load(tfidf_path)
+# tfidf = joblib.load(tfidf_path)
 model = joblib.load(model_path)
 
+try:
+    tfidf = joblib.load(tfidf_path)
+    print(f"tfidf 객체 타입: {type(tfidf)}")  # 로그 출력
+except Exception as e:
+    print(f"tfidf.pkl 로드 실패: {e}")
+    tfidf = None  # 예외 발생 시 None으로 설정
+
 # okt)tokenizer 함수를 tfidf 객체에 다시 설정
-tfidf.tokenizer =okt_tokenizer
+tfidf.tokenizer = okt_tokenizer
 
 
 ### images 폴더 static/images 폴더로 연결
