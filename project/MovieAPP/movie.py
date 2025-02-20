@@ -230,6 +230,19 @@ def review(title,movie_id):
     for post in all_posts:
         if post['movie_title'] == title:
             posts.append(post)  
+    
+    for post in posts:
+        text = post['content']
+        text_processed= re.compile(r'[ㄱ-ㅣ가-힣]+').findall(text)
+        text_processed = [' '.join(text_processed)]
+        text_tfidf = tfidf.transform(text_processed)
+        prediction = model.predict(text_tfidf)[0]
+        if prediction == 1:
+            sentiment = "긍정"
+        else:
+            sentiment = "부정"
+        post['sentiment'] = sentiment
+        
     page = int(request.args.get('page', 1))  # 쿼리 파라미터에서 페이지 번호 가져오기
     per_page = 5
     start = (page - 1) * per_page
