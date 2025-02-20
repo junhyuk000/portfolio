@@ -34,7 +34,7 @@
                     <th style="text-align:center;width:70px;">번호</th>
                     <th style="text-align:center;width:150px;">영화 제목</th>
                     <th>제목</th>
-                    <th style="text-align:center;width:150px;">AI 감성성</th>
+                    <th style="text-align:center;width:150px;">AI 감성</th>
                     <th style="text-align:center;width:150px;">별점</th>
                     <th style="text-align:center;width:100px;">작성자</th>
                     <th style="text-align:center;width:150px;">작성일</th>
@@ -55,7 +55,7 @@
                             {% if post.spoiler %}❗스포일러가 포함되어 있습니다.{% else %}{{post.title}}{% endif %}
                         </a>
                     </td>
-                    <td style="text-align:center; color: black">{{post.sentiment}}</td>
+                    <td style="text-align:center; color: black">{% if post.sentiment == '긍정' %}😁{% else %}🥹{% endif %}</td>
                     <td style="text-align:center; color: yellow;">{% if post.rating == 10 %}★★★★★{%elif post.rating == 9%}★★★★☆{%elif post.rating == 8%}★★★★{%elif post.rating == 7%}★★★☆{%elif post.rating == 6%}★★★{%elif post.rating == 5%}★★☆{%elif post.rating == 4%}★★{%elif post.rating == 3%}★☆{%elif post.rating == 2%}★{%else%}☆{%endif%}</td>
                     <td style="text-align:center; color: black">{% if post.username %}{{post.username}}{% else %}-{% endif %}</td>
                     <td style="text-align:center; color: black">{{post.created_at.strftime('%Y-%m-%d')}}</td>
