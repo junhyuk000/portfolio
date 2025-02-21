@@ -135,6 +135,8 @@
 {% block content %}
 <div class="content-wrapper">
     <!-- ✅ 자기소개 추가 (가운데 정렬) -->
+    <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 아키텍처 및 기술 보기</button>
+    <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/이력서_신준혁혁.pdf') }}')">📂 이력서 보기</button>
     <div class="intro-section">
         <p style="font-size: 1.2em; color: #555;">
             Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자 <strong>신준혁</strong>입니다.<br>
