@@ -141,28 +141,25 @@
     /* ✅ 기존 텍스트 오버레이 유지 */
     .text-overlay {
         position: absolute;
-        bottom: 5px; /* 🔽 더 아래로 조정 */
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 100%; /* 🔽 가득 차도록 변경 */
+        width: 100%;
         text-align: center;
-        background: rgba(0, 0, 0, 0.7); /* 🔽 투명도 조정 */
-        padding: 15px; /* 🔽 패딩 증가 */
+        background: rgba(0, 0, 0, 0.8);
+        padding: 10px;
         border-radius: 10px;
         transition: opacity 0.3s ease-in-out;
-        opacity: 1; /* 🔽 기본적으로 보이게 설정 */
+        opacity: 0;
     }
 
     .swiper-slide:hover .text-overlay {
         opacity: 1;
     }
 
-/* 📌 텍스트 크기 조정 */
     .text-overlay h5,
     .text-overlay p {
         color: #ffffff;
-        font-size: 16px; /* 🔽 크기 조정 */
-        line-height: 1.4; /* 🔽 줄 간격 조정 */
         margin: 5px 0;
     }
 
