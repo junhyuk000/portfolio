@@ -1,6 +1,8 @@
 from flask import Flask, url_for, render_template, send_from_directory, jsonify ,request, redirect, session,flash, Blueprint, current_app
 from functools import wraps
 import os
+import requests
+from dotenv import load_dotenv
 from datetime import datetime
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -12,6 +14,7 @@ import re
 import joblib
 
 
+load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 tfidf_path = os.path.join(BASE_DIR, "static", "model", "tfidf.pkl")
 model_path = os.path.join(BASE_DIR, "static", "model", "SA_lr_best.pkl")
@@ -595,3 +598,30 @@ def filter_data():
     )
 
     return jsonify(result)
+
+@popcornapp.route('/api/youtube-trailer')
+def youtube_trailer():
+    title = request.args.get('title', '')
+    query = f"{title.strip()} 예고편"
+
+    api_key = os.getenv("YOUTUBE_API_KEY")  # Ubuntu 환경변수나 .env에서 읽음
+
+    url = "https://www.googleapis.com/youtube/v3/search"
+    params = {
+        "part": "snippet",
+        "q": query,
+        "type": "video",
+        "key": api_key,
+        "maxResults": 1
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
+        if data.get("items"):
+            video_id = data["items"][0]["id"]["videoId"]
+            return jsonify({"videoId": video_id})
+        else:
+            return jsonify({"error": "예고편을 찾을 수 없습니다."}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
