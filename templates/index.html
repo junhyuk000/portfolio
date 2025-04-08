@@ -1,271 +1,613 @@
-{% extends 'base.html' %}
-{% block css %}
-<style>
-    /* ✅ 전체 레이아웃 정리 (자기소개는 세로 정렬, 프로젝트 카드는 가로 정렬) */
-    .content-wrapper {
-        text-align: center;
-        margin: 100px auto;
-        max-width: 100%;
-        display: flex;
-        flex-direction: column; /* 자기소개는 위, 프로젝트 카드는 아래 */
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* ✅ 자기소개 박스 (가운데 정렬) */
-    .intro-section {
-        text-align: center;
-        max-width: 800px;
-        margin-bottom: 60px; /* 프로젝트 카드와 간격 조정 */
-    }
-
-    /* ✅ 강조 텍스트 스타일 */
-    .intro-section strong {
-        color: #001f3f; /* 파란색 강조 */
-        font-size: 1.3em; /* 기본보다 크게 */
-        font-weight: bold; /* 굵게 */
-        text-decoration: underline; /* 밑줄 추가 */
-    }
-
-
-    /* ✅ 프로젝트 카드 전체 레이아웃 (가로 정렬 유지) */
-    .projects-container {
-        display: flex;
-        gap: 30px;
-        justify-content: center;
-        align-items: flex-start;
-        flex-wrap: wrap; /* 카드들이 가로 정렬되지만, 화면이 작아지면 줄 바꿈 */
-    }
-
-    /* ✅ 개별 프로젝트 카드 디자인 */
-    .project-card {
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center; /* 모든 텍스트와 요소 가운데 정렬 */
-        transition: transform 0.3s ease-in-out;
-        width: 500px;
-    }
-
-    .project-card:hover {
-        transform: scale(1.02);
-    }
-
-    /* ✅ 이미지 스타일 */
-    .project-card img {
-        display: block;
-        height: 200px;
-        margin: 0 auto;
-        max-width: 100%;
-        border-radius: 8px;
-    }
-
-    /* ✅ 프로젝트 정보 테이블 */
-    .project-info {
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신준혁 포트폴리오</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css" rel="stylesheet">
+    <style>
+        :root {
+        --bg-color: #111;
+        --text-color: #fff;
+        --accent: #00bcd4;
+        --card-bg: #1a1a1a;
+        }
+        body.light {
+        --bg-color: #f5f5f5;
+        --text-color: #111;
+        --card-bg: #fff;
+        }
+        * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        }
+        body {
+        font-family: 'GmarketSans', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        scroll-behavior: smooth;
+        transition: background-color 0.6s ease, color 0.6s ease;
+        }
+        nav {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 15px;
-    }
-
-    .project-info td {
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .project-info td:first-child {
-        font-weight: bold;
-        color: #007bff;
-        width: 35%;
-    }
-
-    /* ✅ 버튼 컨테이너 - 버튼들을 가로로 중앙 정렬 */
-    .btn-container {
+        background: var(--card-bg);
+        padding: 20px;
         display: flex;
         justify-content: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-    }
-
-    /* ✅ 버튼 스타일 */
-    .btn {
-        background-color: #8ba9d6;
+        z-index: 1000;
+        transition: background-color 0.4s;
+        }
+        nav a {
+        margin: 0 20px;
+        color: var(--text-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+        }
+        nav a:hover {
+        color: var(--accent);
+        }
+        section {
+            min-height: 100vh;
+            padding: 120px 10vw 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            scroll-snap-align: start;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeSlideUp 0.8s forwards ease;
+            }
+        section:nth-of-type(2) { animation-delay: 0.2s; }
+        section:nth-of-type(3) { animation-delay: 0.4s; }
+        section:nth-of-type(4) { animation-delay: 0.6s; }
+        section:nth-of-type(5) { animation-delay: 0.8s; }
+        section:nth-of-type(6) { animation-delay: 1s; }
+        @keyframes fadeSlideUp {
+            to {
+            opacity: 1;
+            transform: translateY(0);
+            }
+        }
+        h1, h2 {
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+        h2 {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        .btn-group {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1001;
+        align-items: center;
+        }
+        .theme-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+        }
+        .btn {
+        background: #eaf2f3;
+        color: #000;
+        padding: 6px 14px;
+        font-size: 0.85rem;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+        border: none;
+        }
+        .btn:hover {
+        background: #d9eef1;
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .toggle-mode {
+        background: #eaf2f3;
+        color: #000;
+        border: none;
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        }
+        .toggle-mode:hover {
+        transform: rotate(15deg) scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .scroll-top {
+        background-color: #3498db;
         color: white;
         border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
+        border-radius: 50%;
+        width: 56px;
+        z-index: 2000; /* 기존보다 높은 값으로 설정 */
+        height: 56px;
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
-        transition: background-color 0.3s;
-        text-decoration: none;
-        font-size: 14px;
-    }
-
-    .btn:hover {
-        background-color: #0056b3;
-    }
-
-    /* ✅ 반응형 스타일 (태블릿 및 모바일 조정) */
-    @media (max-width: 900px) {
-        .content-wrapper {
-            height: auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        transition: background-color 0.3s ease;
+        }
+        .scroll-top:hover {
+        background-color: #2980b9;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #999;
+        }
+        ul.skill-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.skill-list li::before {
+            content: '✔';
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        .project-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 20px;
+            padding-bottom: 20px;
+        }
+        .project {
+            background: var(--card-bg);
+            border-radius: 12px;
             padding: 20px;
+            min-width: 300px;
+            flex: 0 0 300px;
+            scroll-snap-align: start;
+            transition: background 0.4s, transform 0.3s ease;
         }
-
-        .projects-container {
-            flex-direction: column; /* 세로 정렬 */
-            align-items: center;
+        .project:hover {
+            transform: scale(1.03);
         }
-
-        .project-card {
-            width: 90%; /* 모바일에서는 너비 90% */
-            max-width: 400px;
+        .tooltip {
+            position: relative;
+            cursor: help;
         }
-
-        .btn {
-            padding: 10px 12px;
-            font-size: 13px;
-            min-width: 100px;
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            z-index: 1000;
         }
-    }
-    .highlight {
-    color: #007acc; /* 세련된 파랑 계열 */
-    font-weight: bold;
-}
-
-
-</style>
-{% endblock %}
-
-{% block content %}
-<div class="content-wrapper">
-
-    <div class="btn-container">
-        <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/portfolio.pdf') }}')">📂 아키텍처 및 기술 보기</button>
-        <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/이력서_신준혁.pdf') }}')">📂 이력서 보기</button>
+        body.custom-cursor {
+            cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCI+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIwIDE1IEwgMTAgMjUgTCAxNSAxNSBMIDE1IDEwIiBzdHJva2U9IiMwMGJjZDQiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==') 16 16, auto;
+        }
+        #archiving a div:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body class="custom-cursor light">
+    <div class="theme-toggle">
+        <button class="toggle-mode" onclick="toggleTheme()">🌙 / ☀️</button>
     </div>
-    <!-- ✅ 자기소개 추가 (가운데 정렬) -->
-    <div class="intro-section">
-        <p style="font-size: 1.2em; color: #555;">
-            Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자 <strong>신준혁</strong>입니다.<br>
-            API 설계, MySQL 데이터 관리, 서버 운영 및 도메인 배포까지 경험하며,<br>  
-            <strong>소통과 협업</strong>을 통해 최적의 솔루션을 도출하는 것을 중요하게 생각합니다.
+    <div class="btn-group">
+        <a class="btn" href="/static/files/portfolio.pdf" target="_blank">📁 포트폴리오</a>
+        <a class="btn" href="/static/files/이력서_신준혁.pdf" target="_blank">📄 이력서</a>
+    </div>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#archiving">Archiving</a>
+        <a href="#projects">Projects</a>
+        <a href="#career">Career</a>
+
+    </nav>
+
+    <section id="home" style="background: url('/static/imgaes/컴퓨터사진.png') no-repeat center center / cover; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; backdrop-filter: blur(4px); background-color: rgba(0, 0, 0, 0.5); z-index: 0;"></div>
+            <div style="position: relative; z-index: 1; color: white;">
+                <h1>신준혁</h1>
+                <p>
+                Flask 기반 웹 개발과 머신러닝·딥러닝을 활용한 데이터 솔루션을 구축하는 개발자 신준혁입니다.<br>
+                API 설계, MySQL 데이터 관리, 서버 운영 및 도메인 배포까지 경험하며,<br>
+                소통과 협업을 통해 최적의 솔루션을 도출하는 것을 중요하게 생각합니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 40px; margin-top: 40px;">
+            <div style="text-align: center; flex: 1 1 200px;">
+                <p><img src="/static/images/신준혁.jpg"><br><strong>이름</strong><br>신준혁</p>
+            </div>
+            <div style="text-align: center; flex: 1 1 200px;">
+                <p><img src="/static/images/달력.png"><br><strong>생년월일</strong><br>1996.12.20(만 28세)</p>
+            </div>
+            <div style="text-align: center; flex: 1 1 200px;">
+                <p><img src="/static/images/위치.png"><br><strong>위치</strong><br>경기도 수원시 장안구</p>
+            </div>
+            <div style="text-align: center; flex: 1 1 200px;">
+                <p><img src="/static/images/전화.png"><br><strong>연락처</strong><br>010-8856-9125</p>
+            </div>
+            <div style="text-align: center; flex: 1 1 200px;">
+                <p><img src="/static/images/이메일.png"><br><strong>이메일</strong><br>junhyuk000@naver.com</p>
+            </div>
+        </div>
+        <div style="margin-top: 60px;">
+            <h3 style="color: var(--accent); font-size: 1.5rem; margin-bottom: 10px;">주요 강점 및 핵심 역량</h3>
+            <ul style="line-height: 2; padding-left: 24px; margin-top: 20px;">
+                <li>🧠 <strong>AI 기반 비전 시스템 설계:</strong> IoT 환경에서 딥러닝 모델을 파인튜닝하고 실시간 감지 및 대응 시스템을 개발할 수 있는 역량</li>
+                <li>📊 <strong>데이터 기반 사용자 서비스 구현:</strong> 머신러닝 모델을 통한 사용자 감성 분석과 실시간 추천 시스템을 설계 및 제공하는 능력</li>
+                <li>🌐 <strong>웹 크롤링 및 트렌드 분석:</strong> 웹 데이터 수집과 키워드 분석을 바탕으로 사용자 맞춤 정보를 시각화하고 활용하는 경험</li>
+                <li>🛠️ <strong>백엔드 개발 및 시스템 통합:</strong> Flask 기반의 API 설계, 데이터베이스 연동, 서버 운영 및 도메인 배포까지 전반적인 백엔드 시스템 구현 역량</li>
+                <li>🔌 <strong>하드웨어 + 소프트웨어 융합 개발:</strong> Arduino, ESP32-CAM 등 하드웨어와 AI 모델을 통합하여 현장 중심의 스마트 시스템을 구현하는 능력</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <div style="display: flex; flex-direction: column; gap: 40px;">
+    
+            <!-- Language -->
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
+                <h3 style="color: var(--accent); margin-bottom: 16px;">Language</h3>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <div><img src="/static/icons/python.png" alt="Python" width="40"><div>Python</div></div>
+                    <div><img src="/static/icons/javascript.png" alt="JavaScript" width="40"><div>JavaScript</div></div>
+                </div>
+            </div>
+    
+            <!-- Backend -->
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
+                <h3 style="color: var(--accent); margin-bottom: 16px;">Backend</h3>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <div><img src="/static/icons/flask.png" alt="Flask" width="40"><div>Flask</div></div>
+                    <div><img src="/static/icons/mysql.png" alt="MySQL" width="40"><div>MySQL</div></div>
+                    <div><img src="/static/icons/api.png" alt="REST API" width="40"><div>REST API</div></div>
+                    <div><img src="/static/icons/blueprint.png" alt="Blueprint" width="40"><div>Blueprint</div></div>
+                </div>
+            </div>
+    
+            <!-- DevOps -->
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
+                <h3 style="color: var(--accent); margin-bottom: 16px;">DevOps</h3>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <div><img src="/static/icons/github.png" alt="GitHub" width="40"><div>GitHub</div></div>
+                    <div><img src="/static/icons/git.png" alt="Git" width="40"><div>Git</div></div>
+                    <div><img src="/static/icons/docker.png" alt="Docker" width="40"><div>Docker</div></div>
+                    <div><img src="/static/icons/cloudflare.png" alt="Cloudflare" width="40"><div>Cloudflare</div></div>
+                    <div><img src="/static/icons/iptime.png" alt="IPTime" width="40"><div>IPTime</div></div>
+                    <div><img src="/static/icons/github-actions.png" alt="GitHub Actions" width="40"><div>GitHub Actions</div></div>
+                    <div><img src="/static/icons/ubuntu.png" alt="Ubuntu" width="40"><div>Ubuntu</div></div>
+                </div>
+            </div>
+    
+            <!-- AI/ML -->
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
+                <h3 style="color: var(--accent); margin-bottom: 16px;">AI / ML</h3>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <div><img src="/static/icons/yolo.png" alt="YOLOv8" width="40"><div>YOLOv8</div></div>
+                    <div><img src="/static/icons/opencv.png" alt="OpenCV" width="40"><div>OpenCV</div></div>
+                    <div><img src="/static/icons/tensorflow.png" alt="TensorFlow" width="40"><div>TensorFlow</div></div>
+                    <div><img src="/static/icons/sklearn.png" alt="Scikit-learn" width="40"><div>Scikit-learn</div></div>
+                </div>
+            </div>
+    
+            <!-- IoT -->
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
+                <h3 style="color: var(--accent); margin-bottom: 16px;">IoT</h3>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <div><img src="/static/icons/arduino.png" alt="Arduino" width="40"><div>Arduino</div></div>
+                    <div><img src="/static/icons/esp32.png" alt="ESP32-CAM" width="40"><div>ESP32-CAM</div></div>
+                </div>
+            </div>
+    
+            <!-- Etc -->
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
+                <h3 style="color: var(--accent); margin-bottom: 16px;">Etc</h3>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                    <div><img src="/static/icons/pandas.png" alt="Pandas" width="40"><div>Pandas</div></div>
+                    <div><img src="/static/icons/numpy.png" alt="NumPy" width="40"><div>NumPy</div></div>
+                    <div><img src="/static/icons/selenium.png" alt="Selenium" width="40"><div>Selenium</div></div>
+                    <div><img src="/static/icons/joblib.png" alt="joblib" width="40"><div>joblib</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="archiving">
+        <h2>Archiving</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 40px;">
+            <a href="https://github.com/junhyuk000" target="_blank" style="text-decoration: none; color: inherit;">
+                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="/static/icons/github.png" alt="GitHub" width="60">
+                    <h3 style="margin: 12px 0 6px;">GitHub</h3>
+                    <p style="color: var(--accent);">github.com/junhyuk000</p>
+                    <p style="color: #ccc;">소스 코드 저장소</p>
+                </div>
+            </a>
+            <a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank" style="text-decoration: none; color: inherit;">
+                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="/static/icons/notion.png" alt="Notion" width="60">
+                    <h3 style="margin: 12px 0 6px;">Notion</h3>
+                    <p style="color: var(--accent);">it-eldorado.notion.site</p>
+                    <p style="color: #ccc;">공부 및 지식 정리 블로그</p>
+                </div>
+            </a>
+        </div>
+    </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div style="display: flex; flex-direction: column; gap: 40px;">
+            <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">SmartCity Pole</span>
+                <p style="margin-top: 6px; color: #aaa;">2024.03 – 2024.09 (2인 팀 프로젝트, 담당 역할: 백엔드 전체 설계 및 AI·센서 연동)</p>
+                <h3 style="margin: 10px 0 4px;">AI 기반 불법 주정차 자동 감지 및 실시간 신고 시스템</h3>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>불법 주정차 차량 탐지 및 이미지 캡처 자동화</li>
+                    <li>YOLOv8 기반 번호판 영역 탐지 및 Google OCR 연동</li>
+                    <li>ESP32-CAM + Arduino로 현장 센서 연동 및 사진 송신</li>
+                    <li>Flask 서버 및 MySQL 연동, Google API 기반 신고 자동화</li>
+                    <li>신고 및 저장 결과를 관리자 페이지에서 시각화 가능</li>
+                </ul>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>하루 평균 차량 감지 수: 약 30대</li>
+                    <li>Google OCR 기반 번호판 인식률: 92%</li>
+                    <li>2개월 내 기능 완성 및 시연 완료</li>
+                    <li>최소 컴퓨팅 환경에서 동작하는 실시간 시스템 완성</li>
+                </ul>
+                <a href="https://github.com/junhyuk000/smartcity" style="color: var(--accent);">https://github.com/junhyuk000/smartcity</a>
+                <div style="margin-top: 10px;">
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">YOLOv8</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Google OCR</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Arduino</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">ESP32-CAM</span>
+                </div>
+                <div style="margin-top: 16px; display: flex; gap: 10px;">
+                    <a class="btn" href="/static/files/SafeLight_pdf.pdf">📄 PDF</a>
+                    <a class="btn" href="/static/videos/smartcity_demo.mp4">🎥 영상</a>
+                    <a class="btn" href="/static/images/smartcity_preview.png">🖼️ 이미지</a>
+                </div>
+            </div>
+    
+            <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">PopcornAPP</span>
+                <p style="margin-top: 6px; color: #aaa;">2024.02 – 2024.04 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 구현)</p>
+                <h3 style="margin: 10px 0 4px;">AI 기반 감성 분석 + 영화 추천 웹 플랫폼</h3>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>영화 리뷰 데이터를 기반으로 감성 분류 모델 학습 (TF-IDF + Logistic Regression)</li>
+                    <li>Box Office API 연동 및 인기 영화 실시간 시각화</li>
+                    <li>예고편 유튜브 영상 출력 및 리뷰 분석 결과 제공</li>
+                    <li>리뷰 결과 저장 및 날짜별 분석 시스템 구축</li>
+                </ul>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>분류 정확도: 약 88%</li>
+                    <li>1,000개 이상의 리뷰 데이터 수집 및 전처리</li>
+                    <li>Python 웹 전체 스택 및 분석 파이프라인 직접 구현</li>
+                </ul>
+                <a href="https://junhyuk000.monster/popcornapp/" style="color: var(--accent);">https://junhyuk000.monster/popcornapp/</a>
+                <div style="margin-top: 10px;">
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">MySQL</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">TF-IDF</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">Logistic Regression</span>
+                </div>
+                <div style="margin-top: 16px; display: flex; gap: 10px;">
+                    <a class="btn" href="/static/files/PopcornAPP.pdf">📄 PDF</a>
+                    <a class="btn" href="/static/videos/popcorn_demo.mp4">🎥 영상</a>
+                    <a class="btn" href="/static/images/popcorn_preview.png">🖼️ 이미지</a>
+                </div>
+            </div>
+    
+            <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Employment Site</span>
+                <p style="margin-top: 6px; color: #aaa;">2023.11 – 2023.12 (1인 개인 프로젝트, 담당 역할: 전체 개발 및 배포)</p>
+                <h3 style="margin: 10px 0 4px;">실시간 채용 정보 수집 및 트렌드 분석 웹사이트</h3>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>잡코리아·인크루트 크롤링을 통한 인기 공고 및 키워드 수집</li>
+                    <li>BeautifulSoup을 활용한 데이터 파싱 및 정제</li>
+                    <li>HTML 기반의 가벼운 인터페이스로 실시간 시각화</li>
+                    <li>Flask 템플릿 구조 + Cloudflare 배포</li>
+                </ul>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>1일 평균 500개 이상 채용 데이터 수집</li>
+                    <li>크롤링 오류율 5% 이하 유지</li>
+                    <li>Cloudflare 적용을 통한 개인 도메인 연결 및 배포 성공</li>
+                </ul>
+                <a href="https://junhyuk000.monster/employment/" style="color: var(--accent);">https://junhyuk000.monster/employment/</a>
+                <div style="margin-top: 10px;">
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">BeautifulSoup</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">Cloudflare</span>
+                </div>
+                <div style="margin-top: 16px; display: flex; gap: 10px;">
+                    <a class="btn" href="/static/files/Employment.pdf">📄 PDF</a>
+                    <a class="btn" href="/static/videos/employment_demo.mp4">🎥 영상</a>
+                    <a class="btn" href="/static/images/employment_preview.png">🖼️ 이미지</a>
+                </div>
+            </div>
+        
+            <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Deployment & System Architecture</span>
+                <p style="margin-top: 6px; color: #aaa;">2024.01 – 2024.03 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 서버 관리)</p>
+                <h3 style="margin: 10px 0 4px;">Flask 기반 멀티 Blueprint 구조 웹 시스템 + 도메인 및 서버 배포 환경 구축</h3>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>Flask Blueprint 기반 멀티 프로젝트 관리 구조 설계</li>
+                    <li>도메인 관리 (Cloudflare), 포트포워딩 (IPTime) 환경 구성</li>
+                    <li>Ubuntu 22.04 서버에서 Flask 앱 배포 및 백그라운드 실행</li>
+                    <li>MySQL + Flask 연동 DB 서버, 웹 서버 이원화 운영</li>
+                    <li>깃 자동 배포 시스템 구축 (Git pull + systemd 연동)</li>
+                </ul>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
+                <ul style="padding-left: 20px; line-height: 1.8;">
+                    <li>Cloudflare + IPTime 포트포워딩 통한 외부 도메인 연동 성공</li>
+                    <li>Blueprint 구조 도입으로 프로젝트 분리 및 유지보수 효율 극대화</li>
+                    <li>Ubuntu 서버에서 Flask 앱 무중단 배포 환경 구성 완료</li>
+                </ul>
+                <a href="https://github.com/junhyuk000/portfolio-server" style="color: var(--accent);">https://github.com/junhyuk000/portfolio-server</a>
+                <div style="margin-top: 10px;">
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Blueprint</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Cloudflare</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">IPTime</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">Ubuntu</span>
+                </div>
+                <div style="margin-top: 16px; display: flex; gap: 10px;">
+                    <a class="btn" href="/static/files/Deployment_Flask.pdf">📄 PDF</a>
+                    <a class="btn" href="/static/videos/deploy_demo.mp4">🎥 영상</a>
+                    <a class="btn" href="/static/images/deploy_preview.png">🖼️ 이미지</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="career">
+        <h2>Career</h2>
+    
+        <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+            <h3 style="color: var(--accent);">POWIN Waratah ES, CS</h3>
+            <p><strong>소속회사:</strong> Texon</p>
+            <p><strong>주요 역할:</strong></p>
+            <ul style="padding-left: 20px; line-height: 1.8;">
+                <li>BOM 작성 및 검토 자료 작성</li>
+                <li>전기 Function Test Check Sheet 작성</li>
+            </ul>
+            <p><strong>주요 성과:</strong></p>
+            <ul style="padding-left: 20px; line-height: 1.8;">
+                <li>Check Sheet 기반으로 베트남 인원 대상 테스트 교육 진행</li>
+                <li>모든 전장품 테스트 수행으로 ESS의 안전성 확보</li>
+            </ul>
+        </div>
+    
+        <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+            <h3 style="color: var(--accent);">Fluence GEN7 Alpha Prototype</h3>
+            <p><strong>소속회사:</strong> Texon</p>
+            <p><strong>주요 역할:</strong></p>
+            <ul style="padding-left: 20px; line-height: 1.8;">
+                <li>회로도 분석 및 부품 선정</li>
+                <li>회로 설계 오류 검토 및 피드백 제공</li>
+                <li>전기 Function Test Check Sheet 작성</li>
+            </ul>
+            <p><strong>주요 성과:</strong></p>
+            <ul style="padding-left: 20px; line-height: 1.8;">
+                <li>회로 설계 오류 발견 및 수정 피드백으로 완성도 향상</li>
+                <li>Function Test를 통해 시제품 완성에 기여</li>
+            </ul>
+        </div>
+    
+        <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+            <h3 style="color: var(--accent);">전기안전공사 인턴십</h3>
+            <p><strong>소속회사:</strong> 전기안전공사</p>
+            <p><strong>수행기간:</strong> 2021.10 ~ 2021.12 (약 3개월)</p>
+            <p><strong>주요 역할:</strong></p>
+            <ul style="padding-left: 20px; line-height: 1.8;">
+                <li>멀티미터기를 사용한 누설전류 측정</li>
+                <li>열화상 카메라를 활용한 전기설비 점검</li>
+            </ul>
+        </div>
+    
+        <p style="margin-top: 20px; line-height: 1.8;">
+        해당 경험들은 개발 직무와 직접 연결되지는 않지만,<br>
+        <strong>협업</strong>, <strong>문서 작성</strong>, <strong>문제 해결력</strong> 등의 실무 역량을 탄탄히 다질 수 있는 기반이 되었습니다.
         </p>
-    </div>
+    
+    </section>
 
-    <!-- ✅ 기존 프로젝트 카드 유지 (가로 정렬) -->
-    <div class="projects-container">
-
-        <!-- Smartcity pole 프로젝트 -->
-        <div class="project-card">
-            <img src="/images/smartcity.jpg">
-            <h2>📌 Smart City Pole</h2>
-            <table class="project-info">
-                <tr>
-                    <td>프로젝트 이름:</td>
-                    <td>SafeLight</td>
-                </tr>
-                <tr>
-                    <td>역할:</td>
-                    <td>PM / AI / SERVER</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 기술:</td>
-                    <td>Python, Flask, YOLOv8, OpenCV, Arduino, ESP32-CAM, Google OCR, MySQL, HTML, CSS, JavaScript, REST API, Ubuntu</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 내용:</td>
-                    <td>
-                        1. <span class="highlight">불법 주정차·보도 침범 감지</span>: YOLOv8로 차량 및 오토바이 탐지<br>
-                        2. <span class="highlight">번호판 인식 및 자동 신고</span>: Google OCR + REST API로 경찰/시청 자동 연동<br>
-                        3. <span class="highlight">SOS 버튼 및 고장 감지</span>: Arduino/ESP32-CAM 기반 긴급 알림, 센서 기반 이상 감지
-                    </td>
-                    
-                </tr>
-            </table>
-            <div class="btn-container">
-                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/SafeLight_pdf.pdf') }}')">📂 PDF 보기</button>
-                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/SmartCity_Pole_WBS.pdf') }}')">📊 WBS 보기</button>
-                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 이동</a>
+    <div style="position: fixed; bottom: 40px; right: 40px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 10px;">
+        <div onclick="toggleContactPanel()" style="background-color: #2ecc71; color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+        💬
+        </div>
+        <div id="contact-panel" style="opacity: 0; transform: translateY(10px); pointer-events: none; background-color: var(--card-bg); border-radius: 12px; padding: 16px 20px; width: 260px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-top: 10px; transition: all 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <img src="/static/icons/kakao.png" alt="KakaoTalk" width="28">
+            <div style="flex: 1;">
+            <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank" style="display: inline-block; margin-top: 4px; background-color: #ffd400; color: #000; font-size: 0.85rem; font-weight: bold; padding: 4px 10px; border-radius: 6px; text-decoration: none;">오픈 채팅</a>
             </div>
         </div>
-
-        <!-- PopcornAPP 프로젝트 -->
-        <div class="project-card">
-            <img src="/images/popcornapp.png">
-            <h2>📌 PopcornAPP</h2>
-            <table class="project-info">
-                <tr>
-                    <td>프로젝트 이름:</td>
-                    <td>PopcornAPP (ID: user, PW: 1234)</td>
-                </tr>
-                <tr>
-                    <td>역할:</td>
-                    <td>개인 프로젝트</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 기술:</td>
-                    <td>Python, Flask, scikit-learn, MySQL, API, Chart.js, YouTube API, 영화진흥위원회 API, HTML, CSS, JavaScript</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 내용:</td>
-                    <td>
-                        1. <span class="highlight">영화 리뷰 감성 분석</span>: AI 모델로 긍정/부정 분류<br>
-                        2. <span class="highlight">실시간 영화 데이터 시각화</span>: 박스오피스 API + Chart.js 그래프 제공<br>
-                        3. <span class="highlight">예고편 + 추첨 이벤트 시스템</span>: YouTube API 예고편, POPCORN 코인 이벤트 참여
-                    </td>
-                                      
-                </tr>
-            </table>
-            <div class="btn-container">
-                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/PopcornAPP.pdf') }}')">📂 PDF 보기</button>
-                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 요구사항 정의서/WBS 보기</button>
-                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 이동</a>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <img src="/static/icons/email.png" alt="Email" width="28">
+            <div>
+            
+            <span style="font-size: 0.9rem;">junhyuk000@naver.com</span>
             </div>
         </div>
-
-        <!-- Total_Employment_Site 프로젝트 -->
-        <div class="project-card">
-            <img src="/images/totalemploy.png">
-            <h2>📌 Total Employment Site</h2>
-            <table class="project-info">
-                <tr>
-                    <td>프로젝트 이름:</td>
-                    <td>Total Employment Site</td>
-                </tr>
-                <tr>
-                    <td>역할:</td>
-                    <td>개인 프로젝트</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 기술:</td>
-                    <td>Python, Flask, Blueprint, Selenium, Requests, HTML, CSS, JavaScript</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 내용:</td>
-                    <td>
-                        1. <span class="highlight">실시간 채용 공고 수집</span>: 잡코리아/인크루트 웹 크롤링<br>
-                        2. <span class="highlight">인기 검색어 제공</span>: 주요 키워드 자동 수집 및 표시<br>
-                        3. <span class="highlight">간단한 구직 트렌드 분석</span>: 실시간 기반 트렌드 확인용 미니 웹 서비스
-                    </td>
-                    
-                </tr>
-            </table>
-            <div class="btn-container">
-                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/Total_Employment.pdf') }}')">📂 PDF 보기</button>
-                <button class="btn" onclick="openInNewTab('https://docs.google.com/spreadsheets/d/e/2PACX-1vQRhBRKDnyTKoL8BJetvaHSJODWKw_NOQKTpGLqcbZxn8A-Afha9knQ0OE61YPLEw/pubhtml')">📊 요구사항 정의서/WBS 보기</button>
-                <a class="btn" href="{{ url_for('employment_site.index') }}" target="_blank">🔗 프로젝트 이동</a>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <img src="/static/icons/phone.png" alt="Phone" width="28">
+            <div>
+  
+            <span style="font-size: 0.9rem;">010-8856-9125</span>
             </div>
+        </div>
         </div>
     </div>
-</div>
-{% endblock %}
+ 
+    <div style="position: fixed; bottom: 110px; right: 40px; z-index: 2000;">
+        <button class="scroll-top" onclick="scrollToTop()">↑</button>
+    </div>
+
+ 
+
+    <footer>
+        © 2025 신준혁 포트폴리오
+    </footer>
 
 
-{% block js %}
-<script>
-    function openInNewTab(url) {
-        window.open(url, '_blank'); // 새 창에서 열기
-    }
-</script>
-{% endblock %}
+    <script>
+        function toggleContactPanel() {
+        const panel = document.getElementById('contact-panel');
+        const isVisible = panel.style.opacity === '1';
+        if (!isVisible) {
+            panel.style.opacity = '1';
+            panel.style.transform = 'translateY(0)';
+            panel.style.pointerEvents = 'auto';
+        } else {
+            panel.style.opacity = '0';
+            panel.style.transform = 'translateY(10px)';
+            panel.style.pointerEvents = 'none';
+        }
+        }
+
+        function toggleTheme() {
+        document.body.classList.toggle('light');
+        }
+        function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+    </script>
+</body>
+
+</html>
