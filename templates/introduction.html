@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block css %}
 <style>
     .highlight {
@@ -34,8 +35,17 @@
 
     .card ul {
         padding-left: 20px;
-        list-style-type: disc;
+        list-style-type: none;
         margin: 0;
+    }
+
+    .card ul li::before {
+        content: '\2022';
+        color: #007acc;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
     }
 
     .note {
@@ -99,6 +109,7 @@
     }
 </style>
 {% endblock %}
+
 
 {% block content %}
 <div class="menu">
