@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
+    .highlight {
+    color: #ff6600;
+    font-weight: bold;
+    }
+
     .menu {
         position: absolute;
         top: 200px;
@@ -107,75 +112,102 @@ function showSection(section) {
     let content = {
         aboutMe: `
             <h2>About Me</h2>
-            <p>
-                안녕하세요. 전자공학을 전공하고, IT 인프라와 AI 기반 솔루션 개발에 관심을 가지고 성장하고 있는 신준혁입니다.
-            </p>
-            <p>
-                대학에서 전자공학을 전공하며 시스템 이해도를 쌓았고, 이후 텍슨(Texon)에서 약 1년간 ESS 전장 설계 업무를 수행하며
-                다양한 실무 경험을 쌓았습니다. 특히 베트남 현지와의 협업 및 출장을 통해 글로벌 프로젝트 환경에서 소통과 팀워크의 중요성을 체감했습니다.
-            </p>
-            <p>
-                이후 IT 기술 기반을 다지기 위해 정보처리기사, SQLD 자격증을 취득하였고,
-                2024년 10월부터는 삼성아카데미의 "[인공지능] AIoT를 이용한 빅데이터 분석 산업솔루션 개발" 과정을 수강하며
-                인공지능, 사물인터넷, 데이터 분석을 융합한 프로젝트들을 직접 기획하고 구현하는 경험을 쌓고 있습니다.
-            </p>
-            <p>
-                Python, Flask, MySQL 기반의 웹 서버 및 데이터베이스 구축, 포트포워딩 및 도메인 연결,  
-                그리고 YOLOv8 기반 영상 인식, Arduino/ESP32-CAM을 활용한 IoT 제어 등 실무에 가까운 프로젝트들을 경험하며
-                이론을 실전으로 옮길 수 있는 능력을 키워가고 있습니다.
-            </p>
-            <p>
-                저는 단순한 기술자가 아닌, 다양한 사람들과 소통하며 문제를 함께 해결해 나가는 협업형 개발자를 지향합니다.
-                앞으로도 온프레미스와 클라우드 환경 모두를 아우르는 인프라 및 솔루션 구축 능력을 키워,
-                실질적인 가치를 만드는 개발자가 되고자 합니다.
-            </p>
+            <p>안녕하세요. 전자공학 전공 기반의 IT 인프라 및 AI 솔루션 개발에 관심을 가지고 성장하고 있는 <strong>신준혁</strong>입니다.</p>
+
+            <ul>
+                <li>전자공학 전공 후 <span class="highlight">Texon에서 1년간 ESS 전장설계</span> 업무 수행</li>
+                <li><span class="highlight">베트남 현지 협업 및 출장</span>을 통해 글로벌 커뮤니케이션 경험 확보</li>
+                <li><span class="highlight">정보처리기사, SQLD</span> 등 자격증 취득으로 기초 기술 역량 확보</li>
+                <li><span class="highlight">삼성아카데미 AIoT 빅데이터 과정</span> 수료 예정 (2024.10 ~ 2025.04)</li>
+                <li>YOLOv8, Arduino, Flask, MySQL 등을 활용한 <span class="highlight">실전형 프로젝트 다수 수행</span></li>
+            </ul>
+
+            <p>저는 단순한 개발자가 아닌, <span class="highlight">실제 문제를 해결하고 소통하는 협업형 인재</span>가 되는 것을 목표로 합니다.</p>
         `,
+
 
         experience: `
             <h2>Experience</h2>
 
-            <p><strong>SmartCity_Pole (SafeLight)</strong> 프로젝트에서는 팀장 역할을 맡아 전체 시스템 설계와 기능 구현을 주도했습니다. YOLOv8 기반의 불법주정차/보도 침범 감지, Google OCR을 활용한 번호판 인식, Arduino 및 ESP32-CAM을 이용한 SOS 버튼 시스템, 센서를 활용한 고장 감지 기능까지 포함된 종합적인 스마트 가로등 시스템을 개발했습니다. 또한, MIT App Inventor로 제작한 제어 앱을 통해 IoT 장비와 웹 간 통신을 구현했고, REST API를 통해 경찰/시청 서버와 실시간으로 연동되는 자동 신고 기능도 구축하였습니다.</p>
+            <ul>
+                <li>
+                    <strong>📌 SmartCity_Pole (SafeLight)</strong><br>
+                    팀장 역할로 전체 시스템 설계 및 개발 주도
+                    <ul>
+                        <li><span class="highlight">YOLOv8 기반 불법 주정차/보도 침범 감지</span></li>
+                        <li><span class="highlight">번호판 인식(Google OCR)</span> 및 <span class="highlight">자동 신고 기능</span> 구현</li>
+                        <li>Arduino + ESP32-CAM을 이용한 <span class="highlight">SOS 버튼 및 센서 기반 고장 감지</span></li>
+                        <li><span class="highlight">MIT App Inventor</span>로 IoT 제어 앱 개발</li>
+                        <li><span class="highlight">REST API</span>로 시청/경찰 서버 연동</li>
+                    </ul>
+                </li>
 
-            <p><strong>PopcornAPP</strong>에서는 80,000개의 영화 리뷰 데이터를 학습한 감성 분석 AI 모델을 활용하여 리뷰를 긍정/부정으로 자동 분류하는 웹 서비스를 개발했습니다. 또한 영화진흥위원회 API를 연동해 실시간 박스오피스 정보를 차트로 시각화하고, YouTube API를 통해 영화 예고편 자동 재생 기능도 추가했습니다. 사용자의 리뷰 데이터는 MySQL에 저장되며, 추천·조회수에 따라 POPCORN 가상 코인을 지급하고, 예측 이벤트를 통해 영화 티켓을 지급하는 참여형 기능도 구현했습니다.</p>
+                <li>
+                    <strong>📌 PopcornAPP</strong><br>
+                    AI 기반 영화 리뷰 감정 분석 및 데이터 시각화 플랫폼 개발
+                    <ul>
+                        <li><span class="highlight">80,000개 데이터 학습한 AI 모델</span>로 리뷰 긍/부정 판단</li>
+                        <li><span class="highlight">영화진흥위원회 API</span> + <span class="highlight">Chart.js</span>로 실시간 박스오피스 시각화</li>
+                        <li><span class="highlight">YouTube API</span>로 영화 예고편 자동 재생</li>
+                        <li>리뷰 활동에 따라 <span class="highlight">POPCORN 가상 코인 지급</span> + 영화 예측 이벤트 운영</li>
+                    </ul>
+                </li>
 
-            <p><strong>Total Employment Site</strong>에서는 잡코리아와 인크루트 사이트의 인기 공고 및 실시간 검색 키워드를 수집하는 웹 크롤링 시스템을 개발했습니다. Selenium과 Requests를 활용해 데이터를 자동으로 수집하고, Flask를 이용해 간단한 웹 페이지로 시각화하여 제공했습니다.</p>
+                <li>
+                    <strong>📌 Total Employment Site</strong><br>
+                    채용 트렌드 분석용 크롤링 기반 웹 서비스
+                    <ul>
+                        <li><span class="highlight">잡코리아·인크루트 웹 크롤링</span>으로 인기 공고 및 검색 키워드 수집</li>
+                        <li><span class="highlight">Selenium + Flask</span> 기반 간단한 시각화 UI 구현</li>
+                    </ul>
+                </li>
 
-            <p>이러한 프로젝트들을 Ubuntu 기반 서버에서 운영하며, Python, Flask, HTML, API, MySQL, Git을 중심으로 개발하였고, Iptime 포트 포워딩과 Cloudflare를 통해 외부 도메인 연결까지 수행했습니다. 일부 프로젝트는 Docker로 배포 환경을 관리했고, Git을 통해 학원 PC ↔ Ubuntu 서버 간 자동화 배포 구조도 구축했습니다.</p>
-
-            <p>AWS Lightsail 및 EC2 환경에서도 서버 운영을 직접 경험해보며, 클라우드 환경에서의 설정, 보안, 배포 등 On-Premise와 Cloud 양쪽 모두에 대한 실무적 감각을 키웠습니다. 해당 경험은 PPT 문서로 체계적으로 정리해두었습니다.</p>
+                <li>
+                    <strong>📡 서버 & 인프라 구축 경험</strong>
+                    <ul>
+                        <li>Ubuntu 환경에서 <span class="highlight">웹 서버 / 데이터 서버</span> 분리 구축</li>
+                        <li>포트포워딩(IPTime) + <span class="highlight">Cloudflare 도메인 연결</span></li>
+                        <li><span class="highlight">Git 자동화 배포</span>, 일부 Docker 기반 배포 운영</li>
+                        <li>AWS Lightsail, EC2를 활용한 <span class="highlight">클라우드 운영 경험</span></li>
+                    </ul>
+                </li>
+            </ul>
         `,
+
 
         career: `
             <h2>Career</h2>
 
-            <p><strong>(주) 텍슨 – ESS 전장설계 / 사원</strong></p>
-            
-            <p><strong>1) 프로젝트명: POWIN Waratah ES, CS</strong></p>
             <ul>
-                <li>소속 회사: Texon</li>
-                <li>주요 역할: 전기 Function Test Check Sheet 작성, BOM 작성, 검토자료 정리</li>
-                <li>성과: Function Test Check Sheet를 직접 작성하고, 베트남 현지 직원을 대상으로 교육을 실시하여 테스트를 성공적으로 진행함. 모든 전장품 테스트를 통해 안전한 ESS 제품을 제작하는 데 기여</li>
+                <li>
+                    <strong>🏢 (주) 텍슨 – ESS 전장설계 / 사원</strong>
+                    <ul>
+                        <li><strong>POWIN Waratah ES, CS 프로젝트</strong></li>
+                        <ul>
+                            <li>전기 Function Test Check Sheet, BOM 작성</li>
+                            <li><span class="highlight">베트남 현지 직원 교육</span> 및 테스트 주도</li>
+                        </ul>
+
+                        <li><strong>Fluence GEN7 Alpha Prototype</strong></li>
+                        <ul>
+                            <li>회로도 검토, 부품 선정, 설계 오류 피드백</li>
+                            <li>전기 테스트 완료 → 시제품 완성</li>
+                        </ul>
+                    </ul>
+                </li>
+
+                <li>
+                    <strong>🏢 한국전기안전공사 – 기술진단부 / 인턴</strong>
+                    <ul>
+                        <li>멀티미터를 통한 누전 측정, 열화상 카메라로 전기 점검</li>
+                        <li><span class="highlight">전기 안전 진단 실무 경험</span> 확보</li>
+                    </ul>
+                </li>
             </ul>
 
-            <p><strong>2) 프로젝트명: Fluence GEN7 Alpha Prototype</strong></p>
-            <ul>
-                <li>소속 회사: Texon</li>
-                <li>주요 역할: 회로도 검토, 부품 선정, 회로 설계 오류 파악 및 수정 피드백, Function Test Check Sheet 작성</li>
-                <li>성과: 설계 오류를 사전에 파악하고 피드백을 통해 회로도를 수정, 전기 테스트까지 주도적으로 수행하여 시제품 완성</li>
-            </ul>
-
-            <br>
-
-            <p><strong>한국전기안전공사 – 기술진단부 / 인턴</strong></p>
-            <ul>
-                <li>주요 역할: 멀티미터를 활용한 누전 전류 측정, 열화상 카메라를 통한 전기 점검 수행</li>
-                <li>성과: 실제 점검 환경에서의 측정 및 분석 경험을 통해 전기 안전에 대한 실무적 감각 향상</li>
-            </ul>
-
-            <br>
-
-            <p>비록 현재 지원하는 개발 직무와 직접적으로 연관되진 않지만, 이 과정들을 통해 협업, 기술 문서 작성, 문제 해결력, 그리고 책임감 있는 업무 태도를 체득할 수 있었습니다. 또한 해외 협력(베트남) 경험을 통해 글로벌 협업 및 소통의 중요성을 체감하였습니다.</p>
+            <p>비록 해당 경험들은 개발 직무와 직접 연결되진 않지만, <span class="highlight">협업, 문서 작성, 문제 해결력</span> 등 실무적 역량을 키우는 데 큰 기반이 되었습니다.</p>
         `,
+
 
     };
     

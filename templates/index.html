@@ -128,6 +128,11 @@
             min-width: 100px;
         }
     }
+    .highlight {
+    color: #ff6600; /* 오렌지색 강조 */
+    font-weight: bold;
+}
+
 
 </style>
 {% endblock %}
@@ -171,9 +176,11 @@
                 <tr>
                     <td>프로젝트 내용:</td>
                     <td>
-                        AI와 IoT를 기반으로 불법 주정차 감지, 오토바이 보도 침범 탐지, 번호판 인식 및 자동 신고, 
-                        SOS 긴급 버튼, 센서 기반 가로등 고장 감지, 실시간 영상 전송 및 제어 기능이 포함된 스마트 가로등 통합 시스템 개발.
+                        1. <span class="highlight">불법 주정차·보도 침범 감지</span>: YOLOv8로 차량 및 오토바이 탐지<br>
+                        2. <span class="highlight">번호판 인식 및 자동 신고</span>: Google OCR + REST API로 경찰/시청 자동 연동<br>
+                        3. <span class="highlight">SOS 버튼 및 고장 감지</span>: Arduino/ESP32-CAM 기반 긴급 알림, 센서 기반 이상 감지
                     </td>
+                    
                 </tr>
             </table>
             <div class="btn-container">
@@ -203,10 +210,11 @@
                 <tr>
                     <td>프로젝트 내용:</td>
                     <td>
-                        영화 리뷰에 대한 AI 감정 분석, 실시간 박스오피스 시각화, 예고편 영상 제공 및  
-                        리뷰 활동을 기반으로 POPCORN 코인을 지급하여 영화 예측 이벤트에 참여할 수 있는  
-                        영화 기반 통합 플랫폼
+                        1. <span class="highlight">영화 리뷰 감성 분석</span>: AI 모델로 긍정/부정 분류<br>
+                        2. <span class="highlight">실시간 영화 데이터 시각화</span>: 박스오피스 API + Chart.js 그래프 제공<br>
+                        3. <span class="highlight">예고편 + 추첨 이벤트 시스템</span>: YouTube API 예고편, POPCORN 코인 이벤트 참여
                     </td>
+                                      
                 </tr>
             </table>
             <div class="btn-container">
@@ -236,9 +244,11 @@
                 <tr>
                     <td>프로젝트 내용:</td>
                     <td>
-                        잡코리아와 인크루트 사이트에서 인기 채용공고 및 검색 키워드를  
-                        실시간으로 크롤링하여 보여주는 간단한 구직 트렌드 분석 웹 서비스
+                        1. <span class="highlight">실시간 채용 공고 수집</span>: 잡코리아/인크루트 웹 크롤링<br>
+                        2. <span class="highlight">인기 검색어 제공</span>: 주요 키워드 자동 수집 및 표시<br>
+                        3. <span class="highlight">간단한 구직 트렌드 분석</span>: 실시간 기반 트렌드 확인용 미니 웹 서비스
                     </td>
+                    
                 </tr>
             </table>
             <div class="btn-container">
