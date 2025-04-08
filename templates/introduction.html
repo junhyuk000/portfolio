@@ -2,10 +2,9 @@
 {% block css %}
 <style>
     .highlight {
-        color: #007acc; /* 세련된 파랑 계열 */
+        color: #007acc;
         font-weight: bold;
     }
-
 
     .card-grid {
         display: flex;
@@ -27,15 +26,16 @@
         margin-bottom: 10px;
     }
 
-    .card p {
-        font-weight: bold;
-        margin-bottom: 10px;
+    .card p, .card li {
+        font-weight: 500;
         color: #333;
+        line-height: 1.6;
     }
 
     .card ul {
         padding-left: 20px;
         list-style-type: disc;
+        margin: 0;
     }
 
     .note {
@@ -87,18 +87,15 @@
     }
 
     .selfIntroduction {
-        width: 800px;
-        height: auto;
+        width: 90%;
+        max-width: 1000px;
         background-color: white;
         box-shadow: 0px 0px 7px #999;
         text-align: left;
-        padding: 20px;
-        margin: 50px auto 0 auto;
-        line-height: 1.6;
-    }
-
-    .selfIntroduction p {
-        margin-bottom: 15px;
+        padding: 30px;
+        margin: 60px auto 0 auto;
+        line-height: 1.8;
+        border-radius: 12px;
     }
 </style>
 {% endblock %}
@@ -114,47 +111,7 @@
 
 <div class="content1">
     <div class="selfIntroduction" id="selfIntroduction">
-        <h2>About Me</h2>
-        <div class="card-grid">
-            <div class="card">
-                <h3>👋 소개</h3>
-                <p>전자공학 전공 기반의 <span class="highlight">IT 인프라 및 AI 솔루션 개발자</span> 신준혁입니다.</p>
-                <ul>
-                    <li>문제 해결 중심의 실전 프로젝트 다수 수행</li>
-                    <li><span class="highlight">소통과 협업</span>을 바탕으로 하는 개발 지향</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>🏢 실무 기반</h3>
-                <ul>
-                    <li><span class="highlight">Texon</span>에서 ESS 전장설계 1년 근무</li>
-                    <li>다수의 <span class="highlight">베트남 출장 및 글로벌 협업 경험</span></li>
-                    <li><span class="highlight">전기 설계부터 테스트 교육까지 주도</span></li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>📚 학습 & 자격</h3>
-                <ul>
-                    <li><span class="highlight">정보처리기사, SQLD, 전기기사</span> 등 취득</li>
-                    <li>삼성아카데미 <span class="highlight">AIoT 빅데이터 과정 수료 예정</span> (2024.10~2025.04)</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>🛠 주요 기술 스택</h3>
-                <ul>
-                    <li><strong>Backend / Web</strong>: Python, Flask, MySQL, REST API, Blueprint</li>
-                    <li><strong>Frontend & Visualization</strong>: HTML, CSS, JavaScript, Chart.js, YouTube API, OpenAPI</li>
-                    <li><strong>AI / ML</strong>: YOLOv8, OpenCV, TensorFlow, Scikit-learn</li>
-                    <li><strong>IoT / 하드웨어</strong>: Arduino, ESP32-CAM, MIT App Inventor</li>
-                    <li><strong>CI/CD & Infra</strong>: Git, GitHub Actions, Docker, Ubuntu, IPTime 포트포워딩, Cloudflare</li>
-                    <li><strong>Cloud</strong>: AWS EC2, Lightsail</li>
-                    <li><strong>Data Handling</strong>: Pandas, NumPy, Selenium, Requests, joblib</li>
-                </ul>
-            </div>
-        </div>
+        <!-- JS를 통해 동적으로 콘텐츠가 삽입됩니다 -->
     </div>
 </div>
 {% endblock %}
@@ -164,142 +121,131 @@
 function showSection(section) {
     document.querySelectorAll(".menu ul li").forEach(li => li.classList.remove("active"));
     document.getElementById(section).classList.add("active");
-    
-    let content = {
-        aboutMe: `
-            <h2>About Me</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>👋 소개</h3>
-                    <p>전자공학 전공 기반의 <span class="highlight">IT 인프라 및 AI 솔루션 개발자</span> 신준혁입니다.</p>
-                    <ul>
-                        <li>문제 해결 중심의 실전 프로젝트 다수 수행</li>
-                        <li><span class="highlight">소통과 협업</span>을 바탕으로 하는 개발 지향</li>
-                    </ul>
-                </div>
 
-                <div class="card">
-                    <h3>🏢 실무 기반</h3>
-                    <ul>
-                        <li><span class="highlight">Texon</span>에서 ESS 전장설계 1년 근무</li>
-                        <li>다수의 <span class="highlight">베트남 출장 및 글로벌 협업 경험</span></li>
-                        <li><span class="highlight">전기 설계부터 테스트 교육까지 주도</span></li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>📚 학습 & 자격</h3>
-                    <ul>
-                        <li><span class="highlight">정보처리기사, SQLD, 전기기사</span> 등 취득</li>
-                        <li>삼성아카데미 <span class="highlight">AIoT 빅데이터 과정 수료 예정</span> (2024.10~2025.04)</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>🛠 주요 기술 스택</h3>
-                    <ul>
-                        <li><strong>Backend / Web</strong>: Python, Flask, MySQL, REST API, Blueprint</li>
-                        <li><strong>Frontend & Visualization</strong>: HTML, CSS, JavaScript, Chart.js, YouTube API, OpenAPI</li>
-                        <li><strong>AI / ML</strong>: YOLOv8, OpenCV, TensorFlow, Scikit-learn</li>
-                        <li><strong>IoT / 하드웨어</strong>: Arduino, ESP32-CAM, MIT App Inventor</li>
-                        <li><strong>CI/CD & Infra</strong>: Git, GitHub Actions, Docker, Ubuntu, IPTime 포트포워딩, Cloudflare</li>
-                        <li><strong>Cloud</strong>: AWS EC2, Lightsail</li>
-                        <li><strong>Data Handling</strong>: Pandas, NumPy, Selenium, Requests, joblib</li>
-                    </ul>
-                </div>
-            </div>
-        `,
-
-
-
-        experience: `
-            <h2>Experience</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>📌 SmartCity_Pole (SafeLight)</h3>
-                    <p>팀장 / 시스템 설계 및 구현</p>
-                    <ul>
-                        <li><span class="highlight">YOLOv8</span> 기반 불법 주정차·보도 침범 감지</li>
-                        <li><span class="highlight">Google OCR</span>을 활용한 번호판 인식 및 자동 신고</li>
-                        <li><span class="highlight">Arduino + ESP32-CAM</span> SOS 버튼 + 고장 감지</li>
-                        <li><span class="highlight">MIT App Inventor</span> IoT 제어 앱 제작</li>
-                        <li><span class="highlight">REST API</span>로 경찰/시청 자동 신고</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>📌 PopcornAPP</h3>
-                    <p>영화 리뷰 기반 감성 분석 + 추천 시스템</p>
-                    <ul>
-                        <li><span class="highlight">TF-IDF + Logistic Regression</span> 기반 AI 분석</li>
-                        <li><span class="highlight">영화진흥원 + YouTube API</span> 연동</li>
-                        <li><span class="highlight">Chart.js</span>로 박스오피스 시각화</li>
-                        <li><span class="highlight">POPCORN 코인 시스템</span> + 영화 예측 이벤트</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>📌 Total Employment Site</h3>
-                    <p>실시간 구직 트렌드 크롤링 웹 서비스</p>
-                    <ul>
-                        <li><span class="highlight">잡코리아 / 인크루트</span> 인기 공고 및 검색어 크롤링</li>
-                        <li><span class="highlight">Selenium + Flask</span> 기반 웹 UI 구축</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>📡 서버 & 인프라 운영</h3>
-                    <p>로컬 ↔ 클라우드 연동 배포 경험</p>
-                    <ul>
-                        <li><span class="highlight">Ubuntu</span> 환경에서 웹/데이터 서버 분리 운영</li>
-                        <li><span class="highlight">IPTime 포트포워딩 + Cloudflare</span> 도메인 연결</li>
-                        <li><span class="highlight">Git 자동 배포, 일부 Docker 배포</span></li>
-                        <li><span class="highlight">AWS Lightsail / EC2</span> 운영 경험</li>
-                    </ul>
-                </div>
-            </div>
-        `,
-
-
-
-        career: `
-            <h2>Career</h2>
-            <div class="card-grid">
-
-                <div class="card">
-                    <h3>🏢 (주) 텍슨 – ESS 전장설계 / 사원</h3>
-                    <p><strong>📌 POWIN Waratah ES, CS</strong></p>
-                    <ul>
-                        <li><span class="highlight">Function Test Sheet, BOM 작성</span></li>
-                        <li><span class="highlight">베트남 현지 직원 교육</span> 및 테스트 진행</li>
-                        <li>전기 전장 테스트 통한 제품 안정성 확보</li>
-                    </ul>
-                    <p><strong>📌 Fluence GEN7 Alpha</strong></p>
-                    <ul>
-                        <li>회로 검토 및 설계 오류 분석, 피드백</li>
-                        <li>전기 테스트 후 <span class="highlight">시제품 완성</span></li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>🏢 한국전기안전공사 – 기술진단부 / 인턴</h3>
-                    <ul>
-                        <li><span class="highlight">멀티미터 누전 측정</span> 및 열화상 카메라 점검</li>
-                        <li><span class="highlight">전기 안전 진단 실무 경험</span> 확보</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p class="note">
-                해당 경험들은 개발 직무와 직접 연결되진 않지만,  
-                <span class="highlight">협업, 문서 작성, 문제 해결력</span> 등의 실무 역량을 탄탄히 다질 수 있는 기반이 되었습니다.
-            </p>
-        `,
-
-
+    const content = {
+        aboutMe: document.querySelector('script[data-section="aboutMe"]').innerHTML,
+        experience: document.querySelector('script[data-section="experience"]').innerHTML,
+        career: document.querySelector('script[data-section="career"]').innerHTML
     };
-    
+
     document.getElementById("selfIntroduction").innerHTML = content[section];
 }
+
+window.onload = () => showSection('aboutMe');
+</script>
+
+<script type="text/template" data-section="aboutMe">
+<h2>About Me</h2>
+<div class="card-grid">
+    <div class="card">
+        <h3>👋 소개</h3>
+        <p>전자공학 전공 기반의 <span class="highlight">IT 인프라 및 AI 솔루션 개발자</span> 신준혁입니다.</p>
+        <p>📌 문제 해결 중심의 실전 프로젝트 다수 수행</p>
+        <p>🤝 <span class="highlight">소통과 협업</span>을 바탕으로 하는 개발 지향</p>
+    </div>
+    <div class="card">
+        <h3>🏢 실무 기반</h3>
+        <p><span class="highlight">Texon</span>에서 ESS 전장설계 1년 근무</p>
+        <p>✈️ 다수의 <span class="highlight">베트남 출장 및 글로벌 협업</span> 경험</p>
+        <p>📘 <span class="highlight">전기 설계부터 테스트 교육까지 주도</span></p>
+    </div>
+    <div class="card">
+        <h3>📚 학습 & 자격</h3>
+        <p>🛡️ <span class="highlight">정보처리기사, SQLD, 전기기사</span> 등 보유</p>
+        <p>🎓 삼성아카데미 <span class="highlight">AIoT 빅데이터 과정</span> 수료 예정 (2024.10~2025.04)</p>
+    </div>
+    <div class="card">
+        <h3>🛠 주요 기술 스택</h3>
+        <ul>
+            <li><strong>Backend / Web</strong>: Python, Flask, MySQL, REST API, Blueprint</li>
+            <li><strong>Frontend & Visualization</strong>: HTML, CSS, JavaScript, Chart.js, YouTube API, OpenAPI</li>
+            <li><strong>AI / ML</strong>: YOLOv8, OpenCV, TensorFlow, Scikit-learn</li>
+            <li><strong>IoT / 하드웨어</strong>: Arduino, ESP32-CAM, MIT App Inventor</li>
+            <li><strong>CI/CD & Infra</strong>: Git, GitHub Actions, Docker, Ubuntu, IPTime 포트포워딩, Cloudflare</li>
+            <li><strong>Cloud</strong>: AWS EC2, Lightsail</li>
+            <li><strong>Data Handling</strong>: Pandas, NumPy, Selenium, Requests, joblib</li>
+        </ul>
+    </div>
+</div>
+</script>
+
+<script type="text/template" data-section="experience">
+<h2>Experience</h2>
+<div class="card-grid">
+    <div class="card">
+        <h3>📌 SmartCity_Pole (SafeLight)</h3>
+        <p>팀장 / 시스템 설계 및 구현</p>
+        <ul>
+            <li><span class="highlight">YOLOv8</span> 기반 불법 주정차·보도 침범 감지</li>
+            <li><span class="highlight">Google OCR</span>을 활용한 번호판 인식 및 자동 신고</li>
+            <li><span class="highlight">Arduino + ESP32-CAM</span> SOS 버튼 + 고장 감지</li>
+            <li><span class="highlight">MIT App Inventor</span> IoT 제어 앱 제작</li>
+            <li><span class="highlight">REST API</span>로 경찰/시청 자동 신고</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>📌 PopcornAPP</h3>
+        <p>영화 리뷰 기반 감성 분석 + 추천 시스템</p>
+        <ul>
+            <li><span class="highlight">TF-IDF + Logistic Regression</span> 기반 AI 분석</li>
+            <li><span class="highlight">영화진흥원 + YouTube API</span> 연동</li>
+            <li><span class="highlight">Chart.js</span>로 박스오피스 시각화</li>
+            <li><span class="highlight">POPCORN 코인 시스템</span> + 영화 예측 이벤트</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>📌 Total Employment Site</h3>
+        <p>실시간 구직 트렌드 크롤링 웹 서비스</p>
+        <ul>
+            <li><span class="highlight">잡코리아 / 인크루트</span> 인기 공고 및 검색어 크롤링</li>
+            <li><span class="highlight">Selenium + Flask</span> 기반 웹 UI 구축</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>📡 서버 & 인프라 운영</h3>
+        <p>로컬 ↔ 클라우드 연동 배포 경험</p>
+        <ul>
+            <li><span class="highlight">Ubuntu</span> 환경에서 웹/데이터 서버 분리 운영</li>
+            <li><span class="highlight">IPTime 포트포워딩 + Cloudflare</span> 도메인 연결</li>
+            <li><span class="highlight">Git Actions 자동 배포, Docker 배포</span></li>
+            <li><span class="highlight">AWS Lightsail / EC2</span> 운영 경험</li>
+        </ul>
+    </div>
+</div>
+</script>
+
+<script type="text/template" data-section="career">
+<h2>Career</h2>
+<div class="card-grid">
+    <div class="card">
+        <h3>🏢 (주) 텍슨 – ESS 전장설계 / 사원</h3>
+        <p><strong>📌 POWIN Waratah ES, CS</strong></p>
+        <ul>
+            <li><span class="highlight">Function Test Sheet, BOM 작성</span></li>
+            <li><span class="highlight">베트남 현지 직원 교육</span> 및 테스트 진행</li>
+            <li>전기 전장 테스트 통한 제품 안정성 확보</li>
+        </ul>
+        <p><strong>📌 Fluence GEN7 Alpha</strong></p>
+        <ul>
+            <li>회로 검토 및 설계 오류 분석, 피드백</li>
+            <li>전기 테스트 후 <span class="highlight">시제품 완성</span></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>🏢 한국전기안전공사 – 기술진단부 / 인턴</h3>
+        <ul>
+            <li><span class="highlight">멀티미터 누전 측정</span> 및 열화상 카메라 점검</li>
+            <li><span class="highlight">전기 안전 진단 실무 경험</span> 확보</li>
+        </ul>
+    </div>
+</div>
+<p class="note">
+    해당 경험들은 개발 직무와 직접 연결되지는 않지만,<br>
+    <span class="highlight">협업, 문서 작성, 문제 해결력</span> 등의 실무 역량을 탄탄히 다질 수 있는 기반이 되었습니다.
+</p>
 </script>
 {% endblock %}
