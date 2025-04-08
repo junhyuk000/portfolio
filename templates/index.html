@@ -150,6 +150,39 @@
 
     <!-- ✅ 기존 프로젝트 카드 유지 (가로 정렬) -->
     <div class="projects-container">
+
+        <!-- Smartcity pole 프로젝트 -->
+        <div class="project-card">
+            <img src="/images/smartcity.jpg">
+            <h2>📌 Smart City Pole</h2>
+            <table class="project-info">
+                <tr>
+                    <td>프로젝트 이름:</td>
+                    <td>SafeLight</td>
+                </tr>
+                <tr>
+                    <td>역할:</td>
+                    <td>PM / AI / SERVER</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 기술:</td>
+                    <td>Python, Flask, YOLOv8, OpenCV, Arduino, ESP32-CAM, Google OCR, MySQL, HTML, CSS, JavaScript, REST API, Ubuntu</td>
+                </tr>
+                <tr>
+                    <td>프로젝트 내용:</td>
+                    <td>
+                        AI와 IoT를 기반으로 불법 주정차 감지, 오토바이 보도 침범 탐지, 번호판 인식 및 자동 신고, 
+                        SOS 긴급 버튼, 센서 기반 가로등 고장 감지, 실시간 영상 전송 및 제어 기능이 포함된 스마트 가로등 통합 시스템 개발.
+                    </td>
+                </tr>
+            </table>
+            <div class="btn-container">
+                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/SafeLight_pdf.pdf') }}')">📂 PDF 보기</button>
+                <button class="btn" onclick="openInNewTab('{{ url_for('static', filename='files/SmartCity_Pole_WBS.pdf') }}')">📊 WBS 보기</button>
+                <a class="btn" href="{{ url_for('popcornapp.movies') }}" target="_blank">🔗 프로젝트 이동</a>
+            </div>
+        </div>
+
         <!-- PopcornAPP 프로젝트 -->
         <div class="project-card">
             <img src="/images/popcornapp.png">
@@ -157,15 +190,23 @@
             <table class="project-info">
                 <tr>
                     <td>프로젝트 이름:</td>
-                    <td>PopcornAPP(ID:user,PW:1234)</td>
+                    <td>PopcornAPP (ID: user, PW: 1234)</td>
+                </tr>
+                <tr>
+                    <td>역할:</td>
+                    <td>개인 프로젝트</td>
                 </tr>
                 <tr>
                     <td>프로젝트 기술:</td>
-                    <td>Python, Flask, scikit-learn, session, API, MySQL, HTML, CSS, JavaScript</td>
+                    <td>Python, Flask, scikit-learn, MySQL, API, Chart.js, YouTube API, 영화진흥위원회 API, HTML, CSS, JavaScript</td>
                 </tr>
                 <tr>
                     <td>프로젝트 내용:</td>
-                    <td>영화 정보 및 영화 추첨 시스템 제공하는 사이트</td>
+                    <td>
+                        영화 리뷰에 대한 AI 감정 분석, 실시간 박스오피스 시각화, 예고편 영상 제공 및  
+                        리뷰 활동을 기반으로 POPCORN 코인을 지급하여 영화 예측 이벤트에 참여할 수 있는  
+                        영화 기반 통합 플랫폼
+                    </td>
                 </tr>
             </table>
             <div class="btn-container">
@@ -178,19 +219,26 @@
         <!-- Total_Employment_Site 프로젝트 -->
         <div class="project-card">
             <img src="/images/totalemploy.png">
-            <h2>📌 Total_Employment_Site</h2>
+            <h2>📌 Total Employment Site</h2>
             <table class="project-info">
                 <tr>
                     <td>프로젝트 이름:</td>
                     <td>Total Employment Site</td>
                 </tr>
                 <tr>
+                    <td>역할:</td>
+                    <td>개인 프로젝트</td>
+                </tr>
+                <tr>
                     <td>프로젝트 기술:</td>
-                    <td>Python, Flask, Blueprint, selenium, HTML, CSS</td>
+                    <td>Python, Flask, Blueprint, Selenium, Requests, HTML, CSS, JavaScript</td>
                 </tr>
                 <tr>
                     <td>프로젝트 내용:</td>
-                    <td>구직 사이트 크롤링하여 제공하는 사이트</td>
+                    <td>
+                        잡코리아와 인크루트 사이트에서 인기 채용공고 및 검색 키워드를  
+                        실시간으로 크롤링하여 보여주는 간단한 구직 트렌드 분석 웹 서비스
+                    </td>
                 </tr>
             </table>
             <div class="btn-container">
