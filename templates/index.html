@@ -845,18 +845,12 @@
     
     
     </section>
-    
-      
 
-    <!-- Floating Contact Buttons -->
-    <div id="fab-container" style="position: fixed; bottom: 40px; right: 40px; z-index: 1000;">
-        <!-- 버튼 리스트 -->
-        <div id="fab-buttons" style="display: none; flex-direction: column; align-items: flex-end; gap: 12px; margin-bottom: 12px; transition: all 0.3s ease;">
-        <!-- 위로가기 -->
-        <button onclick="scrollToTop()" style="background-color: #2980b9;" class="fab-icon">
-            <img src="/static/icons/up.png" alt="Top" style="width: 24px;">
-        </button>
     
+    <!-- 토글로 열리는 나머지 FAB 그룹 -->
+    <div id="fab-container" style="position: fixed; bottom: 110px; right: 40px; z-index: 1000;">
+        <!-- 펼쳐지는 버튼들 -->
+        <div id="fab-buttons" style="display: none; flex-direction: column; align-items: flex-end; gap: 12px; margin-bottom: 12px;">
         <!-- GitHub -->
         <a href="https://github.com/junhyuk000" target="_blank" class="fab-icon" style="background-color: #333;">
             <img src="/static/icons/github.png" alt="GitHub" style="width: 24px;">
@@ -867,12 +861,12 @@
             <img src="/static/icons/notion.png" alt="Notion" style="width: 24px;">
         </a>
     
-        <!-- 카카오톡 -->
+        <!-- KakaoTalk -->
         <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank" class="fab-icon" style="background-color: #f1c40f;">
             <img src="/static/icons/kakao.png" alt="KakaoTalk" style="width: 24px;">
         </a>
     
-        <!-- 이메일 -->
+        <!-- Email -->
         <a href="mailto:junhyuk000@naver.com" class="fab-icon" style="background-color: #f1c40f;">
             <img src="/static/icons/email.png" alt="Email" style="width: 24px;">
         </a>
@@ -882,6 +876,14 @@
         <button onclick="toggleFab()" id="fab-toggle"
         style="background-color: #16a085; color: white; border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer;">
         ＋
+        </button>
+    </div>
+        
+
+    <!-- 항상 보이는 위로가기 버튼 -->
+    <div style="position: fixed; bottom: 40px; right: 40px; z-index: 1000;">
+        <button onclick="scrollToTop()" class="fab-icon" style="background-color: #2980b9;">
+        <img src="/static/icons/up-arrow.png" alt="Top" style="width: 24px;">
         </button>
     </div>
 
