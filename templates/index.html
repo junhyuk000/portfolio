@@ -452,48 +452,91 @@
 
         </div>
     </section>
-    
+
     <!-- projects section -->
     <section id="projects">
         <h2>Projects</h2>
         <div style="display: flex; flex-direction: column; gap: 40px;">
             <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">SmartCity Pole</span>
-                <p style="margin-top: 6px; color: #aaa;">2024.03 – 2024.09 (2인 팀 프로젝트, 담당 역할: 백엔드 전체 설계 및 AI·센서 연동)</p>
-                <h3 style="margin: 10px 0 4px;">AI 기반 불법 주정차 자동 감지 및 실시간 신고 시스템</h3>
-                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
+                <p style="margin-top: 6px; color: #aaa;">2025.02 – 2025.04 (5인 팀 프로젝트 / 역할: PM & AI + 백엔드 총괄)</p>
+
+                <h3 style="margin: 10px 0 6px;">AI와 IoT가 결합된 스마트 가로등 시스템</h3>
+                <p style="color: #ccc; font-size: 0.95rem; line-height: 1.6;">
+                    불법 주정차 차량을 자동으로 감지하고 실시간으로 경찰에 신고하는 스마트 감시 시스템입니다.<br>
+                    YOLOv8과 Google OCR 기반의 AI 모델을 직접 학습·배포하고, IoT 센서 및 영상 데이터 연동까지 전체 시스템을 설계·구현했습니다.
+                </p>
+            
+                <h4 style="margin: 14px 0 6px; color: var(--accent);">🧩 주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>불법 주정차 차량 탐지 및 이미지 캡처 자동화</li>
-                    <li>YOLOv8 기반 번호판 영역 탐지 및 Google OCR 연동</li>
-                    <li>ESP32-CAM + Arduino로 현장 센서 연동 및 사진 송신</li>
-                    <li>Flask 서버 및 MySQL 연동, Google API 기반 신고 자동화</li>
-                    <li>신고 및 저장 결과를 관리자 페이지에서 시각화 가능</li>
+                    <li><strong>Energy Saving:</strong> 조도 센서 기반 LED 조절</li>
+                    <li><strong>Traffic Management:</strong> 불법 주정차 감지 및 실시간 차량 번호판 인식</li>
+                    <li><strong>Environmental Monitoring:</strong> 온도/조도 센서를 통한 환경 정보 수집</li>
+                    <li><strong>Central Control System:</strong> 통합 제어 서버 설계 및 시스템 전체 연동</li>
+                    <li><strong>Security Enhancement:</strong> ESP32-CAM을 통한 실시간 CCTV 영상 전송</li>
+                    <li><strong>Pedestrian Safety:</strong> 보행자 안전 분석 및 오토바이 인도 침범 감지</li>
+                    <li><strong>Emergency Response:</strong> SOS 버튼을 통한 긴급 영상 전송 및 경찰 연동</li>
                 </ul>
-                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
+            
+                <h4 style="margin: 14px 0 6px; color: var(--accent);">📌 주요 성과</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>하루 평균 차량 감지 수: 약 30대</li>
-                    <li>Google OCR 기반 번호판 인식률: 92%</li>
-                    <li>2개월 내 기능 완성 및 시연 완료</li>
-                    <li>최소 컴퓨팅 환경에서 동작하는 실시간 시스템 완성</li>
+                    <li>YOLOv8 객체 탐지 모델 성능:
+                        <ul style="margin-top: 4px; padding-left: 16px; line-height: 1.6;">
+                            <li>Precision (정밀도): <strong>99.5%+</strong></li>
+                            <li>Recall (재현율): <strong>99.5%+</strong></li>
+                            <li>mAP@0.5: <strong>99.8%</strong></li>
+                            <li>mAP@0.5–0.95: <strong>90%±</strong></li>
+                        </ul>
+                    </li>
+                    <li><strong>2개월 이내 YOLO 학습부터 웹 연동까지 전체 기능 구현 완료</strong></li>
+                    <li><strong>ESP32-CAM + Ubuntu 서버 기반의 실시간 불법 주정차 감지 및 인도 주행 오토바이 탐지 시스템 완성</strong></li>
+                    <li><strong>SOS 버튼 및 불법 주정차 감지 시 경찰 API로 자동 신고 연동 기능 구현</strong></li>                    
                 </ul>
                 <a href="https://github.com/junhyuk000/smartcity" style="color: var(--accent);">https://github.com/junhyuk000/smartcity</a>
-                <div style="margin-top: 10px;">
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">YOLOv8</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Google OCR</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Arduino</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">ESP32-CAM</span>
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    <!-- Backend & Language -->
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">Python</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">JavaScript</span>
+                    <span style="background: #b6e3f0; color: #333; padding: 4px 10px; border-radius: 8px;">HTML5</span>
+                    <span style="background: #b6e3f0; color: #333; padding: 4px 10px; border-radius: 8px;">CSS3</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">Flask</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">REST API</span>
+                
+                    <!-- Database -->
+                    <span style="background: #fce2b8; color: #333; padding: 4px 10px; border-radius: 8px;">MySQL</span>
+                
+                    <!-- AI / Vision -->
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">YOLOv8</span>
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">Google OCR</span>
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">OpenCV</span>
+                
+                    <!-- IoT & App -->
+                    <span style="background: #e6d4ff; color: #333; padding: 4px 10px; border-radius: 8px;">Arduino</span>
+                    <span style="background: #e6d4ff; color: #333; padding: 4px 10px; border-radius: 8px;">ESP32-CAM</span>
+                    <span style="background: #e6d4ff; color: #333; padding: 4px 10px; border-radius: 8px;">MIT App Inventor</span>
+                
+                    <!-- OS & Infra -->
+                    <span style="background: #cdeac0; color: #333; padding: 4px 10px; border-radius: 8px;">Ubuntu</span>
+                    <span style="background: #cdeac0; color: #333; padding: 4px 10px; border-radius: 8px;">Windows</span>
+                
+                    <!-- Collaboration & Issue Tracking -->
+                    <span style="background: #ffc4d6; color: #333; padding: 4px 10px; border-radius: 8px;">GitHub</span>
+                    <span style="background: #ffc4d6; color: #333; padding: 4px 10px; border-radius: 8px;">GitHub Actions</span>
+                    <span style="background: #ffc4d6; color: #333; padding: 4px 10px; border-radius: 8px;">Notion</span>
+                    <span style="background: #ffc4d6; color: #333; padding: 4px 10px; border-radius: 8px;">Mantis</span>
                 </div>
+                
+                
                 <div style="margin-top: 16px; display: flex; gap: 10px;">
                     <a class="btn" href="/static/files/SafeLight_pdf.pdf">📄 PDF</a>
                     <a class="btn" href="/static/videos/smartcity_demo.mp4">🎥 영상</a>
-                    <a class="btn" href="/static/images/smartcity_preview.png">🖼️ 이미지</a>
+                    <a class="btn" href="https://junhyuk000.monster/popcornapp/">🔗 바로가기</a>
                 </div>
             </div>
     
             <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">PopcornAPP</span>
-                <p style="margin-top: 6px; color: #aaa;">2024.02 – 2024.04 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 구현)</p>
+                <p style="margin-top: 6px; color: #aaa;">2023.12 – 2024.01 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 구현)</p>
                 <h3 style="margin: 10px 0 4px;">AI 기반 감성 분석 + 영화 추천 웹 플랫폼</h3>
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
@@ -504,110 +547,174 @@
                 </ul>
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>분류 정확도: 약 88%</li>
-                    <li>1,000개 이상의 리뷰 데이터 수집 및 전처리</li>
-                    <li>Python 웹 전체 스택 및 분석 파이프라인 직접 구현</li>
+                    <li>네이버 영화 리뷰 데이터 <strong>80,000건 이상</strong> 수집 및 한글 정규화 전처리</li>
+                    <li>한국어 텍스트 분석을 위한 <strong>Okt 형태소 분석기</strong> 및 <strong>TF-IDF 벡터화</strong> 적용</li>
+                    <li><strong>로지스틱 회귀 + GridSearchCV</strong> 기반 모델 최적화 → <strong>정확도 85.7%</strong> 달성</li>
+                    <li>Flask 기반 웹 서버와 <strong>감성 분석 API 실시간 연동</strong> 시스템 구현</li>
+                    <li>서버 배포 자동화 및 도메인 연동으로 실제 서비스형 구조 구현 완료</li>
                 </ul>
-                <a href="https://junhyuk000.monster/popcornapp/" style="color: var(--accent);">https://junhyuk000.monster/popcornapp/</a>
+                
+                <a href="https://github.com/junhyuk000/PopcornAPP" style="color: var(--accent);">https://github.com/junhyuk000/PopcornAPP</a>
                 <div style="margin-top: 10px;">
+                    <!-- Backend -->
                     <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">MySQL</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Gunicorn</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Gevent</span>
+                
+                    <!-- Frontend -->
+                    <span style="background: #d5e8ff; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">HTML</span>
+                    <span style="background: #d5e8ff; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">CSS</span>
+                    <span style="background: #d5e8ff; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">JavaScript</span>
+                
+                    <!-- Library -->
+                    <span style="background: #dcffe4; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">scikit-learn</span>
+                    <span style="background: #dcffe4; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">pandas</span>
+                    <span style="background: #dcffe4; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">requests</span>
+                    <span style="background: #dcffe4; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">BeautifulSoup</span>
+                
+                    <!-- ML / NLP -->
                     <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">TF-IDF</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">Logistic Regression</span>
+                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Logistic Regression</span>
+                
+                    <!-- Database -->
+                    <span style="background: #ffdabf; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">MySQL</span>
+                
+                    <!-- API -->
+                    <span style="background: #ffd1e1; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">공공데이터 API</span>
+                    <span style="background: #ffd1e1; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Youtube API</span>
+                    <span style="background: #ffd1e1; color: #333; padding: 4px 10px; border-radius: 8px;">Kakaomap API</span>
                 </div>
+                
                 <div style="margin-top: 16px; display: flex; gap: 10px;">
                     <a class="btn" href="/static/files/PopcornAPP.pdf">📄 PDF</a>
                     <a class="btn" href="/static/videos/popcorn_demo.mp4">🎥 영상</a>
-                    <a class="btn" href="/static/images/popcorn_preview.png">🖼️ 이미지</a>
+                    <a class="btn" href="https://junhyuk000.monster/popcornapp/">🔗 바로가기</a>
                 </div>
             </div>
     
             <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Employment Site</span>
                 <p style="margin-top: 6px; color: #aaa;">2023.11 – 2023.12 (1인 개인 프로젝트, 담당 역할: 전체 개발 및 배포)</p>
-                <h3 style="margin: 10px 0 4px;">실시간 채용 정보 수집 및 트렌드 분석 웹사이트</h3>
+                <h3 style="margin: 10px 0 4px;">실시간 채용 정보 수집 및 검색 플랫폼</h3>
+            
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>잡코리아·인크루트 크롤링을 통한 인기 공고 및 키워드 수집</li>
-                    <li>BeautifulSoup을 활용한 데이터 파싱 및 정제</li>
-                    <li>HTML 기반의 가벼운 인터페이스로 실시간 시각화</li>
-                    <li>Flask 템플릿 구조 + Cloudflare 배포</li>
+                    <li>JobKorea·Incruit 웹사이트에서 인기 공고 및 키워드 기반 실시간 크롤링</li>
+                    <li>셀레니움 기반 <strong>헤드리스 브라우저 자동화</strong>로 데이터 수집</li>
+                    <li>MySQL에 공고 데이터 저장 및 페이지별 동적 검색 구현</li>
+                    <li>검색어 기반 상위 채용 결과 <strong>사이트별 분리 출력 및 통합 시각화</strong></li>
+                    <li>Flask Blueprint 구조 및 RESTful 라우팅 기반 웹 UI 설계</li>
                 </ul>
+            
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>1일 평균 500개 이상 채용 데이터 수집</li>
-                    <li>크롤링 오류율 5% 이하 유지</li>
-                    <li>Cloudflare 적용을 통한 개인 도메인 연결 및 배포 성공</li>
+                    <li><strong>3개 채용 플랫폼</strong>에 대해 통합 크롤링 및 자동 저장 시스템 완성</li>
+                    <li>Linux + Chrome Headless 환경에서 배포 및 테스트 완료</li>
+                    <li>Blueprint 기반 <strong>모듈형 구조</strong>로 유지보수성 향상</li>
+                    <li>검색/탐색/탑 공고 등 다양한 기능을 하나의 플랫폼에 통합</li>
                 </ul>
-                <a href="https://junhyuk000.monster/employment/" style="color: var(--accent);">https://junhyuk000.monster/employment/</a>
-                <div style="margin-top: 10px;">
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">BeautifulSoup</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">Cloudflare</span>
+            
+                <a href="https://github.com/junhyuk000/Employment" style="color: var(--accent);">https://github.com/junhyuk000/Employment</a>
+            
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    <!-- Language / Backend -->
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">Python</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">Flask</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">REST API</span>
+                    <span style="background: #fce2b8; color: #333; padding: 4px 10px; border-radius: 8px;">MySQL</span>
+            
+                    <!-- Crawling / Automation -->
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">Selenium</span>
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">BeautifulSoup</span>
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">Chrome Headless</span>
+            
+                    <!-- Deployment -->
+                    <span style="background: #ffc4d6; color: #333; padding: 4px 10px; border-radius: 8px;">Cloudflare</span>
+                    <span style="background: #cdeac0; color: #333; padding: 4px 10px; border-radius: 8px;">Ubuntu</span>
                 </div>
+            
                 <div style="margin-top: 16px; display: flex; gap: 10px;">
                     <a class="btn" href="/static/files/Employment.pdf">📄 PDF</a>
                     <a class="btn" href="/static/videos/employment_demo.mp4">🎥 영상</a>
-                    <a class="btn" href="/static/images/employment_preview.png">🖼️ 이미지</a>
+                    <a class="btn" href="https://junhyuk000.monster/employment/">🔗 바로가기</a>
                 </div>
             </div>
+            
         
             <div style="background-color: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Deployment & System Architecture</span>
-                <p style="margin-top: 6px; color: #aaa;">2024.01 – 2024.03 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 서버 관리)</p>
-                <h3 style="margin: 10px 0 4px;">Flask 기반 멀티 Blueprint 구조 웹 시스템 + 도메인 및 서버 배포 환경 구축</h3>
+                <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Portfolio Website</span>
+                <p style="margin-top: 6px; color: #aaa;">2024.01 – 2024.03 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 서버 구축)</p>
+            
+                <h3 style="margin: 10px 0 4px;">Flask 기반 포트폴리오 웹사이트 및 배포 인프라 구축</h3>
+            
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>Flask Blueprint 기반 멀티 프로젝트 관리 구조 설계</li>
-                    <li>도메인 관리 (Cloudflare), 포트포워딩 (IPTime) 환경 구성</li>
-                    <li>Ubuntu 22.04 서버에서 Flask 앱 배포 및 백그라운드 실행</li>
-                    <li>MySQL + Flask 연동 DB 서버, 웹 서버 이원화 운영</li>
-                    <li>깃 자동 배포 시스템 구축 (Git pull + systemd 연동)</li>
+                    <li>Flask <strong>Blueprint 구조</strong>로 프로젝트 분리 및 모듈화 구성</li>
+                    <li>Cloudflare 도메인 + IPTime 포트포워딩을 통한 <strong>외부 접속 환경 구축</strong></li>
+                    <li>Ubuntu 서버에서 Flask + MySQL 서버 <strong>이원화 구성 및 운영</strong></li>
+                    <li><strong>systemd 연동 자동 배포</strong> 시스템(Git pull → 서비스 재시작) 구축</li>
                 </ul>
+            
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>Cloudflare + IPTime 포트포워딩 통한 외부 도메인 연동 성공</li>
-                    <li>Blueprint 구조 도입으로 프로젝트 분리 및 유지보수 효율 극대화</li>
-                    <li>Ubuntu 서버에서 Flask 앱 무중단 배포 환경 구성 완료</li>
+                    <li>실제 외부 접속 가능한 포트폴리오 사이트 <strong>직접 배포 및 운영 중</strong></li>
+                    <li>Blueprint 기반 프로젝트 구조로 <strong>유지보수성과 확장성 향상</strong></li>
+                    <li>systemd 기반 자동화로 <strong>무중단 서버 운영 가능</strong></li>
                 </ul>
-                <a href="https://github.com/junhyuk000/portfolio-server" style="color: var(--accent);">https://github.com/junhyuk000/portfolio-server</a>
-                <div style="margin-top: 10px;">
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Flask</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Blueprint</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">Cloudflare</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px; margin-right: 6px;">IPTime</span>
-                    <span style="background: #ffe08a; color: #333; padding: 4px 10px; border-radius: 8px;">Ubuntu</span>
+            
+                <a href="https://github.com/junhyuk000/portfolio" style="color: var(--accent);">https://github.com/junhyuk000/portfolio</a>
+            
+                <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    <!-- Backend / 구조 -->
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">Flask</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">Blueprint</span>
+                    <span style="background: #ffd28a; color: #333; padding: 4px 10px; border-radius: 8px;">REST API</span>
+            
+                    <!-- 배포 / 인프라 -->
+                    <span style="background: #fce2b8; color: #333; padding: 4px 10px; border-radius: 8px;">Ubuntu</span>
+                    <span style="background: #fce2b8; color: #333; padding: 4px 10px; border-radius: 8px;">IPTime 포트포워딩</span>
+                    <span style="background: #fce2b8; color: #333; padding: 4px 10px; border-radius: 8px;">Cloudflare</span>
+                    <span style="background: #fce2b8; color: #333; padding: 4px 10px; border-radius: 8px;">systemd</span>
+            
+                    <!-- DB -->
+                    <span style="background: #d1eaff; color: #333; padding: 4px 10px; border-radius: 8px;">MySQL</span>
                 </div>
+            
                 <div style="margin-top: 16px; display: flex; gap: 10px;">
                     <a class="btn" href="/static/files/Deployment_Flask.pdf">📄 PDF</a>
                     <a class="btn" href="/static/videos/deploy_demo.mp4">🎥 영상</a>
-                    <a class="btn" href="/static/images/deploy_preview.png">🖼️ 이미지</a>
+                    <a class="btn" href="https://junhyuk000.monster/">🔗 바로가기</a>
                 </div>
             </div>
+            
         </div>
     </section>
 
-    <section id="archiving">
+    <section id="archiving" style="padding: 60px 5vw;">
         <h2>Archiving</h2>
         <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 40px;">
+            <!-- GitHub 카드 -->
             <a href="https://github.com/junhyuk000" target="_blank" style="text-decoration: none; color: inherit;">
-                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
                     <img src="/static/icons/github.png" alt="GitHub" width="60">
                     <h3 style="margin: 12px 0 6px;">GitHub</h3>
-                    <p style="color: var(--accent);">github.com/junhyuk000</p>
+                    <p style="color: var(--accent); font-size: 1rem;">github.com/junhyuk000</p>
                     <p style="color: #ccc;">협업 및 소스 코드 저장소</p>
                 </div>
             </a>
+    
+            <!-- Notion 카드 -->
             <a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank" style="text-decoration: none; color: inherit;">
-                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 280px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
                     <img src="/static/icons/notion.png" alt="Notion" width="60">
                     <h3 style="margin: 12px 0 6px;">Notion</h3>
-                    <p style="color: var(--accent);">notion.site/junhyuk000</p>
+                    <p style="color: var(--accent); font-size: 1rem;">notion.site/junhyuk000</p>
                     <p style="color: #ccc;">Notion portfolio 및 학습내용 저장소</p>
                 </div>
             </a>
         </div>
     </section>
+    
 
     <section id="career">
         <h2>Career</h2>
