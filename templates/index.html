@@ -158,6 +158,17 @@
             padding: 40px 0;
             color: #999;
         }
+        ul {
+        line-height: 2;
+        padding-left: 24px;
+        margin-top: 20px;
+        list-style-position: inside;
+        }
+
+        li {
+            padding-left: 12px;
+            text-indent: -1.2em; /* 아이콘 또는 글머리 기호 기준으로 텍스트 정렬 */
+        }
         ul.skill-list {
             list-style: none;
             padding: 0;
@@ -167,6 +178,35 @@
             color: var(--accent);
             margin-right: 10px;
         }
+        .skill-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        text-align: center;
+        gap: 6px;
+        }
+
+        .skill-icon {
+            max-width: 40px;
+            max-height: 40px;
+            object-fit: contain;
+        }
+
+        .skill-placeholder {
+            width: 40px;
+            height: 40px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
         .project-container {
             display: flex;
             overflow-x: auto;
@@ -271,18 +311,20 @@
         </div>
     </section>
 
+
     <section id="skills">
         <h2>Skills</h2>
         <div style="display: flex; flex-direction: column; gap: 40px;">
+
             <!-- Backend -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Backend</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/python.png" alt="Python" width="40px" height="40px"><div>Python</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/flask.png" alt="Flask"  width="40px" height="40px"><div>Flask</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/gunicorn.png" alt="Gunicorn"  width="40px" height="40px"><div>Gunicorn</div></div>
-                    <div style="text-align: center;">gevent</div>
-                    <div style="text-align: center;">Blueprint</div>
+                    <div class="skill-item"><img src="/static/icons/python.png" alt="Python" class="skill-icon"><div>Python</div></div>
+                    <div class="skill-item"><img src="/static/icons/flask.png" alt="Flask" class="skill-icon"><div>Flask</div></div>
+                    <div class="skill-item"><img src="/static/icons/gunicorn.png" alt="Gunicorn" class="skill-icon"><div>Gunicorn</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🦎</div><div>gevent</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🧩</div><div>Blueprint</div></div>
                 </div>
             </div>
 
@@ -290,11 +332,11 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Frontend</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/html.png" alt="HTML5"  width="40px" height="40px"><div>HTML5</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/css.png" alt="CSS3"  width="40px" height="40px"><div>CSS3</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/javascript.png" alt="JavaScript"  width="40px" height="40px"><div>JavaScript</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/jquery.png" alt="jQuery"  width="40px" height="40px"><div>jQuery</div></div>
-                    <div style="text-align: center;">AJAX</div>
+                    <div class="skill-item"><img src="/static/icons/html.png" alt="HTML5" class="skill-icon"><div>HTML5</div></div>
+                    <div class="skill-item"><img src="/static/icons/css.png" alt="CSS3" class="skill-icon"><div>CSS3</div></div>
+                    <div class="skill-item"><img src="/static/icons/javascript.png" alt="JavaScript" class="skill-icon"><div>JavaScript</div></div>
+                    <div class="skill-item"><img src="/static/icons/jquery.png" alt="jQuery" class="skill-icon"><div>jQuery</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">⚡</div><div>AJAX</div></div>
                 </div>
             </div>
 
@@ -302,24 +344,24 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Database</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/mysql.png" alt="MySQL"  width="40px" height="40px"><div>MySQL</div></div>
+                    <div class="skill-item"><img src="/static/icons/mysql.png" alt="MySQL" class="skill-icon"><div>MySQL</div></div>
                 </div>
             </div>
 
-            <!-- DevOps -->
+            <!-- DevOps & Infra -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">DevOps & Infra</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/git.png" alt="Git"  width="40px" height="40px"><div>Git</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/github.png" alt="GitHub"  width="40px" height="40px""><div>GitHub</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/docker.png" alt="Docker"  width="40px" height="40px"><div>Docker</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/ubuntu.png" alt="Ubuntu" width="40px" height="40px"><div>Ubuntu</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/aws.png" alt="AWS" width="40px" height="40px"><div>AWS (Lightsail/EC2)</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/dns.png" alt="DNS" width="40px" height="40px"><div>DNS</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/bug.png" alt="Mantis" width="40px" height="40px"><div>Mantis</div></div>
-                    <div style="text-align: center;">GitHub Actions</div>
-                    <div style="text-align: center;">Virtual Machine</div>
-                    <div style="text-align: center;">Router</div>
+                    <div class="skill-item"><img src="/static/icons/git.png" alt="Git" class="skill-icon"><div>Git</div></div>
+                    <div class="skill-item"><img src="/static/icons/github.png" alt="GitHub" class="skill-icon"><div>GitHub</div></div>
+                    <div class="skill-item"><img src="/static/icons/docker.png" alt="Docker" class="skill-icon"><div>Docker</div></div>
+                    <div class="skill-item"><img src="/static/icons/ubuntu.png" alt="Ubuntu" class="skill-icon"><div>Ubuntu</div></div>
+                    <div class="skill-item"><img src="/static/icons/aws.png" alt="AWS" class="skill-icon"><div>AWS (Lightsail/EC2)</div></div>
+                    <div class="skill-item"><img src="/static/icons/dns.png" alt="DNS" class="skill-icon"><div>DNS</div></div>
+                    <div class="skill-item"><img src="/static/icons/bug.png" alt="Mantis" class="skill-icon"><div>Mantis</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">⚙️</div><div>GitHub Actions</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🖥️</div><div>Virtual Machine</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">📡</div><div>Router</div></div>
                 </div>
             </div>
 
@@ -327,13 +369,13 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">AI / ML</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/sklearn.png" alt="scikit-learn" width="40px" height="40px"><div>scikit-learn</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/tensorflow.png" alt="TensorFlow" width="40px" height="40px"><div>TensorFlow</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/yolo.png" alt="YOLO" width="40px" height="40px"><div>YOLO</div></div>
-                    <div style="text-align: center;">Keras</div>
-                    <div style="text-align: center;">CNN</div>
-                    <div style="text-align: center;">FNN</div>
-                    <div style="text-align: center;">CRNN</div>
+                    <div class="skill-item"><img src="/static/icons/sklearn.png" alt="scikit-learn" class="skill-icon"><div>scikit-learn</div></div>
+                    <div class="skill-item"><img src="/static/icons/tensorflow.png" alt="TensorFlow" class="skill-icon"><div>TensorFlow</div></div>
+                    <div class="skill-item"><img src="/static/icons/yolo.png" alt="YOLO" class="skill-icon"><div>YOLO</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🧠</div><div>Keras</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">📊</div><div>CNN</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🔢</div><div>FNN</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🔡</div><div>CRNN</div></div>
                 </div>
             </div>
 
@@ -341,7 +383,7 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Image Processing</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/opencv.png" alt="OpenCV" width="40px" height="40px"><div>OpenCV</div></div>
+                    <div class="skill-item"><img src="/static/icons/opencv.png" alt="OpenCV" class="skill-icon"><div>OpenCV</div></div>
                 </div>
             </div>
 
@@ -349,10 +391,10 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Data Analysis</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;">Pandas</div>
-                    <div style="text-align: center;">NumPy</div>
-                    <div style="text-align: center;">Matplotlib</div>
-                    <div style="text-align: center;">Seaborn</div>
+                    <div class="skill-item"><div class="skill-placeholder">🧮</div><div>Pandas</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">📐</div><div>NumPy</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">📊</div><div>Matplotlib</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🌈</div><div>Seaborn</div></div>
                 </div>
             </div>
 
@@ -360,9 +402,9 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Web Crawling</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;">Selenium</div>
-                    <div style="text-align: center;">BeautifulSoup</div>
-                    <div style="text-align: center;">Requests</div>
+                    <div class="skill-item"><div class="skill-placeholder">🔍</div><div>Selenium</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">📄</div><div>BeautifulSoup</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">🌐</div><div>Requests</div></div>
                 </div>
             </div>
 
@@ -370,17 +412,17 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">IoT</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/cpp.png" alt="C++" width="40px" height="40px"><div>C++</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/arduino.png" alt="Arduino" width="40px" height="40px"><div>Arduino</div></div>
-                    <div style="text-align: center;">ESP32-CAM</div>
+                    <div class="skill-item"><img src="/static/icons/cpp.png" alt="C++" class="skill-icon"><div>C++</div></div>
+                    <div class="skill-item"><img src="/static/icons/arduino.png" alt="Arduino" class="skill-icon"><div>Arduino</div></div>
+                    <div class="skill-item"><div class="skill-placeholder">📷</div><div>ESP32-CAM</div></div>
                 </div>
             </div>
 
-            <!-- App -->
+            <!-- Mobile App -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Mobile App</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/appinventor.png" alt="App Inventor" width="40px" height="40px"><div>App Inventor</div></div>
+                    <div class="skill-item"><img src="/static/icons/appinventor.png" alt="App Inventor" class="skill-icon"><div>App Inventor</div></div>
                 </div>
             </div>
 
@@ -388,14 +430,14 @@
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">API Integration</h3>
                 <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-                    <div style="text-align: center;"><img src="/static/icons/google.png" alt="Google Vision API" width="40px" height="40px"><div>Google Vision API</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/kakao.png" alt="Kakao API" width="40px" height="40px"><div>Kakao API</div></div>
-                    <div style="text-align: center;"><img src="/static/icons/openapi.png" alt="공공데이터 API" width="40px" height="40px"><div>공공데이터 API</div></div>
+                    <div class="skill-item"><img src="/static/icons/google.png" alt="Google Vision API" class="skill-icon"><div>Google Vision API</div></div>
+                    <div class="skill-item"><img src="/static/icons/kakao.png" alt="Kakao API" class="skill-icon"><div>Kakao API</div></div>
+                    <div class="skill-item"><img src="/static/icons/openapi.png" alt="공공데이터 API" class="skill-icon"><div>공공데이터 API</div></div>
                 </div>
             </div>
+
         </div>
     </section>
-
     <!-- projects section -->
     <section id="projects">
         <h2>Projects</h2>
@@ -534,7 +576,7 @@
                     <img src="/static/icons/github.png" alt="GitHub" width="60">
                     <h3 style="margin: 12px 0 6px;">GitHub</h3>
                     <p style="color: var(--accent);">github.com/junhyuk000</p>
-                    <p style="color: #ccc;">소스 코드 저장소</p>
+                    <p style="color: #ccc;">협업 및 소스 코드 저장소</p>
                 </div>
             </a>
             <a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank" style="text-decoration: none; color: inherit;">
@@ -542,7 +584,7 @@
                     <img src="/static/icons/notion.png" alt="Notion" width="60">
                     <h3 style="margin: 12px 0 6px;">Notion</h3>
                     <p style="color: var(--accent);">notion.site/junhyuk000</p>
-                    <p style="color: #ccc;">공부 및 </p>
+                    <p style="color: #ccc;">Notion portfolio 및 학습내용 저장소</p>
                 </div>
             </a>
         </div>
