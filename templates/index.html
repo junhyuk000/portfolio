@@ -261,7 +261,7 @@
         body.custom-cursor {
             cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCI+PHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIwIDE1IEwgMTAgMjUgTCAxNSAxNSBMIDE1IDEwIiBzdHJva2U9IiMwMGJjZDQiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==') 16 16, auto;
         }
-        #archiving a div:hover {
+        #contact a div:hover {
             transform: translateY(-6px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
@@ -279,7 +279,7 @@
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
-        <a href="#archiving">Archiving</a>
+        <a href="#contact">Contact</a>
         <a href="#career">Career</a>
 
     </nav>
@@ -691,8 +691,8 @@
         </div>
     </section>
 
-    <section id="archiving" style="padding: 60px 5vw;">
-        <h2>Archiving</h2>
+    <section id="contact" style="margin-top: 80px;">
+        <h2>Contact</h2>
         <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 40px;">
             <!-- GitHub 카드 -->
             <a href="https://github.com/junhyuk000" target="_blank" style="text-decoration: none; color: inherit;">
@@ -713,6 +713,24 @@
                     <p style="color: #ccc;">Notion portfolio 및 학습내용 저장소</p>
                 </div>
             </a>
+
+            <!-- Email 카드 -->
+            <a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank" style="text-decoration: none; color: inherit;">
+                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="/static/icons/email.png" alt="email" width="60">
+                    <h3 style="margin: 12px 0 6px;">Email</h3>
+                    <p style="color: var(--accent); font-size: 1rem;">Email 보내기</p>
+                </div>
+            </a>
+
+            <!-- Kakaotalk 카드 -->
+            <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank" style="text-decoration: none; color: inherit;">
+                <div style="background-color: var(--card-bg); border-radius: 16px; padding: 20px; width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; transition: transform 0.3s, box-shadow 0.3s;">
+                    <img src="/static/icons/kakao.png" alt="kakao" width="60">
+                    <h3 style="margin: 12px 0 6px;">Kakao</h3>
+                    <p style="color: var(--accent); font-size: 1rem;">오픈 카톡</p>
+                </div>
+            </a>
         </div>
     </section>
     
@@ -728,14 +746,15 @@
     
             <!-- Texon 경력 -->
             <div style="display: flex; gap: 32px; align-items: flex-start;">
-                <div style="min-width: 60px; height: 60px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                    <img src="/static/images/texon.jpg" style="height: 100%; width: auto; object-fit: contain;">
-                </div>                
+                <div style="width: 140px; height: 80px; border-radius: 40px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <img src="/static/images/texon.jpg" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                </div>              
         
                 <div style="flex: 1;">
         
                     <!-- 프로젝트 1 -->
                     <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">POWIN Waratah ES, CS</span>
+                    <br>
                     <p style="color: #666;">소속회사: <strong>Texon</strong></p>
                     <p style="margin-top: 6px;">Waratah ESS 장비 출하 일정에 맞춰 품질 테스트 및 글로벌 고객 검수 대응을 위한 전장 Function Test 프로세스를 설계 및 주도하였습니다.</p>
             
@@ -759,6 +778,7 @@
             
                     <!-- 프로젝트 2 -->
                     <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Fluence GEN7 Alpha Prototype</span>
+                    <br>
                     <p style="color: #666;">소속회사: <strong>Texon</strong></p>
                     <p style="margin-top: 6px;">고객사로부터 수주한 GEN7 샘플 장비의 전장 설계, 테스트 기준 수립, 제작 공정 관리를 하며 완성도 높은 시제품 제작에 기여하였습니다.</p>
             
@@ -783,12 +803,13 @@
     
             <!-- 두 번째 경력 -->
             <div style="display: flex; gap: 32px; align-items: flex-start;">
-                <div style="min-width: 60px; height: 60px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                    <img src="/static/images/한국전기안전공사.png" style="height: 100%; width: auto; object-fit: contain;">
+                <div style="width: 140px; height: 80px; border-radius: 40px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                    <img src="/static/images/한국전기안전공사.png" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
                                 
                 <div style="flex: 1;">
                     <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">전기안전공사 인턴십</span>
+                    <br>
                     <p style="color: #666;">소속회사: <strong>전기안전공사</strong> | 수행기간: 2021.10 ~ 2021.12 (3개월)</p>
                     <p style="margin-top: 6px;">전기설비 점검 및 사무업무 보조를 맡아 <strong>다양한 계측장비 사용 경험</strong>과 <strong>업무 능력</strong>을 키울 수 있었습니다.</p>
                 
@@ -814,29 +835,38 @@
     
       
 
-    <div style="position: fixed; bottom: 40px; right: 40px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 10px;">
-        <div onclick="toggleContactPanel()" style="background-color: #2ecc71; color: white; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-        💬
-        </div>
-        <div id="contact-panel" style="opacity: 0; transform: translateY(10px); pointer-events: none; background-color: var(--card-bg); border-radius: 12px; padding: 16px 20px; width: 260px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-top: 10px; transition: all 0.3s ease;">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                <img src="/static/icons/kakao.png" alt="KakaoTalk" width="28">
-                <div style="flex: 1;">
-                <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank" style="display: inline-block; margin-top: 4px; background-color: #ffd400; color: #000; font-size: 0.85rem; font-weight: bold; padding: 4px 10px; border-radius: 6px; text-decoration: none;">오픈 채팅</a>
-                </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                <img src="/static/icons/email.png" alt="Email" width="28">
-                <div>
-                
-                <span style="font-size: 0.9rem;">junhyuk000@naver.com</span>
-                </div>
-            </div>
-        </div>
-    </div>
- 
-    <div style="position: fixed; bottom: 110px; right: 40px; z-index: 2000;">
-        <button class="scroll-top" onclick="scrollToTop()">↑</button>
+    <!-- Floating Button Panel -->
+    <div style="position: fixed; bottom: 40px; right: 40px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 12px;">
+
+        <!-- 이메일 -->
+        <a href="mailto:junhyuk000@naver.com" target="_blank"
+        style="background-color: #f1c40f; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+            <img src="/static/icons/email.png" alt="Email" style="width: 28px;">
+        </a>
+
+        <!-- 카카오톡 오픈채팅 -->
+        <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank"
+        style="background-color: #f1c40f; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+            <img src="/static/icons/kakao.png" alt="KakaoTalk" style="width: 28px;">
+        </a>
+
+        <!-- Notion -->
+        <a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank"
+        style="background-color: #333; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+            <img src="/static/icons/notion.png" alt="Notion" style="width: 28px;">
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/junhyuk000" target="_blank"
+        style="background-color: #333; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+            <img src="/static/icons/github.png" alt="GitHub" style="width: 28px;">
+        </a>
+
+        <!-- 위로가기 -->
+        <button onclick="scrollToTop()"
+            style="background-color: #2980b9; border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3); cursor: pointer;">
+            <img src="/static/icons/up.png" alt="Top" style="width: 24px;">
+        </button>
     </div>
 
  
@@ -847,27 +877,9 @@
 
 
     <script>
-        function toggleContactPanel() {
-        const panel = document.getElementById('contact-panel');
-        const isVisible = panel.style.opacity === '1';
-        if (!isVisible) {
-            panel.style.opacity = '1';
-            panel.style.transform = 'translateY(0)';
-            panel.style.pointerEvents = 'auto';
-        } else {
-            panel.style.opacity = '0';
-            panel.style.transform = 'translateY(10px)';
-            panel.style.pointerEvents = 'none';
-        }
-        }
-
-        function toggleTheme() {
-        document.body.classList.toggle('light');
-        }
-        function scrollToTop() {
+    function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
+    }
     </script>
 </body>
 
