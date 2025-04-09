@@ -265,6 +265,19 @@
             transform: translateY(-6px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
+        .fab-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .fab-icon:hover {
+            transform: scale(1.08);
+        }
     </style>
 </head>
 <body class="custom-cursor light">
@@ -835,37 +848,40 @@
     
       
 
-    <!-- Floating Button Panel -->
-    <div style="position: fixed; bottom: 40px; right: 40px; z-index: 1000; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 12px;">
-
-        <!-- 이메일 -->
-        <a href="mailto:junhyuk000@naver.com" target="_blank"
-        style="background-color: #f1c40f; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-            <img src="/static/icons/email.png" alt="Email" style="width: 28px;">
-        </a>
-
-        <!-- 카카오톡 오픈채팅 -->
-        <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank"
-        style="background-color: #f1c40f; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-            <img src="/static/icons/kakao.png" alt="KakaoTalk" style="width: 28px;">
-        </a>
-
-        <!-- Notion -->
-        <a href="https://fossil-bag-18e.notion.site/Programming-172e285b7865800ea4d7da30b8c6dc8f?pvs=4" target="_blank"
-        style="background-color: #333; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-            <img src="/static/icons/notion.png" alt="Notion" style="width: 28px;">
-        </a>
-
-        <!-- GitHub -->
-        <a href="https://github.com/junhyuk000" target="_blank"
-        style="background-color: #333; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
-            <img src="/static/icons/github.png" alt="GitHub" style="width: 28px;">
-        </a>
-
+    <!-- Floating Contact Buttons -->
+    <div id="fab-container" style="position: fixed; bottom: 40px; right: 40px; z-index: 1000;">
+        <!-- 버튼 리스트 -->
+        <div id="fab-buttons" style="display: none; flex-direction: column; align-items: flex-end; gap: 12px; margin-bottom: 12px; transition: all 0.3s ease;">
         <!-- 위로가기 -->
-        <button onclick="scrollToTop()"
-            style="background-color: #2980b9; border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0,0,0,0.3); cursor: pointer;">
+        <button onclick="scrollToTop()" style="background-color: #2980b9;" class="fab-icon">
             <img src="/static/icons/up.png" alt="Top" style="width: 24px;">
+        </button>
+    
+        <!-- GitHub -->
+        <a href="https://github.com/junhyuk000" target="_blank" class="fab-icon" style="background-color: #333;">
+            <img src="/static/icons/github.png" alt="GitHub" style="width: 24px;">
+        </a>
+    
+        <!-- Notion -->
+        <a href="https://notion.site/junhyuk000" target="_blank" class="fab-icon" style="background-color: #333;">
+            <img src="/static/icons/notion.png" alt="Notion" style="width: 24px;">
+        </a>
+    
+        <!-- 카카오톡 -->
+        <a href="https://open.kakao.com/o/sqK5qyfh" target="_blank" class="fab-icon" style="background-color: #f1c40f;">
+            <img src="/static/icons/kakao.png" alt="KakaoTalk" style="width: 24px;">
+        </a>
+    
+        <!-- 이메일 -->
+        <a href="mailto:junhyuk000@naver.com" class="fab-icon" style="background-color: #f1c40f;">
+            <img src="/static/icons/email.png" alt="Email" style="width: 24px;">
+        </a>
+        </div>
+    
+        <!-- 토글 버튼 -->
+        <button onclick="toggleFab()" id="fab-toggle"
+        style="background-color: #16a085; color: white; border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer;">
+        ＋
         </button>
     </div>
 
@@ -876,10 +892,16 @@
     </footer>
 
 
+    <!-- 스크립트 -->
     <script>
-    function scrollToTop() {
+        function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+        }
+    
+        function toggleFab() {
+        const buttons = document.getElementById('fab-buttons');
+        buttons.style.display = (buttons.style.display === 'flex') ? 'none' : 'flex';
+        }
     </script>
 </body>
 
