@@ -278,6 +278,10 @@
         .fab-icon:hover {
             transform: scale(1.08);
         }
+        #fab-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+        }
     </style>
 </head>
 <body class="custom-cursor light">
@@ -874,8 +878,8 @@
     
         <!-- 토글 버튼 -->
         <button onclick="toggleFab()" id="fab-toggle"
-        style="background-color: #16a085; color: white; border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer;">
-        ＋
+            style="background-color: #16a085; color: white; border: none; border-radius: 50%; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; transition: all 0.3s ease;">
+            ＋
         </button>
     </div>
         
@@ -896,13 +900,16 @@
 
     <!-- 스크립트 -->
     <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+        }
         function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     
         function toggleFab() {
-        const buttons = document.getElementById('fab-buttons');
-        buttons.style.display = (buttons.style.display === 'flex') ? 'none' : 'flex';
+            const buttons = document.getElementById('fab-buttons');
+            buttons.style.display = (buttons.style.display === 'flex') ? 'none' : 'flex';
         }
     </script>
 </body>
