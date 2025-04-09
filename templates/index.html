@@ -166,8 +166,8 @@
         }
 
         li {
-            padding-left: 12px;
-            text-indent: -1.2em; /* 아이콘 또는 글머리 기호 기준으로 텍스트 정렬 */
+            padding-left: 20px;
+            text-indent: -1.6em; /* 아이콘 또는 글머리 기호 기준으로 텍스트 정렬 */
         }
         ul.skill-list {
             list-style: none;
@@ -183,29 +183,43 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 80px;
+        width: 68px;
         text-align: center;
-        gap: 6px;
+        gap: 4px;
+        font-size: 0.75rem; /* 글자 크기 작게 */
         }
 
         .skill-icon {
-            max-width: 40px;
-            max-height: 40px;
+            max-width: 32px;
+            max-height: 32px;
             object-fit: contain;
         }
 
         .skill-placeholder {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             background-color: #e0e0e0;
             border-radius: 8px;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        #skills .skill-group {
+            display: flex;
+            gap: 16px; /* 줄인 간격 */
+            flex-wrap: wrap;
+        }
+
+        #skills h3 {
+            font-size: 1.1rem;
+        }
+
+        #skills h2 {
+            font-size: 1.5rem;
+        }
 
         .project-container {
             display: flex;
@@ -287,16 +301,16 @@
         <h2>About Me</h2>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 40px; margin-top: 40px;">
             <div style="text-align: center; flex: 1 1 200px;">
-                <p><img src="/static/images/신준혁.jpg" style="width: 128px; height: 128px;"><br><strong>이름</strong><br>신준혁</p>
+                <p><img src="/static/images/신준혁.jpg" style="width: 128px; height: 128px;"><br>신준혁</p>
             </div>
             <div style="text-align: center; flex: 1 1 200px;">
-                <p><img src="/static/images/달력.png" style="width: 128px; height: 128px;"><br><strong>생년월일</strong><br>1996년생(만 28세)</p>
+                <p><img src="/static/images/달력.png" style="width: 128px; height: 128px;"><br>1996년생(만 28세)</p>
             </div>
             <div style="text-align: center; flex: 1 1 200px;">
-                <p><img src="/static/images/위치.png" style="width: 128px; height: 128px;"><br><strong>위치</strong><br>경기도 수원시 장안구</p>
+                <p><img src="/static/images/위치.png" style="width: 128px; height: 128px;"><br>경기도 수원시 장안구</p>
             </div>
             <div style="text-align: center; flex: 1 1 200px;">
-                <p><img src="/static/images/이메일.png" style="width: 128px; height: 128px;"><br><strong>이메일</strong><br>junhyuk000@naver.com</p>
+                <p><img src="/static/images/이메일.png" style="width: 128px; height: 128px;"><br>junhyuk000@naver.com</p>
             </div>
         </div>
         <div style="margin-top: 60px;">
@@ -314,12 +328,12 @@
 
     <section id="skills">
         <h2>Skills</h2>
-        <div style="display: flex; flex-direction: column; gap: 40px;">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
 
             <!-- Backend -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Backend</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/python.png" alt="Python" class="skill-icon"><div>Python</div></div>
                     <div class="skill-item"><img src="/static/icons/flask.png" alt="Flask" class="skill-icon"><div>Flask</div></div>
                     <div class="skill-item"><img src="/static/icons/gunicorn.png" alt="Gunicorn" class="skill-icon"><div>Gunicorn</div></div>
@@ -331,7 +345,7 @@
             <!-- Frontend -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Frontend</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/html.png" alt="HTML5" class="skill-icon"><div>HTML5</div></div>
                     <div class="skill-item"><img src="/static/icons/css.png" alt="CSS3" class="skill-icon"><div>CSS3</div></div>
                     <div class="skill-item"><img src="/static/icons/javascript.png" alt="JavaScript" class="skill-icon"><div>JavaScript</div></div>
@@ -351,7 +365,7 @@
             <!-- DevOps & Infra -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">DevOps & Infra</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/git.png" alt="Git" class="skill-icon"><div>Git</div></div>
                     <div class="skill-item"><img src="/static/icons/github.png" alt="GitHub" class="skill-icon"><div>GitHub</div></div>
                     <div class="skill-item"><img src="/static/icons/docker.png" alt="Docker" class="skill-icon"><div>Docker</div></div>
@@ -368,7 +382,7 @@
             <!-- AI/ML -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">AI / ML</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/sklearn.png" alt="scikit-learn" class="skill-icon"><div>scikit-learn</div></div>
                     <div class="skill-item"><img src="/static/icons/tensorflow.png" alt="TensorFlow" class="skill-icon"><div>TensorFlow</div></div>
                     <div class="skill-item"><img src="/static/icons/yolo.png" alt="YOLO" class="skill-icon"><div>YOLO</div></div>
@@ -382,7 +396,7 @@
             <!-- Image Processing -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Image Processing</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/opencv.png" alt="OpenCV" class="skill-icon"><div>OpenCV</div></div>
                 </div>
             </div>
@@ -390,7 +404,7 @@
             <!-- Data Analysis -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Data Analysis</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><div class="skill-placeholder">🧮</div><div>Pandas</div></div>
                     <div class="skill-item"><div class="skill-placeholder">📐</div><div>NumPy</div></div>
                     <div class="skill-item"><div class="skill-placeholder">📊</div><div>Matplotlib</div></div>
@@ -401,7 +415,7 @@
             <!-- Web Crawling -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Web Crawling</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><div class="skill-placeholder">🔍</div><div>Selenium</div></div>
                     <div class="skill-item"><div class="skill-placeholder">📄</div><div>BeautifulSoup</div></div>
                     <div class="skill-item"><div class="skill-placeholder">🌐</div><div>Requests</div></div>
@@ -411,7 +425,7 @@
             <!-- IoT -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">IoT</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/cpp.png" alt="C++" class="skill-icon"><div>C++</div></div>
                     <div class="skill-item"><img src="/static/icons/arduino.png" alt="Arduino" class="skill-icon"><div>Arduino</div></div>
                     <div class="skill-item"><div class="skill-placeholder">📷</div><div>ESP32-CAM</div></div>
@@ -421,7 +435,7 @@
             <!-- Mobile App -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">Mobile App</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/appinventor.png" alt="App Inventor" class="skill-icon"><div>App Inventor</div></div>
                 </div>
             </div>
@@ -429,7 +443,7 @@
             <!-- API Integration -->
             <div style="background-color: var(--card-bg); padding: 20px; border-radius: 16px;">
                 <h3 style="color: var(--accent); margin-bottom: 16px;">API Integration</h3>
-                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <div class="skill-group">
                     <div class="skill-item"><img src="/static/icons/google.png" alt="Google Vision API" class="skill-icon"><div>Google Vision API</div></div>
                     <div class="skill-item"><img src="/static/icons/kakao.png" alt="Kakao API" class="skill-icon"><div>Kakao API</div></div>
                     <div class="skill-item"><img src="/static/icons/openapi.png" alt="공공데이터 API" class="skill-icon"><div>공공데이터 API</div></div>
@@ -438,6 +452,7 @@
 
         </div>
     </section>
+    
     <!-- projects section -->
     <section id="projects">
         <h2>Projects</h2>
@@ -446,6 +461,7 @@
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">SmartCity Pole</span>
                 <p style="margin-top: 6px; color: #aaa;">2024.03 – 2024.09 (2인 팀 프로젝트, 담당 역할: 백엔드 전체 설계 및 AI·센서 연동)</p>
                 <h3 style="margin: 10px 0 4px;">AI 기반 불법 주정차 자동 감지 및 실시간 신고 시스템</h3>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
                     <li>불법 주정차 차량 탐지 및 이미지 캡처 자동화</li>
                     <li>YOLOv8 기반 번호판 영역 탐지 및 Google OCR 연동</li>
@@ -479,6 +495,7 @@
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">PopcornAPP</span>
                 <p style="margin-top: 6px; color: #aaa;">2024.02 – 2024.04 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 구현)</p>
                 <h3 style="margin: 10px 0 4px;">AI 기반 감성 분석 + 영화 추천 웹 플랫폼</h3>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
                     <li>영화 리뷰 데이터를 기반으로 감성 분류 모델 학습 (TF-IDF + Logistic Regression)</li>
                     <li>Box Office API 연동 및 인기 영화 실시간 시각화</li>
@@ -509,6 +526,7 @@
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Employment Site</span>
                 <p style="margin-top: 6px; color: #aaa;">2023.11 – 2023.12 (1인 개인 프로젝트, 담당 역할: 전체 개발 및 배포)</p>
                 <h3 style="margin: 10px 0 4px;">실시간 채용 정보 수집 및 트렌드 분석 웹사이트</h3>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
                     <li>잡코리아·인크루트 크롤링을 통한 인기 공고 및 키워드 수집</li>
                     <li>BeautifulSoup을 활용한 데이터 파싱 및 정제</li>
@@ -538,6 +556,7 @@
                 <span style="background-color: crimson; color: white; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Deployment & System Architecture</span>
                 <p style="margin-top: 6px; color: #aaa;">2024.01 – 2024.03 (1인 개인 프로젝트, 담당 역할: 전체 설계 및 서버 관리)</p>
                 <h3 style="margin: 10px 0 4px;">Flask 기반 멀티 Blueprint 구조 웹 시스템 + 도메인 및 서버 배포 환경 구축</h3>
+                <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
                     <li>Flask Blueprint 기반 멀티 프로젝트 관리 구조 설계</li>
                     <li>도메인 관리 (Cloudflare), 포트포워딩 (IPTime) 환경 구성</li>
