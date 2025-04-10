@@ -262,7 +262,7 @@ font-size: 1.1rem;
     font-size: 0.95rem;
     line-height: 1.85;
     font-weight: 400;
-    color: #ddd;
+    color: var(--text-color); /* ✅ 테마 기반으로 자동 조절 */
     max-width: 900px;
     opacity: 0;
     transform: translateY(30px);
@@ -313,6 +313,16 @@ font-size: 1.1rem;
     font-weight: 600; /* ✅ 강조는 이 정도만 */
 }
 
+/* 강조된 설명도 더 진하게 */
+.project-card p,
+.project-card li {
+  color: var(--text-color);
+}
+
+/* 서브 정보는 살짝 흐리게 (하지만 안 보이진 않게) */
+.project-card .sub-info {
+  color: #666; /* ✅ #aaa → #666 정도로 */
+}
 
 .tooltip {
     position: relative;
