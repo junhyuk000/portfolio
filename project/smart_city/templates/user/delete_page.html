@@ -1,0 +1,35 @@
+{# templates/user/delete_page.html #}
+{% extends "base.html" %}
+{% block title %}회원탈퇴페이지{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/delete_page.css') }}">
+{% endblock %}
+{% block content %}
+<main class="content-area">
+    <div class="container">
+        <h2>회원 탈퇴</h2>
+        <p>{{ user.user_name }}님, 정말로 탈퇴하시겠습니까?</p>
+
+        <form class="delete-form" action="{{ url_for('user_dashboard_delete_user') }}" method="POST">
+            <label for="reason">탈퇴 사유</label>
+            <select name="reason" id="reason" required>
+                <option value="">선택하세요</option>
+                <option value="서비스 불만족">서비스 불만족</option>
+                <option value="더 이상 필요 없음">더 이상 필요 없음</option>
+                <option value="개인정보 우려">개인정보 우려</option>
+                <option value="기타">기타</option>
+            </select>
+
+            <label for="detail_reason">상세 사유 (선택사항)</label>
+            <textarea name="detail_reason" id="detail_reason" rows="4" placeholder="상세한 이유를 입력하세요."></textarea>
+
+            <button type="submit" class="delete-btn">탈퇴하기</button>
+            <a href="{{ url_for('user_dashboard') }}" class="cancel-btn">취소</a>
+        </form>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+{% endblock %}

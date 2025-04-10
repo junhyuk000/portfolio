@@ -1,0 +1,426 @@
+/* static/css/update_profile.css */
+
+:root {
+    --primary-color: #0078ff; /* 파란색으로 변경 */
+    --primary-hover: #0056b3; /* 파란색 호버 색상으로 변경 */
+    --secondary-color: #6c757d;
+    --secondary-hover: #5a6268;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333;
+    --text-color: #212529;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --background-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --input-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --strength-weak: #ff4757;
+    --strength-medium: #ffa502;
+    --strength-good: #2ed573;
+    --strength-strong: #1e90ff;
+}
+
+.dark-mode {
+    --text-color: #f0f0f0;
+    --text-muted: #adb5bd;
+    --border-color: #495057;
+    --background-color: #2a2a2a; /* 다크모드 배경색 일치 */
+    --card-bg: #2a2a2a;
+    --input-bg: #212529;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .form-control:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .strength-meter {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .password-requirements {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.update-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: calc(100vh - 220px);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profile-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    width: 100%;
+    max-width: 700px;
+    padding: 40px;
+    margin: 0 auto;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card h2 {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.profile-card h2:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 25px;
+    transition: border-color 0.3s ease;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+}
+
+.form-control:disabled {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: not-allowed;
+}
+
+.dark-mode .form-control:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 비밀번호 입력 그룹 */
+.password-group {
+    margin-bottom: 25px;
+}
+
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-input .form-control {
+    padding-right: 40px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+}
+
+.password-strength {
+    margin-top: 10px;
+}
+
+.strength-meter {
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.dark-mode .strength-meter {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.strength-meter-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--strength-weak);
+    border-radius: 3px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-meter-fill[data-strength="0"] {
+    width: 0%;
+}
+
+.strength-meter-fill[data-strength="1"] {
+    width: 33%;
+    background-color: var(--strength-medium);
+}
+
+.strength-meter-fill[data-strength="2"] {
+    width: 66%;
+    background-color: var(--strength-good);
+}
+
+.strength-meter-fill[data-strength="3"] {
+    width: 100%;
+    background-color: var(--strength-strong);
+}
+
+.strength-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+.strength-text span {
+    font-weight: 600;
+}
+
+.password-requirements-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.password-requirements {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border-left: 3px solid var(--primary-color);
+}
+
+.dark-mode .password-requirements {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+.password-requirements p {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.password-requirements ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-muted);
+}
+
+.password-requirements li {
+    margin-bottom: 5px;
+}
+
+.password-requirements li.valid {
+    color: var(--primary-color);
+}
+
+.password-requirements li.valid::before {
+    content: "✓ ";
+}
+
+.password-match-message {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    transition: color 0.3s ease;
+}
+
+.password-match-message.match {
+    color: var(--primary-color);
+}
+
+.password-match-message.not-match {
+    color: var(--danger-color);
+}
+
+/* 주소 입력 */
+.address-input {
+    display: flex;
+    gap: 10px;
+}
+
+.address-input .form-control {
+    flex: 1;
+}
+
+.address-search-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+}
+
+.address-search-btn:hover {
+    background-color: var(--secondary-hover);
+}
+
+/* 버튼 그룹 */
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-primary, .btn-secondary {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-hover);
+    transform: translateY(-2px);
+}
+
+/* 계정 관련 액션 */
+.account-actions {
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.delete-account {
+    color: var(--danger-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delete-account:hover {
+    color: var(--danger-hover);
+    text-decoration: underline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .update-profile-container {
+        padding: 20px 15px;
+    }
+    
+    .profile-card {
+        padding: 25px;
+    }
+    
+    .profile-card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .form-section {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .address-input {
+        flex-direction: column;
+    }
+    
+    .address-search-btn {
+        width: 100%;
+        padding: 10px 15px;
+    }
+    
+    .form-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        padding: 20px 15px;
+    }
+    
+    .form-section {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-control {
+        padding: 10px 12px;
+    }
+}

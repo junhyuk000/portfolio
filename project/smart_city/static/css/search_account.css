@@ -1,0 +1,257 @@
+/* search_account.css - 아이디/비밀번호 찾기 페이지 스타일 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+.search-container {
+    background-color: #eef2f7;
+    padding: 40px 0;
+    min-height: calc(100vh - 230px);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: background-color 0.8s ease;
+}
+
+.search-form-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.8s ease, box-shadow 0.8s ease;
+}
+
+.search-form-card h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2c3e50;
+    transition: color 0.8s ease;
+}
+
+#searchForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-type-options {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.search-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c3e50;
+    transition: color 0.8s ease;
+}
+
+.search-option input[type="radio"] {
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+}
+
+.form-label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #2c3e50;
+    transition: color 0.8s ease;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, background-color 0.8s ease, color 0.8s ease;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.form-text {
+    color: #7f8c8d;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 12px;
+    transition: color 0.8s ease;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.result-section {
+    margin-top: 1.5rem;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    border-left: 4px solid #3498db;
+    transition: background-color 0.8s ease;
+}
+
+.result-section p {
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+    color: #2c3e50;
+    transition: color 0.8s ease;
+}
+
+.result-section strong {
+    color: #3498db;
+    font-weight: 600;
+}
+
+.text-danger {
+    color: #e74c3c !important;
+}
+
+/* 다크모드 스타일 */
+.dark-mode .search-container {
+    background-color: #2d2d2d;
+}
+
+.dark-mode .search-form-card {
+    background-color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .search-form-card h2,
+.dark-mode .form-label,
+.dark-mode .search-option {
+    color: #ecf0f1;
+}
+
+.dark-mode .form-control {
+    background-color: #404040;
+    color: #ecf0f1;
+    border-color: #555;
+}
+
+.dark-mode .form-text {
+    color: #bdc3c7;
+}
+
+.dark-mode .result-section {
+    background-color: #404040;
+    border-left-color: #3498db;
+}
+
+.dark-mode .result-section p {
+    color: #ecf0f1;
+}
+
+.dark-mode .result-section strong {
+    color: #5dade2;
+}
+
+/* 버튼 스타일 */
+.btn-outline-secondary,
+.btn-secondary,
+.btn-outline-primary {
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary {
+    color: #7f8c8d;
+    border: 1px solid #7f8c8d;
+    background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #7f8c8d;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #7f8c8d;
+    border: 1px solid #7f8c8d;
+}
+
+.btn-secondary:hover {
+    background-color: #6c7a89;
+}
+
+.btn-outline-primary {
+    color: #3498db;
+    border: 1px solid #3498db;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #3498db;
+}
+
+.dark-mode .btn-outline-secondary {
+    color: #bdc3c7;
+    border-color: #bdc3c7;
+}
+
+.dark-mode .btn-outline-secondary:hover {
+    color: #333;
+    background-color: #bdc3c7;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #4a5568;
+    border-color: #4a5568;
+}
+
+.dark-mode .btn-secondary:hover {
+    background-color: #3d4852;
+}
+
+.dark-mode .btn-outline-primary {
+    color: #5dade2;
+    border-color: #5dade2;
+}
+
+.dark-mode .btn-outline-primary:hover {
+    color: #333;
+    background-color: #5dade2;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 576px) {
+    .search-form-card {
+        margin: 0 20px;
+        padding: 20px;
+    }
+    
+    .search-type-options {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

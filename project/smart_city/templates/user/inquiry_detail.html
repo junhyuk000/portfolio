@@ -1,0 +1,93 @@
+{# templates/user/inquiry_detail.html #}
+{% extends "base.html" %}
+{% block title %}문의 상세보기{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/inquiries.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="inquiry-detail-container">
+        <div class="inquiry-header">
+            <h2>문의 상세보기</h2>
+            <div class="inquiry-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>문의자: {{ posts.user_name }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>문의시간: {{ posts.inquiry_time }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>상태: 
+                        {% if posts.answer_status == 'pending' %}
+                            <span class="status pending">답변 대기 중</span>
+                        {% else %}
+                            <span class="status completed">답변 완료</span>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="inquiry-body">
+            <div class="inquiry-section">
+                <h3>문의 유형</h3>
+                <div class="inquiry-content">
+                    <p>{{ posts.inquiry_reason }}</p>
+                </div>
+            </div>
+            
+            <div class="inquiry-section">
+                <h3>문의 내용</h3>
+                <div class="inquiry-content">
+                    <p>{{ posts.detail_reason }}</p>
+                </div>
+            </div>
+            
+            {% if posts.capture_file %}
+            <div class="inquiry-section">
+                <h3>첨부파일</h3>
+                <div class="inquiry-attachment">
+                    <img src="{{ url_for('capture_file', filename=posts.capture_file) }}" alt="첨부 이미지">
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if posts.answer_status == 'completed' and answer %}
+            <div class="inquiry-section answer-section">
+                <h3>답변</h3>
+                <div class="inquiry-answer">
+                    <div class="answer-meta">
+                        <span class="answer-from">담당자 : {{ answer.admin_id }}</span>
+                        <span class="answer-time">답변시간 : {{ answer.answer_time }}</span>
+                    </div>
+                    <div class="answer-content">
+                        <span class="answer-from">답변 내용</span>
+                        <p>{{ answer.answer_content }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="inquiry-footer">
+            <a href="{{ url_for('user_dashboard_inquiries_view') }}" class="back-button"style="color: #155724;">
+                <i class="fas fa-arrow-left"></i> 목록으로 돌아가기
+            </a>
+        </div>
+    </div>
+    
+    <!-- 채팅 위젯 추가 -->
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

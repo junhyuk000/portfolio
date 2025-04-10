@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}설치된 가로등 등록{% endblock %}
+{% block extra_css %}
+<style>
+    .container{
+        width: 500px;
+        min-height: 750px;
+        margin-top: 100px;
+    }
+    
+    .form-container {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+    
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    
+    .btn {
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        margin-left: 10px;
+    }
+    
+    .address-container {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .address-container .form-control {
+        flex-grow: 1;
+    }
+    /* 다크모드: 전체 배경 및 텍스트 */
+    .dark-mode body {
+        background-color: #121212;
+        color: #f1f1f1;
+    }
+
+    .dark-mode .form-container {
+        background-color: #1f1f1f;
+        border: 1px solid #333;
+        color: #f1f1f1;
+    }
+
+    .dark-mode .form-label {
+        color: #e0e0e0;
+    }
+
+    .dark-mode .form-control {
+        background-color: #2c2c2c;
+        border: 1px solid #555;
+        color: #f1f1f1;
+    }
+
+    .dark-mode .form-control::placeholder {
+        color: #aaa;
+    }
+
+    /* 버튼 */
+    .dark-mode .btn-primary {
+        background-color: #1e88e5;
+        border: none;
+        color: #fff;
+    }
+
+    .dark-mode .btn-primary:hover {
+        background-color: #1565c0;
+    }
+
+    .dark-mode .btn-secondary {
+        background-color: #444;
+        color: #fff;
+        border: none;
+    }
+
+    .dark-mode .btn-secondary:hover {
+        background-color: #555;
+    }
+
+</style>
+{% endblock %}
+{% block head %}
+<meta name="admin_id" content="{{ session.get('admin_id') }}">
+{% endblock %}
+{% block navigation %}
+{% if 'admin_id' in session and session['admin_role'] == 'staff' %}
+<nav class="header-nav">
+    <div class="nav-menu" id="favorites-nav">
+        <span class="favorites-label">즐겨찾기:</span>
+        <span id="no-favorites-message">등록된 즐겨찾기가 없습니다</span>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 style="text-align:center;">설치된 가로등 등록</h2>
+    
+    <div class="form-container">
+        <form id="streetLightForm" method="POST" action="{{ url_for('street_light_register') }}">
+            <!-- 주소 검색 필드 -->
+            <div class="form-group">
+                <label for="address" class="form-label">주소(도로명, 동)</label>
+                <div class="address-container">
+                    <input type="text" id="address" name="location" class="form-control" required placeholder="주소를 검색하세요" readonly>
+                    <button type="button" id="searchAddressBtn" class="btn btn-secondary" onclick="openAddressSearch()">주소 검색</button>
+                </div>
+            </div>
+            
+            <!-- 가로등 목적 -->
+            <div class="form-group">
+                <label for="purpose" class="form-label">설치 목적</label>
+                <select id="purpose" name="purpose" class="form-control" required>
+                    <option value="">선택하세요</option>
+                    <option value="도로">도로</option>
+                    <option value="인도">인도</option>
+                </select>
+            </div>
+            
+            <!-- 기타 목적 입력 필드 (기타 선택 시 표시) -->
+            <div class="form-group" id="otherPurposeGroup" style="display: none;">
+                <label for="otherPurpose" class="form-label">기타 목적 상세</label>
+                <input type="text" id="otherPurpose" name="other_purpose" class="form-control" placeholder="기타 목적을 입력하세요">
+            </div>
+            
+            <!-- IP 입력 필드 추가 -->
+            <div class="form-group">
+                <label for="ip" class="form-label">IP</label>
+                <input type="text" id="ip" name="ip" class="form-control" placeholder="가로등의 IP 주소를 입력하세요">
+            </div>
+            
+            <!-- 설치 날짜 -->
+            <div class="form-group">
+                <label for="installation_date" class="form-label">설치 날짜</label>
+                <input type="date" id="installation_date" name="installation_date" class="form-control" required>
+            </div>
+            
+            <!-- 버튼 영역 -->
+            <div class="btn-container">
+                <div>
+                    <button type="submit" class="btn btn-primary">가로등 등록</button>
+                    <button type="reset" class="btn btn-secondary">초기화</button>
+                </div>
+                <div>
+                    <a href="{{ url_for('staff_all_street_lights') }}" class="btn btn-secondary">목록으로</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script>
+    // 페이지 로드 시 실행
+    document.addEventListener('DOMContentLoaded', function() {
+        // 오늘 날짜를 기본값으로 설정
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('installation_date').value = today;
+        
+        // 목적 선택 이벤트 리스너
+        document.getElementById('purpose').addEventListener('change', function() {
+            if (this.value === '기타') {
+                document.getElementById('otherPurposeGroup').style.display = 'block';
+            } else {
+                document.getElementById('otherPurposeGroup').style.display = 'none';
+                document.getElementById('otherPurpose').value = '';
+            }
+        });
+        
+        // 폼 제출 이벤트 리스너
+        document.getElementById('streetLightForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // 필수 필드 검증
+            if (!document.getElementById('address').value) {
+                alert('주소를 검색해주세요.');
+                return;
+            }
+            
+            if (!document.getElementById('purpose').value) {
+                alert('설치 목적을 선택해주세요.');
+                return;
+            }
+            
+            if (document.getElementById('purpose').value === '기타' && !document.getElementById('otherPurpose').value) {
+                alert('기타 목적 상세 내용을 입력해주세요.');
+                return;
+            }
+            
+            // 폼 제출 전 기타 목적 처리
+            if (document.getElementById('purpose').value === '기타') {
+                document.getElementById('purpose').value = '기타: ' + document.getElementById('otherPurpose').value;
+            }
+            
+            // 폼 제출
+            this.submit();
+        });
+    });
+    
+    // 주소 검색 팝업 띄우기
+    function openAddressSearch() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddress = data.address;
+                var extraAddress = ''; // 추가 주소
+                
+                // 우편번호와 주소 선택 시 추가 주소 처리
+                if (data.addressType === 'R') {
+                    if (data.bname !== '') {
+                        extraAddress += data.bname;
+                    }
+                    if (data.buildingName !== '') {
+                        extraAddress += (extraAddress !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddress += extraAddress !== '' ? ' (' + extraAddress + ')' : '';
+                }
+                
+                // 주소를 입력 필드에 삽입
+                document.getElementById('address').value = fullAddress;
+            }
+        }).open();
+    }
+</script>
+{% endblock %}

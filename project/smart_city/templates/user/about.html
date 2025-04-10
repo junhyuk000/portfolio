@@ -1,0 +1,128 @@
+{# templates/user/about.html #}
+{% extends "base.html" %}
+{% block title %}소개페이지{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="about-container">
+        <div class="about-header">
+            <h1>스마트 도시 시스템 소개</h1>
+            <p class="subtitle">더 안전하고 스마트한 도시 환경을 위한 솔루션</p>
+        </div>
+        
+        <div class="about-sections">
+            <section class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="section-content">
+                    <h2>스마트 가로등 시스템</h2>
+                    <p>우리의 스마트 가로등 시스템은 에너지 효율성과 시민 안전을 극대화하기 위해 설계되었습니다. 실시간 모니터링과 지능형 제어 시스템을 통해 다양한 도시 환경에 최적화된 조명을 제공합니다.</p>
+                    <ul class="feature-list">
+                        <li>에너지 효율적인 LED 조명 사용</li>
+                        <li>움직임 감지 기반 밝기 조절</li>
+                        <li>실시간 원격 모니터링 및 제어</li>
+                        <li>고장 감지 및 자동 신고 시스템</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="section-content">
+                    <h2>실시간 CCTV 모니터링</h2>
+                    <p>도로 및 인도에 설치된 CCTV는 도시 안전을 위한 핵심 요소입니다. 실시간 영상 분석을 통해 사고 예방 및 신속한 대응이 가능합니다.</p>
+                    <ul class="feature-list">
+                        <li>HD 화질의 24시간 영상 모니터링</li>
+                        <li>AI 기반 이상 행동 감지</li>
+                        <li>사고 발생 시 즉각적인 알림 시스템</li>
+                        <li>데이터 암호화를 통한 개인정보 보호</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="about-section">
+                <div class="section-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="section-content">
+                    <h2>불법 주정차 단속 시스템</h2>
+                    <p>도로와 인도의 원활한 흐름을 위한 지능형 불법 주정차 단속 시스템을 운영합니다. AI 기술을 활용하여 자동차와 오토바이의 불법 행위를 감지하고 기록합니다.</p>
+                    <ul class="feature-list">
+                        <li>AI 기반 번호판 인식 기술</li>
+                        <li>불법 주정차 자동 감지 및 기록</li>
+                        <li>실시간 단속 정보 제공</li>
+                        <li>데이터 기반 교통 흐름 최적화</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <div class="about-team">
+            <h2>프로젝트 팀 소개</h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>신준혁</h3>
+                    <p class="member-role">팀장</p>
+                    <p class="member-description">프로젝트 총괄</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>황수용</h3>
+                    <p class="member-role">개발자</p>
+                    <p class="member-description">백엔드 및 DB</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>이지엽</h3>
+                    <p class="member-role">개발자</p>
+                    <p class="member-description">하드웨어</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>손유빈</h3>
+                    <p class="member-role">개발자</p>
+                    <p class="member-description">프론트 엔드 및 CSS</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>안기부</h3>
+                    <p class="member-role">개발자</p>
+                    <p class="member-description">프론트 엔드 및 CSS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 채팅 위젯 추가 -->
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/about.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

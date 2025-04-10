@@ -1,0 +1,114 @@
+{# templates/user/dashboard.html #}
+{% extends "base.html" %}
+
+{% block title %}마이페이지 - 스마트 도시 프로젝트{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<style>
+    .slider-intro p {
+        text-align: center;
+        line-height: 1.8;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="intro-container">
+        <div class="slider-intro">
+            <h1>스마트 가로등 시스템</h1>
+            <p>실시간 모니터링과 스마트한 가로등 시스템 더 안전하고 스마트한 도시를 구현합니다.</p>
+        </div>
+    </div>
+    
+    <!-- 바로가기 위젯 영역 -->
+    <div class="dashboard-widgets">
+        <div class="widget-row">
+            <div class="widget">
+                <div class="widget-icon">
+                    <i class="fas fa-road"></i>
+                </div>
+                <div class="widget-content">
+                    <h3>도로 촬영 가로등</h3>
+                    <p>가로등 위치 조회 및 실시간 도로 모니터링</p>
+                    <a href="{{ url_for('user_dashboard_road_cctv') }}" class="widget-link">바로가기</a>
+                </div>
+            </div>
+            
+            <div class="widget">
+                <div class="widget-icon">
+                    <i class="fas fa-walking"></i>
+                </div>
+                <div class="widget-content">
+                    <h3>인도 촬영 가로등</h3>
+                    <p>가로등 위치 및 조회보행자 안전을 위한 실시간 인도 모니터링</p>
+                    <a href="{{ url_for('user_dashboard_sidewalk_cctv') }}" class="widget-link">바로가기</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="widget-row">
+            <div class="widget">
+                <div class="widget-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="widget-content">
+                    <h3>문의하기</h3>
+                    <p>서비스 이용 중 문의사항이나 불편사항을 등록해주세요</p>
+                    <a href="{{ url_for('user_dashboard_inquiries') }}" class="widget-link">바로가기</a>
+                </div>
+            </div>
+            
+            <div class="widget">
+                <div class="widget-icon">
+                    <i class="fas fa-list"></i>
+                </div>
+                <div class="widget-content">
+                    <h3>문의 목록</h3>
+                    <p>이전에 등록한 문의사항과 답변을 확인하세요</p>
+                    <a href="{{ url_for('user_dashboard_inquiries_view') }}" class="widget-link">바로가기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 슬라이더 영역 -->
+    <div class="slider-wrapper">
+        <!-- 왼쪽 화살표 -->
+        <div class="swiper-button-prev">&lt;</div>
+        
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename='images/image1.png') }}" alt="이미지 1">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename='images/image2.png') }}" alt="이미지 2">
+                </div>
+                <div class="swiper-slide">
+                    <img src="{{ url_for('static', filename='images/image3.png') }}" alt="이미지 3">
+                </div>
+            </div>
+            <!-- 페이지네이션 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <!-- 오른쪽 화살표 -->
+        <div class="swiper-button-next">&gt;</div>
+    </div>
+    
+    <!-- 플래시 메시지 컨테이너 -->
+    <div id="flash-messages-container" class="flash-messages-container" aria-live="polite"></div>
+    
+    <!-- 채팅 위젯 추가 -->
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

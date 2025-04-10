@@ -1,0 +1,41 @@
+{# templates/public/chat_widget.html #}
+
+<!-- 플로팅 채팅 위젯 -->
+<div class="floating-chat" id="floatingChat">
+    <!-- 채팅 아이콘 -->
+    <div class="chat-icon" id="chatIcon" aria-expanded="false" aria-label="고객 지원 열기">
+        <i class="fas fa-comments"></i>
+    </div>
+    
+    <!-- 채팅 패널 -->
+    <div class="chat-panel" id="chatPanel" aria-hidden="true">
+        <div class="panel-header">
+            <button class="back-button" id="mainBackButton" style="display: none;">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h3 id="panelTitle">고객 지원</h3>
+            <button class="close-panel" id="closePanel" aria-label="패널 닫기">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-body">
+            <div class="support-option kakao">
+                <i class="fas fa-comment"></i>
+                <div class="option-info">
+                    <h4>카카오톡 문의</h4>
+                    <p>카카오톡으로 빠르게<br>문의하세요</p>
+                </div>
+                <a href="https://open.kakao.com/o/s68XDGmh" target="_blank" class="option-button">문의하기</a>
+            </div>
+            
+            <div class="support-option chat">
+                <i class="fas fa-headset"></i>
+                <div class="option-info">
+                    <h4>실시간 채팅 상담</h4>
+                    <p>상담원과 실시간으로<br>대화하세요</p>
+                </div>
+                <button class="option-button" id="startChat">시작하기</button>
+            </div>
+        </div>
+    </div>
+</div>

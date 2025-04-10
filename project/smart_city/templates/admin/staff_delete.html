@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block title %}Staff 삭제{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        /* 기본 라이트 모드 변수 */
+        --bg-primary: #f0f4f8;
+        --bg-secondary: #ffffff;
+        --text-primary: #1a2b3c;
+        --text-secondary: #2c3e50;
+        --input-border: #bdc3c7;
+        --primary-color: #3498db;
+        --primary-color-hover: #2980b9;
+        --danger-color: #e74c3c;
+        --danger-color-hover: #c0392b;
+        --accent-color: #2ecc71;
+        --table-header-bg: #f9fafb;
+        --hover-bg: rgba(46, 204, 113, 0.05);
+        --box-shadow-color: rgba(0,0,0,0.1);
+    }
+
+    /* 개선된 다크 모드 변수 */
+    body.dark-mode {
+        --bg-primary: #121212;  /* 단일 어두운 배경색 */
+        --bg-secondary: #1e1e1e;  /* 약간 밝은 보조 배경색 */
+        --text-primary: #e0e0e0;  /* 밝은 회색 텍스트 */
+        --text-secondary: #a0a0a0;  /* 연한 회색 보조 텍스트 */
+        --input-border: #333333;  /* 어두운 테두리 */
+        --primary-color: #4a90e2;  /* 블루 계열 */
+        --primary-color-hover: #357abd;  
+        --danger-color: #f44336;  
+        --danger-color-hover: #d32f2f;  
+        --accent-color: #4caf50;  
+        --table-header-bg: #2c2c2c;  
+        --hover-bg: #fff;
+        --box-shadow-color: rgba(0,0,0,0.2);  
+    }
+
+    body {
+        background-color: var(--bg-primary);  /* 그라데이션 대신 단일 배경색 */
+        color: var(--text-primary);
+        font-family: 'Inter', 'Noto Sans KR', Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    .staff-delete-container {
+        background-color: var(--bg-secondary);
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 
+            0 10px 25px var(--box-shadow-color), 
+            0 6px 12px var(--box-shadow-color);
+        max-width: 800px;
+        margin: 50px auto;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .staff-delete-container h2 {
+        color: var(--text-secondary);
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-align: center;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .staff-delete-container h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin-bottom: 30px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px var(--box-shadow-color);
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--input-border);
+        color: var(--text-primary);
+    }
+
+    .table thead {
+        background-color: var(--table-header-bg);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr:hover {
+        background-color: var(--hover-bg);
+    }
+
+    .table input[type="radio"] {
+        accent-color: var(--primary-color);
+        transform: scale(1.2);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        color: var(--text-primary);
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 16px;
+        outline: none;
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    .btn-delete, .btn-danger {
+        background-color: var(--danger-color);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-delete:hover, .btn-danger:hover {
+        background-color: var(--danger-color-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px var(--box-shadow-color);
+    }
+
+    .staff-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 6px;
+        font-size: 0.85em;
+        font-weight: 500;
+    }
+
+    .alert-info {
+        background-color: var(--hover-bg);
+        border-left: 5px solid var(--primary-color);
+        padding: 15px;
+        color: var(--text-primary);
+        border-radius: 8px;
+    }
+
+    @media (max-width: 600px) {
+        .staff-delete-container {
+            padding: 20px;
+            margin: 20px 10px;
+        }
+
+        .table {
+            font-size: 14px;
+        }
+    }
+
+/* 뒤로가기 버튼 */
+.back-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #5a6268, #343a40);
+    transform: scale(1.03);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 삭제 버튼 */
+.btn-delete, .btn-danger {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-delete:hover, .btn-danger:hover {
+    background: linear-gradient(135deg, #d63031, #b71c1c);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* 직원 삭제 컨테이너 */
+.staff-delete-container {
+    background-color: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 25px var(--box-shadow-color);
+    max-width: 800px;
+    margin: 50px auto;
+    border: 1px solid rgba(0,0,0,0.05);
+    position: relative;
+}
+
+/* 직원 삭제 타이틀 */
+.staff-delete-container h2 {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.staff-delete-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    .staff-delete-container {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="staff-delete-container">
+        <h2>Staff 삭제</h2>
+        
+        {% if staff_list %}
+        <form action="{{ url_for('admin_staff_delete') }}" method="POST">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>선택</th>
+                        <th>Staff ID</th>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for staff in staff_list %}
+                    <tr>
+                        <td>
+                            <input type="radio" name="staff_id" value="{{ staff.admin_id }}" required>
+                        </td>
+                        <td>{{ staff.admin_id }}</td>
+                        <td>{{ staff.admin_name }}</td>
+                        <td>{{ staff.email }}</td>
+                        <td>
+                            <span class="staff-badge">Staff</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="form-group">
+                <label for="admin_password">관리자 비밀번호 확인</label>
+                <input type="password" class="form-control" id="admin_password" name="admin_password" required>
+            </div>
+
+            <button type="submit" class="btn btn-danger w-100">선택한 Staff 삭제</button>
+        </form>
+        {% else %}
+        <div class="alert alert-info text-center">
+            현재 삭제 가능한 Staff가 없습니다.
+        </div>
+        {% endif %}
+        <div class="text-center mt-3">
+            <button class="back-btn" onclick="history.back()">뒤로가기</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const selectedStaff = document.querySelector('input[name="staff_id"]:checked');
+            const adminPassword = document.getElementById('admin_password').value;
+
+            if (!selectedStaff) {
+                e.preventDefault();
+                alert('삭제할 Staff를 선택해주세요.');
+            }
+
+            if (!adminPassword) {
+                e.preventDefault();
+                alert('관리자 비밀번호를 입력해주세요.');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,237 @@
+/* C:\Users\facec\Desktop\smart_city\static\css\register.css */
+
+/* 회원가입 페이지 스타일 */
+.sign-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 230px); /* 헤더, 푸터, 네비게이션바 높이 고려 */
+    background-color: #f8f9fa;
+    transition: background-color 0.8s ease;
+}
+
+.signup-card {
+    width: 100%;
+    max-width: 550px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: background-color 0.8s ease, box-shadow 0.8s ease;
+}
+
+.signup-card h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    transition: color 0.8s ease;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.5rem;
+    display: block;
+    transition: color 0.8s ease;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease, background-color 0.8s ease, color 0.8s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* 주민등록번호 입력 필드 스타일 */
+#regNumberInput, #regNumberInput2 {
+    width: calc(50% - 8px);
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#regNumberInput2 {
+    margin-right: 0;
+}
+
+/* 주소 검색 버튼 스타일 */
+#searchAddressBtn {
+    margin-bottom: 0.5rem;
+    background-color: #6c757d;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+#searchAddressBtn:hover {
+    background-color: #5a6268;
+}
+
+/* 에러 메시지 스타일 */
+[id$="Error"] {
+    font-size: 14px;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* 약관 동의 체크박스 스타일 */
+.form-check {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-check-input {
+    margin-right: 0.5rem;
+}
+
+.form-check-label {
+    color: #555;
+    font-size: 15px;
+    transition: color 0.8s ease;
+}
+
+/* 약관 링크 스타일 */
+.terms_of_service, .privacy_policy {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.terms_of_service:hover, .privacy_policy:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* 회원가입 버튼 스타일 */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    font-weight: 500;
+    padding: 0.75rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+}
+
+/* 로그인 링크 스타일 */
+.text_login {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease;
+}
+
+.text_login:hover {
+    color: #343a40;
+    text-decoration: underline;
+}
+
+/* 홈페이지 버튼 스타일 */
+.text-center .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.text-center .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* 다크모드 스타일 */
+.dark-mode .sign-form-container {
+    background-color: #2a2a2a; /* 다크모드 배경색 일치 */
+}
+
+.dark-mode .signup-card {
+    background-color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .signup-card h2 {
+    color: #f0f0f0;
+}
+
+.dark-mode .form-label {
+    color: #e0e0e0;
+}
+
+.dark-mode .form-control {
+    background-color: #404040;
+    color: #f0f0f0;
+    border-color: #555;
+}
+
+.dark-mode .form-check-label {
+    color: #e0e0e0;
+}
+
+.dark-mode .text_login {
+    color: #b0b0b0;
+}
+
+.dark-mode .text_login:hover {
+    color: #f0f0f0;
+}
+
+.dark-mode [id$="Error"] {
+    color: #ff6b6b;
+}
+
+/* 부트스트랩 스타일 호환성 클래스 */
+.text-center {
+    text-align: center;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .signup-card {
+        padding: 1.5rem;
+    }
+    
+    #regNumberInput, #regNumberInput2 {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .sign-form-container {
+        padding: 1rem 0.5rem;
+    }
+    
+    .signup-card {
+        padding: 1.25rem;
+    }
+    
+    .form-control {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}회원정보 수정{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/update_profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="update-profile-container">
+        <div class="profile-card">
+            <h2>회원정보 수정</h2>
+            
+            <form method="POST" action="{{ url_for('user_update_profile') }}" id="updateForm">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="username">이름</label>
+                        <input type="text" id="username" name="username" value="{{ user.user_name }}" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userid">아이디 (수정불가)</label>
+                        <input type="text" id="userid" name="userid" value="{{ user.user_id }}" class="form-control" disabled>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-group password-group">
+                        <label for="password">비밀번호 변경</label>
+                        <div class="password-input">
+                            <input type="password" id="password" name="password" placeholder="8-12자리 입력" class="form-control" minlength="8" maxlength="12">
+                            <button type="button" class="password-toggle" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-meter">
+                                <div class="strength-meter-fill" data-strength="0"></div>
+                            </div>
+                            <div class="strength-text">비밀번호 강도: <span>약함</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group password-group">
+                        <label for="confirm_password">비밀번호 확인</label>
+                        <div class="password-input">
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="비밀번호 다시 입력" class="form-control" minlength="8" maxlength="12">
+                            <button type="button" class="password-toggle" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-match-message" id="password-match"></div>
+                    </div>
+                </div>
+                
+                <div class="password-requirements-section">
+                    <div class="password-requirements">
+                        <p>비밀번호는 다음 사항을 포함해야 합니다:</p>
+                        <ul>
+                            <li id="length-check">8-12자 길이</li>
+                            <li id="number-check">숫자 2개 이상</li>
+                            <li id="special-check">특수문자 1개 이상</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">주소</label>
+                        <div class="address-input">
+                            <input type="text" id="address" name="address" value="{{ user.address }}" class="form-control" readonly required>
+                            <button type="button" id="searchAddressBtn" class="address-search-btn">
+                                <i class="fas fa-search"></i> 주소 검색
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary">정보 수정 완료</button>
+                    <a href="{{ url_for('user_dashboard') }}" class="btn-secondary">취소</a>
+                </div>
+            </form>
+            
+            <div class="account-actions">
+                <a href="{{ url_for('user_dashboard_delete_user') }}" class="delete-account">
+                    <i class="fas fa-user-times"></i> 회원 탈퇴
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 채팅 위젯 추가 -->
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<!-- 카카오 주소 검색 API 로드 -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 주소 검색 팝업
+    const searchAddressBtn = document.getElementById('searchAddressBtn');
+    
+    if (searchAddressBtn) {
+        searchAddressBtn.addEventListener('click', function() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    let fullAddress = data.address;
+                    let extraAddress = '';
+                    
+                    if (data.addressType === 'R') {
+                        if (data.bname !== '') {
+                            extraAddress += data.bname;
+                        }
+                        if (data.buildingName !== '') {
+                            extraAddress += (extraAddress !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        fullAddress += (extraAddress !== '' ? ' (' + extraAddress + ')' : '');
+                    }
+                    
+                    document.getElementById('address').value = fullAddress;
+                }
+            }).open();
+        });
+    }
+    
+    // 비밀번호 표시/숨김 토글
+    const toggleButtons = document.querySelectorAll('.password-toggle');
+    
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const icon = this.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+    
+    // 비밀번호 강도 체크
+    const passwordInput = document.getElementById('password');
+    const lengthCheck = document.getElementById('length-check');
+    const numberCheck = document.getElementById('number-check');
+    const specialCheck = document.getElementById('special-check');
+    const strengthMeter = document.querySelector('.strength-meter-fill');
+    const strengthText = document.querySelector('.strength-text span');
+    
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        let strength = 0;
+        
+        // 길이 검사
+        if (password.length >= 8 && password.length <= 12) {
+            lengthCheck.classList.add('valid');
+            strength += 1;
+        } else {
+            lengthCheck.classList.remove('valid');
+        }
+        
+        // 숫자 2개 이상 검사
+        const numberCount = (password.match(/\d/g) || []).length;
+        if (numberCount >= 2) {
+            numberCheck.classList.add('valid');
+            strength += 1;
+        } else {
+            numberCheck.classList.remove('valid');
+        }
+        
+        // 특수문자 검사
+        if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            specialCheck.classList.add('valid');
+            strength += 1;
+        } else {
+            specialCheck.classList.remove('valid');
+        }
+        
+        // 강도 표시 업데이트
+        strengthMeter.setAttribute('data-strength', strength);
+        
+        if (strength === 0) {
+            strengthText.textContent = '약함';
+            strengthText.style.color = '#ff4757';
+        } else if (strength === 1) {
+            strengthText.textContent = '보통';
+            strengthText.style.color = '#ffa502';
+        } else if (strength === 2) {
+            strengthText.textContent = '좋음';
+            strengthText.style.color = '#2ed573';
+        } else {
+            strengthText.textContent = '강함';
+            strengthText.style.color = '#1e90ff';
+        }
+    });
+    
+    // 비밀번호 일치 확인
+    const confirmPassword = document.getElementById('confirm_password');
+    const passwordMatch = document.getElementById('password-match');
+    
+    confirmPassword.addEventListener('input', function() {
+        if (passwordInput.value === this.value) {
+            passwordMatch.textContent = '비밀번호가 일치합니다';
+            passwordMatch.classList.remove('not-match');
+            passwordMatch.classList.add('match');
+        } else {
+            passwordMatch.textContent = '비밀번호가 일치하지 않습니다';
+            passwordMatch.classList.remove('match');
+            passwordMatch.classList.add('not-match');
+        }
+    });
+    
+    // 폼 제출 시 유효성 검사
+    const updateForm = document.getElementById('updateForm');
+    
+    updateForm.addEventListener('submit', function(e) {
+        // 비밀번호가 입력된 경우에만 검사
+        if (passwordInput.value) {
+            // 비밀번호 요구사항 확인
+            const hasValidLength = passwordInput.value.length >= 8 && passwordInput.value.length <= 12;
+            const hasEnoughNumbers = (passwordInput.value.match(/\d/g) || []).length >= 2;
+            const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(passwordInput.value);
+            
+            if (!hasValidLength || !hasEnoughNumbers || !hasSpecialChar) {
+                e.preventDefault();
+                alert('비밀번호는 8-12자리의 숫자 2개 이상, 특수문자 1개 이상을 포함해야 합니다.');
+                return;
+            }
+            
+            // 비밀번호 일치 확인
+            if (passwordInput.value !== confirmPassword.value) {
+                e.preventDefault();
+                alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+                return;
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

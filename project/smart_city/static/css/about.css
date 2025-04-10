@@ -1,0 +1,276 @@
+/* static/css/about.css */
+
+:root {
+    --primary-green: #28a745;
+    --primary-green-hover: #218838;
+    --section-bg: #ffffff;
+    --text-color: #333333;
+    --text-light: #666666;
+    --border-color: #e0e0e0;
+    --icon-bg: #f8f9fa;
+    --highlight-color: #e9f7ef;
+    --background-color: #f4f4f4;
+    --heading-color: #333333;
+}
+
+.dark-mode {
+    --section-bg: #333333;
+    --text-color: #f0f0f0;
+    --text-light: #cccccc;
+    --border-color: #444444;
+    --icon-bg: #444444;
+    --highlight-color: #2c3e50;
+    --background-color: #2a2a2a; /* 다크모드 배경색 일치 */
+    --heading-color: #ffffff;
+}
+
+body {
+    background-color: var(--background-color);
+    transition: background-color 0.5s ease;
+}
+
+.content-area {
+    background-color: var(--background-color);
+}
+
+/* 초기 로드 시 모든 애니메이션 요소를 숨김 처리 */
+.about-header, 
+.about-section, 
+.about-team, 
+.team-member {
+    opacity: 0;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 50px auto 40px;
+    padding: 0 20px;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.about-header h1 {
+    font-size: 32px; /* 인덱스 페이지와 동일하게 조정 */
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    transition: color 0.3s ease;
+}
+
+.about-header .subtitle {
+    font-size: 18px; /* 인덱스 페이지와 동일하게 조정 */
+    color: var(--text-light);
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.about-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 70px;
+}
+
+.about-section {
+    display: flex;
+    background-color: var(--section-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+}
+
+.about-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    background-color: var(--primary-green);
+    color: white;
+    font-size: 36px;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease;
+}
+
+.section-content {
+    padding: 30px;
+    flex: 1;
+}
+
+.section-content h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--heading-color);
+    font-size: 20px; /* 인덱스 페이지와 동일하게 조정 */
+    transition: color 0.3s ease;
+}
+
+.section-content p {
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 15px; /* 인덱스 페이지와 동일하게 조정 */
+    transition: color 0.3s ease;
+}
+
+.feature-list {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.feature-list li {
+    color: var(--text-color);
+    margin-bottom: 8px;
+    font-size: 15px; /* 인덱스 페이지와 동일하게 조정 */
+    transition: color 0.3s ease;
+}
+
+.feature-list li:last-child {
+    margin-bottom: 0;
+}
+
+.about-team {
+    margin-top: 70px;
+    text-align: center;
+}
+
+.about-team h2 {
+    font-size: 32px; /* 인덱스 페이지와 동일하게 조정 */
+    color: var(--heading-color);
+    margin-bottom: 40px;
+    transition: color 0.3s ease;
+}
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.team-member {
+    width: 200px;
+    background-color: var(--section-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.member-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--primary-green);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin: 0 auto 15px;
+    transition: background-color 0.3s ease;
+}
+
+.team-member h3 {
+    margin: 0 0 5px;
+    color: var(--heading-color);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.member-role {
+    color: var(--primary-green);
+    font-weight: bold;
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+}
+
+.member-description {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+    }
+    
+    .section-icon {
+        width: 100%;
+        height: 100px;
+    }
+    
+    .team-members {
+        gap: 20px;
+    }
+    
+    .team-member {
+        width: calc(50% - 10px);
+        max-width: 200px;
+    }
+    
+    .about-container {
+        margin: 40px auto 30px;
+    }
+    
+    .about-header {
+        margin-bottom: 40px;
+    }
+    
+    .about-header h1 {
+        font-size: 28px;
+    }
+    
+    .about-header .subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .about-header h1 {
+        font-size: 24px;
+    }
+    
+    .about-header .subtitle {
+        font-size: 15px;
+    }
+    
+    .section-content {
+        padding: 20px;
+    }
+    
+    .section-content h2 {
+        font-size: 18px;
+    }
+    
+    .section-content p,
+    .feature-list li {
+        font-size: 14px;
+    }
+    
+    .team-member {
+        width: 100%;
+        max-width: 220px;
+    }
+    
+    .about-container {
+        margin: 30px auto 25px;
+    }
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚗 불법주차 감지 시스템</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #004d99;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    header img {
+      width: 40px;
+      height: 40px;
+    }
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #004d99;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    thead {
+      background-color: #004d99;
+      color: white;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    img {
+      width: 120px;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    a {
+      color: #ff6600;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>    
+    <img src="static/images/city_icon.png" alt="시청 로고">
+
+    시청 불법주차 감지 시스템
+  </header>
+  <main>
+    <h1>🚔 감지된 불법주차 차량 목록</h1>
+    
+    {% if vehicles %}
+    <table>
+      <thead>
+        <tr>
+          <th>번호판</th>
+          <th>감지 시간</th>
+          <th>위치</th>
+          <th>차량 이미지</th>
+          <th>실시간 영상</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for car in vehicles %}
+        <tr>
+          <td><strong>{{ car.license_plate }}</strong></td>
+          <td>{{ car.timestamp }}</td>
+          <td>{{ car.camera_location }}</td>
+          <td><img src="{{ car.image_path }}" alt="차량 이미지"></td>
+          <td><a href="{{ car.stream_url }}" target="_blank">▶️ 보기</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>🚗 현재 감지된 불법주차 차량이 없습니다.</p>
+    {% endif %}
+  </main>
+</body>
+</html>

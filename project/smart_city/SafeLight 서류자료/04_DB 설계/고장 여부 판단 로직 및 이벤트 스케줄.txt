@@ -1,0 +1,356 @@
+-------------------------------------------------------------------------------------------------------------------------------------- 고장 여부 판단 로직 ------------------------------------------------------------------------------------------------------------------------------------
+1. 조도센서 3개와 LED2개를 설치하고 
+   하나는 하나의 조도센서(메인)로 밝기를 측정하고 , 다른 두개의 조도 센서(서브)는 각 LED의 조도를 측정
+2. 메인 조도센서로 밝기를 측정해서 어두울 경우 LED가 켜지도록 설치 
+   LED가 켜질 경우 각 LED의 불이 켜졌을 때와 꺼졌을 떄를 각각 측정해서 고장여부를 판다
+   - LED가 켜졌을 경우 : 메인조도값이 작아지고, 서브조도는 값이 커지기때문에 각 메인조도값에 따른 서브조도의  MIN값을 측정해서 가장 작은 값보다 작은 경우 고장 
+   - LED가 꺼졌을 경우 : 메인조도값이 커지고, 서브조도는 값이 작아지기 때문에 각 메인조도값에 따른 서브조도의 MAX값을 측정해서 가장 큰 값보다 큰 경우 고장
+3. 기울기 센서 값이 0 에서 1로 바뀌면 가로등이 기울어짐으로 판단 
+4. 설치된 가로등에 부여된 가로등번호로 설치된 센서에서 받아오는 값을 가로등 설치 목적에 따라 DB에서 road_sensors테이블과 sidewalk_sensors테이블에 저장 
+    ㄱ. 목적 : 도로 
+    - 센서 테이블 속성  : 가로등번호, 메인조도, 서브조도1, 서브조도2, 기울기 센서, 온도, 습도, 체감온도, SOS버튼, 수리/점검, 기록시간
+    ㄴ. 목적 : 인도
+    - 센서 테이블 속성 : 가로등번호, 메인조도, 서브조도1, 서브조도2, 기울기 센서, SOS버튼, 수리/점검, 기록시간   
+5. 두 센서 테이블의 속성 중 '수리/점검'(inspection)의 속성 값이 0이면 가로등이 활성화중, 속성 값이 1이면 수리/점검 중을 의미
+6. 두 테이블에서 '기록시간'(record_time)속성에 저장된 속성 값을 활용해서 최신 기록된 센서 값을 1분 단위로 조회하고, 수리/점검 속성값이 0일 때 조회된 센서 값에서 '메인조도'(main_light_level)와 '서브조도'(sub1_light_level,sub2_light_level), '기울기'(tilt_angle)를 
+   2번과 3번을 참조해서 고장여부 판단 후 '고장난 가로등'(malfunction_street_lights) 테이블에 '고장원인'(reason_led, reason_tilt)속성에 해당하는 경우 값을 저장하고, 데이터가 저장된 시간을  '고장발생시간'(malfunction_occurred_at)으로 저장
+   - LED만 원인일 경우 기울기도 고장나면 두 속성의 값을 1로 변경, 고장 발생 시간은 변경x
+   - 기울기만 고장난 경우 LED도 고장나면 두 속성의 값을 1로 변경, 고장 발생 시간은 변경x
+   - LED와 기울기 둘다 원일일 경우 두 속성의 값을 1로 저장
+7. 고장난 가로등 테이블에 행이 있을 경우 '수리/점검 상태'(repair_status)가 '대기중'(pending)일때 6번에서 조회한 결과로  '고장원인'(reason_led,reason_tilt)의 저장되는 속성값이 둘다 0일 경우(센서 오감지) 고장난 가로등 테이블에서 해당 가로등 정보 삭제  
+8. 5번에서 속성값이 1로 저장될 경우 고장난 가로등 테이블의 가로등 정보에서 '고장원인'은 변경되지 않고, '수리/점검 상태'의 속성 값을 '대기중'에서 '수리/점검'(in_progress)로 변경 후 변경된 시간을 '수리/점검 시작시간'(repair_started_at)으로 저장
+9. 5번에서 속성값이 0으로 저장되고, 고장난 가로등 테이블의 가로등 정보에서 '수리/점검 상태' 속성 값이 '수리/점검'이면 '수리완료'(completed)로 판단하고 '수리완료 가로등' (repaired_street_lights)에 해당 가로등 정보를 삽입
+10. 9번 실행 후 malfunction_street_lights테이블에서 해당 가로등 정보를 삭제
+11. 위 실행이 계속 자동으로 실행 되도록 SQLyog에서 event_scheduler로 생성 및 활성화 
+12. DB 서버가 꺼졌다 켜져도 event_scheduler가 활성화 될수 있도록 mysql 설정
+
+
+------------------------------------------------------------------------------------------------------이벤트 스케쥴러 (도로 고장난 가로등 점검/수리 후 완료까지 자동으로 설정)-----------------------------------------------------------------------------------------------------
+### 도로 가로등 메인 조도 > 400 (LED OFF) 서브1조도 값, sub2조도 값
+SELECT main_light_level, COUNT(main_light_level) AS main_cnt, MAX(sub1_light_level_) AS max_sub1, MAX(sub2_light_level_) AS max_sub2  
+FROM road_sensors
+WHERE main_light_level > 400
+GROUP BY main_light_level
+ORDER BY main_light_level;
+
+
+=> 메인조도 > 400 LED 꺼짐
+=> 서브1 조도 < 350
+=> 서브2 조도 < 270
+
+### 도로 가로등 메인 조도<400(LED ON) 최대 서브1조도 값, sub2조도 값
+SELECT main_light_level, COUNT(main_light_level) AS main_cnt, MIN(sub1_light_level_) AS min_sub1, MIN(sub2_light_level_) AS min_sub2  
+FROM road_sensors
+WHERE main_light_level < 400
+GROUP BY main_light_level
+ORDER BY main_light_level;
+
+=> 메인 조도 < 400 LED 켜짐
+=> 서브1 조도 > 400 
+=> 서브2 조도 > 225 
+
+
+### 도로 가로등 수리 및 점검 중에 데이터 삽입 및 업데이트를 위한 이벤트 스케줄러 생성
+DELIMITER $$
+
+CREATE EVENT repair_data_cleanup_road
+ON SCHEDULE EVERY 1 MINUTE
+DO
+BEGIN
+    -- Step 1: 고장 내역 삽입 (고장 내역이 없을 때만)
+    INSERT INTO malfunction_street_lights (
+        street_light_id, 
+        reason_led, 
+        reason_tilt, 
+        malfunction_occurred_at
+    )
+    SELECT rs.street_light_id,
+           CASE 
+               WHEN rs.main_light_level > 400 AND (rs.sub1_light_level_ > 350 OR rs.sub2_light_level_ > 270) THEN 1
+               WHEN rs.main_light_level < 400 AND (rs.sub1_light_level_ < 400 OR rs.sub2_light_level_ < 225) THEN 1
+               ELSE 0
+           END AS reason_led,
+           CASE 
+               WHEN rs.tilt_angle = 1 THEN 1
+               ELSE 0
+           END AS reason_tilt,
+           rs.record_time AS malfunction_occurred_at
+    FROM road_sensors rs
+    LEFT JOIN malfunction_street_lights msl 
+        ON rs.street_light_id = msl.street_light_id
+    WHERE rs.record_time = (SELECT MAX(record_time) 
+                            FROM road_sensors 
+                            WHERE street_light_id = rs.street_light_id)  -- 가장 최근의 저장된 시간 가져오기
+      AND rs.inspection = 0  -- 수리/점검이 아닌 경우에만 삽입
+      AND (
+           -- 고장 내역이 없을 때: reason_led = 1 또는 reason_tilt = 1인 경우만 저장
+           (msl.street_light_id IS NULL 
+           AND (CASE 
+                   WHEN rs.main_light_level > 400 AND (rs.sub1_light_level_ > 350 OR rs.sub2_light_level_ > 270) THEN 1
+                   WHEN rs.main_light_level < 400 AND (rs.sub1_light_level_ < 400 OR rs.sub2_light_level_ < 225) THEN 1
+                   ELSE 0
+               END = 1 
+               OR rs.tilt_angle = 1)
+           )
+           -- 고장 내역이 있을 때: reason_led = 1 또는 reason_tilt = 1인 경우만 업데이트
+           OR (msl.street_light_id IS NOT NULL 
+               AND rs.record_time > msl.malfunction_occurred_at 
+               AND (CASE 
+                       WHEN rs.main_light_level > 400 AND (rs.sub1_light_level_ > 350 OR rs.sub2_light_level_ > 270) THEN 1
+                       WHEN rs.main_light_level < 400 AND (rs.sub1_light_level_ < 400 OR rs.sub2_light_level_ < 225) THEN 1
+                       ELSE 0
+                   END = 1 
+                   OR rs.tilt_angle = 1)
+           )
+      )
+    GROUP BY rs.street_light_id
+    ON DUPLICATE KEY UPDATE
+        reason_led = IF(reason_led != VALUES(reason_led), VALUES(reason_led), reason_led),
+        reason_tilt = IF(reason_tilt != VALUES(reason_tilt), VALUES(reason_tilt), reason_tilt),
+        malfunction_occurred_at = IF(
+            reason_led != VALUES(reason_led) OR reason_tilt != VALUES(reason_tilt) OR (reason_led != 1 AND reason_tilt != 1), 
+            VALUES(malfunction_occurred_at), 
+            malfunction_occurred_at
+        );
+        
+    -- step 1-2: 고장난 가로등으로 저장된 후 수리/점검 중이 아닐 때 고장원인이 잘 작동할 경우 자동삭제
+    DELETE FROM malfunction_street_lights
+    WHERE repair_status = 'pending'
+      AND street_light_id IN (
+        SELECT rs.street_light_id
+        FROM road_sensors rs
+        WHERE rs.record_time = (
+                SELECT MAX(r2.record_time)
+                FROM road_sensors r2
+                WHERE r2.street_light_id = rs.street_light_id
+            )
+          AND rs.inspection = 0
+          AND rs.tilt_angle = 0
+          AND (rs.main_light_level > 400 AND (rs.sub1_light_level_ < 350 OR rs.sub2_light_level_ < 270))
+              OR
+              (rs.main_light_level < 400 AND (rs.sub1_light_level_ > 400 OR rs.sub2_light_level_ > 225))
+        
+    );
+
+    -- Step 2: 수리/점검 시작 업데이트
+    UPDATE malfunction_street_lights msl
+    JOIN road_sensors rs
+        ON msl.street_light_id = rs.street_light_id
+    SET 
+        msl.repair_status = 'in_progress',
+        msl.repair_started_at = IF(msl.repair_status != 'in_progress', rs.record_time, msl.repair_started_at)
+    WHERE rs.inspection = 1 
+      AND rs.record_time = (SELECT MAX(record_time) 
+                            FROM road_sensors 
+                            WHERE street_light_id = rs.street_light_id)
+      AND msl.repair_status != 'in_progress';  -- 이미 in_progress이면 시간을 변경하지 않음
+
+    -- Step 3: 수리 완료 후 repaired_street_lights 테이블에 저장
+    INSERT INTO repaired_street_lights (
+        street_light_id,
+        reason_led,
+        reason_tilt,
+        malfunction_occurred_at,
+        repair_started_at
+    )
+    SELECT 
+        msl.street_light_id,
+        msl.reason_led,
+        msl.reason_tilt,
+        msl.malfunction_occurred_at,
+        msl.repair_started_at  -- 수리 시작 시간
+    FROM malfunction_street_lights msl
+    JOIN road_sensors rs
+        ON msl.street_light_id = rs.street_light_id
+    WHERE msl.repair_status = 'in_progress'  -- 수리 중인 상태만 선택
+      AND rs.inspection = 0  -- 점검이 아닌 상태
+      AND rs.record_time = (
+        SELECT MAX(record_time)
+        FROM road_sensors
+        WHERE street_light_id = rs.street_light_id
+    )
+    GROUP BY msl.street_light_id
+    ON DUPLICATE KEY UPDATE
+        street_light_id = street_light_id;  -- 아무것도 변경하지 않음
+
+    -- Step 4: 수리 완료 후 malfunction_street_lights 테이블에서 삭제
+    DELETE FROM malfunction_street_lights
+    WHERE repair_status = 'in_progress'
+      AND street_light_id IN (
+        SELECT street_light_id
+        FROM repaired_street_lights
+        WHERE malfunction_occurred_at IN (
+            SELECT malfunction_occurred_at
+            FROM repaired_street_lights
+        )
+    );
+
+END $$
+
+DELIMITER ;
+
+### 인도 가로등 메인 조도 > 415 (LED OFF) 서브1조도 값, sub2조도 값
+SELECT main_light_level, COUNT(main_light_level) AS main_cnt, MAX(sub1_light_level_) AS max_sub1, MAX(sub2_light_level_) AS max_sub2  
+FROM sidewalk_sensors
+WHERE main_light_level > 415
+GROUP BY main_light_level
+ORDER BY  max_sub1 DESC, max_sub2 DESC;
+
+
+=> 메인조도 > 415 LED 꺼짐
+=> 서브1 조도 < 300
+=> 서브2 조도 < 430
+
+### 인도 가로등 메인 조도<400(LED ON) 최대 서브1조도 값, sub2조도 값
+SELECT main_light_level, COUNT(main_light_level) AS main_cnt, MIN(sub1_light_level_) AS min_sub1, MIN(sub2_light_level_) AS min_sub2  
+FROM sidewalk_sensors
+WHERE main_light_level < 400
+GROUP BY main_light_level
+ORDER BY min_sub1,min_sub2;
+
+
+
+=> 메인 조도 < 400 LED 켜짐
+=> 서브1 조도 > 400
+=> 서브2 조도 > 540 
+
+### 인도 가로등센서로 가로등고장 상태 자동 저장
+
+DELIMITER $$
+
+-- Step 1-1: 고장 내역 삽입 (고장 내역이 없을 때만)
+CREATE EVENT repair_data_cleanup_sidewalk
+ON SCHEDULE EVERY 1 MINUTE
+DO
+BEGIN
+    INSERT INTO malfunction_street_lights (
+        street_light_id, 
+        reason_led, 
+        reason_tilt, 
+        malfunction_occurred_at
+    )
+    SELECT ss.street_light_id,
+           CASE 
+               WHEN ss.main_light_level > 415 AND (ss.sub1_light_level_ > 300 OR ss.sub2_light_level_ > 430) THEN 1
+               WHEN ss.main_light_level < 400 AND (ss.sub1_light_level_ < 400 OR ss.sub2_light_level_ < 540) THEN 1
+               ELSE 0
+           END AS reason_led,
+           CASE 
+               WHEN ss.tilt_angle = 1 THEN 1
+               ELSE 0
+           END AS reason_tilt,
+           ss.record_time AS malfunction_occurred_at
+    FROM sidewalk_sensors ss
+    LEFT JOIN malfunction_street_lights msl 
+        ON ss.street_light_id = msl.street_light_id
+    WHERE ss.record_time = (SELECT MAX(record_time) 
+                            FROM sidewalk_sensors 
+                            WHERE street_light_id = ss.street_light_id)  -- 가장 최근의 저장된 시간 가져오기
+      AND ss.inspection = 0  -- 수리/점검이 아닌 경우에만 삽입
+      AND (
+           -- 고장 내역이 없을 때: reason_led = 1 또는 reason_tilt = 1인 경우만 저장
+           (msl.street_light_id IS NULL 
+           AND (CASE 
+                   WHEN ss.main_light_level > 415 AND (ss.sub1_light_level_ > 300 OR ss.sub2_light_level_ > 430) THEN 1
+                   WHEN ss.main_light_level < 400 AND (ss.sub1_light_level_ < 400 OR ss.sub2_light_level_ < 540) THEN 1
+                   ELSE 0
+               END = 1 
+               OR ss.tilt_angle = 1)
+           )
+           -- 고장 내역이 있을 때: reason_led = 1 또는 reason_tilt = 1인 경우만 업데이트
+           OR (msl.street_light_id IS NOT NULL 
+               AND ss.record_time > msl.malfunction_occurred_at 
+               AND (CASE 
+                       WHEN ss.main_light_level > 415 AND (ss.sub1_light_level_ > 300 OR ss.sub2_light_level_ > 430) THEN 1
+                       WHEN ss.main_light_level < 400 AND (ss.sub1_light_level_ < 400 OR ss.sub2_light_level_ < 540) THEN 1
+                       ELSE 0
+                   END = 1 
+                   OR ss.tilt_angle = 1)
+           )
+      )
+      
+    GROUP BY ss.street_light_id
+    ON DUPLICATE KEY UPDATE
+        reason_led = IF(reason_led != VALUES(reason_led), VALUES(reason_led), reason_led),
+        reason_tilt = IF(reason_tilt != VALUES(reason_tilt), VALUES(reason_tilt), reason_tilt),
+        malfunction_occurred_at = IF(
+            reason_led != VALUES(reason_led) OR reason_tilt != VALUES(reason_tilt) OR (reason_led != 1 AND reason_tilt != 1), 
+            VALUES(malfunction_occurred_at), 
+            malfunction_occurred_at
+        );
+
+-- step 1-2: 고장난 가로등으로 저장된 후 수리/점검 중이 아닐 때 고장원인이 잘 작동할 경우 자동삭제
+DELETE FROM malfunction_street_lights
+    WHERE repair_status = 'pending'
+      AND street_light_id IN (
+        SELECT ss.street_light_id
+        FROM sidewalk_sensors ss
+        WHERE ss.record_time = (
+                SELECT MAX(s2.record_time)
+                FROM sidewalk_sensors s2
+                WHERE s2.street_light_id = ss.street_light_id
+            )
+          AND ss.inspection = 0
+          AND ss.tilt_angle = 0
+          AND (ss.main_light_level > 415 AND (ss.sub1_light_level_ < 300 OR ss.sub2_light_level_ < 430))
+              OR
+              (ss.main_light_level < 400 AND (ss.sub1_light_level_ > 400 OR ss.sub2_light_level_ > 540))
+        
+    );
+ -- Step 2: 수리/점검 시작 업데이트
+ UPDATE malfunction_street_lights msl
+ JOIN sidewalk_sensors ss
+      ON msl.street_light_id = ss.street_light_id
+    SET 
+        msl.repair_status = 'in_progress',
+        msl.repair_started_at = IF(msl.repair_status != 'in_progress', ss.record_time, msl.repair_started_at)
+    WHERE ss.inspection = 1 
+      AND ss.record_time = (SELECT MAX(record_time) 
+                            FROM sidewalk_sensors 
+                            WHERE street_light_id = ss.street_light_id)
+      AND msl.repair_status != 'in_progress';  -- 이미 in_progress이면 시간을 변경하지 않음
+
+    -- Step 3: 수리 완료 후 repaired_street_lights 테이블에 저장
+    INSERT INTO repaired_street_lights (
+        street_light_id,
+        reason_led,
+        reason_tilt,
+        malfunction_occurred_at,
+        repair_started_at
+    )
+    SELECT 
+        msl.street_light_id,
+        msl.reason_led,
+        msl.reason_tilt,
+        msl.malfunction_occurred_at,
+        msl.repair_started_at  -- 수리 시작 시간
+    FROM malfunction_street_lights msl
+    JOIN sidewalk_sensors ss
+        ON msl.street_light_id = ss.street_light_id
+    WHERE msl.repair_status = 'in_progress'  -- 수리 중인 상태만 선택
+      AND ss.inspection = 0  -- 점검이 아닌 상태
+      AND ss.record_time = (
+        SELECT MAX(record_time)
+        FROM sidewalk_sensors
+        WHERE street_light_id = ss.street_light_id
+    )
+    GROUP BY msl.street_light_id
+    ON DUPLICATE KEY UPDATE
+        street_light_id = street_light_id;  -- 아무것도 변경하지 않음
+
+    -- Step 4: 수리 완료 후 malfunction_street_lights 테이블에서 삭제
+    DELETE FROM malfunction_street_lights
+    WHERE repair_status = 'in_progress'
+      AND street_light_id IN (
+        SELECT street_light_id
+        FROM repaired_street_lights
+        WHERE malfunction_occurred_at IN (
+            SELECT malfunction_occurred_at
+            FROM repaired_street_lights
+        )
+    );
+END $$
+
+DELIMITER ;
+
+--------------------------------------------------------------------------------------

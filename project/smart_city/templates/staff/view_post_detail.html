@@ -1,0 +1,263 @@
+{# templates/user/inquiry_detail.html #}
+{% extends "base.html" %}
+{% block title %}문의 상세보기{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/inquiries.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<style>
+.answer-section {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0fff4;
+    border: 2px solid #28a745;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.answer-section h3 {
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+.answer-status {
+    display: inline-block;
+    padding: 6px 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.answer-form {
+    margin-top: 20px;
+}
+
+.answer-textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    font-family: inherit;
+    box-sizing: border-box;
+    overflow: hidden;
+    resize: none; /* 사용자가 직접 늘릴 수 없게 */
+}
+
+
+.submit-btn {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+    background-color: #218838;
+}
+
+.submit-btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.dark-mode .answer-section {
+    background-color: #1d3023;
+    border: 2px solid #28a745;
+    color: #e0ffe0;
+}
+
+.dark-mode .answer-section h3 {
+    color: #5fff96;
+}
+
+.dark-mode .status-completed {
+    background-color: #245c39;
+    color: #bfffd6;
+    border: 1px solid #3aaa61;
+}
+
+.dark-mode .answer-textarea {
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+    border: 1px solid #555;
+}
+
+.dark-mode .submit-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.dark-mode .submit-btn:hover {
+    background-color: #1e7e34;
+}
+
+.dark-mode .back-button {
+    color: #90ee90 !important;
+}
+/* 문의 상세보기 상단 헤더 스타일 조정 */
+.dark-mode .inquiry-header {
+    background-color: #1f2d4a; /* 더 어두운 네이비톤 */
+    color: #e0e0e0;
+    border-radius: 10px 10px 0 0;
+}
+
+/* 제목 h2 스타일 개선 */
+.dark-mode .inquiry-header h2 {
+    color: #90c9ff; /* 밝은 파랑으로 포인트만 줌 */
+}
+
+/* 메타 정보 텍스트 */
+.dark-mode .inquiry-meta {
+    background-color: #2c3e50;
+    color: #cccccc;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+/* 아이콘 색상도 조정 */
+.dark-mode .inquiry-meta i {
+    color: #66b2ff;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="inquiry-detail-container">
+        <div class="inquiry-header">
+            <h2>문의 상세보기</h2>
+            <div class="inquiry-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>문의자: {{ post.user_name }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>문의시간: {{ post.inquiry_time }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="inquiry-body">
+            <div class="inquiry-section">
+                <h3>문의 유형</h3>
+                <div class="inquiry-content">
+                    <p>{{ post.inquiry_reason }}</p>
+                </div>
+            </div>
+
+            <div class="inquiry-section">
+                <h3>문의 내용</h3>
+                <div class="inquiry-content">
+                    <p>{{ post.detail_reason }}</p>
+                </div>
+            </div>
+
+            {% if post.capture_file %}
+            <div class="inquiry-section">
+                <h3>첨부파일</h3>
+                <div class="inquiry-attachment">
+                    <img src="{{ url_for('capture_file', filename=post.capture_file) }}" alt="첨부 이미지">
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- 관리자 답변 섹션 -->
+            <div class="answer-section">
+                <h3>문의 답변</h3>
+
+                <!-- 답변 상태 -->
+                {% if post.answer_status == 'pending' %}
+                    <div class="answer-status status-pending">답변 대기 중</div>
+                {% else %}
+                    <div class="answer-status status-completed">답변 완료</div>
+                {% endif %}
+
+                {% if not answer %}
+                    <p>아직 답변이 등록되지 않았습니다.</p>
+                {% endif %}
+
+                <!-- 답변 입력 폼 -->
+                <div class="answer-form">
+                    <form 
+                        id="answerForm"
+                        action="{% if post.answer_status == 'pending' %}{{ url_for('staff_answer_inquiry') }}{% else %}{{ url_for('update_inquiry_answer') }}{% endif %}" 
+                        method="POST"
+                    >
+
+
+
+                        {% if post.answer_status == 'pending' %}
+                            <p>답변을 등록해주세요.</p>
+
+                        {% endif %}
+
+                        <!-- hidden 필드 -->
+                        <input type="hidden" name="inquiries_id" value="{{ post.inquiries_id }}">
+                        <input type="hidden" name="user_id" value="{{ post.user_id }}">
+                        <input type="hidden" name="inquiry_time" value="{{ post.inquiry_time }}">
+                        {% if answer %}
+                            <input type="hidden" name="inquiry_id" value="{{ answer.inquiry_id }}">
+                            <p style="text-align:right;">답변 시간 : {{ answer.answer_time }}</p>
+                            <p style="text-align:right;">답변자 : {{ answer.admin_name }}</p>
+                        {% endif %}
+                    </div>
+                        <textarea
+                        name="answer_content"
+                        class="answer-textarea"
+                        placeholder="답변 내용을 입력해주세요..."
+                        oninput="autoResize(this)"
+                        rows="1"
+                        required>{{ answer.answer_content if answer else '' }}</textarea>
+
+                    </form>
+
+            </div>
+            <div style="text-align: right; margin: 20px;">
+                <button type="submit" class="submit-btn" form="answerForm">
+                    {% if post.answer_status == 'pending' %}
+                        답변 등록
+                    {% elif answer.admin_id == session['admin_id'] %}
+                        답변 수정
+                    {% else %}
+                        수정 불가
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+
+        <div class="inquiry-footer">
+            <a href="{{ url_for('staff_inquiries_view') }}" class="back-button" style="color: #155724;">
+                <i class="fas fa-arrow-left"></i> 목록으로 돌아가기
+            </a>
+        </div>
+    </div>
+
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+{% endblock %}

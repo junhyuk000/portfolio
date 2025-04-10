@@ -1,0 +1,1055 @@
+/* base.css 상단에 다크모드 깜빡임 방지 코드 수정 */
+
+/* 다크모드 깜빡임 방지 */
+html.dark-mode-preload,
+html.dark-mode-preload body {
+    background-color: #242424 !important; /* 더 밝은 배경색으로 수정 */
+    color: #f0f0f0 !important;
+}
+
+html.dark-mode-preload .header {
+    background-color: #2a2a2a !important;
+}
+
+html.dark-mode-preload .header-top, 
+html.dark-mode-preload .header-nav {
+    background-color: #2a2a2a !important;
+}
+
+html.dark-mode-preload .nav-link {
+    color: #e1e1e1 !important;
+}
+
+html.dark-mode-preload .dropdown-content {
+    background-color: #383838 !important;
+}
+
+html.dark-mode-preload .welcome-text {
+    color: #f0f0f0 !important;
+}
+
+/* 다크모드 테이블, 버튼 등 프리로드 설정 추가 */
+html.dark-mode-preload .view-button {
+    background-color: #28a745 !important;
+}
+
+html.dark-mode-preload .view-button.disabled {
+    background-color: #6c757d !important;
+}
+
+html.dark-mode-preload .cctv-status.installed {
+    color: #28a745 !important;
+}
+
+html.dark-mode-preload .total-count strong {
+    color: #28a745 !important;
+}
+
+html.dark-mode-preload .table-row-hover {
+    background-color: #3c3c3c !important;
+}
+
+html.dark-mode-preload .search-button {
+    background-color: #28a745 !important;
+}
+
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 변수 정의 - 색상 테마 */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --primary-color: #0078ff; /* 로그인 버튼 색상(파란색) */
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --error-color: #dc3545;
+    --header-bg: #ffffff;
+    --header-shadow: rgba(0, 0, 0, 0.1);
+    --nav-link-color: #333333;
+    --nav-link-hover-color: #888888;
+    --nav-link-hover-bg: #f9f9f9;
+    --dropdown-bg: #ffffff;
+    --dropdown-shadow: rgba(0, 0, 0, 0.1);
+    --dropdown-text: #333333;
+    --dropdown-hover-bg: #f9f9f9;
+    --footer-bg: #2D1E17;
+    --footer-text: #ffffff;
+    --modal-bg: #ffffff;
+    --modal-text: #333333;
+    --toggle-bg: #cccccc;
+    --toggle-active-bg: #483D8B; /* 다크모드 토글 버튼 배경색 - 보라색과 파란색 사이 */
+    --toggle-button-bg: #ffffff;
+    --transition-speed: 0.3s;
+}
+
+/* 다크모드 변수 */
+body.dark-mode {
+    --bg-color: #262626;
+    --text-color: #f0f0f0;
+    --primary-color: #0078ff; /* 로그인 버튼 색상 유지(파란색) */
+    --secondary-color: #909090;
+    --header-bg: #262626;
+    --header-shadow: rgba(0, 0, 0, 0.3);
+    --nav-link-color: #ffffff; /* 상단 메뉴 텍스트 색상을 하얀색으로 변경 */
+    --nav-link-hover-color: #cccccc; /* 호버 시 연한 회색으로 */
+    --nav-link-hover-bg: #333333;
+    --dropdown-bg: #383838;
+    --dropdown-shadow: rgba(0, 0, 0, 0.3);
+    --dropdown-text: #ffffff; /* 드롭다운 메뉴 텍스트를 흰색으로 변경 */
+    --dropdown-hover-bg: #333333;
+    --modal-bg: #333333;
+    --modal-text: #f0f0f0;
+}
+
+/* 폰트 설정 */
+@font-face {
+    font-family: "CustomFont";
+    src: url("../fonts/JalnanGothicTTF.ttf") format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "NotoSansKR";
+    src: url("../fonts/NOTOSANSKR-VF.TTF") format("truetype");
+    font-display: swap;
+}
+
+body {
+    font-family: "CustomFont", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 통합된 헤더 스타일 */
+.header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 5px var(--header-shadow);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    z-index: 100;
+}
+
+/* 상단 헤더 영역 - 로고와 로그인/회원가입 버튼 */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    height: 90px;
+    width: 100%;
+    position: relative;
+    gap: 1rem;
+    background-color: var(--header-bg);
+    transition: background-color 0.5s ease;
+}
+
+/* 로고 컨테이너 스타일 */
+.logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+/* 로고 링크 스타일 */
+.logo-container a {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+/* 로고 이미지 스타일 - 크기 증가 */
+.logo, .logo-dark {
+    height: 70px;
+    width: auto;
+    transition: opacity 0.5s ease;
+}
+
+/* 다크모드 로고 기본 스타일 */
+.logo-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+/* 다크모드일 때 로고 표시 변경 */
+.dark-mode .logo {
+    opacity: 0;
+}
+
+.dark-mode .logo-dark {
+    opacity: 1;
+}
+
+/* 토글 스위치 컨테이너 스타일 - 위치 조정 */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.mode-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-right: 15px;
+    white-space: nowrap;
+    transition: color 0.5s ease;
+    width: 75px;
+    text-align: right;
+    position: relative;
+    /* 텍스트 수평 이동을 위해 이 값을 조정하세요 (음수=왼쪽, 양수=오른쪽) */
+    transform: translateX(-10px);
+}
+
+/* 다크모드일 때 모드 텍스트 위치 조정 */
+.dark-mode .mode-text {
+    text-align: center;
+    color: #ffffff; /* 다크모드일 때 '라이트모드' 텍스트 색상 흰색으로 변경 */
+    /* 다크모드일 때 텍스트 수평 이동을 위해 이 값을 조정하세요 */
+    transform: translateX(-15px);
+}
+
+/* 토글 스위치 스타일 */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-bg);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-label:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--toggle-button-bg);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-input:checked + .toggle-label {
+    background-color: var(--toggle-active-bg);
+}
+
+.toggle-input:checked + .toggle-label:before {
+    transform: translateX(26px);
+}
+
+/* 접근성 향상 - 키보드 포커스 - 테두리 제거 */
+.toggle-input:focus + .toggle-label {
+    box-shadow: none;
+    outline: none;
+}
+
+/* 로그인/회원가입 통합 버튼 및 로그아웃 버튼 */
+.btn-login-register, .btn-logout {
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.05rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #333333;
+    height: 40px;
+    font-family: "NotoSansKR", sans-serif;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.btn-login-register:hover, .btn-logout:hover {
+    background-color: #555555;
+    color: #ffffff;
+}
+
+.dark-mode .btn-login-register, .dark-mode .btn-logout {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ffffff;
+}
+
+.dark-mode .btn-login-register:hover, .dark-mode .btn-logout:hover {
+    background-color: #f8f8f8;
+    color: #000000;
+}
+
+/* 로그아웃 버튼 아이콘 */
+.btn-logout i {
+    margin-right: 8px;
+}
+
+/* 프로필 버튼 (동그란 아이콘) */
+.btn-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333333;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-profile:hover {
+    background-color: #444444; /* 배경 살짝 밝아짐 */
+    color: #eeeeee; /* 아이콘 살짝 어두워짐 */
+}
+
+.dark-mode .btn-profile {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.dark-mode .btn-profile:hover {
+    background-color: #eeeeee; /* 배경 살짝 어두워짐 */
+    color: #333333; /* 아이콘 살짝 어두워짐 */
+}
+
+.right-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+    margin-right: 2rem;
+    flex-wrap: nowrap;
+}
+
+.welcome-text {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    white-space: nowrap;
+    transition: color 0.5s ease;
+    order: -1; /* 환영 텍스트가 앞으로 오도록 조정 */
+}
+
+/* 내비게이션 영역 - 홈, 소개, CCTV, 문의 링크 */
+.header-nav {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+    height: 65px;
+    background-color: var(--header-bg);
+    transition: background-color 0.5s ease;
+    box-shadow: 0 1px 3px var(--header-shadow);
+    z-index: 5;
+}
+
+.btn {
+    padding: 0.5em 1em;
+    font-size: 1em;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.btn-primary {
+    background-color: #0078ff !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background-color: #1a88ff !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.btn-primary:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    color: white; /* 회원가입 버튼 텍스트 색상을 흰색으로 변경 */
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* 내비게이션 메뉴 */
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.nav-link {
+    padding: 0.8rem 1.5rem;
+    color: var(--nav-link-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 5px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.06rem;
+}
+
+/* 네비게이션 링크 호버 효과 */
+.nav-link:hover {
+    color: var(--nav-link-hover-color);
+    background-color: var(--nav-link-hover-bg);
+}
+
+
+/* 드롭다운 관련 스타일 */
+.nav-link-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.nav-link-dropdown:after {
+    content: '▼';
+    font-size: 0.6em;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* 메뉴와 드롭다운을 묶는 컨테이너 */
+.menu-item {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+}
+
+/* 메뉴 아이템의 링크 스타일 */
+.menu-item .nav-link {
+    height: 100%;
+}
+
+/* 메뉴 아이템에 가상 요소를 추가해 영역 확장 */
+.menu-item::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 10px;
+    top: 100%;
+    left: 0;
+}
+
+/* 드롭다운 컨테이너 스타일 */
+.dropdown-content {
+    position: absolute;
+    min-width: 180px;
+    background-color: var(--dropdown-bg);
+    box-shadow: 0 4px 8px var(--dropdown-shadow);
+    border-radius: 4px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.5s ease;
+    z-index: 20;
+    text-align: left;
+    top: calc(100% + 10px);
+    left: 50%;
+    margin-top: 0px;
+    display: none;
+}
+
+/* 드롭다운 메뉴 아이템 스타일 */
+.dropdown-content a {
+    color: var(--dropdown-text);
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+    border-radius: 0;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--dropdown-hover-bg);
+    color: var(--nav-link-hover-color);
+}
+
+/* 메뉴 항목에 마우스 올렸을 때 드롭다운 표시 */
+.menu-item:hover .dropdown-content,
+.menu-item:focus-within .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 페이드 인 애니메이션 정의 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.content-area {
+    width: 100%;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease;
+}
+
+/* 푸터 스타일 */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--footer-text);
+    background-color: var(--footer-bg);
+    font-family: Arial, sans-serif;
+    width: 100%;
+    height: 50px;
+}
+
+/* 푸터 컨텐츠 영역 */
+.footer-content {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* 푸터 왼쪽 영역 */
+.footer-left {
+    text-align: center;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.footer-left p {
+    display: inline-block;
+    margin: 0;
+}
+
+/* 로그인 알림 모달 스타일 */
+.login-alert {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.4s ease;
+}
+
+.login-alert.show {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* 페이드인 애니메이션 정의 */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-content {
+    background-color: var(--modal-bg);
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 5px 15px var(--dropdown-shadow);
+    position: relative;
+    transition: background-color 0.5s ease;
+    animation: fadeInDown 0.4s ease-out;
+}
+
+.alert-content h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.alert-content p {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: var(--modal-text);
+    transition: color 0.5s ease;
+    line-height: 1.4;
+}
+
+.alert-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.close-alert {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.close-alert:hover {
+    color: var(--text-color);
+}
+
+/* 플래시 메시지 */
+.flash-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    z-index: 1000;
+    pointer-events: none;
+    width: 450px;
+    max-width: 90vw;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flash-message.show {
+    opacity: 1;
+}
+
+.flash-message.success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.flash-message.error {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.flash-message.warning {
+    background-color: var(--warning-color);
+    color: #212529;
+}
+
+/* 관리자 영역 강조를 위한 추가 스타일 */
+.admin-area {
+    background-color: #f5f8ff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--dropdown-shadow);
+    transition: all 0.3s ease;
+}
+
+.dark-mode .admin-area {
+    background-color: #363c4a;
+}
+
+/* 모니터링 메뉴 강조 */
+.monitor-menu-alert {
+    position: relative;
+}
+
+.monitor-menu-alert::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: var(--error-color);
+    border-radius: 50%;
+    top: 10px;
+    right: 10px;
+}
+
+/* 반응형 디자인 강화 */
+@media (max-width: 1200px) {
+    .nav-menu {
+        gap: 2rem;
+    }
+    
+    .header-top {
+        padding: 0.75rem 1rem;
+    }
+    
+    .right-nav {
+        margin-right: 1rem;
+    }
+    
+    .toggle-container {
+        left: 1rem;
+    }
+}
+
+/* Mobile menu toggle button */
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--nav-link-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: 1rem;
+    transition: color 0.3s;
+}
+
+.mobile-menu-toggle:hover {
+    color: var(--nav-link-hover-color);
+}
+
+@media (max-width: 992px) {
+    .header-nav {
+        height: auto;
+        padding: 0.5rem 0;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+        padding: 0.5rem;
+    }
+    
+    .nav-link {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .dropdown-content {
+        width: 200px;
+        transform: none;
+        left: 0;
+    }
+    
+    .menu-item:hover .dropdown-content {
+        transform: translateY(0);
+    }
+    
+    .menu-item {
+        position: relative;
+        height: auto;
+        width: auto;
+    }
+    
+    .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 180px;
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 110;
+    }
+    
+    .header-nav {
+        padding-top: 50px; /* Make room for the toggle button */
+    }
+    
+    .nav-menu {
+        display: none; /* Hide by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        padding-top: 10px;
+    }
+    
+    .nav-menu.show-mobile-menu {
+        display: flex;
+    }
+    
+    .nav-link {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .dark-mode .nav-link {
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    /* Mobile dropdown styling */
+    .dropdown-content {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        transform: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .dark-mode .dropdown-content {
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .dropdown-content.mobile-show {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        animation: fadeIn 0.3s;
+    }
+    
+    .dropdown-content a {
+        padding: 12px;
+        text-align: center;
+    }
+    
+    /* Ensure the menu-item takes full width */
+    .menu-item {
+        width: 100%;
+    }
+
+    .header-top {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .logo-container {
+        position: relative;
+        left: 0;
+        transform: none;
+        margin: 0.5rem auto;
+        order: 1;
+    }
+
+    .toggle-container {
+        position: relative;
+        left: 0;
+        transform: none;
+        order: 0;
+        margin: 0 auto;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .right-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+        order: 2;
+        gap: 0.75rem;
+    }
+
+    .welcome-text {
+        text-align: center;
+        width: 100%;
+        margin: 0 0 0.5rem 0;
+        order: 0;
+    }
+
+    .right-nav a {
+        flex: 0 0 auto;
+        padding: 0.6rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo, .logo-dark {
+        height: 55px;
+    }
+    
+    .mode-text {
+        font-size: 0.9rem;
+    }
+    
+    .toggle-switch {
+        width: 50px;
+        height: 28px;
+    }
+    
+    .nav-link {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
+    
+    .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .welcome-text {
+        font-size: 0.95rem;
+    }
+    
+    .right-nav .btn i {
+        margin-right: 4px;
+    }
+    
+    /* Flash message adjustments
+    .flash-message {
+        width: 90%;
+        max-width: 300px;
+        padding: 10px;
+        font-size: 14px;
+    } */
+    
+    .toggle-label:before {
+        height: 20px;
+        width: 20px;
+    }
+    
+    .toggle-input:checked + .toggle-label:before {
+        transform: translateX(22px);
+    }
+    
+    .header-nav {
+        padding: 0;
+    }
+    
+    .footer-left p {
+        font-size: 12px;
+    }
+}
+
+/* Additional breakpoint for very small screens */
+@media (max-width: 360px) {
+    .right-nav {
+        gap: 0.5rem;
+    }
+    
+    .right-nav .btn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.85rem;
+    }
+    
+    .header-top {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .logo, .logo-dark {
+        height: 45px;
+    }
+    
+    /* Stack buttons in very small screens */
+    .right-nav a {
+        width: 100%;
+    }
+}
+
+/* Fix for widgets on smaller screens */
+@media (max-width: 400px) {
+    .widget {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .widget-icon {
+        margin: 0 0 15px 0;
+    }
+    
+    .widget-content {
+        width: 100%;
+    }
+    
+    .widget-link {
+        width: 100%;
+    }
+}

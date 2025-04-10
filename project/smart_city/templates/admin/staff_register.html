@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}Staff 등록{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --bg-primary: #f4f6f9;
+        --bg-secondary: white;
+        --text-primary: #2c3e50;
+        --text-secondary: #333;
+        --input-border: #e0e0e0;
+        --primary-color: #4a90e2;
+        --primary-color-hover: #357abd;
+    }
+
+    .dark-mode {
+        --bg-primary: #121212;
+        --bg-secondary: #1e1e1e;
+        --text-primary: #e0e0e0;
+        --text-secondary: #f0f0f0;
+        --input-border: #444;
+        --primary-color: #6ab0ff;
+        --primary-color-hover: #4a90e2;
+    }
+
+    body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: 'Noto Sans KR', Arial, sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .staff-register-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: var(--bg-secondary);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, background-color 0.3s;
+    }
+
+    .staff-register-container:hover {
+        transform: translateY(-5px);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 6px;
+        border: 1.5px solid var(--input-border);
+        padding: 12px;
+        background-color: transparent;
+        color: var(--text-primary);
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border: none;
+        color: white;
+        padding: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary-color-hover);
+        transform: scale(1.02);
+    }
+
+    .text-center {
+        color: var(--text-primary);
+        margin-bottom: 30px;
+    }
+
+    /* 다크 모드 토글 스위치 */
+    .dark-mode-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .dark-mode-toggle input {
+        display: none;
+    }
+
+    .dark-mode-toggle label {
+        display: inline-block;
+        width: 60px;
+        height: 30px;
+        background-color: var(--input-border);
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .dark-mode-toggle label::after {
+        content: '';
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background-color: white;
+        top: 4px;
+        left: 4px;
+        transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .dark-mode-toggle input:checked + label {
+        background-color: var(--primary-color);
+    }
+
+    .dark-mode-toggle input:checked + label::after {
+        transform: translateX(30px);
+    }
+
+    @media (max-width: 576px) {
+        .staff-register-container {
+            margin: 20px 15px;
+            padding: 25px;
+        }
+    }
+/* 뒤로가기 버튼 스타일 */
+.back-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #5a6268, #343a40);
+    transform: scale(1.03);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+    
+</style>
+{% endblock %}
+
+{% block navigation %}
+
+{% endblock %}
+
+
+{% block content %}
+<div class="dark-mode-toggle">
+    <input type="checkbox" id="dark-mode-switch">
+    <label for="dark-mode-switch"></label>
+</div>
+
+<div class="container">
+    <div class="staff-register-container">
+        <h2 class="text-center mb-4">Staff 등록</h2>
+        <form action="{{ url_for('admin_staff_register') }}" method="POST">
+            <div class="form-group">
+                <label for="staff_id">Staff ID</label>
+                <input type="text" class="form-control" id="staff_id" name="staff_id" required>
+            </div>
+            <div class="form-group">
+                <label for="staff_name">이름</label>
+                <input type="text" class="form-control" id="staff_name" name="staff_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">이메일</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">비밀번호 확인</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Staff 등록</button>
+        </form>
+        <div class="text-center mt-3">
+            <button class="back-btn" onclick="history.back()">뒤로가기</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script>
+// 다크 모드 토글 스크립트
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeSwitch = document.getElementById('dark-mode-switch');
+    const body = document.body;
+
+    // 이전 다크 모드 설정 불러오기
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeSwitch.checked = true;
+    }
+
+    darkModeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', null);
+        }
+    });
+
+    // 비밀번호 일치 검증
+    document.querySelector('form').addEventListener('submit', function(e) {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirm_password').value;
+        
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('비밀번호가 일치하지 않습니다.');
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+/* 화면 전체 높이 사용 */
+.full-height {
+    height: 100vh;
+    background: linear-gradient(135deg, #fff, #bbd3ee); /* 배경색 변경 */
+}
+
+/* 버튼 컨테이너 */
+.circle-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+
+/* 직원 등록 버튼 개별 스타일 */
+.staff-register {
+    background: linear-gradient(135deg, #ff9800, #ff5722) !important;
+}
+
+/* 직원 삭제 버튼 개별 스타일 */
+.staff-delete {
+    background: linear-gradient(135deg, #03a9f4, #0288d1) !important;
+}
+
+/* 버튼을 원형으로 만들고 크기 키우기 */
+.circle-btn {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 버튼을 원형으로 만들고 크기 키우기 */
+.circle2-btn {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 마우스 올릴 때 효과 */
+.circle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 마우스 올릴 때 효과 */
+.circle2-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 버튼 내부 이미지 스타일 */
+.circle-btn img {
+    width: 60%;  /* 크기 조정 */
+    height: 60%;
+    object-fit: contain; /* 이미지 비율 유지하면서 잘리지 않도록 설정 */
+    border-radius: 0; /* 네모난 이미지 유지 */
+    background-color: transparent; /* 배경 투명하게 */
+}
+
+/* ✅ 다크모드: 배경 색상 */
+.dark-mode .full-height {
+    background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
+}
+
+/* ✅ 다크모드: 버튼 스타일 */
+.dark-mode .circle-btn {
+    background: linear-gradient(135deg, #444, #222);
+    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+/* ✅ 다크모드: 버튼 hover 효과 */
+.dark-mode .circle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* ✅ 다크모드: 이미지 밝기 조정 */
+.dark-mode .circle-btn img {
+    filter: brightness(1.2);
+}
+.dark-mode .circle-btn img {
+    filter: brightness(0) invert(1);  /* 흰색처럼 보이게 만듦 */
+}

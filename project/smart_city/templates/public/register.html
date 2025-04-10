@@ -1,0 +1,95 @@
+{# C:\Users\facec\Desktop\smart_city\templates\public\register.html #}
+{% extends "base.html" %}
+
+{% block title %}회원가입 페이지{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="sign-form-container">
+        <div class="signup-card">
+            <h2 class="text-center mb-4">회원가입</h2>
+            <form method="POST" action="{{ url_for('register')}}" onsubmit="handleSubmit(event)">
+                <div class="mb-3">
+                    <label for="username" class="form-label">이름</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="userid" class="form-label">아이디</label>
+                    <input type="text" class="form-control" id="userid" name="userid" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">비밀번호</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="8글자~12글자" minlength="8" maxlength="12" required>
+                    <div id="passwordError" style="color: red; display: none;">비밀번호는 숫자 2개 이상과 특수문자 1개 이상을 포함해야 합니다.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">비밀번호 확인</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="8글자~12글자" minlength="8" maxlength="12" required>
+                    <div id="password_confirmError" style="color: red; display: none;">비밀번호와 일치하지 않습니다.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="birthday" class="form-label">생년월일</label>
+                    <input type="date" class="form-control" id="birthday" name="birthday" required onchange="updateRegNumber()">
+                    <div id="birthdayError" style="color: red; display: none;">18세 이상만 가입 가능합니다.</div>
+                    <div id="dayError" style="color: red; display: none;">유효한 날짜가 아닙니다.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="regNumberInput2" class="form-label">주민등록번호</label>
+                    <input type="text" id="regNumberInput" name="regNumberInput" minlength="6" readonly>
+                    <input type="text" id="regNumberInput2" name="regNumberInput2" minlength="7" maxlength="7" required>
+                    <div id="regNumberError" style="color: red; display: none;">유효한 주민등록번호가 아닙니다.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">주소(도로명,동)</label>
+                    <button type="button" id="searchAddressBtn" class="btn btn-secondary" onclick="openAddressSearch()">주소 검색</button>
+                    <input type="text" id="address" name="address" class="form-control" required placeholder="주소를 검색하세요" readonly>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="agree_terms" name="agree_terms" required>
+                    <label class="form-check-label" for="agree_terms">
+                        <a class="terms_of_service" href="{{ url_for('terms_of_service') }}" target="_blank">이용 약관</a> 및 
+                        <a class="privacy_policy" href="{{ url_for('privacy_policy') }}" target="_blank">개인정보 처리방침</a>에 동의합니다.
+                    </label>
+                </div>
+
+                <input type="hidden" id="totalRegNumberField" name="total_regnumber">
+                <input type="hidden" id="genderField" name="gender">
+                <button type="submit" class="btn btn-primary w-100">회원가입</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <a class="text_login" href="{{ url_for('login') }}">이미 계정이 있으신가요? 로그인하기</a>
+            </div>
+            <div class="text-center mt-4">
+                <a class="btn btn-secondary" href="{{ url_for('index') }}">홈페이지</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 플래시 메시지 컨테이너 추가 -->
+    <div id="flash-messages-container" class="flash-messages-container" aria-live="polite"></div>
+    
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<!-- 카카오 주소 검색 API 로드 -->
+<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+{% endblock %}

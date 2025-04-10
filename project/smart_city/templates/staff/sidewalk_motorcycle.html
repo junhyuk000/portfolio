@@ -1,0 +1,209 @@
+{% extends "base.html" %}  
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/staff_view_cctv.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    .stream-controls {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        display: flex;
+        gap: 10px;
+    }
+    .stream-control-btn {
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .stream-control-btn:hover {
+        background-color: rgba(0,0,0,0.7);
+    }
+    #download-link {
+        display: none;
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block navigation %}
+{% if 'admin_id' in session and session['admin_role'] == 'staff' %}
+<nav class="header-nav">
+    <div class="nav-menu" id="favorites-nav">
+        <span class="favorites-label">즐겨찾기:</span>
+        <span id="no-favorites-message">등록된 즐겨찾기가 없습니다</span>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block title %}인도(오토바이) 감지 시스템{% endblock %}  
+
+{% block content %}
+<div class="motorcycle-detection-container">
+    <div class="motorcycle-header">
+        <h1>
+            <i class="fas fa-motorcycle"></i>
+            오토바이 감지 모니터링 시스템
+        </h1>
+    </div>
+
+    <div class="alert-status" id="alert-status">
+        <i class="fas fa-exclamation-triangle"></i>
+        감지된 오토바이 없음
+    </div>
+
+    <div class="cctv-stream-container">
+        <div class="cctv-stream">
+            <img id="video-stream" src="{{ url_for('video_feed') }}" alt="실시간 CCTV 스트림">
+            <div class="stream-overlay">
+                <span class="camera-location">인도 감시 카메라</span>
+                <span class="timestamp" id="current-timestamp">-</span>
+            </div>
+            <div class="stream-controls">
+                <button class="stream-control-btn fullscreen-btn" title="전체 화면">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button class="stream-control-btn snapshot-btn" title="스크린샷">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="download-link"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script>
+    // 시간 업데이트 함수
+    function updateTimestamp() {
+        const now = new Date();
+        const timestampEl = document.getElementById('current-timestamp');
+        timestampEl.textContent = now.toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+    }
+
+    // 초기 시간 설정 및 주기적 업데이트
+    updateTimestamp();
+    setInterval(updateTimestamp, 1000);
+
+    // 오토바이 감지 상태 확인 함수
+    function checkAlert() {
+        fetch("/alert_status")
+            .then(response => response.json())
+            .then(data => {
+                const alertStatus = document.getElementById("alert-status");
+
+                if (data.motorcycle_detected) {
+                    alertStatus.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i>
+                        🚨 오토바이 감지!
+                    `;
+                    alertStatus.classList.remove('safe');
+                } else {
+                    alertStatus.innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        감지된 오토바이 없음
+                    `;
+                    alertStatus.classList.add('safe');
+                }
+            })
+            .catch(error => {
+                console.error("데이터 불러오기 실패:", error);
+            });
+    }
+
+    // 초기 상태 및 주기적 업데이트
+    checkAlert();
+    setInterval(checkAlert, 2000);
+
+    // 전체 화면 기능
+    const fullscreenBtn = document.querySelector('.fullscreen-btn');
+    const videoElement = document.getElementById('video-stream');
+
+    fullscreenBtn.addEventListener('click', function() {
+        if (!document.fullscreenElement) {
+            if (videoElement.requestFullscreen) {
+                videoElement.requestFullscreen();
+            } else if (videoElement.mozRequestFullScreen) {
+                videoElement.mozRequestFullScreen();
+            } else if (videoElement.webkitRequestFullscreen) {
+                videoElement.webkitRequestFullscreen();
+            } else if (videoElement.msRequestFullscreen) {
+                videoElement.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    });
+
+    // 스크린샷 기능
+    const snapshotBtn = document.querySelector('.snapshot-btn');
+    const downloadLinkContainer = document.getElementById('download-link');
+
+    snapshotBtn.addEventListener('click', function() {
+        // 캔버스 생성 및 이미지 그리기
+        const canvas = document.createElement('canvas');
+        canvas.width = videoElement.naturalWidth || videoElement.width;
+        canvas.height = videoElement.naturalHeight || videoElement.height;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+        
+        // 날짜와 시간 추가
+        const now = new Date();
+        const timestamp = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+        
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+        ctx.fillRect(0, 0, canvas.width, 30);
+        
+        ctx.font = '14px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText(timestamp, 10, 20);
+        
+        // 이미지 URL 생성
+        const dataUrl = canvas.toDataURL('image/png');
+        
+        // 다운로드 링크 생성
+        const link = document.createElement('a');
+        link.href = dataUrl;
+        link.download = `motorcycle_capture_${timestamp.replace(/[\s:-]/g, '_')}.png`;
+        link.textContent = '스크린샷 다운로드';
+        link.className = 'download-link';
+        
+        // 기존 다운로드 링크 제거
+        downloadLinkContainer.innerHTML = '';
+        downloadLinkContainer.appendChild(link);
+        
+        // 링크 표시
+        link.style.display = 'block';
+    });
+</script>
+{% endblock %}

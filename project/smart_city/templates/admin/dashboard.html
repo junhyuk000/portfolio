@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}관리자 대시보드{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin_main.css') }}">
+{% endblock %}
+
+{% block navigation %}
+{% endblock %}
+
+{% block content %}
+{% if 'admin_id' in session %}
+            
+<div class="container-fluid full-height">
+    <div class="row justify-content-center align-items-center full-height">
+        <div class="col-md-6">
+            <div class="circle-btn-container">
+                <a href="{{ url_for('admin_staff_register') }}" class="circle-btn">
+                    <img src="{{ url_for('static', filename='images/KakaoTalk_20250403_165230334.png') }}" alt="직원 등록">
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="circle-btn-container">
+                <a href="{{ url_for('admin_staff_delete') }}" class="circle-btn">
+                    <img src="{{ url_for('static', filename='images/KakaoTalk_20250403_165227437.png') }}" alt="직원 삭제">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<div class="container">
+    <p>관리자만 접근 가능한 페이지입니다. <a href="{{ url_for('login') }}">로그인</a> 해주세요.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

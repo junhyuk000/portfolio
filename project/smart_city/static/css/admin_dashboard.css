@@ -1,0 +1,133 @@
+.outer-card {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background-color: #fff;
+    color: #000;
+}
+.inner-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px; /* 행 간 간격 */
+    background-color: #fff;
+    color: #000;
+}
+.category-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.category-col {
+    border-right: 1px dashed #ddd; /* 왼쪽 열과 오른쪽 열 사이 점선 */
+    display: flex;
+    align-items: center;
+    min-height: 100%; /* 부모 높이에 맞춤 */
+}
+.inner-card-item {
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* 버튼을 수평으로 가운데 정렬 */
+    min-height: 100%; /* 부모 높이에 맞춤 */
+}
+.inner-card-item:not(:last-child) {
+    border-right: 1px dashed #ddd; /* 오른쪽 열 내부의 점선 구분선 */
+}
+.card-body {
+    padding: 10px;
+}
+.section-title {
+    margin: 20px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.row {
+    align-items: stretch; /* 행의 모든 열이 동일한 높이를 가지도록 */
+}
+.inner-row {
+    height: 100%; /* 내부 row도 부모 높이에 맞춤 */
+}
+/* 버튼 자체 크기(가로 폭) 조정 */
+.btn-primary, .btn-success {
+    width: 100px; /* 버튼의 고정 가로 폭 */
+    font-size: 0.9rem; /* 텍스트 크기 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    display: inline-block; /* 버튼 크기 조정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+/* 즐겨찾기 별 스타일 */
+.favorite-star {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+.favorite-star.active {
+    color: #ffcc00;
+}
+/* 네비게이션 스타일 */
+.header-nav {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.nav-menu {
+    display: flex;
+    gap: 15px; /* 네비게이션 링크 사이의 간격 */
+    flex-wrap: wrap; /* 링크가 많을 경우 줄바꿈 */
+}
+.nav-link {
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+.nav-link:hover {
+    background-color: #f1f1f1;
+    text-decoration: none;
+}
+/* 즐겨찾기 라벨 */
+.favorites-label {
+    font-weight: bold;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* 다크 모드 스타일 */
+.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+.dark-mode .outer-card, .dark-mode .inner-card {
+    background-color: #333;
+    border-color: #444;
+    color: #f1f1f1;
+}
+.dark-mode .category-col {
+    border-right-color: #555;
+}
+.dark-mode .inner-card-item:not(:last-child) {
+    border-right-color: #555;
+}
+.dark-mode .nav-link {
+    color: #ddd;
+}
+.dark-mode .nav-link:hover {
+    background-color: #333;
+}
+.dark-mode .favorite-star {
+    color: #777;
+}
+.dark-mode .favorite-star.active {
+    color: #ffcc00;
+}

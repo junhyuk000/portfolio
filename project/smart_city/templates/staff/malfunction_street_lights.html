@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}고장난 가로등 확인{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+<style>
+    .empty-row td {
+        height: 45px;
+        background: #f8f9fa;
+    }
+    .pagination a, .pagination strong {
+        padding: 5px 12px;
+        border: 1px solid #ddd;
+        margin: 0 3px;
+        border-radius: 4px;
+    }
+    .pagination strong {
+        background: #007bff;
+        color: white;
+    }
+</style>
+{% endblock %}
+{% block head %}
+<meta name="admin_id" content="{{ session.get('admin_id') }}">
+{% endblock %}
+{% block navigation %}
+{% if 'admin_id' in session and session['admin_role'] == 'staff' %}
+<nav class="header-nav">
+    <div class="nav-menu" id="favorites-nav">
+        <span class="favorites-label">즐겨찾기:</span>
+        <span id="no-favorites-message">등록된 즐겨찾기가 없습니다</span>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<!-- 고장난 가로등 조회 폼 -->
+ 
+<div class="search-container">
+    <div>
+        <i class="fa-solid fa-lightbulb" style="color: red;"></i>
+        <span class="total-count">고장난 가로등 : {{ total_posts }}개</span>
+    </div>
+    <form method="get" action="{{ url_for('staff_all_street_lights') }}">
+        <label for="search_type">검색 타입:</label>
+        <select name="search_type" id="search_type">
+            <option value="all" {% if search_type == 'all' %}selected{% endif %}>전체</option>
+            <option value="street_light_id" {% if search_type == 'street_light_id' %}selected{% endif %}>가로등 번호</option>
+            <option value="street_light_location" {% if search_type == 'street_light_location' %}selected{% endif %}>위치</option>
+        </select>
+        
+        <label for="search_query">검색어:</label>
+        <input type="text" name="search_query" id="search_query" placeholder="가로등 번호 또는 위치" value="{{ search_query }}">
+        
+        <button type="submit">검색</button>
+    </form>
+</div>
+
+<!-- 고장난 가로등 목록 테이블 -->
+<table>
+    <thead>
+        <tr>
+            <th>가로등 번호</th>
+            <th>위치</th>
+            <th>위치 상세보기</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for street_light in lamp_cctv %}
+            <tr>
+                <td>{{ street_light.street_light_id }}</td>
+                <td>{{ street_light.location }}</td>
+                <td>
+                    <button class="btn btn-danger view-location-btn" data-street-light-id="{{ street_light.street_light_id }}">
+                        위치 보기
+                    </button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">고장난 가로등 정보가 없습니다.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 위치 정보를 표시할 모달 -->
+<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="locationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="locationModalLabel">고장난 가로등 위치 정보</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="locationModalBody">
+                <!-- 위치 정보가 여기에 동적으로 추가됩니다. -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 페이지네이션 -->
+<div class="pagination">
+    {% if total_pages is defined and total_pages > 1 %}
+        {% if prev_page %}
+            <a href="{{ url_for('staff_malfunction_street_lights', page=prev_page, search_type=search_type, search_query=search_query) }}">← 이전</a>
+        {% endif %}
+        
+        {% for p in range(start_page, end_page + 1) %}
+            {% if p == page %}
+                <strong>{{ p }}</strong>
+            {% else %}
+                <a href="{{ url_for('staff_malfunction_street_lights', page=p, search_type=search_type, search_query=search_query) }}">{{ p }}</a>
+            {% endif %}
+        {% endfor %}
+        
+        {% if next_page %}
+            <a href="{{ url_for('staff_malfunction_street_lights', page=next_page, search_type=search_type, search_query=search_query) }}">다음 →</a>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+{% endblock %}

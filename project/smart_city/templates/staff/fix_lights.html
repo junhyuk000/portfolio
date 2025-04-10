@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}수리 완료된 가로등 목록{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cctv_list.css') }}">
+{% endblock %}
+
+{% block head %}
+<meta name="admin_id" content="{{ session.get('admin_id') }}">
+{% endblock %}
+
+{% block navigation %}
+{% if 'admin_id' in session and session['admin_role'] == 'staff' %}
+<nav class="header-nav">
+    <div class="nav-menu" id="favorites-nav">
+        <span class="favorites-label">즐겨찾기:</span>
+        <span id="no-favorites-message">등록된 즐겨찾기가 없습니다</span>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="page-container">
+        <div class="page-header">
+            <h1><i class="fas fa-tools"></i> 수리 완료된 가로등 목록</h1>
+            <p class="page-description">수리 완료된 가로등의 정보를 확인하실 수 있습니다.</p>
+        </div>
+
+        <!-- 가로등 조회 폼 -->
+        <div class="search-container">
+            <div class="total-count-wrapper">
+                <div class="count-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <span class="total-count">검색된 가로등: <strong>{{ total_posts }}</strong>개</span>
+            </div>
+            
+            <form method="get" action="{{ url_for('staff_fix_lights') }}" class="search-form">
+                <div class="form-group">
+                    <label for="search_type">검색 타입:</label>
+                    <select name="search_type" id="search_type" class="form-select">
+                        <option value="street_light_id" {% if search_type == 'street_light_id' %}selected{% endif %}>가로등 번호</option>
+                        <option value="location" {% if search_type == 'location' %}selected{% endif %}>위치</option>
+                        <option value="all" {% if search_type == 'all' %}selected{% endif %}>-</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="search_query">검색어:</label>
+                    <div class="search-input-wrapper">
+                        <input type="text" name="search_query" id="search_query" placeholder="가로등 번호 또는 위치" value="{{ search_query }}" class="form-input">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 가로등 목록 테이블 -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="10%" class="text-center">가로등 번호</th>
+                        <th width="20%" class="text-center">위치</th>
+                        <th width="20%" class="text-center">고장 시간</th>
+                        <th width="20%" class="text-center">수리 시작 시간</th>
+                        <th width="20%" class="text-center">수리 완료 시간</th>
+                        <th width="10%" class="text-center">고장원인</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for repair in repaired_street_lights %}
+                        <tr class="data-row">
+                            <td class="text-center">{{ repair.street_light_id }}</td>
+                            <td>{{ repair.location }}</td>
+                            <td class="text-center">{{ repair.malfunction_occurred_at }}</td>
+                            <td class="text-center">{{ repair.repair_started_at }}</td>
+                            <td class="text-center">{{ repair.repair_completed_at }}</td>
+                            <td class="text-center">
+                                {% if repair.reason_led == 1 and repair.reason_tilt == 0 %}
+                                    LED 고장
+                                {% elif repair.reason_tilt == 1 and repair.reason_led == 0 %}
+                                    가로등 파손
+                                {% elif repair.reason_led == 1 and repair.reason_tilt == 1 %}
+                                    LED고장 <br>
+                                    가로등 파손
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr class="no-data">
+                            <td colspan="5">
+                                <div class="no-data-message">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>검색된 가로등 정보가 없습니다.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="pagination-container">
+            {% if total_pages > 1 %}
+                <div class="pagination">
+                    {% if prev_page %}
+                        <a href="{{ url_for('staff_fix_lights', search_query=search_query, search_type=search_type, page=1) }}" class="pagination-link first" title="첫 페이지">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                        <a href="{{ url_for('staff_fix_lights', search_query=search_query, search_type=search_type, page=prev_page) }}" class="pagination-link prev" title="이전 페이지">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    {% else %}
+                        <span class="pagination-link disabled first">
+                            <i class="fas fa-angle-double-left"></i>
+                        </span>
+                        <span class="pagination-link disabled prev">
+                            <i class="fas fa-angle-left"></i>
+                        </span>
+                    {% endif %}
+                    
+                    <div class="pagination-info">
+                        <span>{{ page }} / {{ total_pages }}</span>
+                    </div>
+                    
+                    {% if next_page %}
+                        <a href="{{ url_for('staff_fix_lights', search_query=search_query, search_type=search_type, page=next_page) }}" class="pagination-link next" title="다음 페이지">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                        <a href="{{ url_for('staff_fix_lights', search_query=search_query, search_type=search_type, page=total_pages) }}" class="pagination-link last" title="마지막 페이지">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    {% else %}
+                        <span class="pagination-link disabled next">
+                            <i class="fas fa-angle-right"></i>
+                        </span>
+                        <span class="pagination-link disabled last">
+                            <i class="fas fa-angle-double-right"></i>
+                        </span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cctv_list.js') }}"></script>
+<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+{% endblock %}

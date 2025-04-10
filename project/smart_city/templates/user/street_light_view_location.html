@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가로등 위치</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <!-- ✨ 커스텀 스타일 -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        #map {
+            width: 90%;
+            max-width: 800px;
+            height: 500px;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .custom-streetlight-icon {
+            font-size: 26px;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .leaflet-popup-content {
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .leaflet-popup-tip {
+            background-color: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>가로등 위치 지도</h2>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        const lat = {{ streetlight_info.latitude }};
+        const lon = {{ streetlight_info.longitude }};
+        const purpose = "{{ streetlight_info.purpose }}";
+
+        const map = L.map('map').setView([lat, lon], 16);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const streetlightIcon = L.divIcon({
+            className: 'custom-streetlight-icon',
+            html: '🏮',
+            iconSize: [30, 30],
+            popupAnchor: [0, -15]
+        });
+
+        L.marker([lat, lon], { icon: streetlightIcon })
+            .addTo(map)
+            .bindPopup("가로등 위치 (" + purpose + ")")
+            .openPopup();
+    </script>
+</body>
+</html>

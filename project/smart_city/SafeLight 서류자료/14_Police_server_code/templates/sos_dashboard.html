@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚨 SOS 긴급 호출 시스템</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #cc0000;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    header img {
+      width: 60px;
+      height: 60px;
+    }
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #cc0000;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    thead {
+      background-color: #cc0000;
+      color: white;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    a {
+      color: #ff6600;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/static/images/police.svg" alt="경찰 로고">
+    경찰서 SOS 긴급 호출 시스템
+  </header>
+
+  <main>
+    <h1>🆘 실시간 SOS 신고 목록</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>위치</th>
+          <th>감지 시간</th>
+          <th>영상 스트리밍</th>
+          <th>종류</th>
+        </tr>
+      </thead>
+      <tbody id="sos-table-body">
+        <!-- JS로 AJAX 데이터 삽입 -->
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    function loadSOSData() {
+      fetch("/sos_data")
+        .then(res => res.json())
+        .then(data => {
+          const body = document.getElementById("sos-table-body");
+          body.innerHTML = "";
+          data.alerts.forEach(item => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${item.location}</td>
+              <td>${item.timestamp}</td>
+              <td><a href="${item.stream_url}" target="_blank">▶️ 보기</a></td>
+              <td>${item.type}</td>
+            `;
+            body.appendChild(row);
+          });
+        });
+    }
+
+    setInterval(loadSOSData, 3000);
+    loadSOSData();
+  </script>
+</body>
+</html>

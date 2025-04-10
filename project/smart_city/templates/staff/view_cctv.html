@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}CCTV 상세 보기{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/view_cctv.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<style>
+    .led-controls {
+        margin-top: 20px;
+        background-color: #f1f1f1;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .led-controls h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #333;
+    }
+    .led-buttons button {
+        padding: 10px 20px;
+        margin-right: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background-color: #004d99;
+        color: white;
+        transition: background-color 0.3s;
+    }
+    .led-buttons button:hover {
+        background-color: #003366;
+    }
+</style>
+{% endblock %}
+{% block head %}
+<meta name="admin_id" content="{{ session.get('admin_id') }}">
+{% endblock %}
+{% block navigation %}
+{% if 'admin_id' in session and session['admin_role'] == 'staff' %}
+<nav class="header-nav">
+    <div class="nav-menu" id="favorites-nav">
+        <span class="favorites-label">즐겨찾기:</span>
+        <span id="no-favorites-message">등록된 즐겨찾기가 없습니다</span>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="cctv-container">
+        <div class="cctv-header">
+            <div class="cctv-title">
+                <h1>📹 {{ camera.location }} CCTV</h1>
+                <div class="location-timestamp" id="current-time">로딩 중...</div>
+            </div>
+            <div class="cctv-status">
+                <span class="status-badge live">실시간</span>
+                <span class="status-indicator"></span>
+            </div>
+        </div>
+
+        <div class="cctv-main">
+            <div class="cctv-stream-container">
+                <div class="cctv-stream">
+                    <img id="video-stream" src="http://{{camera.cctv_ip}}:5000/stream" alt="CCTV Stream">
+                    <div class="stream-overlay">
+                        <div class="overlay-top">
+                            <span class="camera-id">가로등 번호: {{ camera.street_light_id }}</span>
+                            <span class="timestamp">{{ camera.location }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stream-controls">
+                    <button class="control-btn fullscreen-btn" title="전체 화면">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="control-btn snapshot-btn" title="스크린샷">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="cctv-sidebar">
+                <div class="info-card">
+                    <h2>CCTV 정보</h2>
+                    <ul class="info-list">
+                        <li><strong>위치:</strong> {{ camera.location }}</li>
+                        <li><strong>용도:</strong> {{ camera.purpose }}</li>
+                        <li><strong>설치일:</strong> 2025-03-18</li>
+                        <li><strong>모델:</strong> ESP32-CAM</li>
+                        <li><strong>IP 주소:</strong> {{ camera.cctv_ip }}</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h2>💡 가로등 제어</h2>
+                    <div class="led-buttons">
+                        <button onclick="sendCommand('arduino{{ camera.street_light_id }}', 'LED_ON')">LED ON</button>
+                        <button onclick="sendCommand('arduino{{ camera.street_light_id }}', 'LED_OFF')">LED OFF</button>
+                        <button onclick="sendCommand('arduino{{ camera.street_light_id }}', 'AUTO_MODE')">AUTO MODE</button>
+                    </div>
+                </div>
+
+                <div class="info-card sensor-data">
+                    <h2>센서 데이터</h2>
+                    <div class="sensor-status" id="safety-status">
+                        <i class="fas fa-shield-alt"></i> <span id="status-text">                      
+                            {% if malfunction_status %}
+                                {% if malfunction_status.reason_led and malfunction_status.reason_tilt %}
+                                    현재 가로등 상태 : LED 고장, 기울어짐
+                                {% elif malfunction_status.reason_led %}
+                                    현재 가로등 상태 : LED 고장
+                                {% elif malfunction_status.reason_tilt %}
+                                    현재 가로등 상태 : 기울어짐
+                                {% else %}
+                                    현재 가로등 상태 : 상태 이상
+                                {% endif %}
+                            {% else %}
+                                현재 가로등 상태 : 양호
+                            {% endif %}</span>
+
+                    </div>
+                    <div class="sensor-readings">
+                        <div class="sensor-reading" id="temperature-reading">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span>{{ sensor_data.temperature if sensor_data else "-" }}°C</span>
+                        </div>
+                        <div class="sensor-reading" id="humidity-reading">
+                            <i class="fas fa-tint"></i>
+                            <span>{{ sensor_data.humidity if sensor_data else "-" }}%</span>
+                        </div>
+                        <div class="sensor-reading" id="heat-index-reading">
+                            <i class="fas fa-temperature-high"></i>
+                            <span>{{ sensor_data.perceived_temperature if sensor_data else "-" }}°C</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- 채팅 위젯 추가 -->
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/view_cctv.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script>
+    function sendCommand(target, cmd) {
+        fetch(`/set_command?target=${target}&cmd=${cmd}`)
+        .then(response => response.json())
+        .then(data => {
+            alert(`명령 전송됨: ${target} - ${cmd}`);
+            console.log("LED Command Sent:", data);
+        })
+        .catch(error => console.error("LED Command Error:", error));
+    }
+</script>
+<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+{% endblock %}

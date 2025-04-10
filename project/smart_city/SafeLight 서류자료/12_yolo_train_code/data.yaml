@@ -1,0 +1,5 @@
+train: C:/junhyuk/ALPR_data/numplate_segmentation.v5i.yolov8-obb/train/images  # 학습 이미지 경로
+val: C:/junhyuk/ALPR_data/numplate_segmentation.v5i.yolov8-obb/valid/images    # 검증 이미지 경로
+
+nc: 6  # 클래스 개수 (기존 클래스 + 번호판)
+names: ['person', 'car', 'bus', 'truck', 'motorcycle', 'license_plate']  # 기존 클래스 + 번호판 추가

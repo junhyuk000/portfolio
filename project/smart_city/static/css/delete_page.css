@@ -1,0 +1,118 @@
+/* static/css/delete_page.css - 다크 모드 및 라이트 모드 지원 */
+
+:root {
+    --background-color: #f8f9fa;
+    --text-color: #495057;
+    --primary-color: #dc3545;
+    --border-color: #ced4da;
+    --focus-color: #ff6b6b;
+    --hover-color: #c82333;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --input-background: #ffffff;
+    --button-text-color: #ffffff;
+}
+
+.dark-mode {
+    --background-color: #333;
+    --text-color: #f1f1f1;
+    --primary-color: #ff6b6b;
+    --border-color: #555;
+    --focus-color: #e63946;
+    --hover-color: #c82333;
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --input-background: #444;
+    --button-text-color: #ffffff;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 65vh;
+    padding: 20px;
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.delete-form {
+    background-color: var(--input-background);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px var(--shadow-color);
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 6px;
+}
+
+form select,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+}
+
+form select:focus,
+form textarea:focus {
+    border-color: var(--focus-color);
+    box-shadow: 0 0 8px var(--focus-color);
+    outline: none;
+}
+
+form button.delete-btn {
+    background-color: var(--primary-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button.delete-btn:hover {
+    background-color: var(--hover-color);
+}
+
+a.cancel-btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--focus-color);
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+a.cancel-btn:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}답변 미완료 문의 조회{% endblock %}  
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/inquiries.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<style>
+    /* 페이지네이션 스타일 */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .pagination a {
+        color: black;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+    }
+    
+    .pagination a.active {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
+    }
+    
+</style>
+{% endblock %}
+{% block head %}
+<meta name="admin_id" content="{{ session.get('admin_id') }}">
+{% endblock %}
+{% block navigation %}
+{% if 'admin_id' in session and session['admin_role'] == 'staff' %}
+<nav class="header-nav">
+    <div class="nav-menu" id="favorites-nav">
+        <span class="favorites-label">즐겨찾기:</span>
+        <!-- 즐겨찾기 항목들이 여기에 자바스크립트로 추가됩니다 -->
+        <span id="no-favorites-message">등록된 즐겨찾기가 없습니다</span>
+    </div>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="content-area">
+    <div class="container">
+        <h2>답변 미완료 문의 조회</h2>
+        {% if posts %}
+        <table class="inquiry-table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>작성자</th>
+                    <th>문의유형</th>
+                    <th>문의내용</th>
+                    <th>답변상태</th>
+                    <th>문의시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>{{ post.inquiries_id }}</td>
+                    <td>{{ post.user_name }}</td>
+                    <td>{{ post.inquiry_reason }}</td>
+                    <td>
+                        <form action="{{ url_for('staff_inquiries_pending') }}" method="POST">
+                            <input type="hidden" name="inquiries_id" value="{{ post.inquiries_id }}">
+                            <input type="hidden" name="user_id" value="{{ post.user_id }}">
+                            <input type="hidden" name="inquiry_time" value="{{ post.inquiry_time }}">
+                            <button type="submit" class="detail-button">내용보기</button>
+                        </form>
+                    </td>
+                    <td>
+                        {% if post.answer_status == 'pending' %}
+                            <span class="status pending">답변 대기 중</span>
+                        {% else %}
+                            <span class="status completed">답변 완료</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ post.inquiry_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="no-inquiries">
+            <i class="fas fa-inbox fa-3x"></i>
+            <p>등록된 문의가 없습니다.</p>
+        </div>
+        {% endif %}
+            <!-- 직접 구현한 페이지네이션 -->
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        {% if current_page > 1 %}
+            <a href="{{ url_for('staff_inquiries_pending', page=current_page-1) }}">&laquo; 이전</a>
+        {% endif %}
+
+        {% for num in range(1, total_pages + 1) %}
+            {% if num == current_page %}
+                <a class="active">{{ num }}</a>
+            {% else %}
+                <a href="{{ url_for('staff_inquiries_pending', page=num) }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if current_page < total_pages %}
+            <a href="{{ url_for('staff_inquiries_pending', page=current_page+1) }}">다음 &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+    </div>
+    
+    <!-- 채팅 위젯 추가 -->
+    {% include 'public/chat_widget.html' %}
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 테이블 행 클릭 시 해당 행의 내용보기 버튼 클릭 이벤트 추가
+    const tableRows = document.querySelectorAll('.inquiry-table tbody tr');
+    
+    tableRows.forEach(row => {
+        row.addEventListener('click', function(e) {
+            // 클릭한 요소가 버튼이나 폼이 아닌 경우에만 처리
+            if (!e.target.closest('button') && !e.target.closest('form')) {
+                const detailButton = this.querySelector('.detail-button');
+                
+                // 잠금 상태가 아닌 내용보기 버튼만 클릭
+                if (detailButton && !detailButton.disabled) {
+                    detailButton.click();
+                }
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
