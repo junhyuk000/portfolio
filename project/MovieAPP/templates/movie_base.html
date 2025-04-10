@@ -212,6 +212,27 @@
             margin-top: auto; /* 자동 하단 정렬 */
             box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2); /* ✅ 위쪽으로 그림자 */
         }
+        .btn-portfolio {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #283618;  /* 진한 올리브 */
+            color: #fefae0;              /* 밝은 아이보리 */
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-size: 16px;
+        }
+
+        .btn-portfolio:hover {
+            background-color: #bc6c25; /* 따뜻한 오렌지 계열 포인트 */
+            color: #fff;
+            border: 2px solid #dda15e;
+            transform: translateY(-2px);
+        }
+
 
     </style>
     {% block css %}{% endblock %}
@@ -220,7 +241,7 @@
     <!-- Top Header -->
     <div class="top-header">
         <div class="logo">
-            <a href="{{ url_for('index') }}" class="portfolio-link">Portfolio</a>
+            <a href="{{ url_for('index') }}" class="btn-portfolio">Portfolio</a>
             <a href="/popcornapp/movies" style="color: white; text-decoration: none;"><img src="/popcornapp/static/images/32movie.png">PopcornAPP</a>
             
         </div>
