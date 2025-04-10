@@ -187,6 +187,8 @@ def movies():
     manager.update_movie_ratings_and_reviews()
     movies = manager.get_all_movies()
     movies_info = []
+    kakao_api_key = os.getenv("KAKAO_API_KEY")
+    Youtube_api_key = os.getenv("YOUTUBE_API_KEY")
     for movie in movies:
         print(movie)
         movies_info.append({'id':movie['id'],"title":movie['title'],"rank":movie['rank'],"filename":movie['filename'],"rating":movie['rating'],"reviews":movie['reviews']})
@@ -221,7 +223,10 @@ def movies():
         c_sales=c_sales,
         t_audience=t_audience,
         c_audience=c_audience,
-        loc = loc)
+        loc = loc,
+        kakao_api_key = kakao_api_key,
+        Youtube_api_key = Youtube_api_key
+    )
 
 
 

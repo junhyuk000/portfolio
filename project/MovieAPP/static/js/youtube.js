@@ -2,7 +2,7 @@
 console.log(`Movie Title (from JavaScript file): ${movieTitle}`);
 
 function fetchTrailer(movieTitle) {
-    const apiUrl = `/api/youtube-trailer?title=${encodeURIComponent(movieTitle)}`;
+    const apiUrl = `/popcornapp/api/youtube-trailer?title=${encodeURIComponent(movieTitle)}`;
 
     fetch(apiUrl)
         .then(response => response.json())

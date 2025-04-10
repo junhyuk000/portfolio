@@ -321,7 +321,8 @@
 {% block js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=be47724c48a9357381269e671a99079c&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{ kakao_api_key }}&libraries=services"></script>
+
 <script src="/popcornapp/static/js/map.js"></script>
 <script>
      function loadTrailer(movieTitle) {
@@ -330,7 +331,8 @@
         const trailerIframe = document.getElementById('trailer');
         const query = encodeURIComponent(movieTitle + " official trailer");
 
-        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=AIzaSyCStt6OCKJD2YY1wOPVkR88PZMjknY3EPw`)
+        fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key={{ Youtube_api_key }}`)
+
             .then(response => response.json())
             .then(data => {
                 if (!data.items || data.items.length === 0) {
