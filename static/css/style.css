@@ -389,7 +389,6 @@ body.custom-cursor {
     letter-spacing: 0.3px;   /* ✅ 자간 살짝 */
     margin-top: 10px;
     margin-bottom: 10px;     /* ✅ 문단 간 여백 */
-    color: var(--text-color);
     max-width: 800px;        /* ✅ 너무 길어지지 않게 */
 }
 @media screen and (max-width: 768px) {
@@ -406,5 +405,16 @@ body.custom-cursor {
     .project-card h4 {
       font-size: 0.95rem;
     }
+  }
+
+  .experience-note {
+    margin-top: 40px;
+    line-height: 1.8;
+    color: var(--text-color); /* ✅ 다크모드/라이트모드 자동 적용 */
+    font-size: 0.95rem;
+    font-weight: 400;
+  }
+  .experience-note strong {
+    font-weight: 600;
   }
   
