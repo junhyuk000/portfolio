@@ -52,7 +52,7 @@ nav a:hover {
 
 section {
     min-height: 100vh;
-    padding: 120px 10vw 80px;
+    padding: 60px 10vw 40px; /* 기존보다 여백 반으로 줄임 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,6 +61,7 @@ section {
     transform: translateY(30px);
     animation: fadeSlideUp 0.8s forwards ease;
 }
+
 
 section:nth-of-type(2) { animation-delay: 0.2s; }
 section:nth-of-type(3) { animation-delay: 0.4s; }
