@@ -88,14 +88,16 @@
                 <h3 style="margin: 10px 0 4px;">AI 기반 감성 분석 + 영화 추천 웹 플랫폼</h3><br>
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 기능</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>영화 리뷰 데이터를 기반으로 감성 분류 모델 학습 (TF-IDF + Logistic Regression)</li>
+                    <li>영화 리뷰 데이터를 기반으로 감성 분류 모델 학습 (텍스트마이닝 ML)</li>
                     <li>Box Office API 연동 및 인기 영화 실시간 시각화</li>
-                    <li>예고편 유튜브 영상 출력 및 리뷰 분석 결과 제공</li>
-                    <li>리뷰 결과 저장 및 날짜별 분석 시스템 구축</li>
+                    <li>예고편 유튜브 영상 출력</li>
+                    <li>사용자 IP기반 위치 주변 영화관 표시(Kakao Map)</li>
+                    <li>리뷰 기능 및 리뷰 신고 시스템</li>
+                    <li>영화 추첨을 통해 해당 영화가 관객수 500만명 돌파 예측</li>
                 </ul><br>
                 <h4 style="margin: 10px 0 6px; color: var(--accent);">주요 성과</h4>
                 <ul style="padding-left: 20px; line-height: 1.8;">
-                    <li>네이버 영화 리뷰 데이터 <strong>80,000건 이상</strong> 수집 및 한글 정규화 전처리</li>
+                    <li>영화 리뷰 데이터 <strong>80,000건 이상</strong> 수집 및 한글 정규화 전처리</li>
                     <li>한국어 텍스트 분석을 위한 <strong>Okt 형태소 분석기</strong> 및 <strong>TF-IDF 벡터화</strong> 적용</li>
                     <li><strong>로지스틱 회귀 + GridSearchCV</strong> 기반 모델 최적화 → <strong>정확도 85.7%</strong> 달성</li>
                     <li>Flask 기반 웹 서버와 <strong>감성 분석 API 실시간 연동</strong> 시스템 구현</li>
@@ -136,7 +138,7 @@
                 
             <div style="margin-top: 16px; display: flex; gap: 10px;">
                 <a class="btn" href="/static/files/PopcornAPP.pdf">📄 PDF</a>
-                <a class="btn" href="/static/videos/popcorn_demo.mp4">🎥 영상</a>
+                <a class="btn" href="#" onclick="openYoutubePopup(); return false;">🎥 영상</a>
                 <a class="btn" href="https://junhyuk000.monster/popcornapp/">🔗 바로가기</a>
             </div>
         </div>

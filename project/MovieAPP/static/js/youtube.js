@@ -27,3 +27,19 @@ window.onload = function () {
         console.error("영화 제목이 없습니다.");
     }
 };
+
+function openYoutubePopup() {
+    const width = 800;
+    const height = 450;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+
+    const url = "https://www.youtube.com/embed/5LbdMNlKQfM?autoplay=1";
+
+    window.open(
+        url,
+        "youtubePopup",
+        `width=${width},height=${height},left=${left},top=${top},resizable=yes`
+    );
+}
+
