@@ -180,6 +180,9 @@ ul {
 li {
     padding-left: 35px;
     text-indent: -1.6em; /* 아이콘 또는 글머리 기호 기준으로 텍스트 정렬 */
+    font-weight: 400; /* ✅ 또는 300으로 더 얇게 가능 */
+    font-size: 0.95rem;
+    line-height: 1.8;
 }
 
 ul.skill-list {
