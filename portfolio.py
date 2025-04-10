@@ -2,6 +2,7 @@ from gevent import monkey
 monkey.patch_all()  # 🚀 최상단에서 패치 적용
 
 from flask import Flask, url_for, render_template, send_from_directory, redirect, session, request
+from flask_mail import Mail, Message
 from project.Total_Employment_site.site import employment_site
 from project.MovieAPP.movie import popcornapp, manager
 from functools import wraps
@@ -26,6 +27,18 @@ app.config['SESSION_TYPE'] = 'filesystem'
 # 보안 세션ID 서명
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SECRET_KEY'] = 'your_secret_key'
+
+
+# 이메일 설정
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'junhyuk733@gmail.com'  # Gmail 주소
+app.config['MAIL_PASSWORD'] = 'ghhg ivfl nqzv ntci'  # Gmail 앱 비밀번호
+app.config['MAIL_DEFAULT_SENDER'] = 'junhyuk733@gmail.com'
+
+mail = Mail(app)
+
 
 # flask_session 초기화
 Session(app)
@@ -73,42 +86,29 @@ def port_file(filename):
     return send_from_directory('static/교육 내용', filename)
 
 
-    
-
-@app.route('/education')
-def education():
-    return render_template('education.html')
-
-    
-
-@app.route('/resume')
-def resume():
-    return render_template('resume.html')
-
-   
-
-@app.route('/introduction')
-def introduction():
-    return render_template('introduction.html')
-
-    
-
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
-
- 
-
-@app.route('/html포토폴리오/교육 내용.html')
-def re_education():
-    return redirect(url_for('education'))
-
 
 
                         
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/email')
+def email():
+    return render_template('email.html')
+
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    recipient = request.form['email']
+    subject = request.form['subject']
+    body = request.form['body']
+
+    msg = Message(subject, recipients=[recipient])
+    msg.html = body  # HTML 형식으로 설정
+    # msg.body = body  # 텍스트 형식으로 설정
+    mail.send(msg)
+
+    return 'Email sent!'
 
 
 @app.route('/employment_intro')
