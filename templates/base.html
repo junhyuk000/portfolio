@@ -33,5 +33,12 @@
         © 2025 신준혁 포트폴리오
     </footer>
     <script src="{{ url_for('static', filename='js/script.js') }}" ></script>
+    <script>
+        function openEmailPopup() {
+            const url = "{{ url_for('email') }}";
+            window.open(url, "emailPopup", "width=600,height=700,resizable=yes,scrollbars=yes");
+        }
+    </script>
+        
 </body>
 </html>
