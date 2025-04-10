@@ -101,14 +101,21 @@ def email():
 def send_email():
     recipient = request.form['email']
     subject = request.form['subject']
+    sender = request.form['sender']
     body = request.form['body']
 
     msg = Message(subject, recipients=[recipient])
-    msg.html = body  # HTML 형식으로 설정
-    # msg.body = body  # 텍스트 형식으로 설정
+    msg.html = body  # HTML 형식 본문
+
     mail.send(msg)
 
-    return 'Email sent!'
+    return f"""
+    <h2>✅ 이메일 전송 완료</h2>
+    <p><strong>받는 사람:</strong> {recipient}</p>
+    <p><strong>작성자:</strong> {sender}</p>
+    <p><strong>제목:</strong> {subject}</p>
+    <p><a href="#" onclick="window.close()">창 닫기</a></p>
+    """
 
 
 @app.route('/employment_intro')

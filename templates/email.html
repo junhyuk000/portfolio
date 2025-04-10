@@ -2,35 +2,71 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <title>메일 보내기</title>
     <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; }
-        input[type="email"], input[type="text"] { width: 98%; padding: 8px; }
-        #editor { height: 300px; margin-bottom: 15px; }
-        input[type="submit"] { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        input[type="email"], input[type="text"] {
+            width: 98%;
+            padding: 8px;
+            font-size: 1rem;
+        }
+        #editor {
+            height: 300px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
     <h1>메일 보내기</h1>
-    <form id="emailForm" action="/send_email" method="post" target="_blank">
+    <form id="emailForm" action="/send_email" method="post">
+        <!-- 받는 사람 (고정) -->
         <div class="form-group">
             <label for="email">받는 사람:</label>
             <input type="email" id="email" name="email" value="junhyuk000@naver.com" readonly>
         </div>
+
+        <!-- 작성자 이름 -->
+        <div class="form-group">
+            <label for="sender">작성자 이름:</label>
+            <input type="text" id="sender" name="sender" placeholder="이름을 입력하세요" required>
+        </div>
+
+        <!-- 제목 -->
         <div class="form-group">
             <label for="subject">제목:</label>
             <input type="text" id="subject" name="subject" required>
         </div>
+
+        <!-- 본문 내용 -->
         <div class="form-group">
             <label for="editor">메일내용:</label>
             <textarea id="body" name="body" style="display:none;"></textarea>
             <div id="editor"></div>
         </div>
-        <input type="submit" value="메일 발송">
-    </form>    
 
+        <input type="submit" value="메일 발송">
+    </form>
+
+    <!-- Quill JS -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         var quill = new Quill('#editor', {
@@ -55,11 +91,8 @@
             }
         });
 
-        document.getElementById('emailForm').addEventListener('submit', function(e) {
-            document.getElementById('body').value = quill.root.innerHTML;
-        });
-
-        quill.on('text-change', function() {
+        // 에디터 내용 폼에 담기
+        document.getElementById('emailForm').addEventListener('submit', function() {
             document.getElementById('body').value = quill.root.innerHTML;
         });
     </script>
