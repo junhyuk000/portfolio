@@ -14,10 +14,10 @@
 </head>
 <body>
     <h1>메일 보내기</h1>
-    <form id="emailForm" action="/send_email" method="post">
+    <form id="emailForm" action="/send_email" method="post" target="_blank">
         <div class="form-group">
             <label for="email">받는 사람:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" value="junhyuk000@naver.com" readonly>
         </div>
         <div class="form-group">
             <label for="subject">제목:</label>
@@ -30,6 +30,7 @@
         </div>
         <input type="submit" value="메일 발송">
     </form>    
+
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         var quill = new Quill('#editor', {
@@ -64,4 +65,3 @@
     </script>
 </body>
 </html>
-
