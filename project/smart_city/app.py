@@ -8,11 +8,14 @@ from markupsafe import Markup
 from dotenv import load_dotenv
 from konlpy.tag import Okt
 import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import mysql.connector
 import license_plate
-import cv2
 import motorcycle
-from api import handle_request  # api.py에서 handle_request 함수 불러오기
+from api import handle_request
+import cv2
+
 
 load_dotenv()
 
