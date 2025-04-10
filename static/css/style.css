@@ -52,7 +52,7 @@ nav a:hover {
 
 section {
     min-height: 100vh;
-    padding: 60px 10vw 40px; /* 기존보다 여백 반으로 줄임 */
+    padding: 40px 8vw 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -604,7 +604,10 @@ def youtube_trailer():
     title = request.args.get('title', '')
     query = f"{title.strip()} 예고편"
 
-    api_key = os.getenv("YOUTUBE_API_KEY")  # Ubuntu 환경변수나 .env에서 읽음
+    api_key = os.getenv("YOUTUBE_API_KEY")
+    if not api_key:
+        print("❌ 환경변수 YOUTUBE_API_KEY가 설정되지 않았습니다.")
+        return jsonify({"error": "YouTube API 키가 설정되지 않았습니다."}), 500
 
     url = "https://www.googleapis.com/youtube/v3/search"
     params = {
@@ -625,3 +628,4 @@ def youtube_trailer():
             return jsonify({"error": "예고편을 찾을 수 없습니다."}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
