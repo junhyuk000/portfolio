@@ -102,21 +102,19 @@ def send_email():
     recipient = request.form['email']
     subject = request.form['subject']
     sender = request.form['sender']
-    body = request.form['body']
+    body_content = request.form['body']
+
+    # 본문에 작성자 정보 포함
+    full_body = f"<p><strong>작성자:</strong> {sender}</p><hr>" + body_content
 
     msg = Message(subject, recipients=[recipient])
-    msg.html = body  # HTML 형식 본문
+    msg.html = full_body
 
-    mail.send(msg)
-
-    return f"""
-    <h2>✅ 이메일 전송 완료</h2>
-    <p><strong>받는 사람:</strong> {recipient}</p>
-    <p><strong>작성자:</strong> {sender}</p>
-    <p><strong>제목:</strong> {subject}</p>
-    <p><a href="#" onclick="window.close()">창 닫기</a></p>
-    """
-
+    try:
+        mail.send(msg)
+        return render_template("email_success.html", recipient=recipient, sender=sender, subject=subject)
+    except Exception as e:
+        return render_template("email_fail.html", error=str(e))
 
 @app.route('/employment_intro')
 def employment_intro():

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>이메일 전송 성공</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f4f6f8; }
+        .card {
+            display: inline-block;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .card h2 { color: #2ecc71; }
+        .info { margin-top: 15px; font-size: 1rem; color: #555; }
+        .close-btn {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>✅ 이메일 전송 완료</h2>
+        <div class="info"><strong>받는 사람:</strong> {{ recipient }}</div>
+        <div class="info"><strong>작성자:</strong> {{ sender }}</div>
+        <div class="info"><strong>제목:</strong> {{ subject }}</div>
+        <button class="close-btn" onclick="window.close()">창 닫기</button>
+    </div>
+</body>
+</html>

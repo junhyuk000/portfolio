@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>이메일 전송 실패</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #fff0f0; }
+        .card {
+            display: inline-block;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .card h2 { color: #e74c3c; }
+        .info { margin-top: 15px; font-size: 1rem; color: #555; }
+        .close-btn {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>❌ 이메일 전송 실패</h2>
+        <div class="info">에러: {{ error }}</div>
+        <button class="close-btn" onclick="window.close()">창 닫기</button>
+    </div>
+</body>
+</html>
