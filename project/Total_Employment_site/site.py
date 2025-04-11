@@ -16,21 +16,22 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 # Windows 환경일 경우
 # CHROMEDRIVER_PATH = r"C:\junhyuk\chromedriver-win64\chromedriver.exe"  # ChromeDriver 설치 경로 확인 후 수정
 
-
 def get_chrome_driver():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # ✅ user-data-dir을 임시 폴더로 설정
-    user_data_dir = tempfile.mkdtemp()
+    # ✅ 고유 임시 디렉터리 지정 (중복 방지)
+    user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
     chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
-    # Chrome 실행 경로
-    chrome_options.binary_location = "/usr/bin/google-chrome"
+    # ✅ 경로 확인
+    chrome_options.binary_location = "/usr/bin/google-chrome"  # 또는 실제 경로 확인
 
-    service = Service("/usr/bin/chromedriver")
+    # ✅ ChromeDriver 경로
+    service = Service("/usr/local/bin/chromedriver")  # 실제 설치 경로 확인
+
     return webdriver.Chrome(service=service, options=chrome_options)
 
 
