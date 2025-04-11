@@ -1,7 +1,7 @@
 {% extends "base.html" %}  
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/staff_view_cctv.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/staff_view_cctv.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
     .stream-controls {
@@ -64,7 +64,7 @@
 
     <div class="cctv-stream-container">
         <div class="cctv-stream">
-            <img id="video-stream" src="{{ url_for('video_feed') }}" alt="실시간 CCTV 스트림">
+            <img id="video-stream" src="{{ url_for('smartcity.video_feed') }}" alt="실시간 CCTV 스트림">
             <div class="stream-overlay">
                 <span class="camera-location">인도 감시 카메라</span>
                 <span class="timestamp" id="current-timestamp">-</span>
@@ -85,8 +85,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/staff.js') }}"></script>
 <script>
     // 시간 업데이트 함수
     function updateTimestamp() {

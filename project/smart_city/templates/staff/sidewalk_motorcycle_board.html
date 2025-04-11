@@ -2,7 +2,7 @@
 
 {% block title %}인도 오토바이 페이지{% endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/cctv_list.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/cctv_list.css') }}">
 {% endblock %}
 {% block head %}
 <meta name="admin_id" content="{{ session.get('admin_id') }}">
@@ -35,7 +35,7 @@
                 <span class="total-count">검색된 가로등: <strong>{{ total_posts }}</strong>개</span>
             </div>
             
-            <form method="get" action="{{ url_for('staff_sidewalk_motorcycle_board') }}" class="search-form">
+            <form method="get" action="{{ url_for('smartcity.staff_sidewalk_motorcycle_board') }}" class="search-form">
                 <div class="form-group">
                     <label for="search_type">검색 타입:</label>
                     <select name="search_type" id="search_type" class="form-select">
@@ -75,7 +75,7 @@
                             {% if street_light.cctv_ip %}
                             <td class="cctv-cell">
                                 <div class="cctv-info">
-                                    <a href="{{ url_for('staff_sidewalk_motorcycle', street_light_id=street_light.street_light_id) }}" class="view-button">
+                                    <a href="{{ url_for('smartcity.staff_sidewalk_motorcycle', street_light_id=street_light.street_light_id) }}" class="view-button">
                                         <i class="fas fa-video"></i> 상세 보기
                                     </a>
                                     <span class="cctv-status installed">
@@ -115,10 +115,10 @@
             {% if total_pages > 1 %}
                 <div class="pagination">
                     {% if prev_page %}
-                        <a href="{{ url_for('staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=1) }}" class="pagination-link first" title="첫 페이지">
+                        <a href="{{ url_for('smartcity.staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=1) }}" class="pagination-link first" title="첫 페이지">
                             <i class="fas fa-angle-double-left"></i>
                         </a>
-                        <a href="{{ url_for('staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=prev_page) }}" class="pagination-link prev" title="이전 페이지">
+                        <a href="{{ url_for('smartcity.staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=prev_page) }}" class="pagination-link prev" title="이전 페이지">
                             <i class="fas fa-angle-left"></i>
                         </a>
                     {% else %}
@@ -135,10 +135,10 @@
                     </div>
                     
                     {% if next_page %}
-                        <a href="{{ url_for('staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=next_page) }}" class="pagination-link next" title="다음 페이지">
+                        <a href="{{ url_for('smartcity.staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=next_page) }}" class="pagination-link next" title="다음 페이지">
                             <i class="fas fa-angle-right"></i>
                         </a>
-                        <a href="{{ url_for('staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=total_pages) }}" class="pagination-link last" title="마지막 페이지">
+                        <a href="{{ url_for('smartcity.staff_sidewalk_motorcycle_board', search_query=search_query, search_type=search_type, page=total_pages) }}" class="pagination-link last" title="마지막 페이지">
                             <i class="fas fa-angle-double-right"></i>
                         </a>
                     {% else %}
@@ -157,7 +157,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/cctv_list.js') }}"></script>
-<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/cctv_list.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/staff.js') }}"></script>
 {% endblock %}

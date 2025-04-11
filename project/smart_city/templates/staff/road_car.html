@@ -2,7 +2,7 @@
 {% extends "base.html" %}  
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/staff_view_cctv.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/staff_view_cctv.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
     .stream-controls {
@@ -86,8 +86,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/staff.js') }}"></script>
 <script>
     // 시간 업데이트 함수
     function updateTimestamp() {

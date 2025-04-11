@@ -180,7 +180,7 @@
 <div class="container">
     <div class="staff-register-container">
         <h2 class="text-center mb-4">Staff 등록</h2>
-        <form action="{{ url_for('admin_staff_register') }}" method="POST">
+        <form action="{{ url_for('smartcity.admin_staff_register') }}" method="POST">
             <div class="form-group">
                 <label for="staff_id">Staff ID</label>
                 <input type="text" class="form-control" id="staff_id" name="staff_id" required>
@@ -211,7 +211,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
 <script>
 // 다크 모드 토글 스크립트
 document.addEventListener('DOMContentLoaded', function() {

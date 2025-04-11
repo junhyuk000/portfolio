@@ -3,8 +3,8 @@
 {% block title %}문의 목록{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/inquiries.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/inquiries.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/chat.css') }}">
 <style>
     /* 페이지네이션 스타일 */
     .pagination {
@@ -55,7 +55,7 @@
                     <td>{{ post.inquiry_reason }}</td>
                     <td>
                         {% if session['user_id'] == post.user_id %}
-                        <form action="{{ url_for('user_dashboard_inquiries_view') }}" method="POST">
+                        <form action="{{ url_for('smartcity.user_dashboard_inquiries_view') }}" method="POST">
                             <input type="hidden" name="user_id" value="{{ post.user_id }}">
                             <input type="hidden" name="inquiry_time" value="{{ post.inquiry_time}}">
                             <input type="hidden" name="inquiries_id" value="{{ post.inquiries_id }}">
@@ -83,25 +83,25 @@
         <div class="no-inquiries">
             <i class="fas fa-inbox fa-3x"></i>
             <p>등록된 문의가 없습니다.</p>
-            <a href="{{ url_for('user_dashboard_inquiries') }}" class="btn-submit" style="max-width: 200px; margin: 20px auto;">문의하기</a>
+            <a href="{{ url_for('smartcity.user_dashboard_inquiries') }}" class="btn-submit" style="max-width: 200px; margin: 20px auto;">문의하기</a>
         </div>
         {% endif %}
         {% if total_pages > 1 %}
         <div class="pagination">
         {% if current_page > 1 %}
-            <a href="{{ url_for('user_dashboard_inquiries_view', page=current_page-1) }}">&laquo; 이전</a>
+            <a href="{{ url_for('smartcity.user_dashboard_inquiries_view', page=current_page-1) }}">&laquo; 이전</a>
         {% endif %}
 
         {% for num in range(1, total_pages + 1) %}
             {% if num == current_page %}
                 <a class="active">{{ num }}</a>
             {% else %}
-                <a href="{{ url_for('user_dashboard_inquiries_view', page=num) }}">{{ num }}</a>
+                <a href="{{ url_for('smartcity.user_dashboard_inquiries_view', page=num) }}">{{ num }}</a>
             {% endif %}
         {% endfor %}
 
         {% if current_page < total_pages %}
-            <a href="{{ url_for('user_dashboard_inquiries_view', page=current_page+1) }}">다음 &raquo;</a>
+            <a href="{{ url_for('smartcity.user_dashboard_inquiries_view', page=current_page+1) }}">다음 &raquo;</a>
         {% endif %}
     </div>
     {% endif %}
@@ -113,8 +113,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/chat.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 테이블 행 클릭 시 해당 행의 내용보기 버튼 클릭 이벤트 추가

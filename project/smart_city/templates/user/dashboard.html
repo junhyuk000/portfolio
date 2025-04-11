@@ -4,8 +4,8 @@
 {% block title %}마이페이지 - 스마트 도시 프로젝트{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/chat.css') }}">
 <style>
     .slider-intro p {
         text-align: center;
@@ -33,7 +33,7 @@
                 <div class="widget-content">
                     <h3>도로 촬영 가로등</h3>
                     <p>가로등 위치 조회 및 실시간 도로 모니터링</p>
-                    <a href="{{ url_for('user_dashboard_road_cctv') }}" class="widget-link">바로가기</a>
+                    <a href="{{ url_for('smartcity.user_dashboard_road_cctv') }}" class="widget-link">바로가기</a>
                 </div>
             </div>
             
@@ -44,7 +44,7 @@
                 <div class="widget-content">
                     <h3>인도 촬영 가로등</h3>
                     <p>가로등 위치 및 조회보행자 안전을 위한 실시간 인도 모니터링</p>
-                    <a href="{{ url_for('user_dashboard_sidewalk_cctv') }}" class="widget-link">바로가기</a>
+                    <a href="{{ url_for('smartcity.user_dashboard_sidewalk_cctv') }}" class="widget-link">바로가기</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="widget-content">
                     <h3>문의하기</h3>
                     <p>서비스 이용 중 문의사항이나 불편사항을 등록해주세요</p>
-                    <a href="{{ url_for('user_dashboard_inquiries') }}" class="widget-link">바로가기</a>
+                    <a href="{{ url_for('smartcity.user_dashboard_inquiries') }}" class="widget-link">바로가기</a>
                 </div>
             </div>
             
@@ -68,7 +68,7 @@
                 <div class="widget-content">
                     <h3>문의 목록</h3>
                     <p>이전에 등록한 문의사항과 답변을 확인하세요</p>
-                    <a href="{{ url_for('user_dashboard_inquiries_view') }}" class="widget-link">바로가기</a>
+                    <a href="{{ url_for('smartcity.user_dashboard_inquiries_view') }}" class="widget-link">바로가기</a>
                 </div>
             </div>
         </div>
@@ -82,13 +82,13 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="{{ url_for('static', filename='images/image1.png') }}" alt="이미지 1">
+                    <img src="{{ url_for('smartcity.static', filename='images/image1.png') }}" alt="이미지 1">
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ url_for('static', filename='images/image2.png') }}" alt="이미지 2">
+                    <img src="{{ url_for('smartcity.static', filename='images/image2.png') }}" alt="이미지 2">
                 </div>
                 <div class="swiper-slide">
-                    <img src="{{ url_for('static', filename='images/image3.png') }}" alt="이미지 3">
+                    <img src="{{ url_for('smartcity.static', filename='images/image3.png') }}" alt="이미지 3">
                 </div>
             </div>
             <!-- 페이지네이션 -->
@@ -108,7 +108,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/slider.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/chat.js') }}"></script>
 {% endblock %}

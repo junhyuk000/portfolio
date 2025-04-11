@@ -4,15 +4,15 @@
 {% block title %}문의하기{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/inquiries.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/inquiries.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/chat.css') }}">
 {% endblock %}
 
 {% block content %}
 <main class="content-area">
     <div class="inquiries-container">
         <h2>문의하기</h2>
-        <form method="POST" action="{{ url_for('user_dashboard_inquiries') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ url_for('smartcity.user_dashboard_inquiries') }}" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="inquiry_type">문의 유형</label>
                 <select class="form-control" id="inquiry_type" name="inquiry_type" required>
@@ -42,8 +42,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/chat.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 파일 입력 필드에 변경 이벤트 리스너 추가

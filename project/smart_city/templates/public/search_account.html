@@ -138,7 +138,7 @@
         </div>
         
         <!-- 아이디 찾기 폼 -->
-        <form id="findIdForm" class="search-form" method="POST" action="{{ url_for('search_account') }}">
+        <form id="findIdForm" class="search-form" method="POST" action="{{ url_for('smartcity.search_account') }}">
             <input type="hidden" name="search_type" value="id">
             <div class="form-group">
                 <label for="username">이름</label>
@@ -152,7 +152,7 @@
         </form>
         
         <!-- 비밀번호 찾기 폼 -->
-        <form id="findPwForm" class="search-form" style="display: none;" method="POST" action="{{ url_for('search_account') }}">
+        <form id="findPwForm" class="search-form" style="display: none;" method="POST" action="{{ url_for('smartcity.search_account') }}">
             <input type="hidden" name="search_type" value="password">
             <div class="form-group">
                 <label for="userid">아이디</label>
@@ -177,7 +177,7 @@
                 <p>찾으신 아이디는 <span class="result-info">{{ userid.user_id }}</span> 입니다.</p>
                 {% elif search_type == 'password' and password %}
                 <p>비밀번호는 <span class="result-info">{{ password }}</span> 입니다.</p>
-                <a href="{{ url_for('edit_password', userid=userid) }}" class="btn btn-primary mt-3">비밀번호 변경하기</a>
+                <a href="{{ url_for('smartcity.edit_password', userid=userid) }}" class="btn btn-primary mt-3">비밀번호 변경하기</a>
                 {% else %}
                 <p>일치하는 정보가 없습니다.</p>
                 {% endif %}

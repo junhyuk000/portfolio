@@ -4,7 +4,7 @@
 {% block title %}로그인 페이지{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
                 <button type="submit" class="btn-primary">로그인</button>
             </form>
             <div class="login-links">
-                <a href="{{ url_for('register') }}">계정이 없으신가요? 등록하기</a>
+                <a href="{{ url_for('smartcity.register') }}">계정이 없으신가요? 등록하기</a>
                 <a href="#" onclick="openSearchPopup(); return false;">아이디, 비밀번호 찾기</a>
             </div>
         </div>
@@ -33,11 +33,11 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
 <script>
     function openSearchPopup() {
         window.open(
-            "{{ url_for('search_account') }}", 
+            "{{ url_for('smartcity.search_account') }}", 
             "searchPopup", 
             "width=500,height=600,left=200,top=100"
         );

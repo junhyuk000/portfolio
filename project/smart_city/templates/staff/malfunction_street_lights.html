@@ -2,7 +2,7 @@
 
 {% block title %}고장난 가로등 확인{% endblock %}
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/user_dashboard.css') }}">
 <style>
     .empty-row td {
         height: 45px;
@@ -42,7 +42,7 @@
         <i class="fa-solid fa-lightbulb" style="color: red;"></i>
         <span class="total-count">고장난 가로등 : {{ total_posts }}개</span>
     </div>
-    <form method="get" action="{{ url_for('staff_all_street_lights') }}">
+    <form method="get" action="{{ url_for('smartcity.staff_all_street_lights') }}">
         <label for="search_type">검색 타입:</label>
         <select name="search_type" id="search_type">
             <option value="all" {% if search_type == 'all' %}selected{% endif %}>전체</option>
@@ -109,25 +109,25 @@
 <div class="pagination">
     {% if total_pages is defined and total_pages > 1 %}
         {% if prev_page %}
-            <a href="{{ url_for('staff_malfunction_street_lights', page=prev_page, search_type=search_type, search_query=search_query) }}">← 이전</a>
+            <a href="{{ url_for('smartcity.staff_malfunction_street_lights', page=prev_page, search_type=search_type, search_query=search_query) }}">← 이전</a>
         {% endif %}
         
         {% for p in range(start_page, end_page + 1) %}
             {% if p == page %}
                 <strong>{{ p }}</strong>
             {% else %}
-                <a href="{{ url_for('staff_malfunction_street_lights', page=p, search_type=search_type, search_query=search_query) }}">{{ p }}</a>
+                <a href="{{ url_for('smartcity.staff_malfunction_street_lights', page=p, search_type=search_type, search_query=search_query) }}">{{ p }}</a>
             {% endif %}
         {% endfor %}
         
         {% if next_page %}
-            <a href="{{ url_for('staff_malfunction_street_lights', page=next_page, search_type=search_type, search_query=search_query) }}">다음 →</a>
+            <a href="{{ url_for('smartcity.staff_malfunction_street_lights', page=next_page, search_type=search_type, search_query=search_query) }}">다음 →</a>
         {% endif %}
     {% endif %}
 </div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/staff.js') }}"></script>
 {% endblock %}

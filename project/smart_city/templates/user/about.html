@@ -3,8 +3,8 @@
 {% block title %}소개페이지{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/about.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/chat.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -122,7 +122,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/about.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/about.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/chat.js') }}"></script>
 {% endblock %}

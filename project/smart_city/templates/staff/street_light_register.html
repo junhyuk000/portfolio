@@ -136,7 +136,7 @@
     <h2 style="text-align:center;">설치된 가로등 등록</h2>
     
     <div class="form-container">
-        <form id="streetLightForm" method="POST" action="{{ url_for('street_light_register') }}">
+        <form id="streetLightForm" method="POST" action="{{ url_for('smartcity.street_light_register') }}">
             <!-- 주소 검색 필드 -->
             <div class="form-group">
                 <label for="address" class="form-label">주소(도로명, 동)</label>
@@ -181,7 +181,7 @@
                     <button type="reset" class="btn btn-secondary">초기화</button>
                 </div>
                 <div>
-                    <a href="{{ url_for('staff_all_street_lights') }}" class="btn btn-secondary">목록으로</a>
+                    <a href="{{ url_for('smartcity.staff_all_street_lights') }}" class="btn btn-secondary">목록으로</a>
                 </div>
             </div>
         </form>
@@ -190,8 +190,8 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/staff.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/staff.js') }}"></script>
 <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 <script>
     // 페이지 로드 시 실행

@@ -3,8 +3,8 @@
 {% block title %}문의 상세보기{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/inquiries.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/inquiries.css') }}">
+<link rel="stylesheet" href="{{ url_for('smartcity.static', filename='css/chat.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -53,7 +53,7 @@
             <div class="inquiry-section">
                 <h3>첨부파일</h3>
                 <div class="inquiry-attachment">
-                    <img src="{{ url_for('capture_file', filename=posts.capture_file) }}" alt="첨부 이미지">
+                    <img src="{{ url_for('smartcity.capture_file', filename=posts.capture_file) }}" alt="첨부 이미지">
                 </div>
             </div>
             {% endif %}
@@ -76,7 +76,7 @@
         </div>
         
         <div class="inquiry-footer">
-            <a href="{{ url_for('user_dashboard_inquiries_view') }}" class="back-button"style="color: #155724;">
+            <a href="{{ url_for('smartcity.user_dashboard_inquiries_view') }}" class="back-button"style="color: #155724;">
                 <i class="fas fa-arrow-left"></i> 목록으로 돌아가기
             </a>
         </div>
@@ -88,6 +88,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
-<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/darkmode.js') }}"></script>
+<script src="{{ url_for('smartcity.static', filename='js/chat.js') }}"></script>
 {% endblock %}
