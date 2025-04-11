@@ -18,18 +18,18 @@ CHROMEDRIVER_PATH = "/usr/bin/chromedriver"
 
 def get_chrome_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # GUI 없이 실행
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # ChromeDriver 경로 설정
-    chrome_driver_path = "/usr/bin/chromedriver"
+    # Chrome 실행 경로 지정
+    chrome_options.binary_location = "/usr/bin/google-chrome"  # ✅ 이 부분 수정
 
-    # Chrome 실행 경로 명시
-    chrome_options.binary_location = "/usr/lib/chromium/chromium"
+    # ChromeDriver 경로 지정
+    service = Service("/usr/bin/chromedriver")  # 이미 잘 연결됨
 
-    service = Service(chrome_driver_path)
     return webdriver.Chrome(service=service, options=chrome_options)
+
 
 ###변경
 
