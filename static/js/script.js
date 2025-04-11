@@ -24,3 +24,19 @@ function openYoutubePopup() {
         `width=${width},height=${height},left=${left},top=${top},resizable=yes`
     );
 }
+
+function openSmartcityYoutubePopup() {
+    const width = 800;
+    const height = 450;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+
+    const url = "https://www.youtube.com/embed/z8I2EL5fHYg?autoplay=1";
+
+    window.open(
+        url,
+        "smartcityYoutubePopup",
+        `width=${width},height=${height},left=${left},top=${top},resizable=yes`
+    );
+}
+
