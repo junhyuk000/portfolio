@@ -12,7 +12,7 @@ import tempfile
 ### 변경부분
 # ChromeDriver 경로 설정
 # 리눅스 환경 
-CHROMEDRIVER_PATH = "/usr/bin/chromedriver" 
+CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver" 
 # Windows 환경일 경우
 # CHROMEDRIVER_PATH = r"C:\junhyuk\chromedriver-win64\chromedriver.exe"  # ChromeDriver 설치 경로 확인 후 수정
 
