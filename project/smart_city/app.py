@@ -11,9 +11,10 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import mysql.connector
-import license_plate
-import motorcycle
-from api import handle_request
+from project.smart_city import license_plate
+from project.smart_city import motorcycle
+from project.smart_city.api import handle_request
+
 import cv2
 
 
@@ -37,7 +38,7 @@ sys.modules['__main__'].okt_tokenizer = okt_tokenizer
 
 
 manager = DBManager()
-KAKAO_API_KEY = "e2a4b674996140edc31a12f4a28adddd"
+KAKAO_API_KEY = os.getenv("KAKAO_API_KEY")
 
 
 # # 파일 업로드 경로 설정
