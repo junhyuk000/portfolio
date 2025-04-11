@@ -7,6 +7,7 @@ import time
 import pymysql
 import os
 import urllib
+import tempfile
 
 ### 변경부분
 # ChromeDriver 경로 설정
@@ -22,12 +23,14 @@ def get_chrome_driver():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
-    # Chrome 실행 경로 지정
-    chrome_options.binary_location = "/usr/bin/google-chrome"  # ✅ 이 부분 수정
+    # ✅ user-data-dir을 임시 폴더로 설정
+    user_data_dir = tempfile.mkdtemp()
+    chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
-    # ChromeDriver 경로 지정
-    service = Service("/usr/bin/chromedriver")  # 이미 잘 연결됨
+    # Chrome 실행 경로
+    chrome_options.binary_location = "/usr/bin/google-chrome"
 
+    service = Service("/usr/bin/chromedriver")
     return webdriver.Chrome(service=service, options=chrome_options)
 
 
