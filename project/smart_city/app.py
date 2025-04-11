@@ -26,11 +26,15 @@ okt = Okt()
 def okt_tokenizer(text):
     return okt.morphs(text)
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 # Blueprint 정의
-smartcity_bp  = Blueprint('smartcity', __name__, 
-                          static_folder='static', 
-                          template_folder='templates', 
-                          url_prefix='/smartcity')
+smartcity = Blueprint(
+    'smartcity',
+    __name__,
+    static_folder=os.path.join(basedir, 'static'),
+    template_folder=os.path.join(basedir, 'templates'),
+    url_prefix='/smartcity'
+)
 
 # 모듈의 __main__ 네임스페이스에 직접 등록
 sys.modules['__main__'].okt_tokenizer = okt_tokenizer
@@ -42,16 +46,16 @@ KAKAO_API_KEY = os.getenv("KAKAO_API_KEY")
 
 
 # # 파일 업로드 경로 설정
-# smartcity_bp.config['UPLOAD_FOLDER'] = os.path.join(smartcity_bp.root_path, 'static', 'uploads')
+# smartcity.config['UPLOAD_FOLDER'] = os.path.join(smartcity.root_path, 'static', 'uploads')
 # # 업로드 폴더가 없으면 생성
-# os.makedirs(smartcity_bp.config['UPLOAD_FOLDER'], exist_ok=True)
+# os.makedirs(smartcity.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Flask서버 실행시 보안상태 업데이트
-@smartcity_bp.before_request
+@smartcity.before_request
 def update_security_status_on_start():
-    if not hasattr(smartcity_bp, "has_run"):
+    if not hasattr(smartcity, "has_run"):
         manager.user_update_security_status()
-        smartcity_bp.has_run = True  # 실행 여부 저장
+        smartcity.has_run = True  # 실행 여부 저장
 
 
 def login_required(f):
@@ -114,7 +118,7 @@ def send_sos_alert_to_police(location, stream_url):
         print(f"❌ 경찰서 서버 전송 오류: {e}")
 
 
-@smartcity_bp.route('/api', methods=['GET', 'POST'])
+@smartcity.route('/api', methods=['GET', 'POST'])
 def handle_request():
     global received_data, last_switch_state
 
@@ -170,18 +174,18 @@ def handle_request():
 
 
 ### 홈페이지
-@smartcity_bp.route('/')
+@smartcity.route('/')
 def index():
     return render_template('public/index.html')
 
 ### 소개 페이지 (로그인 없이 접속 가능)
-@smartcity_bp.route('/about')
+@smartcity.route('/about')
 def about():
     return render_template('user/about.html')
 
 ### 회원가입 페이지등록 
 #회원가입
-@smartcity_bp.route('/register', methods=['GET','POST'])
+@smartcity.route('/register', methods=['GET','POST'])
 def register():
     if request.method == 'POST':
         user_name = request.form['username']
@@ -217,18 +221,18 @@ def register():
     return render_template('public/register.html')
 
 # 이용약관 페이지
-@smartcity_bp.route('/register/terms_of_service')
+@smartcity.route('/register/terms_of_service')
 def terms_of_service():
     return render_template('public/terms_of_service.html')
 
 # 개인정보 처리방침
-@smartcity_bp.route('/register/privacy_policy')
+@smartcity.route('/register/privacy_policy')
 def privacy_policy():
     return render_template('public/privacy_policy.html')
 
 
 ### 로그인 정보 가져오기
-@smartcity_bp.route('/login', methods=['GET', 'POST'])
+@smartcity.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         id = request.form['userid']
@@ -278,14 +282,14 @@ def login():
 
     return render_template('public/login.html')  # GET 요청 시 로그인 폼 보여주기
 
-@smartcity_bp.route('/need_login')
+@smartcity.route('/need_login')
 def need_login():
     flash('로그인이 필요합니다. 로그인해주세요', 'error')
     return redirect(url_for('login'))
 
 ### 회원 페이지
 ##로그인 후 회원페이지
-@smartcity_bp.route('/user/dashboard')
+@smartcity.route('/user/dashboard')
 @login_required
 def user_dashboard():
     # 현재 로그인한 사용자 정보 가져오기
@@ -293,7 +297,7 @@ def user_dashboard():
     return render_template('user/dashboard.html')
 
 ##회원 정보 수정 
-@smartcity_bp.route('/user/dashboard/update_profile', methods=['GET', 'POST'])
+@smartcity.route('/user/dashboard/update_profile', methods=['GET', 'POST'])
 @login_required
 def user_update_profile():
     userid = session['user_id']  # 세션에서 사용자 아이디 가져오기
@@ -347,14 +351,14 @@ def user_update_profile():
     return render_template('user/update_profile.html', user=user)
 
 ##로그인 후 소개페이지
-@smartcity_bp.route('/user/dashboard/about')
+@smartcity.route('/user/dashboard/about')
 @login_required
 def user_dashboard_about():
     return render_template('user/about.html')
 
 ##회원 페이지 CCTV보기
 #로그인 후 도로CCTV 페이지
-@smartcity_bp.route('/user/dashboard/road', methods=['GET'])
+@smartcity.route('/user/dashboard/road', methods=['GET'])
 @login_required
 def user_dashboard_road_cctv():
     search_query = request.args.get("search_query", "").strip()
@@ -393,7 +397,7 @@ def user_dashboard_road_cctv():
     )
 
 #로그인 후 인도CCTV 페이지
-@smartcity_bp.route('/user/dashboard/sidewalk', methods=['GET'])
+@smartcity.route('/user/dashboard/sidewalk', methods=['GET'])
 @login_required
 def user_dashboard_sidewalk_cctv():
     search_query = request.args.get("search_query", "").strip()
@@ -431,7 +435,7 @@ def user_dashboard_sidewalk_cctv():
     )
 
 #회원용 CCTV 상세 보기
-@smartcity_bp.route('/user_dashboard/cctv/<int:street_light_id>')
+@smartcity.route('/user_dashboard/cctv/<int:street_light_id>')
 @login_required
 def user_dashboard_cctv(street_light_id):
     camera = manager.get_camera_by_info(street_light_id)
@@ -442,7 +446,7 @@ def user_dashboard_cctv(street_light_id):
 
 
 #회원용 문의하기
-@smartcity_bp.route('/user/inquiries', methods=['GET','POST'])
+@smartcity.route('/user/inquiries', methods=['GET','POST'])
 @login_required
 def user_dashboard_inquiries():
     userid = session['user_id']
@@ -454,7 +458,7 @@ def user_dashboard_inquiries():
         filename = file.filename if file else None
         # 파일이 있으면 저장
         if filename:
-            file.save(os.path.join(smartcity_bp.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(smartcity.config['UPLOAD_FOLDER'], filename))
         inquiry_reason = request.form['inquiry_type']
         detail_reason = request.form.get('message')
         manager.add_inquire_user(userid, filename, inquiry_reason, detail_reason)
@@ -462,7 +466,7 @@ def user_dashboard_inquiries():
         return redirect(url_for('user_dashboard'))
     
 #회원 문의된 정보 보기
-@smartcity_bp.route('/user/inquiries_view', methods=['GET','POST'])
+@smartcity.route('/user/inquiries_view', methods=['GET','POST'])
 @login_required
 def user_dashboard_inquiries_view():
     if request.method == 'GET':
@@ -490,7 +494,7 @@ def user_dashboard_inquiries_view():
             return render_template('user/inquiry_detail.html', posts=posts)
 
 # 회원탈퇴
-@smartcity_bp.route('/user_dashboard/delete_user', methods=['GET', 'POST'])
+@smartcity.route('/user_dashboard/delete_user', methods=['GET', 'POST'])
 @login_required
 def user_dashboard_delete_user():
     userid = session['user_id']
@@ -513,13 +517,13 @@ def user_dashboard_delete_user():
         return redirect(url_for('index'))
     
 #탈퇴회원 로그인 후 dashboard페이지
-@smartcity_bp.route('/delete_user_dashboard')
+@smartcity.route('/delete_user_dashboard')
 @login_required
 def delete_user():
     return render_template('delete_user_dashboard.html')
 
 #아이디/비밀번호찾기
-@smartcity_bp.route('/index/search_account', methods=['GET', 'POST'])
+@smartcity.route('/index/search_account', methods=['GET', 'POST'])
 def search_account():
     if request.method == 'POST':
         search_type = request.form.get('search_type')
@@ -544,7 +548,7 @@ def search_account():
     return render_template('public/search_account.html')
 
 #계정찾기 이후 새비밀번호 업데이트
-@smartcity_bp.route('/index/search_account/edit_password/<userid>', methods=['GET','POST'])
+@smartcity.route('/index/search_account/edit_password/<userid>', methods=['GET','POST'])
 def edit_password(userid):
     user = manager.get_user_info_by_id(userid)
     if request.method == 'POST': 
@@ -556,7 +560,7 @@ def edit_password(userid):
     
 
 ## 로그아웃 라우트
-@smartcity_bp.route('/logout')
+@smartcity.route('/logout')
 def logout():
     # session.pop('user', None)  # 세션에서 사용자 정보 제거
     # session.pop('role', None)  # 세션에서 역할 정보 제거
@@ -568,19 +572,19 @@ def logout():
 ### 관리자 페이지
 ## 사원 페이지
 # HOME
-@smartcity_bp.route('/staff/dashboard')
+@smartcity.route('/staff/dashboard')
 @staff_required  # 관리자만 접근 가능
 def staff_dashboard():
     return render_template('staff/dashboard.html')  # 스태프 대시보드 렌더링
 
-@smartcity_bp.route('/admin/dashboard')
+@smartcity.route('/admin/dashboard')
 @admin_required  # 관리자만 접근 가능
 def admin_dashboard():
     return render_template('admin/dashboard.html')  # 관리자 대시보드 렌더링
 
 # CCTV보기
 # 도로용 CCTV 목록 보기(관리자)
-@smartcity_bp.route('/staff/road_cctv', methods=['GET'])
+@smartcity.route('/staff/road_cctv', methods=['GET'])
 @staff_required 
 def staff_dashboard_road_cctv():
     search_query = request.args.get('search_query', '', type=str)
@@ -622,7 +626,7 @@ def staff_dashboard_road_cctv():
     )
 
 # 인도용 CCTV 목록 보기(관리자)
-@smartcity_bp.route('/staff/sidewalk_cctv', methods=['GET'])
+@smartcity.route('/staff/sidewalk_cctv', methods=['GET'])
 @staff_required
 def staff_sidewalk_cctv():
     search_query = request.args.get('search_query', '', type=str)
@@ -660,7 +664,7 @@ def staff_sidewalk_cctv():
     )
 
 # cctv 상세 보기(관리자)
-@smartcity_bp.route('/staff/cctv/<int:street_light_id>', methods=['GET'])
+@smartcity.route('/staff/cctv/<int:street_light_id>', methods=['GET'])
 def staff_dashboard_cctv(street_light_id):
     camera = manager.get_camera_by_info(street_light_id)
     mapped_id = street_light_id if street_light_id % 2 == 1 else street_light_id - 1
@@ -672,7 +676,7 @@ def staff_dashboard_cctv(street_light_id):
 
 ## 가로등
 # 전체 가로등 조회
-@smartcity_bp.route('/staff/all_street_lights', methods=['GET'])
+@smartcity.route('/staff/all_street_lights', methods=['GET'])
 @staff_required
 def staff_all_street_lights():
     page = request.args.get("page", 1, type=int)
@@ -711,7 +715,7 @@ def staff_all_street_lights():
     )
 
 # 직원 가로등 위치 보기
-@smartcity_bp.route("/staff/view_location/<int:street_light_id>")
+@smartcity.route("/staff/view_location/<int:street_light_id>")
 @staff_required
 def street_light_view_location(street_light_id):
     streetlight_info = manager.get_streetlight_location_by_id_api_key(street_light_id, KAKAO_API_KEY)
@@ -722,7 +726,7 @@ def street_light_view_location(street_light_id):
     return render_template("staff/street_light_view_location.html", streetlight_info=streetlight_info)
 
 # 유저 가로등 위치 보기
-@smartcity_bp.route("/user/view_location/<int:street_light_id>")
+@smartcity.route("/user/view_location/<int:street_light_id>")
 @login_required
 def user_street_light_view_location(street_light_id):
     streetlight_info = manager.get_streetlight_location_by_id_api_key(street_light_id, KAKAO_API_KEY)
@@ -734,7 +738,7 @@ def user_street_light_view_location(street_light_id):
 
 
 # 고장난 가로등 조회
-@smartcity_bp.route('/staff/broken_light', methods=['GET'])
+@smartcity.route('/staff/broken_light', methods=['GET'])
 @staff_required
 def staff_broken_light_check():
     search_query = request.args.get("search_query", "").strip()
@@ -786,7 +790,7 @@ def staff_broken_light_check():
     )
 
 # 설치된 가로등 등록
-@smartcity_bp.route('/staff/street_light_register', methods=['GET', 'POST'])
+@smartcity.route('/staff/street_light_register', methods=['GET', 'POST'])
 def street_light_register():
     if request.method == 'POST':
         # 폼 데이터 가져오기
@@ -808,11 +812,11 @@ def street_light_register():
     return render_template('staff/street_light_register.html')
 
 # 철거된 가로등 삭제
-@smartcity_bp.route('/staff/street_light_delete')
+@smartcity.route('/staff/street_light_delete')
 def street_light_delete():
     return render_template('staff/street_light_delete.html')
 
-@smartcity_bp.route('/api/decommissioned-streetlights', methods=['GET'])
+@smartcity.route('/api/decommissioned-streetlights', methods=['GET'])
 def search_decommissioned_streetlights():
     criteria = request.args.get('criteria')
     value = request.args.get('value')
@@ -851,7 +855,7 @@ def search_decommissioned_streetlights():
         db.disconnect()
 
 
-@smartcity_bp.route('/api/decommissioned-streetlights/<int:id>', methods=['DELETE'])
+@smartcity.route('/api/decommissioned-streetlights/<int:id>', methods=['DELETE'])
 def delete_streetlight(id):
     db = DBManager()
     db.connect()
@@ -876,7 +880,7 @@ def delete_streetlight(id):
 
 ##불법단속
 #자동차(도로) 단속 보드
-@smartcity_bp.route('/staff/road_car_board', methods=['GET'])
+@smartcity.route('/staff/road_car_board', methods=['GET'])
 @staff_required
 def staff_road_car_board():
     search_query = request.args.get("search_query", "").strip()
@@ -921,7 +925,7 @@ def staff_road_car_board():
     )
 
 #자동차(도로) 단속 카메라
-@smartcity_bp.route("/staff/road_car")
+@smartcity.route("/staff/road_car")
 @staff_required
 def staff_road_car():
     adminid = session.get('admin_id')
@@ -946,7 +950,7 @@ def staff_road_car():
 
 
 #오토바이(인도) 단속 보드
-@smartcity_bp.route('/staff/sidewalk_motorcycle_board', methods=['GET'])
+@smartcity.route('/staff/sidewalk_motorcycle_board', methods=['GET'])
 @staff_required
 def staff_sidewalk_motorcycle_board():
     search_query = request.args.get("search_query", "").strip()
@@ -992,7 +996,7 @@ def staff_sidewalk_motorcycle_board():
 
 
 #오토바이(인도) 단속
-@smartcity_bp.route("/staff/sidewalk_motorcycle")
+@smartcity.route("/staff/sidewalk_motorcycle")
 @staff_required
 def staff_sidewalk_motorcycle():
     adminid = session.get('admin_id')
@@ -1013,7 +1017,7 @@ def staff_sidewalk_motorcycle():
 
 
 # YOLO 분석된 영상 스트리밍
-@smartcity_bp.route("/processed_video_feed")
+@smartcity.route("/processed_video_feed")
 def processed_video_feed():
     """YOLOv8로 감지된 영상 스트리밍"""
     def generate():
@@ -1039,7 +1043,7 @@ def processed_video_feed():
 
 
 # OCR 결과 API
-@smartcity_bp.route("/ocr_result", methods=["GET"])
+@smartcity.route("/ocr_result", methods=["GET"])
 def get_ocr_result():
     """OCR 결과 반환 API"""
     response_data = {"license_plate": license_plate.ocr_result, "alert_message": license_plate.alert_message}
@@ -1049,14 +1053,14 @@ def get_ocr_result():
     return jsonify(response_data)
 
 # ✅ ESP32-CAM에서 감지된 오토바이 영상 제공
-@smartcity_bp.route("/video_feed")
+@smartcity.route("/video_feed")
 def video_feed():
     """ESP32-CAM 스트리밍"""
     return Response(motorcycle.get_video_frame(), mimetype="multipart/x-mixed-replace; boundary=frame")
 
 
 # ✅ 오토바이 감지 상태 API
-@smartcity_bp.route("/alert_status", methods=["GET"])
+@smartcity.route("/alert_status", methods=["GET"])
 def alert_status():
     """오토바이 감지 상태 반환"""
     return jsonify(motorcycle.get_alert_status())
@@ -1064,7 +1068,7 @@ def alert_status():
 
 ##관리자 페이지에서 문의정보 보기
 #문의된 정보 보기
-@smartcity_bp.route('/staff/inquiries_view', methods=['GET', 'POST'])
+@smartcity.route('/staff/inquiries_view', methods=['GET', 'POST'])
 @staff_required
 def staff_inquiries_view():
     # 문의 정보 보기
@@ -1102,7 +1106,7 @@ def staff_inquiries_view():
 
 
 # 답변 하기
-@smartcity_bp.route('/staff/answer_inquiry', methods=['POST'])
+@smartcity.route('/staff/answer_inquiry', methods=['POST'])
 @staff_required
 def staff_answer_inquiry():
     # 필수 필드 확인
@@ -1121,7 +1125,7 @@ def staff_answer_inquiry():
     return redirect(url_for('staff_inquiries_view'))
 
 # 답변 수정하기 
-@smartcity_bp.route('/staff/update_inquiry_answer', methods=['POST'])
+@smartcity.route('/staff/update_inquiry_answer', methods=['POST'])
 @staff_required
 def update_inquiry_answer():
     user_id = request.form.get('user_id')
@@ -1142,7 +1146,7 @@ def update_inquiry_answer():
 
 
 # 문의된 정보 보기 (미답변만)
-@smartcity_bp.route('/staff/inquiries_pending', methods=['GET', 'POST'])
+@smartcity.route('/staff/inquiries_pending', methods=['GET', 'POST'])
 @staff_required
 def staff_inquiries_pending():
     if request.method == 'GET':
@@ -1175,7 +1179,7 @@ def staff_inquiries_pending():
         return render_template('staff/view_post_detail_pending.html', post=post)
 
 # 답변 하기
-@smartcity_bp.route('/staff/answer_inquiry_pending', methods=['POST'])
+@smartcity.route('/staff/answer_inquiry_pending', methods=['POST'])
 @staff_required
 def staff_answer_inquiry_pending():
     # 필수 필드 확인
@@ -1194,14 +1198,14 @@ def staff_answer_inquiry_pending():
     return redirect(url_for('staff_inquiries_pending'))
 
 # 이미지파일 가져오기
-@smartcity_bp.route('/capture_file/<filename>')
+@smartcity.route('/capture_file/<filename>')
 def capture_file(filename):
-    return send_from_directory(smartcity_bp.config['UPLOAD_FOLDER'], filename)
+    return send_from_directory(smartcity.config['UPLOAD_FOLDER'], filename)
 
 
 ## 관리자페이지
 # 직원등록
-@smartcity_bp.route('/admin/staff_register', methods=['GET', 'POST'])
+@smartcity.route('/admin/staff_register', methods=['GET', 'POST'])
 @admin_required
 def admin_staff_register():
     if request.method == 'POST':
@@ -1269,7 +1273,7 @@ def admin_staff_register():
     return render_template('admin/staff_register.html')
 
 #직원 삭제
-@smartcity_bp.route('/admin/staff_delete', methods=['GET', 'POST'])
+@smartcity.route('/admin/staff_delete', methods=['GET', 'POST'])
 @admin_required
 def admin_staff_delete():
     db_manager = DBManager()
@@ -1322,7 +1326,7 @@ def admin_staff_delete():
 # 최근 명령을 저장할 딕셔너리 (초기 상태)
 command_cache = {}
 
-@smartcity_bp.route('/command', methods=['GET'])
+@smartcity.route('/command', methods=['GET'])
 def command():
     target = request.args.get('target')
     
@@ -1333,7 +1337,7 @@ def command():
     command_cache[target]["cmd"] = None  # 명령 초기화
     return response
 
-@smartcity_bp.route('/set_command', methods=['GET'])
+@smartcity.route('/set_command', methods=['GET'])
 def set_command():
     target = request.args.get('target')
     cmd = request.args.get('cmd')
@@ -1353,7 +1357,7 @@ def set_command():
     return jsonify({"status": "ok", "command": cmd})
 
 
-@smartcity_bp.route('/staff/fix_lights', methods=['GET'])
+@smartcity.route('/staff/fix_lights', methods=['GET'])
 def staff_fix_lights():
     page = request.args.get('page', 1, type=int)
     per_page = 10
