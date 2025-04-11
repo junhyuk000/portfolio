@@ -26,16 +26,11 @@ def okt_tokenizer(text):
     return okt.morphs(text)
 
 
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-popcornapp = Blueprint(
-    'popcornapp',
-    __name__,
-    static_folder=os.path.join(basedir, 'static'),
-    template_folder=os.path.join(basedir, 'templates'),
-    url_prefix='/popcornapp'
-)
+# Blueprint 정의
+popcornapp = Blueprint('popcornapp', __name__, 
+                          static_folder='static', 
+                          template_folder='templates', 
+                          url_prefix='/popcornapp')
 
 manager = DBManager()
 

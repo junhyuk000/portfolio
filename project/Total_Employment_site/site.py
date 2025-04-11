@@ -44,15 +44,11 @@ DB_CONFIG = {
 
 
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-employment_site = Blueprint(
-    'employment_site',
-    __name__,
-    static_folder=os.path.join(basedir, 'static'),
-    template_folder=os.path.join(basedir, 'templates'),
-    url_prefix='/employment'
-)
+# Blueprint 정의
+employment_site = Blueprint('employment_site', __name__, 
+                          static_folder='static', 
+                          template_folder='templates', 
+                          url_prefix='/employment')
 
 # global_search_title = None
 
