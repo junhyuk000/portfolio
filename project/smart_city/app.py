@@ -3,7 +3,7 @@ import os
 import requests
 from datetime import datetime, timedelta
 from functools import wraps
-from models import DBManager
+from project.smart_city.models import DBManager
 from markupsafe import Markup
 from dotenv import load_dotenv
 from konlpy.tag import Okt
