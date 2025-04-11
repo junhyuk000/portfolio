@@ -15,9 +15,9 @@ class DBManager:
     def connect(self): 
         try :
             self.connection = mysql.connector.connect(
-                host = "10.0.66.94",
-                user = "sejong",
-                password="1234",
+                host = "192.168.0.3",
+                user = "junhyuk",
+                password="Wnsgur151@",
                 database="smart_city",
                 charset="utf8mb4"
             )

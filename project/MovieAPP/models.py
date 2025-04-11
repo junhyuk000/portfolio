@@ -31,8 +31,8 @@ class DBManager:
         try:
             if not self.connection or not self.connection.is_connected():
                 self.connection = mysql.connector.connect(
-                    host='192.168.0.19',
-                    user='root',
+                    host='192.168.0.3',
+                    user='junhyuk',
                     password='Wnsgur151@',
                     database='movie_db',
                     connection_timeout=600  # 10분
