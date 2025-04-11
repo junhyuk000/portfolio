@@ -32,9 +32,9 @@ smartcity = Blueprint(
     'smartcity',
     __name__,
     static_folder=os.path.join(basedir, 'static'),
-    template_folder=os.path.join(basedir, 'templates'),
     url_prefix='/smartcity'
 )
+
 
 # 모듈의 __main__ 네임스페이스에 직접 등록
 sys.modules['__main__'].okt_tokenizer = okt_tokenizer
