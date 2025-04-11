@@ -32,6 +32,7 @@ smartcity = Blueprint(
     'smartcity',
     __name__,
     static_folder=os.path.join(basedir, 'static'),
+    template_folder=os.path.join(basedir, '..', '..', 'templates'),  # 👈 이거 추가
     url_prefix='/smartcity'
 )
 
