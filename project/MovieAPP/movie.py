@@ -25,13 +25,15 @@ okt = Okt()
 def okt_tokenizer(text):
     return okt.morphs(text)
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-# Blueprint 정의
-popcornapp = Blueprint('popcornapp', __name__, 
-                          static_folder='static', 
-                          template_folder='templates', 
-                          url_prefix='/popcornapp')
-
+popcornapp = Blueprint(
+    'popcornapp',
+    __name__,
+    static_folder=os.path.join(basedir, 'static'),
+    template_folder=os.path.join(basedir, 'templates'),
+    url_prefix='/popcornapp'
+)
 manager = DBManager()
 
 # 모듈의 __main__ 네임스페이스에 직접 등록
