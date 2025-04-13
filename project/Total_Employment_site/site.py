@@ -8,6 +8,7 @@ import pymysql
 import os
 import urllib
 import tempfile
+import shutil
 
 ### 변경부분
 # ChromeDriver 경로 설정
@@ -18,21 +19,32 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 
 def get_chrome_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless=new")  # 새로운 headless 모드 (Chromium 109+)
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
 
-    # ✅ 고유 임시 디렉터리 지정 (중복 방지)
+    # ✅ 매번 고유한 임시 디렉토리 생성
     user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
     chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
-    # ✅ 경로 확인
-    chrome_options.binary_location = "/usr/bin/google-chrome"  # 또는 실제 경로 확인
+    # ✅ Chrome 실행 경로 및 드라이버 설정
+    chrome_options.binary_location = "/usr/bin/google-chrome"
+    service = Service("/usr/local/bin/chromedriver")
 
-    # ✅ ChromeDriver 경로
-    service = Service("/usr/local/bin/chromedriver")  # 실제 설치 경로 확인
+    # ✅ 드라이버 생성
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    return webdriver.Chrome(service=service, options=chrome_options)
+    # ✅ 드라이버 종료 시 temp 폴더도 삭제
+    def cleanup():
+        try:
+            driver.quit()
+        except:
+            pass
+        shutil.rmtree(user_data_dir, ignore_errors=True)
+
+    driver.cleanup = cleanup
+    return driver
 
 
 ###변경
@@ -157,7 +169,8 @@ def saramin_top():
     except Exception as e:
         print(f"사람인 크롤링 중 에러 발생: {e}")
     finally:
-        driver.quit()
+        driver.cleanup()
+
 
     save_to_db(company_list, 'saramin_top')
     return render_template('top.html')
@@ -200,7 +213,8 @@ def jobkorea_top():
     except Exception as e:
         print(f"잡코리아 크롤링 중 에러 발생: {e}")
     finally:
-        driver.quit()
+        driver.cleanup()
+
 
     save_to_db(company_list, 'jobkorea_top')
     return company_list
@@ -243,7 +257,8 @@ def incruit_top():
     except Exception as e:
         print(f"인크루트 크롤링 중 에러 발생: {e}")
     finally:
-        driver.quit()
+        driver.cleanup()
+
 
     save_to_db(company_list, 'incruit_top')
     return company_list
@@ -301,7 +316,8 @@ def saramin_search(search_title):
     except Exception as e:
         print(f"사람인 크롤링 중 에러 발생: {e}")
     finally:
-        driver.quit()
+        driver.cleanup()
+
 
     save_to_db(company_list, f'saramin_{search_title1}')
     return company_list
@@ -364,7 +380,8 @@ def jobkorea_search(search_title):
     except Exception as e:
         print(f"잡코리아 크롤링 중 에러 발생: {e}")
     finally:
-        driver.quit()
+        driver.cleanup()
+
 
     save_to_db(company_list, f'jobkorea_{search_title1}')
     return company_list
@@ -427,7 +444,8 @@ def incruit_search(search_title):
     except Exception as e:
         print(f"인크루트 크롤링 중 에러 발생: {e}")
     finally:
-        driver.quit()
+        driver.cleanup()
+
 
     save_to_db(company_list, f'incruit_{search_title1}')
     return company_list
