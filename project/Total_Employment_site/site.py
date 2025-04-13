@@ -19,23 +19,20 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 
 def get_chrome_driver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless=new")  # 새로운 headless 모드 (Chromium 109+)
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
 
-    # ✅ 매번 고유한 임시 디렉토리 생성
+    # ✅ 중복 방지를 위한 고유 임시 user-data-dir 생성
     user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
     chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
-    # ✅ Chrome 실행 경로 및 드라이버 설정
     chrome_options.binary_location = "/usr/bin/google-chrome"
     service = Service("/usr/local/bin/chromedriver")
-
-    # ✅ 드라이버 생성
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    # ✅ 드라이버 종료 시 temp 폴더도 삭제
+    # ✅ 종료 시 디렉토리 정리
     def cleanup():
         try:
             driver.quit()
@@ -45,7 +42,6 @@ def get_chrome_driver():
 
     driver.cleanup = cleanup
     return driver
-
 
 ###변경
 
