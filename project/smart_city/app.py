@@ -50,6 +50,33 @@ KAKAO_API_KEY = os.getenv("KAKAO_API_KEY")
 # # 업로드 폴더가 없으면 생성
 # os.makedirs(smartcity.config['UPLOAD_FOLDER'], exist_ok=True)
 
+
+### images 폴더 static/images 폴더로 연결
+@smartcity.route('/images/<path:filename>')
+def img_file(filename):
+    return send_from_directory('static/images', filename)
+
+# 정적 폴더에서 폰트 파일 제공
+@smartcity.route('/static/fonts/<path:filename>')
+def serve_fonts(filename):
+    return send_from_directory('static/fonts', filename)
+
+### js 폴더 static/js 폴더로 연결
+@smartcity.route('/js/<path:filename>')
+def js_file(filename):
+    return send_from_directory('static/js', filename)
+
+### user_image 폴더 static/user_image 폴더로 연결
+@smartcity.route('/user_image/<path:filename>')
+def user_img_file(filename):
+    return send_from_directory('static/user_image', filename)
+
+### uploads 폴더 static/uploads폴더로 연결
+@smartcity.route('/uploads/<path:filename>')
+def uploads_file(filename):
+    return send_from_directory('static/uploads', filename)
+
+
 # Flask서버 실행시 보안상태 업데이트
 @smartcity.before_request
 def update_security_status_on_start():
