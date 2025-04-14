@@ -28,7 +28,7 @@ def get_chrome_driver():
     os.makedirs(user_data_dir, exist_ok=True)
 
     print(f"✅ 생성된 user-data-dir: {user_data_dir}")  # 로그 찍기
-    # chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
+    chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
     chrome_options.binary_location = "/usr/bin/google-chrome"
     service = Service("/usr/local/bin/chromedriver")
