@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import pymysql
 import os
@@ -44,7 +46,7 @@ def get_chrome_driver(max_retries=3):
             print(f"Chrome driver creation attempt #{attempt}")
 
             chrome_options = Options()
-            chrome_options.add_argument("--headless=new")
+            chrome_options.add_argument("--headless=chrome")
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument("--disable-dev-shm-usage")
             chrome_options.add_argument("--disable-gpu")
@@ -216,12 +218,25 @@ def jobkorea_top():
 
     driver.set_page_load_timeout(30)
     company_list = []
+
     try:
         driver.get("https://www.jobkorea.co.kr/top100/")
-        time.sleep(1)
+        print("📄 JobKorea TOP100 페이지 접속 완료")
+
+        # 요소가 로드될 때까지 명시적으로 대기
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'div.rankListWrap > div.rankListArea.devSarterTab > ol > li'))
+        )
+
         items = driver.find_elements(By.CSS_SELECTOR, 'div.rankListWrap > div.rankListArea.devSarterTab > ol > li')
 
-        for item in items:
+        if not items:
+            print("❌ 공고 리스트 요소 없음. 페이지 렌더링 실패 가능성 있음.")
+            with open("/tmp/jk_debug.html", "w", encoding="utf-8") as f:
+                f.write(driver.page_source)
+            return []
+
+        for item in items[:10]:  # TOP 10만 추출
             try:
                 company = item.find_element(By.CSS_SELECTOR, 'a.coLink').text
                 title = item.find_element(By.CSS_SELECTOR, 'div.info > div.tit > a').text
