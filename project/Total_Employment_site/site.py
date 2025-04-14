@@ -10,7 +10,7 @@ import urllib
 import tempfile
 import shutil
 import uuid
-
+import psutil
 
 
 ### 변경부분
@@ -20,9 +20,23 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 # Windows 환경일 경우
 # CHROMEDRIVER_PATH = r"C:\junhyuk\chromedriver-win64\chromedriver.exe"  # ChromeDriver 설치 경로 확인 후 수정
 
+
+
+
+def kill_chrome_processes():
+    for proc in psutil.process_iter(['name']):
+        try:
+            if proc.info['name'] in ['chrome', 'chromedriver']:
+                proc.kill()
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            pass
+
+
 def get_chrome_driver(max_retries=3):
     attempt = 0
-    
+    kill_chrome_processes()
+
+
     while attempt < max_retries:
         try:
             attempt += 1
