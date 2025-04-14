@@ -30,7 +30,10 @@ def get_chrome_driver():
 
     chrome_options.binary_location = "/usr/bin/google-chrome"
     service = Service("/usr/local/bin/chromedriver")
+    print(f"크롬 드라이버 생성 시작")
     driver = webdriver.Chrome(service=service, options=chrome_options)
+    print(f"크롬 드라이버 생성 완료")
+
 
     def cleanup():
         try:
