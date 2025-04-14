@@ -48,10 +48,9 @@ def get_chrome_driver(max_retries=3):
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument("--disable-dev-shm-usage")
             chrome_options.add_argument("--disable-gpu")
-
             chrome_options.binary_location = "/usr/bin/google-chrome"
 
-            # 🔑 고유 user-data-dir 지정
+            # 고유 디렉토리 생성
             user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
             chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
@@ -59,7 +58,6 @@ def get_chrome_driver(max_retries=3):
             driver = webdriver.Chrome(service=service, options=chrome_options)
 
             def cleanup():
-                print(f"🧹 Cleaning up Chrome session: {user_data_dir}")
                 try:
                     driver.quit()
                 except:
@@ -74,9 +72,9 @@ def get_chrome_driver(max_retries=3):
 
         except Exception as e:
             print(f"❗ Chrome driver creation failed: {e}")
-            time.sleep(3)
+            time.sleep(2)
 
-    return None  # 모든 시도 실패 시 명확하게 None 반환
+    return None
 
 
 ###변경
@@ -162,7 +160,8 @@ def load_from_db(table_name):
 def saramin_top():
     driver = get_chrome_driver()
     if driver is None:
-        return "크롬 드라이버 생성 실패", 500
+        print("❌ 크롬 드라이버 생성 실패")
+        return []
     driver.set_page_load_timeout(30)
     driver.get(f"https://www.saramin.co.kr/zf_user/jobs/hot100")
     # driver.maximize_window()
@@ -259,7 +258,8 @@ def jobkorea_top():
 def incruit_top():
     driver = get_chrome_driver()
     if driver is None:
-        return "크롬 드라이버 생성 실패", 500
+        print("❌ 크롬 드라이버 생성 실패")
+        return []
     driver.set_page_load_timeout(30)
     driver.get(f"https://job.incruit.com/jobdb_list/searchjob.asp?cate=occu&sortfield=applycnt&sortorder=1&page=1")
     # driver.maximize_window()
@@ -309,7 +309,8 @@ def saramin_search(search_title):
 
     driver = get_chrome_driver()
     if driver is None:
-        return "크롬 드라이버 생성 실패", 500
+        print("❌ 크롬 드라이버 생성 실패")
+        return []
     driver.set_page_load_timeout(30)
     driver.get(f"https://www.saramin.co.kr/zf_user/search?search_area=main&search_done=y&search_optional_item=n&searchType=recently&searchword={search_title}")
     # driver.maximize_window()
@@ -370,7 +371,8 @@ def jobkorea_search(search_title):
 
     driver = get_chrome_driver()
     if driver is None:
-        return "크롬 드라이버 생성 실패", 500
+        print("❌ 크롬 드라이버 생성 실패")
+        return []
     driver.set_page_load_timeout(30)
     driver.get(f"https://www.jobkorea.co.kr/Search/?stext={search_title}")
     # driver.maximize_window()
@@ -435,7 +437,8 @@ def incruit_search(search_title):
 
     driver = get_chrome_driver()
     if driver is None:
-        return "크롬 드라이버 생성 실패", 500
+        print("❌ 크롬 드라이버 생성 실패")
+        return []
     driver.set_page_load_timeout(30)
     driver.get(f"https://search.incruit.com/list/search.asp?col=job&kw={encoded_string}")
     # driver.maximize_window()
