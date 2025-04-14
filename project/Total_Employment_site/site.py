@@ -20,37 +20,88 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 # Windows 환경일 경우
 # CHROMEDRIVER_PATH = r"C:\junhyuk\chromedriver-win64\chromedriver.exe"  # ChromeDriver 설치 경로 확인 후 수정
 
-def get_chrome_driver():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless=new")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-
-    # ✅ UUID 사용으로 절대 중복 없는 세션 디렉토리 생성
-    user_data_dir = os.path.join("/tmp", f"chrome-user-data-{uuid.uuid4()}")
-    os.makedirs(user_data_dir, exist_ok=True)
-
-    print(f"✅ 생성된 user-data-dir: {user_data_dir}")
-    chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
-
-    chrome_options.binary_location = "/usr/bin/google-chrome"
-    service = Service("/usr/local/bin/chromedriver")
-
-    print(f"크롬 드라이버 생성 시작")
-    driver = webdriver.Chrome(service=service, options=chrome_options)
-    print(f"크롬 드라이버 생성 완료")
-
-    def cleanup():
-        print(f"🧹 Cleaning up Chrome session: {user_data_dir}")
+def get_chrome_driver(max_retries=3):
+    attempt = 0
+    
+    while attempt < max_retries:
         try:
-            driver.quit()
+            attempt += 1
+            print(f"Chrome driver creation attempt #{attempt}")
+            
+            # Generate unique user data directory
+            user_data_dir = os.path.join("/tmp", f"chrome-user-data-{uuid.uuid4()}")
+            os.makedirs(user_data_dir, exist_ok=True)
+            print(f"✅ 생성된 user-data-dir: {user_data_dir}")
+            
+            # Setup Chrome options
+            chrome_options = Options()
+            chrome_options.add_argument("--headless=new")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--disable-gpu")
+            chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
+            chrome_options.binary_location = "/usr/bin/google-chrome"
+            
+            # Force kill any existing chromedriver processes
+            try:
+                os.system("pkill -f chromedriver")
+                time.sleep(1)  # Give time for processes to terminate
+            except Exception as e:
+                print(f"Warning: Failed to kill existing chromedriver processes: {e}")
+            
+            service = Service("/usr/local/bin/chromedriver")
+            
+            print(f"크롬 드라이버 생성 시작")
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            print(f"크롬 드라이버 생성 완료")
+            
+            def cleanup():
+                print(f"🧹 Cleaning up Chrome session: {user_data_dir}")
+                try:
+                    driver.quit()
+                except Exception as e:
+                    print(f"❗ driver.quit() error: {e}")
+                    
+                try:
+                    # Force close any remaining processes
+                    os.system("pkill -f chrome")
+                    time.sleep(1)
+                except Exception as e:
+                    print(f"❗ Force close error: {e}")
+                    
+                try:
+                    shutil.rmtree(user_data_dir, ignore_errors=True)
+                    print(f"🧹 Removed user data directory: {user_data_dir}")
+                except Exception as e:
+                    print(f"❗ Directory cleanup error: {e}")
+            
+            driver.cleanup = cleanup
+            return driver
+            
         except Exception as e:
-            print(f"❗ driver.quit() error: {e}")
-        shutil.rmtree(user_data_dir, ignore_errors=True)
-
-    driver.cleanup = cleanup
-    return driver
+            print(f"❗ Chrome driver creation failed (attempt {attempt}/{max_retries}): {e}")
+            
+            # Try to clean up any mess before retrying
+            try:
+                os.system("pkill -f chrome")
+                os.system("pkill -f chromedriver")
+                time.sleep(2)  # Give time for processes to terminate
+                
+                # If user_data_dir was created, remove it
+                if 'user_data_dir' in locals():
+                    try:
+                        shutil.rmtree(user_data_dir, ignore_errors=True)
+                        print(f"🧹 Removed failed user data directory: {user_data_dir}")
+                    except:
+                        pass
+            except:
+                pass
+            
+            if attempt >= max_retries:
+                raise
+            
+            # Wait before retrying
+            time.sleep(3)
 
 ###변경
 
@@ -73,7 +124,7 @@ employment_site = Blueprint(
     template_folder=os.path.join(basedir, 'templates'),
     url_prefix='/employment'
 )
-# global_search_title = None
+global_search_title = None
 
 # 데이터베이스 관련 함수들은 동일하게 유지
 def get_db_connection():
@@ -180,15 +231,17 @@ def saramin_top():
     save_to_db(company_list, 'saramin_top')
     return render_template('top.html')
 
-# 잡코리아 top_10
+# 잡코리아 top10
 def jobkorea_top():
+    driver = None
     company_list = []
-    driver = get_chrome_driver()
-    driver.set_page_load_timeout(30)
-    driver.get(f"https://www.jobkorea.co.kr/top100/")
-    # driver.maximize_window()
-    time.sleep(1)
-    try:        
+    
+    try:
+        driver = get_chrome_driver()
+        driver.set_page_load_timeout(30)
+        driver.get(f"https://www.jobkorea.co.kr/top100/")
+        time.sleep(1)
+        
         items = driver.find_elements(By.CSS_SELECTOR, 'div.rankListWrap > div.rankListArea.devSarterTab > ol > li')
 
         for item in items:
@@ -210,16 +263,19 @@ def jobkorea_top():
                     'url': url,
                     'site': '잡코리아'
                 })
-
             except Exception as e:
-                pass
+                print(f"Job item extraction error: {e}")
+                continue
 
         time.sleep(1)
     except Exception as e:
         print(f"잡코리아 크롤링 중 에러 발생: {e}")
     finally:
-        driver.cleanup()
-
+        if driver:
+            try:
+                driver.cleanup()
+            except Exception as e:
+                print(f"Driver cleanup error in jobkorea_top: {e}")
 
     save_to_db(company_list, 'jobkorea_top')
     return company_list
