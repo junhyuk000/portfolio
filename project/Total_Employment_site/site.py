@@ -209,19 +209,15 @@ def saramin_top():
     save_to_db(company_list, 'saramin_top')
     return render_template('top.html')
 
-# 잡코리아 top10
+# 잡코리아 top_10
 def jobkorea_top():
-    driver = None
     company_list = []
-    
-    try:
-        driver = get_chrome_driver()
-        if driver is None:
-            return "크롬 드라이버 생성 실패", 500
-        driver.set_page_load_timeout(30)
-        driver.get(f"https://www.jobkorea.co.kr/top100/")
-        time.sleep(1)
-        
+    driver = get_chrome_driver()
+    driver.set_page_load_timeout(30)
+    driver.get(f"https://www.jobkorea.co.kr/top100/")
+    # driver.maximize_window()
+    time.sleep(1)
+    try:        
         items = driver.find_elements(By.CSS_SELECTOR, 'div.rankListWrap > div.rankListArea.devSarterTab > ol > li')
 
         for item in items:
@@ -243,19 +239,15 @@ def jobkorea_top():
                     'url': url,
                     'site': '잡코리아'
                 })
+
             except Exception as e:
-                print(f"Job item extraction error: {e}")
-                continue
+                pass
 
         time.sleep(1)
     except Exception as e:
         print(f"잡코리아 크롤링 중 에러 발생: {e}")
     finally:
-        if driver:
-            try:
-                driver.cleanup()
-            except Exception as e:
-                print(f"Driver cleanup error in jobkorea_top: {e}")
+        driver.quit()
 
     save_to_db(company_list, 'jobkorea_top')
     return company_list
