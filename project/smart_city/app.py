@@ -592,7 +592,7 @@ def logout():
     # session.pop('user', None)  # 세션에서 사용자 정보 제거
     # session.pop('role', None)  # 세션에서 역할 정보 제거
     session.clear()
-    return redirect('/')  # 로그아웃 후 로그인 페이지로 리디렉션
+    return redirect(url_for('smartcity.index'))  # 로그아웃 후 로그인 페이지로 리디렉션
 
 
 
