@@ -45,10 +45,12 @@
 <body>
     <header class="header">
         <!-- 상단 헤더 영역 -->
-        <div class="header-top d-flex justify-content-between align-items-center">
+        <div class="header-top d-flex justify-content-start align-items-center px-3">
             <div class="left-controls d-flex align-items-center">
+                <!-- 포트폴리오 버튼 왼쪽 -->
                 <a href="{{ url_for('index') }}" class="btn-portfolio me-3">Portfolio</a>
         
+                <!-- 다크모드 토글 오른쪽 -->
                 <div class="toggle-container">
                     <span class="mode-text" id="mode-text">다크모드</span>
                     <div class="toggle-switch">
