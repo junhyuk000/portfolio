@@ -24,9 +24,11 @@ def get_chrome_driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
 
-    user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
+    user_data_dir = os.path.join("/tmp", f"chrome-user-data-{os.getpid()}-{int(time.time())}")
+    os.makedirs(user_data_dir, exist_ok=True)
+
     print(f"✅ 생성된 user-data-dir: {user_data_dir}")  # 로그 찍기
-    chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
+    # chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
     chrome_options.binary_location = "/usr/bin/google-chrome"
     service = Service("/usr/local/bin/chromedriver")
@@ -36,11 +38,13 @@ def get_chrome_driver():
 
 
     def cleanup():
+        print(f"🧹 Cleaning up Chrome session: {user_data_dir}")
         try:
             driver.quit()
-        except:
-            pass
+        except Exception as e:
+            print(f"❗ driver.quit() error: {e}")
         shutil.rmtree(user_data_dir, ignore_errors=True)
+
 
     driver.cleanup = cleanup
     return driver
