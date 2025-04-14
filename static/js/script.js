@@ -30,8 +30,7 @@ function openSmartcityYoutubePopup() {
     const height = 450;
     const left = (window.innerWidth - width) / 2;
     const top = (window.innerHeight - height) / 2;
-
-    const url = "https://www.youtube.com/embed/nQJVGFXzzqI?autoplay=1";
+    const url = "https://www.youtube.com/embed/Wto9AjWays8?autoplay=1";
 
     window.open(
         url,
