@@ -89,7 +89,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session and 'admin_id' not in session :  # 'user_id' 또는 'admin_id'가 세션에 없다면
-            return redirect('/login')  # 로그인 페이지로 리디렉션
+            return redirect(url_for('smartcity.login'))  # 로그인 페이지로 리디렉션
         return f(*args, **kwargs)
     return decorated_function
 
@@ -98,7 +98,7 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'admin_id' not in session:  # 'adminid'가 세션에 없다면
-            return redirect('/login')  # 로그인 페이지로 리디렉션
+            return redirect(url_for('smartcity.login'))  # 로그인 페이지로 리디렉션
         
         # 관리자 정보 확인
         admin = manager.get_admin_by_id(session['admin_id'])  # 세션의 관리자 ID로 확인
@@ -112,7 +112,7 @@ def staff_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'admin_id' not in session:  # 'adminid'가 세션에 없다면
-            return redirect('/login')  # 로그인 페이지로 리디렉션
+            return redirect(url_for('smartcity.login'))  # 로그인 페이지로 리디렉션
         # 관리자 정보 확인
         admin = manager.get_admin_by_id(session['admin_id'])  # 세션의 관리자 ID로 확인
         if not admin or admin['role'] != 'staff':  # 사원이 아니면
@@ -283,7 +283,7 @@ def login():
                     else :
                         session.clear() # 세션을 초기화
                         flash('회원 탈퇴된 계정입니다. 관리자 이메일로 문의하세요', 'error')
-                        return redirect('login') # 탈퇴한 계정
+                        return redirect(url_for('smartcity.login')) # 탈퇴한 계정
                 else:
                     flash('아이디 또는 비밀번호가 일치하지 않습니다.', 'error')  # 로그인 실패 시 메시지
                     return redirect(url_for('smartcity.login'))  # 로그인 폼 다시 렌더링          
