@@ -44,7 +44,7 @@
                         <img src="{{ url_for('smartcity.static', filename='images/logo_darkmode.png') }}" alt="팀 로고 다크모드" class="logo-dark">
                     </a>
                     {% else %}
-                    <a href="{{ url_for('staff_dashboard') }}">
+                    <a href="{{ url_for('smartcity.staff_dashboard') }}">
                         <img src="{{ url_for('smartcity.static', filename='images/logo.png') }}" alt="팀 로고" class="logo">
                         <img src="{{ url_for('smartcity.static', filename='images/logo_darkmode.png') }}" alt="팀 로고 다크모드" class="logo-dark">
                     </a>
@@ -54,7 +54,7 @@
                     <img src="{{ url_for('smartcity.static', filename='images/logo.png') }}" alt="팀 로고" class="logo">
                     <img src="{{ url_for('smartcity.static', filename='images/logo_darkmode.png') }}" alt="팀 로고 다크모드" class="logo-dark">
                 {% else %}
-                <a href="{{ url_for('index') }}">
+                <a href="{{ url_for('smartcity.index') }}">
                     <img src="{{ url_for('smartcity.static', filename='images/logo.png') }}" alt="팀 로고" class="logo">
                     <img src="{{ url_for('smartcity.static', filename='images/logo_darkmode.png') }}" alt="팀 로고 다크모드" class="logo-dark">
                 </a>
