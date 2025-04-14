@@ -241,10 +241,10 @@ def register():
 
         if manager.register_users(user_id, user_name, password, email, address, birthday, reg_number, gender):
             flash('회원가입 신청이 완료되었습니다.', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('smartcity.index'))
         
         flash('회원가입에 실패했습니다.', 'error')
-        return redirect(url_for('register'))
+        return redirect(url_for('smartcity.register'))
     return render_template('public/register.html')
 
 # 이용약관 페이지
@@ -279,14 +279,14 @@ def login():
                         if user['security_status'] == 1 : #보안이 위험일때 경고알림
                             message = Markup('암호를 변경한지 90일 지났습니다.<br>암호를 변경하시길 권장합니다.')#Markup과 <br>태그로 flash메세지 줄나눔
                             flash(message, 'warning')
-                        return redirect(url_for('user_dashboard')) # 회원 페이지로 이동
+                        return redirect(url_for('smartcity.user_dashboard')) # 회원 페이지로 이동
                     else :
                         session.clear() # 세션을 초기화
                         flash('회원 탈퇴된 계정입니다. 관리자 이메일로 문의하세요', 'error')
                         return redirect('login') # 탈퇴한 계정
                 else:
                     flash('아이디 또는 비밀번호가 일치하지 않습니다.', 'error')  # 로그인 실패 시 메시지
-                    return redirect(url_for('login'))  # 로그인 폼 다시 렌더링          
+                    return redirect(url_for('smartcity.login'))  # 로그인 폼 다시 렌더링          
                 
         elif admin:
             if id and password: 
@@ -296,23 +296,23 @@ def login():
                     session['admin_role'] = admin['role'] #세션에 관리자 역활 저장
                     manager.update_admin_last_login(id) # 로그인 성공 후 관리자 마지막 로그인 갱신
                     if admin['role'] == 'admin':
-                        return redirect(url_for('admin_dashboard')) #관리자 페이지로 이동
+                        return redirect(url_for('smartcity.admin_dashboard')) #관리자 페이지로 이동
                     else :
-                        return redirect(url_for('staff_dashboard')) #사원 페이지로 이동
+                        return redirect(url_for('smartcity.staff_dashboard')) #사원 페이지로 이동
                 else: 
                     flash('아이디 또는 비밀번호가 일치하지 않습니다.', 'error')  # 로그인 실패 시 메시지
-                    return redirect(url_for('login'))  # 로그인 폼 다시 렌더링 
+                    return redirect(url_for('smartcity.login'))  # 로그인 폼 다시 렌더링 
                 
         else:  # 존재하지 않는 사용자
             flash("존재하지 않는 아이디입니다.", 'error')
-            return redirect(url_for('login'))  # 로그인 폼 다시 렌더링
+            return redirect(url_for('smartcity.login'))  # 로그인 폼 다시 렌더링
 
     return render_template('public/login.html')  # GET 요청 시 로그인 폼 보여주기
 
 @smartcity.route('/need_login')
 def need_login():
     flash('로그인이 필요합니다. 로그인해주세요', 'error')
-    return redirect(url_for('login'))
+    return redirect(url_for('smartcity.login'))
 
 ### 회원 페이지
 ##로그인 후 회원페이지
@@ -358,14 +358,14 @@ def user_update_profile():
                 manager.update_user_password(userid, password)
                 session.clear()
                 flash('비밀번호를 변경하였습니다', 'success')
-                return redirect(url_for('login'))  # 로그인 페이지로 리디렉션
+                return redirect(url_for('smartcity.login'))  # 로그인 페이지로 리디렉션
             
         if email == user['email'] and address == user['address'] and username == user['user_name'] :
             if password_change :
                 manager.update_user_info(userid, username, email, address)
                 session['user_name'] = username
                 flash('회원 정보가 성공적으로 수정되었습니다.', 'success')
-                return redirect(url_for('user_dashboard'))
+                return redirect(url_for('smartcity.user_dashboard'))
             else:
                 flash('수정된 정보가 없습니다.', 'warning')
                 return redirect(request.url)
@@ -373,7 +373,7 @@ def user_update_profile():
             manager.update_user_info(userid, username, email, address)
             session['user_name'] = username
             flash('회원 정보가 성공적으로 수정되었습니다.', 'success')
-            return redirect(url_for('user_dashboard'))
+            return redirect(url_for('smartcity.user_dashboard'))
 
     return render_template('user/update_profile.html', user=user)
 
@@ -490,7 +490,7 @@ def user_dashboard_inquiries():
         detail_reason = request.form.get('message')
         manager.add_inquire_user(userid, filename, inquiry_reason, detail_reason)
         flash("문의하기가 관리자에게 전달되었습니다.", 'success')
-        return redirect(url_for('user_dashboard'))
+        return redirect(url_for('smartcity.user_dashboard'))
     
 #회원 문의된 정보 보기
 @smartcity.route('/user/inquiries_view', methods=['GET','POST'])
@@ -541,7 +541,7 @@ def user_dashboard_delete_user():
         session.clear()  # 로그아웃 처리
         
         flash("회원탈퇴가 완료되었습니다.", 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('smartcity.index'))
     
 #탈퇴회원 로그인 후 dashboard페이지
 @smartcity.route('/delete_user_dashboard')
@@ -835,7 +835,7 @@ def street_light_register():
             manager.register_camera(street_light_id, ip)
 
         flash('가로등이 성공적으로 등록되었습니다.', 'success')
-        return redirect(url_for('staff_all_street_lights'))
+        return redirect(url_for('smartcity.staff_all_street_lights'))
     return render_template('staff/street_light_register.html')
 
 # 철거된 가로등 삭제
@@ -1149,7 +1149,7 @@ def staff_answer_inquiry():
     else:
         flash('답변 저장 중 오류가 발생했습니다.', 'error')
         
-    return redirect(url_for('staff_inquiries_view'))
+    return redirect(url_for('smartcity.staff_inquiries_view'))
 
 # 답변 수정하기 
 @smartcity.route('/staff/update_inquiry_answer', methods=['POST'])
@@ -1163,13 +1163,13 @@ def update_inquiry_answer():
     answer_admin_id = manager.get_answer_by_id(user_id, inquiries_id, inquiry_time)['admin_id']
     if not answer_admin_id and answer_admin_id != session['admin_id']:
         flash('문의에 답변한 직원만 수정 가능합니다.', 'error')
-        return redirect(url_for('staff_inquiries_view'))
+        return redirect(url_for('smartcity.staff_inquiries_view'))
     # models.py의 메소드 사용
     if manager.update_inquiry_answer(answer_content, inquiries_id, user_id, admin_id):
         flash('답변이 성공적으로 수정 되었습니다.', 'success')
     else:
         flash('답변 수정 중 오류가 발생했습니다.', 'error')
-    return redirect(url_for('staff_inquiries_view'))
+    return redirect(url_for('smartcity.staff_inquiries_view'))
 
 
 # 문의된 정보 보기 (미답변만)
@@ -1222,7 +1222,7 @@ def staff_answer_inquiry_pending():
     else:
         flash('답변 저장 중 오류가 발생했습니다.', 'error')
         
-    return redirect(url_for('staff_inquiries_pending'))
+    return redirect(url_for('smartcity.staff_inquiries_pending'))
 
 # 이미지파일 가져오기
 @smartcity.route('/capture_file/<filename>')
@@ -1246,7 +1246,7 @@ def admin_staff_register():
         # 비밀번호 확인
         if password != confirm_password:
             flash('비밀번호가 일치하지 않습니다.', 'danger')
-            return redirect(url_for('admin_staff_register'))
+            return redirect(url_for('smartcity.admin_staff_register'))
         
         # DBManager 인스턴스 생성
         db_manager = DBManager()
@@ -1261,7 +1261,7 @@ def admin_staff_register():
             
             if existing_staff:
                 flash('이미 존재하는 Staff ID입니다.', 'danger')
-                return redirect(url_for('admin_staff_register'))
+                return redirect(url_for('smartcity.admin_staff_register'))
             
             # staff 등록 (gender 컬럼 제거)
             db_manager.cursor.execute("""
@@ -1280,17 +1280,17 @@ def admin_staff_register():
             db_manager.connection.commit()
             
             flash('Staff가 성공적으로 등록되었습니다.', 'success')
-            return redirect(url_for('admin_dashboard'))
+            return redirect(url_for('smartcity.admin_dashboard'))
         
         except mysql.connector.Error as e:
             # 데이터베이스 관련 오류 처리
             flash(f'데이터베이스 오류: {str(e)}', 'danger')
-            return redirect(url_for('admin_staff_register'))
+            return redirect(url_for('smartcity.admin_staff_register'))
         
         except Exception as e:
             # 기타 예외 처리
             flash(f'등록 중 오류가 발생했습니다: {str(e)}', 'danger')
-            return redirect(url_for('admin_staff_register'))
+            return redirect(url_for('smartcity.admin_staff_register'))
         
         finally:
             # 항상 데이터베이스 연결 종료
@@ -1329,7 +1329,7 @@ def admin_staff_delete():
         
         if not admin_verified:
             flash('관리자 비밀번호가 incorrect합니다.', 'danger')
-            return redirect(url_for('admin_staff_delete'))
+            return redirect(url_for('smartcity.admin_staff_delete'))
         
         # Staff 삭제
         db_manager.cursor.execute(
@@ -1339,11 +1339,11 @@ def admin_staff_delete():
         db_manager.connection.commit()
         
         flash('Staff가 성공적으로 삭제되었습니다.', 'success')
-        return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('smartcity.admin_dashboard'))
     
     except Exception as e:
         flash(f'오류 발생: {str(e)}', 'danger')
-        return redirect(url_for('admin_staff_delete'))
+        return redirect(url_for('smartcity.admin_staff_delete'))
     
     finally:
         if db_manager.connection and db_manager.connection.is_connected():
