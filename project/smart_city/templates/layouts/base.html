@@ -22,6 +22,23 @@
             justify-content: center;
             line-height: normal;
         }
+        /* ✅ Portfolio 버튼 스타일 */
+        .btn-portfolio {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--text-color);
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-portfolio:hover {
+            background-color: var(--accent);
+            color: #fff;
+        }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -29,6 +46,7 @@
     <header class="header">
         <!-- 상단 헤더 영역 -->
         <div class="header-top">
+            <a href="{{ url_for('index') }}" class="btn-portfolio">Portfolio</a>
             <div class="toggle-container">
                 <span class="mode-text" id="mode-text">다크모드</span>
                 <div class="toggle-switch">
