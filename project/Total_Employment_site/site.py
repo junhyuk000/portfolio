@@ -24,12 +24,14 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 
 
 def kill_chrome_processes():
-    for proc in psutil.process_iter(['name']):
+    for proc in psutil.process_iter(['pid', 'name']):
         try:
             if proc.info['name'] in ['chrome', 'chromedriver']:
+                print(f"🛑 Killing process: {proc.info['name']} (PID: {proc.info['pid']})")
                 proc.kill()
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             pass
+
 
 
 def get_chrome_driver(max_retries=3):
@@ -58,7 +60,6 @@ def get_chrome_driver(max_retries=3):
             
             # Force kill any existing chromedriver processes
             try:
-                os.system("pkill -f chromedriver")
                 time.sleep(1)  # Give time for processes to terminate
             except Exception as e:
                 print(f"Warning: Failed to kill existing chromedriver processes: {e}")
@@ -78,7 +79,6 @@ def get_chrome_driver(max_retries=3):
                     
                 try:
                     # Force close any remaining processes
-                    os.system("pkill -f chrome")
                     time.sleep(1)
                 except Exception as e:
                     print(f"❗ Force close error: {e}")
@@ -97,8 +97,7 @@ def get_chrome_driver(max_retries=3):
             
             # Try to clean up any mess before retrying
             try:
-                os.system("pkill -f chrome")
-                os.system("pkill -f chromedriver")
+
                 time.sleep(2)  # Give time for processes to terminate
                 
                 # If user_data_dir was created, remove it
