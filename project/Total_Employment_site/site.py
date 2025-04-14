@@ -24,15 +24,14 @@ def get_chrome_driver():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
 
-    # ✅ 중복 방지를 위한 고유 임시 user-data-dir 생성
     user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
+    print(f"✅ 생성된 user-data-dir: {user_data_dir}")  # 로그 찍기
     chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
     chrome_options.binary_location = "/usr/bin/google-chrome"
     service = Service("/usr/local/bin/chromedriver")
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
-    # ✅ 종료 시 디렉토리 정리
     def cleanup():
         try:
             driver.quit()
