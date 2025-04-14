@@ -38,83 +38,44 @@ def get_chrome_driver(max_retries=3):
     attempt = 0
     kill_chrome_processes()
 
-
     while attempt < max_retries:
         try:
             attempt += 1
             print(f"Chrome driver creation attempt #{attempt}")
-            
-            # Generate unique user data directory
-            user_data_dir = os.path.join("/tmp", f"chrome-user-data-{uuid.uuid4()}")
-            os.makedirs(user_data_dir, exist_ok=True)
-            print(f"✅ 생성된 user-data-dir: {user_data_dir}")
-            
-            # Setup Chrome options
+
+            # Chrome 옵션 설정
             chrome_options = Options()
             chrome_options.add_argument("--headless=new")
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument("--disable-dev-shm-usage")
             chrome_options.add_argument("--disable-gpu")
-            # chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
             chrome_options.binary_location = "/usr/bin/google-chrome"
             
-            # Force kill any existing chromedriver processes
-            try:
-                time.sleep(1)  # Give time for processes to terminate
-            except Exception as e:
-                print(f"Warning: Failed to kill existing chromedriver processes: {e}")
-            
-            service = Service("/usr/local/bin/chromedriver")
-            
-            print(f"크롬 드라이버 생성 시작")
+            # 디렉토리 지정 제거 ✅
+            # chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
+
+            service = Service(CHROMEDRIVER_PATH)
+
+            print("크롬 드라이버 생성 시작")
             driver = webdriver.Chrome(service=service, options=chrome_options)
-            print(f"크롬 드라이버 생성 완료")
-            
+            print("크롬 드라이버 생성 완료")
+
             def cleanup():
-                print(f"🧹 Cleaning up Chrome session: {user_data_dir}")
+                print("🧹 Cleaning up Chrome session")
                 try:
                     driver.quit()
                 except Exception as e:
                     print(f"❗ driver.quit() error: {e}")
-                    
-                try:
-                    # Force close any remaining processes
-                    time.sleep(1)
-                except Exception as e:
-                    print(f"❗ Force close error: {e}")
-                    
-                try:
-                    shutil.rmtree(user_data_dir, ignore_errors=True)
-                    print(f"🧹 Removed user data directory: {user_data_dir}")
-                except Exception as e:
-                    print(f"❗ Directory cleanup error: {e}")
-            
+
             driver.cleanup = cleanup
             return driver
-            
+
         except Exception as e:
             print(f"❗ Chrome driver creation failed (attempt {attempt}/{max_retries}): {e}")
-            
-            # Try to clean up any mess before retrying
-            try:
-
-                time.sleep(2)  # Give time for processes to terminate
-                
-                # If user_data_dir was created, remove it
-                if 'user_data_dir' in locals():
-                    try:
-                        shutil.rmtree(user_data_dir, ignore_errors=True)
-                        print(f"🧹 Removed failed user data directory: {user_data_dir}")
-                    except:
-                        pass
-            except:
-                pass
-            
             if attempt >= max_retries:
                 raise
-            
-            # Wait before retrying
             time.sleep(3)
+
 
 ###변경
 
