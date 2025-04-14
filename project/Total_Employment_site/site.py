@@ -43,38 +43,28 @@ def get_chrome_driver(max_retries=3):
             attempt += 1
             print(f"Chrome driver creation attempt #{attempt}")
 
-            # Chrome 옵션 설정
             chrome_options = Options()
-            chrome_options.add_argument("--headless=new")
+            chrome_options.add_argument("--headless=new")  # 최신 크롬 대응
             chrome_options.add_argument("--no-sandbox")
             chrome_options.add_argument("--disable-dev-shm-usage")
             chrome_options.add_argument("--disable-gpu")
             chrome_options.binary_location = "/usr/bin/google-chrome"
-            
-            # 디렉토리 지정 제거 ✅
-            # chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
 
-            service = Service(CHROMEDRIVER_PATH)
-
-            print("크롬 드라이버 생성 시작")
+            service = Service("/usr/local/bin/chromedriver")
             driver = webdriver.Chrome(service=service, options=chrome_options)
-            print("크롬 드라이버 생성 완료")
 
             def cleanup():
-                print("🧹 Cleaning up Chrome session")
                 try:
                     driver.quit()
-                except Exception as e:
-                    print(f"❗ driver.quit() error: {e}")
-
+                except:
+                    pass
             driver.cleanup = cleanup
             return driver
 
         except Exception as e:
-            print(f"❗ Chrome driver creation failed (attempt {attempt}/{max_retries}): {e}")
-            if attempt >= max_retries:
-                raise
+            print(f"❗ Chrome driver creation failed: {e}")
             time.sleep(3)
+
 
 
 ###변경
