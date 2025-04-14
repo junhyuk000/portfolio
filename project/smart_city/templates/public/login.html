@@ -12,7 +12,7 @@
     <div class="login-container">
         <div class="login-form">
             <h2>로그인</h2>
-            <form method="POST" action="/login">
+            <form method="POST" action="{{ url_for('smartcity.login') }}">
                 <div class="form-group">
                     <label for="userid">아이디</label>
                     <input type="text" id="userid" name="userid" required>
