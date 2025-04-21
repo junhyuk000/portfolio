@@ -392,36 +392,8 @@ body.custom-cursor {
     margin-bottom: 10px;     /* ✅ 문단 간 여백 */
     max-width: 800px;        /* ✅ 너무 길어지지 않게 */
 }
-@media screen and (max-width: 768px) {
-    .project-card {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      padding: 10px;
-    }
-  
-    .project-card h3 {
-      font-size: 1.05rem;
-    }
-  
-    .project-card h4 {
-      font-size: 0.95rem;
-    }
-    .project-card p a {
-        word-break: break-all;
-    }
-    
-  }
 
-  .experience-note {
-    margin-top: 40px;
-    line-height: 1.8;
-    color: var(--text-color); /* ✅ 다크모드/라이트모드 자동 적용 */
-    font-size: 0.95rem;
-    font-weight: 400;
-  }
-  .experience-note strong {
-    font-weight: 600;
-  }
+
 /* 햄버거 버튼 기본 설정 (데스크탑에서는 숨김) */
 .hamburger {
     display: none;
@@ -434,43 +406,8 @@ body.custom-cursor {
     color: var(--text-color);
 }
 
-/* 모바일 스타일 설정 */
-@media screen and (max-width: 768px) {
-    nav {
-        display: none;
-        flex-direction: column;
-        background: var(--card-bg);
-        position: fixed;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        padding: 20px 0;
-        align-items: center;
-        transition: all 0.3s ease;
-    }
 
-    nav.open {
-        display: flex;
-    }
 
-    .hamburger {
-        display: block;
-    }
-
-    .btn-group {
-        top: 60px;
-        right: 20px;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .theme-toggle {
-        top: 20px;
-        left: 20px;
-    }
-}
-
-/* ✅ 태블릿 및 모바일 (1024px 이하)에 공통 적용 */
 @media screen and (max-width: 1024px) {
     nav {
         display: none;
@@ -491,6 +428,8 @@ body.custom-cursor {
 
     .hamburger {
         display: block;
+        left: 100px;  /* ✅ 다크모드 버튼과 겹치지 않게 오른쪽으로 이동 */
+        z-index: 1001; /* ✅ 다크모드 버튼과 같은 수준으로 */
     }
 
     .btn-group {
@@ -503,24 +442,14 @@ body.custom-cursor {
     .theme-toggle {
         top: 20px;
         left: 20px;
+        z-index: 1001;
     }
 
     .project-card p a {
         word-break: break-word;
         overflow-wrap: break-word;
+        white-space: break-spaces; /* 또는 normal 그대로 유지도 OK */
+        display: inline-block;
     }
-
-    .project-card {
-        font-size: 0.9rem;
-        line-height: 1.7;
-        padding: 10px;
-    }
-
-    .project-card h3 {
-        font-size: 1.05rem;
-    }
-
-    .project-card h4 {
-        font-size: 0.95rem;
-    }
+    
 }
