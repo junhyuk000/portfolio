@@ -399,12 +399,14 @@ body.custom-cursor {
     display: none;
     font-size: 1.8rem;
     position: fixed;
-    top: 22px;
-    right: 100px; /* ← 기존 left: 100px → right로 변경 */
-    z-index: 1001; /* 다크모드 버튼과 같거나 더 높게 */
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* 중앙 정렬 */
+    z-index: 1101;
     cursor: pointer;
     color: var(--text-color);
 }
+
 
 
 
@@ -450,6 +452,19 @@ body.custom-cursor {
         display: inline-block;
         max-width: 100%; /* 부모 영역을 넘지 않도록 제한 */
     }
-    
+    #career .career-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #career .career-card img {
+        margin-bottom: 16px;
+    }
+
+    #career .career-card > div:last-child {
+        text-align: left;
+        width: 100%;
+    }
     
 }
