@@ -16,7 +16,7 @@ function openYoutubePopup() {
     const left = (window.innerWidth - width) / 2;
     const top = (window.innerHeight - height) / 2;
 
-    const url = "https://www.youtube.com/embed/5LbdMNlKQfM?autoplay=1";
+    const url = "https://www.youtube.com/embed/Nxrw8vSGjfk?autoplay=1";
 
     window.open(
         url,
@@ -39,3 +39,16 @@ function openSmartcityYoutubePopup() {
     );
 }
 
+function openEmploymentYoutubePopup() {
+    const width = 800;
+    const height = 450;
+    const left = (window.innerWidth - width) / 2;
+    const top = (window.innerHeight - height) / 2;
+    const url = "https://www.youtube.com/embed/q2o1JoNmQVw?autoplay=1";
+
+    window.open(
+        url,
+        "EmploymentYoutubePopup",
+        `width=${width},height=${height},left=${left},top=${top},resizable=yes`
+    );
+}
