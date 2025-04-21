@@ -400,11 +400,12 @@ body.custom-cursor {
     font-size: 1.8rem;
     position: fixed;
     top: 22px;
-    left: 60px;
-    z-index: 1100;
+    right: 100px; /* ← 기존 left: 100px → right로 변경 */
+    z-index: 1001; /* 다크모드 버튼과 같거나 더 높게 */
     cursor: pointer;
     color: var(--text-color);
 }
+
 
 
 
@@ -428,8 +429,6 @@ body.custom-cursor {
 
     .hamburger {
         display: block;
-        left: 100px;  /* ✅ 다크모드 버튼과 겹치지 않게 오른쪽으로 이동 */
-        z-index: 1001; /* ✅ 다크모드 버튼과 같은 수준으로 */
     }
 
     .btn-group {
@@ -444,12 +443,13 @@ body.custom-cursor {
         left: 20px;
         z-index: 1001;
     }
-
     .project-card p a {
         word-break: break-word;
         overflow-wrap: break-word;
-        white-space: break-spaces; /* 또는 normal 그대로 유지도 OK */
+        white-space: pre-wrap; /* ← 핵심! 브라우저가 줄바꿈을 강제함 */
         display: inline-block;
+        max-width: 100%; /* 부모 영역을 넘지 않도록 제한 */
     }
+    
     
 }
