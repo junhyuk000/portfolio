@@ -406,6 +406,10 @@ body.custom-cursor {
     .project-card h4 {
       font-size: 0.95rem;
     }
+    .project-card p a {
+        word-break: break-all;
+    }
+    
   }
 
   .experience-note {
@@ -418,4 +422,105 @@ body.custom-cursor {
   .experience-note strong {
     font-weight: 600;
   }
-  
+/* 햄버거 버튼 기본 설정 (데스크탑에서는 숨김) */
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    position: fixed;
+    top: 22px;
+    left: 60px;
+    z-index: 1100;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+/* 모바일 스타일 설정 */
+@media screen and (max-width: 768px) {
+    nav {
+        display: none;
+        flex-direction: column;
+        background: var(--card-bg);
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 20px 0;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    nav.open {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .btn-group {
+        top: 60px;
+        right: 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .theme-toggle {
+        top: 20px;
+        left: 20px;
+    }
+}
+
+/* ✅ 태블릿 및 모바일 (1024px 이하)에 공통 적용 */
+@media screen and (max-width: 1024px) {
+    nav {
+        display: none;
+        flex-direction: column;
+        background: var(--card-bg);
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 20px 0;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    nav.open {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .btn-group {
+        top: 60px;
+        right: 20px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .theme-toggle {
+        top: 20px;
+        left: 20px;
+    }
+
+    .project-card p a {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .project-card {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        padding: 10px;
+    }
+
+    .project-card h3 {
+        font-size: 1.05rem;
+    }
+
+    .project-card h4 {
+        font-size: 0.95rem;
+    }
+}

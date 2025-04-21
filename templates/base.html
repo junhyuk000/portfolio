@@ -16,10 +16,13 @@
         <button class="toggle-mode" onclick="toggleTheme()">🌙 / ☀️</button>
     </div>
     <div class="btn-group">
-        <a class="btn" href="/static/files/portfolio.pdf" target="_blank">📁 포트폴리오</a>
-        <a class="btn" href="/static/files/신준혁 이력서.pdf" target="_blank">📄 이력서</a>
+        <a class="btn" href="/static/files/portfolio.pdf" target="_blank">📁 포트폴리오/PDF</a>
+        <a class="btn" href="/static/files/신준혁 이력서.pdf" target="_blank">📄 이력서/PDF</a>
     </div>
-    <nav>
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <nav id="main-nav">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
@@ -37,6 +40,10 @@
         function openEmailPopup() {
             const url = "{{ url_for('email') }}";
             window.open(url, "emailPopup", "width=600,height=700,resizable=yes,scrollbars=yes");
+        }
+        function toggleMenu() {
+            const nav = document.getElementById('main-nav');
+            nav.classList.toggle('open');
         }
     </script>
         
